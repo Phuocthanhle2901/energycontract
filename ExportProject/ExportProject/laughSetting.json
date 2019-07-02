@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Cifw.CoaxNis": "Project",
+    "enviromentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  }
+}
