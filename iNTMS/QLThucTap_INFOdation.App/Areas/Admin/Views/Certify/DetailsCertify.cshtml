@@ -1,0 +1,24 @@
+﻿@model Repository.Models.Student
+@{
+    Layout = null;
+    //ViewBag.Title = "Certify";
+}
+
+
+<div style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #8c0ea3">
+    <div style="width:750px; height:550px; padding:20px; text-align:center; border: 5px solid #8c0ea3">
+        <img src="~/img/logos/INTERNLOGO.png" style="width:100px;height:100px;" />
+        <br />
+        <span style="font-size:50px; font-weight:bold; color: darkviolet">Certificate of Completion</span>
+        <br><br>
+        <span style="font-size:25px"><i>This is to certify that</i></span>
+        <br><br>
+        <span style="font-size:30px"><b>@Model.Name</b></span><br /><br />
+        <span style="font-size:25px"><i>has completed the intern</i></span> <br /><br />        
+        <img src="~/img/2103-512.png" style="width:150px;height:150px;" />
+        <br /><br />
+        <span style="font-size:25px"><i>Dated</i></span><br>
+        @DateTime.Now.ToLongDateString()
+
+    </div>
+</div>

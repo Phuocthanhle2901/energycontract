@@ -1,0 +1,22 @@
+﻿@model Repository.ImportExcel
+@{ /**/
+                /**/
+
+                ViewBag.Title = "Import StudentCVs Excel File";
+                Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";}
+<center><h1>Import Student CV Excel File</h1></center>
+<div id="viewContent">
+    <h3>@ViewBag.Result</h3>
+    @using (Html.BeginForm("Index", "ImportExcels", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.TextBoxFor(m => m.file, new { type = "file" })
+        <button id="submitButton" type="submit">Import</button>
+        @Html.ValidationMessageFor(model => model.file)
+    }
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "StudentCVs", null, new { @class = "btn btn-info" })
+</div>
+
+
+

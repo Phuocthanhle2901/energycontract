@@ -1,0 +1,113 @@
+﻿@model Repository.Models.TrainingManager
+
+@{
+    /**/
+
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";
+}
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>TrainingManager</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Internship.InternshipName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Internship.InternshipName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Manager.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manager.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stage.StageContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stage.StageContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainingProgram.TrainingContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrainingProgram.TrainingContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssertmentContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssertmentContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TrainingManagerID }, new { @class = "btn btn-info", onclick = "JavascriptFunction();" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info", onclick = "JavascriptFunction();" })
+</p>
+<div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+    top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+    opacity: .8; filter: alpha(opacity=70);display:none">
+    <p style="position: absolute; top: 50%; left: 50%; color: White;">
+        <img src="~/img/ajax-loader (1).gif"><br />Please Wait...
+    </p>
+</div>
+
+<script type="text/javascript" language="javascript">
+    function JavascriptFunction() {
+        var url = '@Url.Action("Details", "TrainingManager")';
+        $("#divLoading").show();
+        $.post(url, null,
+                function (data) {
+                    $("#PID")[0].innerHTML = data;
+                    $("#divLoading").hide();
+                });
+    }
+</script>
