@@ -1,0 +1,56 @@
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.deps.json
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CopyComplete
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\demo\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.deps.json
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfo.cs
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CopyComplete
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.deps.json
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfo.cs
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CopyComplete
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.deps.json
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Servicess.pdb
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.AssemblyInfo.cs
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.csproj.CopyComplete
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.dll
+C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Servicess\obj\Debug\netcoreapp2.1\Servicess.pdb

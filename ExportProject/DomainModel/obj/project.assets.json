@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportCSV\\ExportProject\\DomainModel\\DomainModel.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\DomainModel\\DomainModel.csproj",
       "projectName": "DomainModel",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportCSV\\ExportProject\\DomainModel\\DomainModel.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\DomainModel\\DomainModel.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportCSV\\ExportProject\\DomainModel\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\DomainModel\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

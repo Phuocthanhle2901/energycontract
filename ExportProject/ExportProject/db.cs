@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using MySql.Data.MySqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
+
 namespace ExportProject
 {
     class db
@@ -15,7 +16,6 @@ namespace ExportProject
         {
             GetConfiguration();
             conn = new MySqlConnection(Configuration.GetSection("Data").GetSection("ConnectionString").Value);
-  
         }
         public void GetConfiguration()
         {
