@@ -3465,11 +3465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\UOW\\UOW.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\UOW\\UOW.csproj",
       "projectName": "UOW",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\UOW\\UOW.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\UOW\\UOW.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\UOW\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\UOW\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3488,8 +3488,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj"
             }
           }
         }

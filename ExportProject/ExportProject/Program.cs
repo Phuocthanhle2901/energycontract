@@ -20,8 +20,8 @@ namespace ExportProject
             //var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             //XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
             //var logger = LogManager.GetLogger(typeof(Program));
-            Log4netconfig log4Netconfig = new Log4netconfig();
-            ILog logger = log4Netconfig.log4net();
+            Log4netConfig log4Netconfig = new Log4netConfig();
+            ILog logger = log4Netconfig.Log4net();
             Console.WriteLine("Start exports csv file...");
             logger.Info("Start exports csv file...");
             JobExportUnitRepository Unit = new JobExportUnitRepository();

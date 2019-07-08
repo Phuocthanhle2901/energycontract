@@ -8,9 +8,9 @@ using System.Text;
 
 namespace ExportProject
 {
-    class Log4netconfig
+    class Log4netConfig
     {
-        public ILog log4net()
+        public ILog Log4net()
         {
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
 

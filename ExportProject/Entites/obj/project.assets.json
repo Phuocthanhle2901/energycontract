@@ -3595,11 +3595,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj",
       "projectName": "Entites",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

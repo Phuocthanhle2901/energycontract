@@ -7451,11 +7451,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\ExportProject\\ExportProject.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\ExportProject.csproj",
       "projectName": "ExportProject",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\ExportProject\\ExportProject.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\ExportProject.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\ExportProject\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7474,11 +7474,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj"
             },
-            "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Servicess\\Servicess.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Servicess\\Servicess.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj"
             }
           }
         }

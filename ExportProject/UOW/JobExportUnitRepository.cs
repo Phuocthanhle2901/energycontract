@@ -10,7 +10,7 @@ namespace UnitOfWorks
 {
     public class JobExportUnitRepository : IJobExportUnit,IDisposable
     {
-        private exportprojectContext _db = new exportprojectContext();
+        private ExportProjectContext _db = new ExportProjectContext();
         //public IEnumerable<Stores>GetData()
         //{
         //    return db.Stores.Single();

@@ -13,7 +13,7 @@ namespace Services
 {
     public class JobExportRepositoryService : IJobExportService
     {
-        private readonly exportprojectContext db = new exportprojectContext();
+        private readonly ExportProjectContext db = new ExportProjectContext();
         private readonly JobExportUnitRepository jobExportUnitRepository = new JobExportUnitRepository();
         //public JobExportRepositoryService()
         //{

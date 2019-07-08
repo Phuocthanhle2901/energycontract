@@ -3595,11 +3595,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Servicess\\Servicess.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj",
       "projectName": "Servicess",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Servicess\\Servicess.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Servicess\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3618,11 +3618,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\Entites\\Entites.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj"
             },
-            "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\UOW\\UOW.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\ExportProject - Copy\\ExportProject\\ExportProject\\UOW\\UOW.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\UOW\\UOW.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\UOW\\UOW.csproj"
             }
           }
         }

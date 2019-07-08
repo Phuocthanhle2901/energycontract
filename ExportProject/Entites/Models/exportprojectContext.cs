@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Entites.Models
 {
-    public partial class exportprojectContext : DbContext
+    public partial class ExportProjectContext : DbContext
     {
-        public exportprojectContext()
+        public ExportProjectContext()
         {
         }
 
-        public exportprojectContext(DbContextOptions<exportprojectContext> options)
+        public ExportProjectContext(DbContextOptions<ExportProjectContext> options)
             : base(options)
         {
         }
