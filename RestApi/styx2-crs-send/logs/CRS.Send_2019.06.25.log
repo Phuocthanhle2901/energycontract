@@ -1,0 +1,208 @@
+2019-06-25 14:57:49,502 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:SCS-0001] [4] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Begin UpdateTaskByTicketRef request.
+2019-06-25 14:57:58,047 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:] [4] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - The request had: {"ticketRef":"364228-7","sourceId":"CAIW","sourceSystemId":null,"creationTime":"2019-05-29T01:55:11.870Z","externalTicketNo":"123123","relatedIssue":"123","subject":"13","status":{"mainStatus":"WIP","subStatus":"CANCEL_OK"},"planned":{"from":"2019-06-11T07:32:36.376Z","period":"MORNING","time":{"fromTime":"2019-06-11T07:32:36.376Z","tillTime":"0001-01-01T00:00:00"},"till":"2019-05-29T01:55:11.87Z"},"statusCode":{"code":"0","message":"successfully"},"wishDate":"2019-05-29T01:55:11.87Z","originator":"CAIW","contractant":"CAIW","readonly":true,"updateCount":0,"prio1":{"area":"1","impact":"1","escalation":"11","closure":{"category":{"level1":"1","level2":"2","level3":"2"},"description":"123"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"1","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"string","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"1","cableType":"1"}],"gpsLocation":[{"latitude":"1","longitude":"1"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"1234","huurderOrderId":"2345","beheerderOrderId":"4567","party":"CAIW","author":{"firstName":"1","intercalation":"1","lastName":"1"},"source":{"id":"CAIW","systemId":"CRS"},"created":"2019-05-29T01:55:11.87Z","note":"1"}],"executorEnd":"2019-05-29T01:55:11.87Z"},"prio2":{"area":"1","impact":"1","escalation":"1","closure":{"category":{"level1":"3","level2":"3","level3":"2"},"description":"123"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"1","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"1","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"1","cableType":"1"}],"gpsLocation":[{"latitude":"1","longitude":"1"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"1234","huurderOrderId":"1","beheerderOrderId":"1","party":"CAIW","author":{"firstName":"1","intercalation":"1","lastName":"1"},"source":{"id":"CAIW","systemId":"WMS"},"created":"2019-05-29T01:55:11.871Z","note":"1"}],"executorEnd":"2019-05-29T01:55:11.871Z"},"prio3":{"affected":[{"contact":{"personName":{"firstName":"1","intercalation":"1","lastName":"2"},"phoneNumber":"string","additionalPhoneNumber":"string","email":"a@gmail.com"},"department":{"organisation":"CAIW","name":"NOC","email":["a@gmail.com"],"phoneNo":["01223456789"]},"address":{"street":"1","houseNumber":{"value":1,"extension":"1"},"zipCode":"1234AA","rom":null,"city":"1","country":"1"}}],"ftu":["1"],"closure":{"category":{"level1":"1","level2":"2","level3":"3"},"description":"1"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"1","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"1","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"1","cableType":"a"}],"gpsLocation":[{"latitude":"1","longitude":"1"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"1","huurderOrderId":"1","beheerderOrderId":"123","party":"CAIW","author":{"firstName":"123","intercalation":"123","lastName":"123"},"source":{"id":"CAIW","systemId":"CRS"},"created":"2019-05-29T01:55:11.871Z","note":"note for the test"}],"executorEnd":"2019-05-29T01:55:11.871Z"},"prio4":{"affected":[{"contact":{"personName":{"firstName":"1","intercalation":"1","lastName":"1"},"phoneNumber":"1","additionalPhoneNumber":"1","email":"a@gmail.com"},"department":{"organisation":"CAIW","name":"NOC","email":["a@gmail.com"],"phoneNo":["0323122222"]},"address":{"street":"1","houseNumber":{"value":1,"extension":"123"},"zipCode":"1234AA","rom":null,"city":"123","country":"213"}}],"ftu":["123"],"closure":{"category":{"level1":"3","level2":"1","level3":"3"},"description":"123"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"string","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"1","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"123","cableType":"123"}],"gpsLocation":[{"latitude":"1","longitude":"1"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"123","huurderOrderId":"123","beheerderOrderId":"123","party":"CAIW","author":{"firstName":"123","intercalation":"123","lastName":"123"},"source":{"id":"CAIW","systemId":"CRS"},"created":"2019-05-29T01:55:11.871Z","note":"123"}],"executorEnd":"2019-05-29T01:55:11.871Z"},"prioBasic":{"closure":{"category":{"level1":"2","level2":"3","level3":"3"},"description":"123"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"1","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"1","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"123","cableType":"123"}],"gpsLocation":[{"latitude":"123","longitude":"123"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"123","huurderOrderId":"123","beheerderOrderId":"213","party":"CAIW","author":{"firstName":"123","intercalation":"123","lastName":"213"},"source":{"id":"CAIW","systemId":"CRS"},"created":"2019-05-29T01:55:11.872Z","note":"123"}],"executorEnd":"2019-05-29T01:55:11.872Z"},"prioPremium":{"closure":{"category":{"level1":"3","level2":"3","level3":"3"},"description":"123"},"activeEquipmentEndpoint":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"port":"1"},"technicalPath":{"popName":"1","row":1,"frame":1,"block":"1","odfTray":1,"odfPosition":1,"description":"1"},"priority":"1","analysis":{"code":["1"]},"domainPermission":"CITY_RING_1_V_OUTAGE","problemDescription":"1","fiberCode":"FIBER_A","networkType":"FTT_H","typeOfBuilding":"1","throughputDependency":true,"attenuation":"COAX","cableInfo":[{"cableId":"123","cableType":"123"}],"gpsLocation":[{"latitude":"123","longitude":"123"}],"mechanicOnSite":true,"deliveryIssue":true,"comment":[{"wmsTaskId":"123","huurderOrderId":"123","beheerderOrderId":"213","party":"string","author":{"firstName":"1","intercalation":"1","lastName":"1"},"source":{"id":"CAIW","systemId":"CRS"},"created":"2019-05-29T01:55:11.872Z","note":"123"}],"executorEnd":"2019-05-29T01:55:11.872Z"}}
+2019-06-25 14:58:08,900 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:] [4] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:364228-7] [ExternalTicketNo:123123] [sourceId:CAIW] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">364228-7</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-06-25 14:58:10,725 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [18] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService" xmlns:NS2="urn:TicketServiceIntf">
+    <NS1:searchOneResponse>
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+    </NS1:searchOneResponse>
+    <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+      <Ticket_Nummer xsi:type="xsd:string">364228-7</Ticket_Nummer>
+      <Datum_Afspraak xsi:type="xsd:date">2019-06-09</Datum_Afspraak>
+      <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+      <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+      <Naw_adres xsi:type="xsd:string">Street 6</Naw_adres>
+      <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+      <Naw_Huisnummer xsi:type="xsd:string">6</Naw_Huisnummer>
+      <Naw_Toevoeging xsi:type="xsd:string">A1</Naw_Toevoeging>
+      <Naw_Locatieomschrijving xsi:type="xsd:string"></Naw_Locatieomschrijving>
+      <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+      <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+      <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+      <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+      <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+      <Ticket_Onderwerp xsi:type="xsd:string">GLAS ~ Activeren en installeren ~ Technisch probleem activatie</Ticket_Onderwerp>
+      <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+      <verzorgingsgebied xsi:type="xsd:string">18</verzorgingsgebied>
+      <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+      <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+      <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+      <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+      <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+      <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+      <Networktype xsi:type="xsd:string">FTTH</Networktype>
+      <WFM_Status xsi:type="xsd:string">assigned</WFM_Status>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">1
+0 : successfully
+Author: 123 123 123
+Note:note for the test
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+      <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+      <WFM_Id xsi:type="xsd:string">123123</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+      <comment xsi:type="xsd:string"></comment>
+      <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[10]">
+        <item href="#3" />
+        <item href="#6" />
+        <item href="#9" />
+        <item href="#12" />
+        <item href="#15" />
+        <item href="#18" />
+        <item href="#21" />
+        <item href="#24" />
+        <item href="#27" />
+        <item href="#30" />
+      </Notities>
+    </NS2:TsearchOneResult>
+    <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-03</Datum>
+      <Tijd xsi:type="xsd:time">05:42:28.000Z</Tijd>
+      <Bron xsi:type="xsd:string">WFM</Bron>
+      <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+      <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-18</Datum>
+      <Tijd xsi:type="xsd:time">10:06:15.000Z</Tijd>
+      <Bron xsi:type="xsd:string">string string</Bron>
+      <Medewerker xsi:type="xsd:string">string string</Medewerker>
+      <Notitie xsi:type="xsd:string">string</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="9" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-18</Datum>
+      <Tijd xsi:type="xsd:time">10:32:07.000Z</Tijd>
+      <Bron xsi:type="xsd:string">test CRS id test CRS system</Bron>
+      <Medewerker xsi:type="xsd:string">string string</Medewerker>
+      <Notitie xsi:type="xsd:string">CRS first time test </Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="12" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-19</Datum>
+      <Tijd xsi:type="xsd:time">03:08:55.000Z</Tijd>
+      <Bron xsi:type="xsd:string">string1 string2</Bron>
+      <Medewerker xsi:type="xsd:string">string string</Medewerker>
+      <Notitie xsi:type="xsd:string">stringtest</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="15" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-19</Datum>
+      <Tijd xsi:type="xsd:time">03:29:45.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CIF WMS</Bron>
+      <Medewerker xsi:type="xsd:string">string string</Medewerker>
+      <Notitie xsi:type="xsd:string">new task</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="18" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-05-29</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">123 123</Medewerker>
+      <Notitie xsi:type="xsd:string">1</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="21" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-19</Datum>
+      <Tijd xsi:type="xsd:time">06:58:25.000Z</Tijd>
+      <Bron xsi:type="xsd:string">sourceid sourcesystemId</Bron>
+      <Medewerker xsi:type="xsd:string">string string</Medewerker>
+      <Notitie xsi:type="xsd:string">note</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="24" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-05-29</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRSS</Bron>
+      <Medewerker xsi:type="xsd:string">123 123</Medewerker>
+      <Notitie xsi:type="xsd:string">this is new note for new test</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="27" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-05-29</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">STYX2 CRS</Bron>
+      <Medewerker xsi:type="xsd:string">123 123</Medewerker>
+      <Notitie xsi:type="xsd:string">the last note</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="30" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-05-29</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">STYX2 CRS2</Bron>
+      <Medewerker xsi:type="xsd:string">123 123</Medewerker>
+      <Notitie xsi:type="xsd:string">note for this test</Notitie>
+    </NS2:TNotitie>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-06-25 14:58:33,524 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:] [4] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:364228-7] [ExternalTicketNo:123123] [sourceId:CAIW] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#updateOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:updateOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">364228-7</Ticket_Nummer>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">1
+0 : successfully
+Author: 123 123 123
+Note:note for the test
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string" />
+      <Afmeldcode xsi:type="xsd:string">02 03</Afmeldcode>
+      <WFM_status xsi:type="xsd:string">work in progress</WFM_status>
+      <WFM_Id xsi:type="xsd:string">123123</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">0</WFM_Ready>
+      <Notities href="#id1" />
+    </q1:updateOne>
+    <q2:Array id="id1" xmlns:q3="urn:TicketServiceIntf" q2:arrayType="q3:TNotitie[1]" xmlns:q2="http://schemas.xmlsoap.org/soap/encoding/">
+      <Item href="#id2" />
+    </q2:Array>
+    <q4:TNotitie id="id2" xsi:type="q4:TNotitie" xmlns:q4="urn:TicketServiceIntf">
+      <Datum xsi:type="xsd:date">2019-05-29</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.8710000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">123 123</Medewerker>
+      <Notitie xsi:type="xsd:string">note for the test</Notitie>
+    </q4:TNotitie>
+  </s:Body>
+</s:Envelope>
+2019-06-25 14:58:33,942 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:] [4] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:364228-7] [ExternalTicketNo:123123] [sourceId:CAIW] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService">
+    <NS1:updateOneResponse>
+      <return xsi:type="xsd:boolean">true</return>
+    </NS1:updateOneResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-06-25 14:58:38,490 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:SCS-0003] [4] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:364228-7] [ExternalTicketNo:123123] [sourceId:CAIW] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Update Status of TaskId 364228-7 to work in progress successfully.
+2019-06-25 14:58:45,131 [X-Request-ID:741afa63be8d4ff18fb09380b4a0d9b7] [X-Message-ID:1275fe9a-5ad2-45c8-9f34-94655b5b0bbe] [ObjectMessageID:SCS-0002] [4] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:364228-7] [ExternalTicketNo:123123] [sourceId:CAIW] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - End UpdateTaskByTicketRef request.
