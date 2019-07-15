@@ -1,0 +1,17 @@
+{
+  "Data": {
+    "ConnectionString": "server=localhost;port=3306;user=root;password=123456;database=exportproject"
+  },
+  "SftpConfig": {
+    "pass": "123456",
+    "name": "intern",
+    "port": "22",
+    "host": "192.168.2.181"
+  },
+  "UploadSftp": {
+    "strSource": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\ExportProject\\bin\\Debug\\netcoreapp2.1\\FileCSV.csv",
+    "strDesPath": "\\CuongLe97\\cuong\\cuong\\cuong\\",
+    "fileName": "FileCSV",
+    "format": ".csv"
+  }
+}

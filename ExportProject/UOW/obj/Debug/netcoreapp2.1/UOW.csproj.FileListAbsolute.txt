@@ -46,3 +46,39 @@ C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\UOW\obj\
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CopyComplete
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.dll
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CopyComplete
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CopyComplete
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\UOW.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.csproj.CopyComplete
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\UOW\obj\Debug\netcoreapp2.1\UOW.pdb

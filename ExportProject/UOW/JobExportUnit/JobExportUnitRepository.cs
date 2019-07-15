@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-//using Entites.Models;
 
 
 namespace UnitOfWorks
@@ -11,12 +9,9 @@ namespace UnitOfWorks
     public class JobExportUnitRepository : IJobExportUnit,IDisposable
     {
         private ExportProjectContext _db = new ExportProjectContext();
-        //public IEnumerable<Stores>GetData()
-        //{
-        //    return db.Stores.Single();
-        public IEnumerable<Stores> LoadAllData()
+        public IEnumerable<ViewExport> LoadAllData()
         {
-            return _db.Stores.ToList();
+            return _db.ViewExports.ToList();
         }
         public Stores GetById(int id) {
             return _db.Stores.Find(id);

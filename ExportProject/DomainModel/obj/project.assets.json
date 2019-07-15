@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\DomainModel\\DomainModel.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\DomainModel\\DomainModel.csproj",
       "projectName": "DomainModel",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\DomainModel\\DomainModel.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\DomainModel\\DomainModel.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\DomainModel\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\DomainModel\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -712,6 +712,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://10.5.1.226:8081/repository/nuget-group/": {},
+        "http://nexus.datrijx.test.infodation.vn/repository/nuget-hosted/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -41,6 +41,20 @@
           "lib/netstandard1.0/Google.Protobuf.dll": {}
         }
       },
+      "IFD.UnitOfWork/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.0.3",
+          "Microsoft.EntityFrameworkCore.AutoHistory": "2.0.3",
+          "Microsoft.EntityFrameworkCore.Relational": "2.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/IFD.UnitOfWork.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IFD.UnitOfWork.dll": {}
+        }
+      },
       "log4net/2.0.8": {
         "type": "package",
         "dependencies": {
@@ -172,6 +186,19 @@
       "Microsoft.EntityFrameworkCore.Analyzers/2.2.4": {
         "type": "package"
       },
+      "Microsoft.EntityFrameworkCore.AutoHistory/2.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "2.0.1",
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.AutoHistory.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.AutoHistory.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore.Design/2.2.4": {
         "type": "package",
         "dependencies": {
@@ -274,7 +301,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.0": {
+      "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Configuration": "2.2.0"
@@ -735,6 +762,19 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "Renci.SshNet.Async/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "SSH.NET": "2016.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Renci.SshNet.Async.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Renci.SshNet.Async.dll": {}
         }
       },
       "runtime.native.System/4.0.0": {
@@ -2235,6 +2275,11 @@
         "dependencies": {
           "CsvHelper": "12.1.2",
           "Entites": "1.0.0",
+          "Microsoft.Extensions.Configuration": "2.2.0",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.2.4",
+          "Microsoft.Extensions.Configuration.Json": "2.2.0",
+          "Renci.SshNet.Async": "1.4.0",
+          "SSH.NET": "2016.1.0",
           "UOW": "1.0.0"
         },
         "compile": {
@@ -2317,6 +2362,18 @@
         "lib/netstandard1.0/Google.Protobuf.xml"
       ]
     },
+    "IFD.UnitOfWork/1.0.1": {
+      "sha512": "kOPl0HAGOpmECg4rHJWrrYSoH34OG/CH2HkNK2/cuwhZdwdiPrR/sR5gRLuXOQvgMkpfd5J3j9ZCgn0lI1Xhfw==",
+      "type": "package",
+      "path": "ifd.unitofwork/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        "ifd.unitofwork.1.0.1.nupkg.sha512",
+        "ifd.unitofwork.nuspec",
+        "lib/netstandard2.0/IFD.UnitOfWork.dll",
+        "lib/netstandard2.0/IFD.UnitOfWork.xml"
+      ]
+    },
     "log4net/2.0.8": {
       "sha512": "N41MQGHZImiCfn0cUuSBjZxrcNfIQCuCgQP0rpgB3J/NWponEh3lc1LxJEuIsPAR9Oc1jVvfkNNFCY1C5hf9LA==",
       "type": "package",
@@ -2394,7 +2451,7 @@
       ]
     },
     "Microsoft.CSharp/4.5.0": {
-      "sha512": "EGoBmf3Na2ppbhPePDE9PlX81r1HuOZH5twBrq7couJZiPTjUnD3648balerQJO6EJ8Sj+43+XuRwQ7r+3tE3w==",
+      "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
       "type": "package",
       "path": "microsoft.csharp/4.5.0",
       "files": [
@@ -2497,6 +2554,19 @@
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "microsoft.entityframeworkcore.analyzers.2.2.4.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.AutoHistory/2.0.3": {
+      "sha512": "h9u6z0v9sgzZIBPTaamiXDofvGPP4/zBEvxSBJq8M1NQ1iRPmWubiybilMcg4XrO+gRvjQcuiPnxx0h7iuTFqA==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.autohistory/2.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.AutoHistory.dll",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.AutoHistory.xml",
+        "microsoft.entityframeworkcore.autohistory.2.0.3.nupkg.sha512",
+        "microsoft.entityframeworkcore.autohistory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Design/2.2.4": {
@@ -2618,16 +2688,16 @@
         "microsoft.extensions.configuration.binder.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.0": {
-      "sha512": "gIqt9PkKO01hZ0zmHnWrZ1E45MDreZTVoyDbL1kMWKtDgxxWTJpYtESTEcgpvR1uB1iex1zKGYzJpOMgmuP5TQ==",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables/2.2.4": {
+      "sha512": "Os7uRhp9xwawY5w2tgXw/86YrmAJZl6aHiQVdS9boWybTWPkJOvXXrQ3AGwuldN1W/r+cfnwRe2ePGeFO4zlzg==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.environmentvariables/2.2.0",
+      "path": "microsoft.extensions.configuration.environmentvariables/2.2.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.EnvironmentVariables.xml",
-        "microsoft.extensions.configuration.environmentvariables.2.2.0.nupkg.sha512",
+        "microsoft.extensions.configuration.environmentvariables.2.2.4.nupkg.sha512",
         "microsoft.extensions.configuration.environmentvariables.nuspec"
       ]
     },
@@ -3397,7 +3467,7 @@
       ]
     },
     "Remotion.Linq/2.2.0": {
-      "sha512": "twDAH8dAXXCAf3sRv1Tf94u66eEHvgU75hfn1nn2v4fSWXD50XoDOAk8WpSrbViNuMkB4kN1ElnOGm1c519IHg==",
+      "sha512": "fK/76UmpC0FXBlGDFVPLJHQlDLYnGC+XY3eoDgCgbtrhi0vzbXDQ3n/IYHhqSKqXQfGw/u04A1drWs7rFVkRjw==",
       "type": "package",
       "path": "remotion.linq/2.2.0",
       "files": [
@@ -3415,6 +3485,24 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.2.0.nupkg.sha512",
         "remotion.linq.nuspec"
+      ]
+    },
+    "Renci.SshNet.Async/1.4.0": {
+      "sha512": "wDuIHDvseM/SX0UR/sc30DcKXLIhqZRKjzBdI1mm6YiJSdb0V0kQXSiyAqzXtFkCrIxPRtpH7As5DKqbyWPsEw==",
+      "type": "package",
+      "path": "renci.sshnet.async/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Renci.SshNet.Async.dll",
+        "lib/net40/Renci.SshNet.Async.xml",
+        "lib/netstandard1.3/Renci.SshNet.Async.dll",
+        "lib/netstandard1.3/Renci.SshNet.Async.xml",
+        "lib/uap10.0/Renci.SshNet.Async.dll",
+        "lib/uap10.0/Renci.SshNet.Async.pri",
+        "lib/uap10.0/Renci.SshNet.Async.xml",
+        "renci.sshnet.async.1.4.0.nupkg.sha512",
+        "renci.sshnet.async.nuspec"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -3705,7 +3793,7 @@
       ]
     },
     "System.Collections.Immutable/1.5.0": {
-      "sha512": "T5XGQlcHhEO75Qx38GGCUDPdk4n/7yrRmTgy4yczzJV8alPHaxPU55TBC2UFrkQ42bu34sZPfK0dU+nWZUOEJA==",
+      "sha512": "EXKiDFsChZW0RjrZ4FYHu9aW6+P4MCgEDCklsVseRfhoO0F+dXeMSsMRAlVXIo06kGJ/zv+2w1a2uc2+kxxSaQ==",
       "type": "package",
       "path": "system.collections.immutable/1.5.0",
       "files": [
@@ -3767,7 +3855,7 @@
       ]
     },
     "System.ComponentModel.Annotations/4.5.0": {
-      "sha512": "f1ApUHGWq/lJC8PZE7JqbA3tiY7ZngZQO2mbYfCG0JlQVVUqqmVMAy0fMvAwEuG639M47ELdP6PQxc5OIo6i6A==",
+      "sha512": "UxYQ3FGUOtzJ7LfSdnYSFd7+oEv6M8NgUatatIN2HxNtDdlcvFAf+VIq4Of9cDMJEJC0aSRv/x898RYhB4Yppg==",
       "type": "package",
       "path": "system.componentmodel.annotations/4.5.0",
       "files": [
@@ -3981,7 +4069,7 @@
       ]
     },
     "System.Diagnostics.DiagnosticSource/4.5.0": {
-      "sha512": "UumL3CJklk5WyEt0eImPmjeuyY1JgJ7Thmg2hAeZGKCv+9iuuAsoc2wcXjypdo3J8VNEmVCH2Bgn/kIw8NI2bA==",
+      "sha512": "eIHRELiYDQvsMToML81QFkXEEYXUSUT2F28t1SGrevWqP+epFdw80SyAXIKTXOHrIEXReFOEnEr7XlGiC2GgOg==",
       "type": "package",
       "path": "system.diagnostics.diagnosticsource/4.5.0",
       "files": [
@@ -4864,7 +4952,7 @@
       ]
     },
     "System.Memory/4.5.1": {
-      "sha512": "vcG3/MbfpxznMkkkaAblJi7RHOmuP7kawQMhDgLSuA1tRpRQYsFSCTxRSINDUgn2QNn2jWeLxv8er5BXbyACkw==",
+      "sha512": "sDJYJpGtTgx+23Ayu5euxG5mAXWdkDb4+b0rD0Cab0M1oQS9H0HXGPriKcqpXuiJDTV7fTp/d+fMDJmnr6sNvA==",
       "type": "package",
       "path": "system.memory/4.5.1",
       "files": [
@@ -4889,7 +4977,7 @@
       ]
     },
     "System.Net.Http/4.1.0": {
-      "sha512": "Ve8vcneE50S6BpvAzdFYbtcUy5I5q3JMZQYpBV9PLp+ISTr9F26DPUbRSTl0qOlcgFxO1NmJ8JXW3vjTkyL9fA==",
+      "sha512": "ULq9g3SOPVuupt+Y3U+A37coXzdNisB1neFCSKzBwo182u0RDddKJF8I5+HfyXqK6OhJPgeoAwWXrbiUXuRDsg==",
       "type": "package",
       "path": "system.net.http/4.1.0",
       "files": [
@@ -5834,7 +5922,7 @@
       ]
     },
     "System.Runtime.CompilerServices.Unsafe/4.5.1": {
-      "sha512": "qUJMNWhbm9oZ3XaMFiEMiYmRPszbnXIkRIi7+4b2Md2xZ6JUOepf0/kY3S85qistRohl9OdMe4PsO+RdG2kTIQ==",
+      "sha512": "Zh8t8oqolRaFa9vmOZfdQm/qKejdqz0J9kr7o2Fu0vPeoH3BL1EOXipKWwkWtLT1JPzjByrF19fGuFlNbmPpiw==",
       "type": "package",
       "path": "system.runtime.compilerservices.unsafe/4.5.1",
       "files": [
@@ -6182,7 +6270,7 @@
       ]
     },
     "System.Runtime.Serialization.Primitives/4.3.0": {
-      "sha512": "Wz+0KOukJGAlXjtKr+5Xpuxf8+c8739RI1C+A2BoQZT+wMCCoMDDdO8/4IRHfaVINqL78GO8dW8G2lW/e45Mcw==",
+      "sha512": "2Z5t70a2SwMsfQDp9KOclaZNyQhfIga2gppq9lIUDM1A4ohTshn4JqT7ir8bvIhXgorWKYDAr6rPzEbi/nTGKg==",
       "type": "package",
       "path": "system.runtime.serialization.primitives/4.3.0",
       "files": [
@@ -6812,7 +6900,7 @@
       ]
     },
     "System.Text.Encodings.Web/4.5.0": {
-      "sha512": "JF+wDdfFiRl3rz3dPMfR6aR568AW2J5CUMmhSflgHDz4zbVK4/00ax8UHnHyEMvblPewgNugjuA4oyoL8Pex2g==",
+      "sha512": "Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
       "type": "package",
       "path": "system.text.encodings.web/4.5.0",
       "files": [
@@ -7431,12 +7519,10 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Entites >= 1.0.0",
+      "IFD.UnitOfWork >= 1.0.1",
       "Microsoft.AspNetCore.Hosting.Abstractions >= 2.2.0",
       "Microsoft.EntityFrameworkCore.Design >= 2.2.4",
       "Microsoft.EntityFrameworkCore.Tools >= 2.2.4",
-      "Microsoft.Extensions.Configuration >= 2.2.0",
-      "Microsoft.Extensions.Configuration.EnvironmentVariables >= 2.2.0",
-      "Microsoft.Extensions.Configuration.Json >= 2.2.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "MySql.Data.EntityFrameworkCore >= 8.0.16",
       "SSH.NET >= 2016.1.0",
@@ -7451,11 +7537,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\ExportProject.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\ExportProject\\ExportProject.csproj",
       "projectName": "ExportProject",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\ExportProject.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\ExportProject\\ExportProject.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\ExportProject\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\ExportProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7469,16 +7555,18 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://10.5.1.226:8081/repository/nuget-group/": {},
+        "http://nexus.datrijx.test.infodation.vn/repository/nuget-hosted/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Entites\\Entites.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\Entites\\Entites.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\Entites\\Entites.csproj"
             },
-            "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Desktop\\demo\\ExportProject\\Servicess\\Servicess.csproj"
+            "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\Servicess\\Servicess.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\demo - Copy (2) - Copy - Copy\\ExportProject\\Servicess\\Servicess.csproj"
             }
           }
         }
@@ -7492,6 +7580,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "IFD.UnitOfWork": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          },
           "Microsoft.AspNetCore.Hosting.Abstractions": {
             "target": "Package",
             "version": "[2.2.0, )"
@@ -7506,19 +7598,8 @@
             "target": "Package",
             "version": "[2.2.4, )"
           },
-          "Microsoft.Extensions.Configuration": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.Extensions.Configuration.Json": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true

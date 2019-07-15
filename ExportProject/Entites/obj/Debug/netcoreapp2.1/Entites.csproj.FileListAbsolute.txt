@@ -25,7 +25,6 @@ C:\Users\Admin\Desktop\demo\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entite
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.dev.json
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.dll
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.pdb
-C:\Users\Admin\Desktop\demo\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfoInputs.cache
 C:\Users\Admin\Desktop\demo\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfo.cs
@@ -63,3 +62,36 @@ C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Entites\
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfo.cs
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.dll
 C:\Users\Admin\Desktop\ExportProject - Copy\ExportProject\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.json
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.dev.json
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2)\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.dev.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.deps.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.runtimeconfig.dev.json
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\bin\Debug\netcoreapp2.1\Entites.pdb
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.AssemblyInfo.cs
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.dll
+C:\Users\Admin\Desktop\demo - Copy (2) - Copy - Copy\ExportProject\Entites\obj\Debug\netcoreapp2.1\Entites.pdb

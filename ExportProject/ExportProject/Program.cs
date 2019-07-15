@@ -1,73 +1,69 @@
 ﻿using Entites.Models;
-using System;
-using System.IO;
-using Services;
-using UnitOfWorks;
-using System.Collections.Generic;
-using Renci.SshNet;
 using log4net;
-using System.Reflection;
-using log4net.Config;
-using System.Web;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
+using System;
+using System.Collections.Generic;
+using UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
 namespace ExportProject
 {
     class Program
     {
+        private static IConfiguration Configuration { get; set; }
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         static void Main(string[] args)
         {
-            //var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            //XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-            //var logger = LogManager.GetLogger(typeof(Program));
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var serviceExport = serviceProvider.GetService<IJobExportService>();
+            var unitExport = serviceProvider.GetService<IJobExportUnit>();
+            var Sftp = serviceProvider.GetService<ISftp>();
+            ReadFileJson json = new ReadFileJson();
             Log4netConfig log4Netconfig = new Log4netConfig();
             ILog logger = log4Netconfig.Log4net();
-            Console.WriteLine("Start exports csv file...");
             logger.Info("Start exports csv file...");
-            JobExportUnitRepository Unit = new JobExportUnitRepository();
-            JobExportRepositoryService Service = new JobExportRepositoryService();
-            IEnumerable<Stores> emps = Unit.LoadAllData();
-            string dir = Service.ExportToCSVFile(emps);
-            Console.WriteLine("File have been exported to CSV!");
+            //JobExportRepositoryService Service = new JobExportRepositoryService();
+            IEnumerable<ViewExport> emps = unitExport.LoadAllData();
+            string dir = serviceExport.ExportToCSVFile(emps, json.fileName);
             logger.Info("File have been exported to CSV!");
-            Console.WriteLine("Connecting to sftp Server...");
             logger.Info("Connecting to sftp Server...");
-            SFTP sftp = new SFTP();
-            //string ip;
-            //string name;
-            //string password;
-            //Console.Write("Please enter the server ip: ");
-            //ip = Console.ReadLine();
-            //Console.Write("Account name              : ");
-            //name = Console.ReadLine();
-            //Console.Write("Password                  : ");
-            //password = Console.ReadLine();
-            bool result = sftp.connectSftpServer("192.168.2.75", 22, "Interns", "123456", 120);
+
+            bool result = Sftp.connectSftpServer(json.host, 22, json.name, json.password, 120);
             if (result)
             {
-                Console.WriteLine("Connect successfully!!!");
                 logger.Info("Connect successfully!!!");
             }
             else
             {
-                Console.WriteLine("Connect failed!!!");
                 logger.Error("Connect failed!!!");
                 Console.ReadKey();
                 return;
             }
             String[] arrayFullFileName = dir.Split('\\');
             String strFileName = arrayFullFileName[arrayFullFileName.Length - 1];
-            Console.WriteLine("transfering File...");
             logger.Info("transfering File...");
-            if (sftp.UploadFileToSftp(dir, "\\desktop\\" + strFileName, true))
+            if (Sftp.UploadFileToSftp(json.strSource, json.strDesPath, strFileName, true))
             {
-                Console.WriteLine("Tranfer successfully!!!");
                 logger.Info("Tranfer successfully!!!");
-                Unit.Dispose();
+                unitExport.Dispose();
             }
             //else Console.WriteLine("File can not be transfered!");
-          
             Console.ReadKey();
+        }
+        private static void ConfigureServices(IServiceCollection serviceCollection)
+        {
+            ReadFileJson json = new ReadFileJson();
+            serviceCollection.AddSingleton(s => Configuration);
+            serviceCollection.AddTransient<IJobExportService, JobExportRepositoryService>();
+            serviceCollection.AddTransient<IJobExportUnit, JobExportUnitRepository>();
+            serviceCollection.AddTransient<ISftp, Sftp>();
+            serviceCollection.AddDbContext<ExportProjectContext>(
+              options =>
+              options.UseMySQL(json.connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient
+            ).AddUnitOfWork<ExportProjectContext>();
         }
     }
 }

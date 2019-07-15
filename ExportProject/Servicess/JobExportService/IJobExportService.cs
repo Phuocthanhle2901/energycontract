@@ -1,14 +1,12 @@
 ﻿using Entites.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Services
 {
 
     public interface IJobExportService
     {
-        string ExportToCSVFile(IEnumerable<Stores> list);
+        string ExportToCSVFile(IEnumerable<ViewExport> list,string fileName);
 
     }
 }
