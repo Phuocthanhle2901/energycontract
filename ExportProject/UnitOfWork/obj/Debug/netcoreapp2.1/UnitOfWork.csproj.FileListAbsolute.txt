@@ -1,4 +1,0 @@
-C:\Users\Admin\Desktop\ExportCSV\ExportProject\UnitOfWork\obj\Debug\netcoreapp2.1\UnitOfWork.csprojAssemblyReference.cache
-C:\Users\Admin\Desktop\ExportCSV\ExportProject\UnitOfWork\obj\Debug\netcoreapp2.1\UnitOfWork.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Desktop\ExportCSV\ExportProject\UnitOfWork\obj\Debug\netcoreapp2.1\UnitOfWork.AssemblyInfoInputs.cache
-C:\Users\Admin\Desktop\ExportCSV\ExportProject\UnitOfWork\obj\Debug\netcoreapp2.1\UnitOfWork.AssemblyInfo.cs
