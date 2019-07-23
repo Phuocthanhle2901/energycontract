@@ -18,5 +18,11 @@
       "Default": "Warning"
     }
   },
-  "loggerName": "GetDataFormSearchFirstSixty"
+  "loggerName": "GetDataFormSearchFirstSixty",
+  "requestParams": {
+    "searchFirstSixty": {
+      "ticket_Group": "styx",
+      "aantal": "60"
+    }
+  }
 }

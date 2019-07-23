@@ -23,7 +23,7 @@ namespace SendingRawSOAPRequest
             requestInfo = new SearchFirstSixtyRequest();
             SetRequestInfo();
         }
-
+        // get properties for WebRequest's info first, every request must have this. so it will be called in constructor
         void SetRequestInfo()
         {
             requestInfo.ServiceEndPoint = config["requestInfo:serviceEndPoint"];
@@ -32,7 +32,7 @@ namespace SendingRawSOAPRequest
             requestInfo.Accept = config["requestInfo:accept"];
             requestInfo.Method = config["requestInfo:method"];
         }
-
+        // get details property to make a raw SOAP request for SearchFirstSixty requesting
         void SetSearchFirstSixtyInfo(string ticket_Group,string aantal)
         {
             requestInfo.XsiNameSpace = config["xmlNameSpace:xsi"];
@@ -43,6 +43,7 @@ namespace SendingRawSOAPRequest
             requestInfo.Ticket_Group = ticket_Group;
             requestInfo.Aantal = aantal;
         }
+        // add value to HttpWebRequest from the model which's already have fully properties from config
         private  HttpWebRequest CreateWebRequest()
         {
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(requestInfo.ServiceEndPoint);
@@ -52,7 +53,7 @@ namespace SendingRawSOAPRequest
             webRequest.Method = requestInfo.Method;
             return webRequest;
         }
-
+        // create a raw xml Soap request using LinqToXML with namespaces info and encodingStyle from model
         private string CreateRawXmlSOAPRequest()
         {
                 XNamespace xsi = requestInfo.XsiNameSpace;
@@ -87,18 +88,22 @@ namespace SendingRawSOAPRequest
                 HttpWebRequest request = CreateWebRequest();
                 string xml = CreateRawXmlSOAPRequest();
                 XmlDocument soapEnvelopeXml = new XmlDocument();
+                //load xml string to xml doccument object
                 soapEnvelopeXml.LoadXml(xml);
 
                 using (Stream stream = request.GetRequestStream())
                 {
+                    //save xml data in xmlDocument object into Request's tream
                     soapEnvelopeXml.Save(stream);
                 }
 
                 using (WebResponse response = request.GetResponse())
                 {
+                    // get response 
                     using (StreamReader rd = new StreamReader(response.GetResponseStream()))
                     {
                         string soapResult = rd.ReadToEnd();
+                        // then read data form response stream and write it to the console
                         Console.WriteLine(soapResult);  
                     }
                 }

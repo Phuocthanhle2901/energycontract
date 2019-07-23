@@ -16,8 +16,10 @@ namespace SendingRawSOAPRequest
             var serviceProvider = serviceCollection.BuildServiceProvider();
             IConfiguration config = serviceProvider.GetService<IConfiguration>();
             ILogger logger = serviceProvider.GetService<ILogger>();
+            string ticket_Group = config["requestParams:searchFirstSixty:ticket_Group"];
+            string aantal = config["requestParams:searchFirstSixty:aantal"];
             var xmlUltis = new TicketRequest(config,logger);
-            xmlUltis.SearchFistSixty("styx","60");
+            xmlUltis.SearchFistSixty(ticket_Group,aantal);
             Console.ReadKey();
         }
         private static void ConfigureServices(IServiceCollection serviceCollection)
