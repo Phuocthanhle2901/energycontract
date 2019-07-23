@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using IFD.Logging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
@@ -14,7 +15,8 @@ namespace SendingRawSOAPRequest
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             IConfiguration config = serviceProvider.GetService<IConfiguration>();
-            var xmlUltis = new TicketRequest(config);
+            ILogger logger = serviceProvider.GetService<ILogger>();
+            var xmlUltis = new TicketRequest(config,logger);
             xmlUltis.SearchFistSixty("styx","60");
             Console.ReadKey();
         }
@@ -25,6 +27,7 @@ namespace SendingRawSOAPRequest
             config = builder.Build();
             // add services
             serviceCollection.AddSingleton(ks => config);
+            serviceCollection.AddSingleton<ILogger, Log4NetAdapter>();
         }
     }
 }
