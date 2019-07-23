@@ -12,5 +12,11 @@
     "contentType": "text/xml;charset=\"utf-8\"",
     "Accept": "text/xml",
     "Method": "POST"
-  }
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "loggerName": "GetDataFormSearchFirstSixty"
 }

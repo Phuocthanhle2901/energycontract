@@ -102,6 +102,7 @@ namespace SendingRawSOAPRequest
                         Console.WriteLine(soapResult);  
                     }
                 }
+                logger.Info("Get data from SearchFirstSixty successfully");
             }
             catch (Exception ex)
             {
