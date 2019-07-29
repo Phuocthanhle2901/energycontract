@@ -81,7 +81,11 @@ namespace SendingRawSOAPRequest
                                     );
                 return Envelope.ToString();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ticket_Group"></param>
+        /// <param name="aantal"></param>
         public void SearchFistSixty(string ticket_Group, string aantal)
         {
             try
@@ -99,26 +103,18 @@ namespace SendingRawSOAPRequest
                     soapEnvelopeXml.Save(stream);
                 }
 
-                using (WebResponse response =  null/*request.GetResponse()*/)
+                using (WebResponse response = /*request.GetResponse()*/ null)
                 {
                     // get response 
-                    using (StreamReader rd = new StreamReader("C:\\Users\\Admin\\Desktop\\data.xml"/*response.GetResponseStream()*/))
+                    using (StreamReader rd = new StreamReader("C:\\Users\\Admin\\Downloads\\CAIW2_CRS_Soap_Project\\CRS_Production_Format.xml"/*response.GetResponseStream()*/))
                     {
                         string soapResult = rd.ReadToEnd();
                         // then read data form response stream and write it to the console
                         XmlDocument xmlResponse = new XmlDocument();
                         List<TsearchOneResult> list = new List<TsearchOneResult>();
-
-                        //XmlRootAttribute xroot = new XmlRootAttribute();
-                        //xroot.ElementName = "SOAP-ENV:Envelope";
-                        //xroot.Namespace = "http://schemas.xmlsoap.org/soap/envelope/";
-                        //xroot.IsNullable = true;
-                        //XmlSerializer deserializer = new XmlSerializer(typeof(TsearchOneResult[]), xroot);
-                        //var array = deserializer.Deserialize(rd);
-
                         xmlResponse.LoadXml(soapResult);
                         XmlNodeList nodeList = xmlResponse.GetElementsByTagName("NS2:TsearchOneResult");
-                        var listSearchOne = DeserializeNodesTsearchOne2(nodeList);
+                        List<TsearchOneResult> result= DeserializeNodesTsearchOne(nodeList);
 
                         //Console.WriteLine(soapResult);  
                     }
@@ -130,32 +126,8 @@ namespace SendingRawSOAPRequest
                 logger.Error("Fail to get data from SearchFirstSixty SOAP service. Details: "+ ex.GetType().ToString()+", message: " + ex.Message);
             }
         }
+        //this method cut all attribute out of xml string, then deserial it like a bare xml
         private List<TsearchOneResult> DeserializeNodesTsearchOne(XmlNodeList nodeList)
-        {
-            List<TsearchOneResult> list = new List<TsearchOneResult>();
-            XmlRootAttribute xroot = new XmlRootAttribute();
-            xroot.ElementName = "TsearchOneResult";
-            //xroot.Namespace = "urn:TicketServiceIntf";
-            xroot.IsNullable = true;
-            XmlSerializer deserializer = new XmlSerializer(typeof(TsearchOneResult), xroot);
-            foreach (XmlNode item in nodeList)
-            {
-                item.RemoveChild(item.LastChild);
-                string node = item.OuterXml;
-                node = node.Replace("xsi:type=\"xsd:string\"","");
-                node = node.Replace("xsi:type=\"NS2:TsearchOneResult\"", "");
-                node = node.Replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
-                node = node.Replace("xmlns:NS2=\"urn:TicketServiceIntf\"", "");
-                node = node.Replace("NS2:", "");
-                node = node.Replace("id=\"1\"","");
-                node = node.Replace("xsi:type=\"xsd:date\"", "");
-                TextReader textReader = new StringReader(node);
-                TsearchOneResult result = (TsearchOneResult)deserializer.Deserialize(textReader);
-                list.Add(result);
-            }
-            return list;
-        }
-        private List<TsearchOneResult> DeserializeNodesTsearchOne2(XmlNodeList nodeList)
         {
             List<TsearchOneResult> list = new List<TsearchOneResult>();
             XmlRootAttribute xroot = new XmlRootAttribute();
@@ -165,24 +137,14 @@ namespace SendingRawSOAPRequest
             XmlSerializer deserializer = new XmlSerializer(typeof(TsearchOneResult), xroot);
             foreach (XmlNode item in nodeList)
             {
-                item.RemoveChild(item.LastChild);
                 string node = item.OuterXml;
-                //node = node.IndexOf()
+                node = node.Replace("NS2:", "");
+                node = node.Replace(":NS2", "");
                 TextReader textReader = new StringReader(node);
                 TsearchOneResult result = (TsearchOneResult)deserializer.Deserialize(textReader);
+                list.Add(result);   
             }
             return list;
-        }
-        private void MapNodesTsearchOne(XmlNodeList list)
-        {
-            List<TsearchOneResult> listTsearch = new List<TsearchOneResult>();
-            XmlDocument doc = new XmlDocument();
-            foreach (XmlNode item in list)
-            {
-                TsearchOneResult tsearch = new TsearchOneResult();
-                doc.LoadXml(item.OuterXml);
-                tsearch.Ticket_Nummer = doc.GetElementsByTagName("Ticket_Nummer")[0].InnerText;
-            }
         }
     }
 }
