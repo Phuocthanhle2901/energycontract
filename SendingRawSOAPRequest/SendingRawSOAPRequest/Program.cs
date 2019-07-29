@@ -1,6 +1,7 @@
 ﻿using IFD.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SendingRawSOAPRequest.Services;
 using System;
 using System.IO;
 
@@ -15,11 +16,11 @@ namespace SendingRawSOAPRequest
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             IConfiguration config = serviceProvider.GetService<IConfiguration>();
-            ILogger logger = serviceProvider.GetService<ILogger>();
-            string ticket_Group = config["requestParams:searchFirstSixty:ticket_Group"];
-            string aantal = config["requestParams:searchFirstSixty:aantal"];
-            var xmlUltis = new TicketRequest(config,logger);
-            xmlUltis.SearchFistSixty(ticket_Group,aantal);
+            ISearchOneService service = serviceProvider.GetService<ISearchOneService>();
+            //string ticket_Group = config["requestParams:searchFirstSixty:ticket_Group"];
+            //string aantal = config["requestParams:searchFirstSixty:aantal"];
+            string ticket_Nummer = config["requestParams:searchOne:ticket_Nummer"];
+            service.SearchOne(ticket_Nummer);
             Console.ReadKey();
         }
         private static void ConfigureServices(IServiceCollection serviceCollection)
@@ -30,6 +31,8 @@ namespace SendingRawSOAPRequest
             // add services
             serviceCollection.AddSingleton(ks => config);
             serviceCollection.AddSingleton<ILogger, Log4NetAdapter>();
+            serviceCollection.AddSingleton<ISearchFirstSixtyService, SearchFirstSixtySerivce>();
+            serviceCollection.AddSingleton<ISearchOneService, SearchOneService>();
         }
     }
 }
