@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SendingRawSOAPRequest.Models
 {
-    class NamespaceInfo
+    public class NamespaceInfo
     {
         public string XsiNameSpace { get; set; }
         public string XsdNameSpace { get; set; }

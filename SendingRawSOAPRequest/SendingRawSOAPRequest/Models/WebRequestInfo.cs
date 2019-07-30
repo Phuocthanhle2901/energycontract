@@ -1,6 +1,6 @@
 ﻿namespace SendingRawSOAPRequest.Models
 {
-    class WebRequestInfo
+    public class WebRequestInfo
     {
         public string ServiceEndPoint { get; set; }
         public string Header { get; set; }

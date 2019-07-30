@@ -1,52 +1,47 @@
-﻿using IFD.Logging;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SendingRawSOAPRequest.Models;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace SendingRawSOAPRequest.Services
 {
-    class TicketRequestBase 
+    public static class TicketRequestUltis
     {
-        protected readonly IConfiguration config;
-        protected readonly ILogger logger;
-        protected WebRequestInfo requestInfo;
-        protected HttpWebRequest request;
-        protected NamespaceInfo namespaceInfo;
-        public TicketRequestBase(IConfiguration config, ILogger logger)
+        /// <summary>
+        /// get requestInfo object in which have fully properties from appsetting.json to create a HTTPWebRequest
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static WebRequestInfo GetRequestInfo(IConfiguration config)
         {
-            this.logger = logger;
-            this.config = config;
-            SetRequestInfo();
-            request = CreateWebRequest();
-            SetNamespaceInfo();
-        }
-        // get properties for WebRequest's info first, every request must have this. so it will be called in constructor
-        void SetRequestInfo()
-        {
-            requestInfo = new WebRequestInfo();
+            var requestInfo = new WebRequestInfo();
             requestInfo.ServiceEndPoint = config["requestInfo:serviceEndPoint"];
             requestInfo.Header = config["requestInfo:header"];
             requestInfo.ContentType = config["requestInfo:contentType"];
             requestInfo.Accept = config["requestInfo:accept"];
             requestInfo.Method = config["requestInfo:method"];
+            return requestInfo;
         }
-        // get details property to make a raw SOAP request for SearchFirstSixty requesting
-        void SetNamespaceInfo()
+        /// <summary>
+        /// get NamespaceInfo object in which have fully properties from appsetting.json about namespace to working with raw request string
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public static NamespaceInfo GetNamespaceInfo(IConfiguration config)
         {
-            namespaceInfo = new NamespaceInfo();
+            NamespaceInfo namespaceInfo = new NamespaceInfo();
             namespaceInfo.XsiNameSpace = config["xmlNameSpace:xsi"];
             namespaceInfo.XsdNameSpace = config["xmlNameSpace:xsd"];
             namespaceInfo.SoapEnvNameSpace = config["xmlNameSpace:soapenv"];
             namespaceInfo.UrnNameSpace = config["xmlNameSpace:urn"];
             namespaceInfo.encodingStyle = config["encodingStyle"];
+            return namespaceInfo;
         }
-
-        // add value to HttpWebRequest from the model which's already have fully properties from config
-        private HttpWebRequest CreateWebRequest()
+        /// <summary>
+        ///  create a HttpWebRequest by the infomations got from GetRequestInfo() method
+        /// </summary>
+        public static HttpWebRequest CreateWebRequest(IConfiguration config)
         {
+            WebRequestInfo requestInfo= GetRequestInfo(config);
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(requestInfo.ServiceEndPoint);
             webRequest.Headers.Add(requestInfo.Header);
             webRequest.ContentType = requestInfo.ContentType; ;

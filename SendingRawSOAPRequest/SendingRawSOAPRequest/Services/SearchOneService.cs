@@ -1,6 +1,7 @@
 ﻿using CRSReference;
 using IFD.Logging;
 using Microsoft.Extensions.Configuration;
+using SendingRawSOAPRequest.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,14 +14,25 @@ namespace SendingRawSOAPRequest.Services
 {
     interface ISearchOneService
     {
-        void SearchOne(string Ticket_Nummer);
+        TsearchOneResult SearchOne(string Ticket_Nummer);
         string CreateRawXmlSOAPRequest(string ticket_number);
     }
-    class SearchOneService : TicketRequestBase, ISearchOneService
+    class SearchOneService : ISearchOneService
     {
+        readonly ILogger logger;
+        NamespaceInfo namespaceInfo;
+        HttpWebRequest request;
         public SearchOneService(IConfiguration config, ILogger logger)
-            : base(config, logger) { }
-
+        {
+            namespaceInfo = TicketRequestUltis.GetNamespaceInfo(config);
+            request = TicketRequestUltis.CreateWebRequest(config);
+            this.logger = logger;
+        }
+        /// <summary>
+        /// Create a raw xml soap request string  using LinqToXML with the namespace config's info got from base class
+        /// </summary>
+        /// <param name="ticket_nummer"></param>
+        /// <returns></returns>
         public string CreateRawXmlSOAPRequest(string ticket_nummer)
         {
             XNamespace xsi = namespaceInfo.XsiNameSpace;
@@ -45,9 +57,13 @@ namespace SendingRawSOAPRequest.Services
                                 );
             return Envelope.ToString();
         }
-
-        public void SearchOne(string Ticket_Nummer)
+        /// <summary>
+        /// the main method call the SearchOne service and deserialize it to a TsearchResult object
+        /// </summary>
+        /// <param name="Ticket_Nummer"></param>
+        public TsearchOneResult SearchOne(string Ticket_Nummer)
         {
+            TsearchOneResult result = null;
             try
             {
                 string xml = CreateRawXmlSOAPRequest(Ticket_Nummer);
@@ -55,27 +71,30 @@ namespace SendingRawSOAPRequest.Services
                 //load xml string to xml doccument object
                 soapEnvelopeXml.LoadXml(xml);
 
-                using (Stream stream = base.request.GetRequestStream())
+                using (Stream stream = request.GetRequestStream())
                 {
                     //save xml data in xmlDocument object into Request's tream
                     soapEnvelopeXml.Save(stream);
                 }
 
-                using (WebResponse response = base.request.GetResponse() /*null*/)
+                using (WebResponse response = request.GetResponse())
                 {
                     // get response 
-                    using (StreamReader rd = new StreamReader(/*"C:\\Users\\Admin\\Downloads\\CAIW2_CRS_Soap_Project\\CRS_Production_Format.xml"*/response.GetResponseStream()))
+                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
                     {
                         string soapResult = rd.ReadToEnd();
                         // then read data form response stream and write it to the console
                         XmlDocument xmlResponse = new XmlDocument();
                         List<TsearchOneResult> list = new List<TsearchOneResult>();
                         xmlResponse.LoadXml(soapResult);
-                        XmlNodeList nodeList = xmlResponse.GetElementsByTagName("NS2:TNotitie");
-                        TNotitie[] array = DeserializeNodesTNotitite(nodeList);
+                        //get TsearchOneResult object
                         XmlNode node = xmlResponse.GetElementsByTagName("NS2:TsearchOneResult")[0];
-                        TsearchOneResult result = DeserializeNodesTsearchOne(node);
-                        result.Notities = array;
+                        result = DeserializeNodesTsearchOne(node);
+                        //get array of all Tnotitie in the response
+                        XmlNodeList nodeList = xmlResponse.GetElementsByTagName("NS2:TNotitie");
+                        TNotitie[] arrayTNotites = DeserializeNodesTNotitite(nodeList);
+                        //add the array of the Tnotite to the notities property of TsearchOneResult 
+                        result.Notities = arrayTNotites;
 
                     }
                 }
@@ -85,8 +104,9 @@ namespace SendingRawSOAPRequest.Services
             {
                 logger.Error("Fail to get data from SearchFirstSixty SOAP service. Details: " + ex.GetType().ToString() + ", message: " + ex.Message);
             }
+            return result;
         }
-        //this method cut the prefix NS2 out of xml string, then deserial it
+        //this method cut the prefix NS2 out of xml string, then deserial it to TsearchOneResult object
         private TsearchOneResult DeserializeNodesTsearchOne(XmlNode node)
         {
             XmlRootAttribute xroot = new XmlRootAttribute();
@@ -103,10 +123,10 @@ namespace SendingRawSOAPRequest.Services
 
             return result;
         }
-        //this method cut the prefix NS2 out of xml string, then deserial it
+        //this method cut the prefix NS2 out of xml string, then deserial it to a array of TNotitie instance
         private TNotitie[] DeserializeNodesTNotitite(XmlNodeList nodeList)
         {
-            TNotitie[] array = new TNotitie[nodeList.Count];
+            TNotitie[] arrayTNotites = new TNotitie[nodeList.Count];
             int i = 0;
             XmlRootAttribute xroot = new XmlRootAttribute();
             xroot.ElementName = "TNotitie";
@@ -120,9 +140,9 @@ namespace SendingRawSOAPRequest.Services
                 node = node.Replace(":NS2", "");
                 TextReader textReader = new StringReader(node);
                 TNotitie result = (TNotitie)deserializer.Deserialize(textReader);
-                array[i++] = result;
+                arrayTNotites[i++] = result;
             }
-            return array;
+            return arrayTNotites;
         }
     }
 }
