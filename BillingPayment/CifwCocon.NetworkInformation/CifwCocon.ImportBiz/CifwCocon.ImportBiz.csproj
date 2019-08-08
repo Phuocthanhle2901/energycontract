@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Cifw.Core" Version="1.0.6" />
+    <PackageReference Include="IFD.Logging" Version="1.0.7" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Utility\CifwCocon.Utility.csproj" />
+    <ProjectReference Include="..\CifwCocon.ImportRepo\CifwCocon.ImportRepo.csproj" />
+    <ProjectReference Include="..\CifwCocon.NetworkInformation.Biz\CifwCocon.NetworkInformation.Biz.csproj" />
+  </ItemGroup>
+
+</Project>

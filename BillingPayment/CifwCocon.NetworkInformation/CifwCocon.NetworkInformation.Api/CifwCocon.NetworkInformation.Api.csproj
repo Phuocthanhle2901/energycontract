@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DockerTargetOS>Linux</DockerTargetOS>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="Cifw.Core.CorrelationLoggingMiddleware" Version="1.0.4" />
+    <PackageReference Include="Cifw.EventBus" Version="1.1.7" />
+    <PackageReference Include="IFD.Logging" Version="1.0.7" />
+    <PackageReference Include="IFD.Mailling" Version="1.0.7" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net.Ext.Json.Net" Version="2.0.8.2" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Quartz" Version="3.0.4" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CifwCocon.Common\Cifw.Mapper\Cifw.Mapper\Cifw.Mapper.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Dal\CifwCocon.Entities.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.NetworkInformation.Bo\CifwCocon.NetworkInformation.Bo.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Repositories\CifwCocon.Repositories.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Utility\CifwCocon.Utility.csproj" />
+    <ProjectReference Include="..\CifwCocon.Job\WritePatchJob.csproj" />
+    <ProjectReference Include="..\CifwCocon.NetworkInformation.Biz\CifwCocon.NetworkInformation.Biz.csproj" />
+  </ItemGroup>
+</Project>

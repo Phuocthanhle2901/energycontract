@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Configurations>Debug;Release;Qc</Configurations>
+    <AssemblyName>Payment.Biz</AssemblyName>
+    <RootNamespace>Payment.Biz</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CifwCocon.Common\Cifw.Core\Cifw.Core.csproj" />
+    <ProjectReference Include="..\..\..\CifwCocon.Common\CifwCocon.NetworkInformation.Bo\CifwCocon.NetworkInformation.Bo.Dev.csproj" />
+    <ProjectReference Include="..\..\..\CifwCocon.Common\CifwCocon.Repositories\CifwCocon.Repositories.csproj" />
+    <ProjectReference Include="..\..\..\CifwCocon.Common\CifwCocon.Service\CifwCocon.Service.csproj" />
+  </ItemGroup>
+
+</Project>
