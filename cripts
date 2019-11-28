@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Affordable Web Design For Small And Medium-Sized Companies">
+    <meta name="author" content="Sebastian Eschweiler">
+    <title>Võ Hoàng Lâm - Welcome</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./styles/tuong.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">    
+</head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1 class="ten">Võ Hoàng Lâm</h1>
+        </div>
+        <nav>
+          <ul>
+            <li class="current"><a href="./index.html">Trang Chủ</a></li>
+            <li class="tuong"><a href="./tuong.html">Tướng</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+<select name="sort-news" id="sort-news">
+	<option value="All">Tất Cả</option>
+	<option value="Cat1">Pháp Sư</option>
+	<option value="Cat2">Xạ Thủ</option>
+	<option value="Cat3">Sát Thủ</option>
+  <option value="Cat4">Đấu Sỹ</option>
+  <option value="Cat5">Đỡ Đòn</option>
+  <option value="Cat6">Hỗ Trợ</option>
+</select> 
+<hr />
+<section class="news-list">
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Aatrox.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/aatrox/">Aatrox</a></h3>
+	</div>
+</article>
+  <article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Ahri.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/ahri/">Ahri</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Akali.png">
+	</div>
+	<div class="news-text">
+		<h3 class="tentuong"> <a href="https://universe.leagueoflegends.com/vn_VN/champion/akali/">Akali</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat5">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Alistar.png">
+	</div>
+	<div class="news-text">
+		<h3 class="tentuong"> <a href="https://universe.leagueoflegends.com/vn_VN/champion/Alistar">Alistar</a></h3>
+	</div>
+</article>
+  <article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Amumu.png">
+	</div>
+	<div class="news-text">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Amumu">Amumu</a></h3>
+	</div>
+</article>
+  <article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Anivia.png">
+	</div>
+	<div class="news-text">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Anivia">Anivia</a></h3>
+	</div>
+</article>
+  <article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Annie.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Annie">Annie</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Ashe.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Ashe">Ashe</a></h3>
+	</div>
+</article>
+  <article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/AurelionSol.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/AurelionSol">Aurelion Sol</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Azir.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Azir">Azir</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Bard.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Bard">Bard</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Blitzcrank.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Blitzcrank">Blitzcrank</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Brand.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Brand">Brand</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat5">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Braum.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Braum">Braum</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Caitlyn.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Caitlyn">Caitlyn</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Camille.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Camille">Camille</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Cassiopeia.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Cassiopeia">Cassiopeia</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat5">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Chogath.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Chogath">Cho'Gath</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Corki.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Cokki">Corki</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Darius.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Darius">Darius</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Diana.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Diana">Diana</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat5">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/DrMundo.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/DrMundo">Dr. Mundo</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Draven.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Draven">Draven</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Ekko.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/ekko">Ekko</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Elise.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Elise">Elise</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Evelynn.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Evelynn">Evelynn</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Ezreal.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Ezreal">Ezreal</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Fiddlesticks.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Fiddlesticks">Fiddlesticks</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Fiora.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Fiora">Fiora</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Fizz.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Fizz">Fizz</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Galio.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Galio">Galio</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Gangplank.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Gangplank">Gangplank</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Garen.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Garen">Garen</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Gnar.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Gnar">Gnar</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat5">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Gragas.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Gragas">Gragas</a></h3>
+	</div>
+</article>'
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Graves.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Graves">Graves</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Hecarim.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Hecarim">Hecarim</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Heimerdinger.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Heimerdinger">Heimerdinger</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Janna.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Janna">Janna</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/JarvanIV.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/JarvanIV">Javan IV</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Jax.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Jax">Jax</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat4">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Jayce.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Jayce">Jayce</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Jhin.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Jhin">Jhin</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat1" >
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Karthus.png">
+	</div>	
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Karthus">Karthus</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Jinx.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Jinx">Jinx</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Kalista.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Kalista">Kalista</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat6">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Karma.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Karma">Karma</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Kennen.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Kennen">Kennen</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Kindred.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Kindred">Kindred</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/KogMaw.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/KogMaw">Kog'Maw</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Lucian.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Lucian">Lucian</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/MissFortune.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/MissFortune">Miss Fortune</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Quinn.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Quinn">Quinn</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Sivir.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Sivir">Sivir</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Teemo.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Teemo">Teemo</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Tristana.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Tristana">Tristana</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Twitch.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Twitch">Twitch</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Varus.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Varus">Varus</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat2">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Vayne.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Vayne">Vayne</a></h3>
+	</div>
+</article>
+
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Katarina.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Katarina">Katarina</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Khazix.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Khazix">Kha'Zix</a></h3>
+	</div>
+</article>
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Nocturne.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/nocturne">Nocturne</a></h3>
+	</div>
+</article>	
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Rengar.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Rengar">Rengar</a></h3>
+	</div>
+</article>	
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Shaco.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Shaco">Shaco</a></h3>
+	</div>
+</article>	
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Talon.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Talon">Talon</a></h3>
+	</div>
+</article>	
+<article class="news-item" data-category="Cat3">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Zed.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/Zed">Zed</a></h3>
+	</div>
+</article>	
+<article class="news-item" data-category="Cat">
+	<div class="thumb">
+		<img alt="Our ALT text here" title="Our title here" src="https://lienminh.garena.vn/images/icons/Nocturne.png">
+	</div>
+	<div class="news-txt">
+		<h3 class="tentuong"><a href="https://universe.leagueoflegends.com/vn_VN/champion/nocturne/">Nocturne</a></h3>
+	</div>
+</article>	
+  </section>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-12/jquery-2.0.3.min_1.js">
+    </script>
+    <script src="./scripts/tuong.js"></script>
+  
