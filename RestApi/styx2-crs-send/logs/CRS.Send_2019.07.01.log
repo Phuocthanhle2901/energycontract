@@ -1,0 +1,985 @@
+2019-07-01 17:45:05,823 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:SCS-0001] [11] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Begin UpdateTaskByTicketRef request.
+2019-07-01 17:45:06,288 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:] [11] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - The request had: {"TicketRef":"2661023-8","SourceId":"CAIW","SourceSystemId":"CRS","CreationTime":"2019-05-29T01:55:11.87Z","ExternalTicketNo":"AS2019062501","RelatedIssue":"","Subject":"Testing for CAIW task 3","Status":{"MainStatus":"RESOLVED","SubStatus":"CANCEL-EXPIRED"},"Planned":{"From":"2019-09-04T14:18:00+07:00","Period":"MORNING","Time":{"fromTime":"2019-07-01T00:00:00+07:00","toTime":"2019-07-01T01:00:00+07:00"},"Till":"2019-09-30T00:00:00+07:00"},"StatusCode":{"Code":"C91","Text":"This is text for status code"},"WishDate":"2019-12-15T14:18:00+07:00","Originator":"originator","Contractant":"contractant","readonly":true,"UpdateCount":1,"Prio1":null,"Prio2":null,"Prio3":{"Affected":[{"Contact":{"PersonName":{"FirstName":"Danh","Intercalation":"Huu","LastName":"Nguyen"},"PhoneNumber":"0799063688","AdditionalphoneNumber":"0829279791","Email":"danh.nguyen@infodation.vn"},"Department":{"Organisation":"CAIW","Name":"NOC","Email":["a@gmail.com"],"PhoneNo":["0799063688"]},"Address":{"Street":"50 Le Thanh Ton","HouseNumber":{"Value":55,"Extension":""},"ZipCode":"8888EE","Room":"1","City":"Nha Trang","Country":"Viet Nam"}}],"Ftu":["1"],"Closure":{"Category":{"Level1":0,"Level2":2,"Level3":3},"Description":"description of closure"},"ActiveEquipmentEndpoint":{"PopName":"dn-16","Row":18,"Frame":66,"Block":"88","OdfTray":68,"Port":"86"},"TechnicalPath":{"PopName":"dn-18","Row":16,"Frame":66,"Block":"88","OdfTray":68,"OdfPosition":86,"Description":"88"},"Priority":3,"Analysis":{"Code":["1"]},"DomainPermission":"CityRing-1V_OUTAGE","ProblemDescription":"prob for meassage three","FiberCode":"FIBER_A","NetworkType":"FttH","TypeOfBuilding":"Building T03","ThroughputDependency":true,"Attenuation":"10","CableInfo":[{"CableId":"1","CableType":"FttH"}],"GpsLocation":[{"Latitude":"1110.16","Longitude":"1110.16"}],"MechanicOnSite":false,"DeliveryIssue":false,"Comment":[{"WmsTaskId":"123","HuurderOrderId":"123","BeheerderOrderId":"213","Party":"string","Author":{"FirstName":"1","Intercalation":"1","LastName":"1"},"Source":{"Id":"CAIW","SystemId":"CRS"},"Created":"2019-06-27T01:55:11.871Z","Note":"Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated"}],"ExecutorEnd":"2019-05-29T01:55:11.871Z"},"Prio4":null,"PrioBasic":null,"PrioPremium":null}
+2019-07-01 17:45:06,659 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:45:08,970 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [15] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService">
+    <NS1:searchOneResponse xmlns:NS2="urn:TicketServiceIntf">
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+      <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+        <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+        <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+        <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+        <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+        <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+        <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+        <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+        <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+        <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+        <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+        <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+        <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+        <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+        <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+        <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+        <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+        <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+        <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+        <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+        <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+        <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+        <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+        <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+        <Networktype xsi:type="xsd:string">COAX</Networktype>
+        <WFM_Status xsi:type="xsd:string">work in progress</WFM_Status>
+        <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+        <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+        <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+        <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+        <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+        <comment xsi:type="xsd:string"></comment>
+        <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+          <item href="#3" />
+          <item href="#6" />
+        </Notities>
+      </NS2:TsearchOneResult>
+      <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-26</Datum>
+        <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+        <Bron xsi:type="xsd:string">WFM</Bron>
+        <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+        <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+      </NS2:TNotitie>
+      <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-27</Datum>
+        <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+        <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+        <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+        <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+      </NS2:TNotitie>
+    </NS1:searchOneResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:45:09,528 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:] [11] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Error in deserializing body of reply message for operation 'searchOne'.
+System.AggregateException: One or more errors occurred. (Error in deserializing body of reply message for operation 'searchOne'.) ---> System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at styx2_crs_send.Handle.CRSClient.Search(TaskModel TaskModel) in D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\Handle\CRSClient.cs:line 99
+---> (Inner Exception #0) System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)<---
+
+2019-07-01 17:45:10,203 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRS detected a XML Parser Exception (method searchOne). Retry to search again 1 time(s)
+2019-07-01 17:45:10,222 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:45:10,522 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [15] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService" xmlns:NS2="urn:TicketServiceIntf">
+    <NS1:searchOneResponse>
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+    </NS1:searchOneResponse>
+    <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+      <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+      <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+      <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+      <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+      <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+      <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+      <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+      <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+      <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+      <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+      <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+      <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+      <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+      <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+      <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+      <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+      <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+      <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+      <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+      <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+      <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+      <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+      <Networktype xsi:type="xsd:string">COAX</Networktype>
+      <WFM_Status xsi:type="xsd:string">work in progress</WFM_Status>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+      <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+      <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+      <comment xsi:type="xsd:string"></comment>
+      <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+        <item href="#3" />
+        <item href="#6" />
+      </Notities>
+    </NS2:TsearchOneResult>
+    <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-26</Datum>
+      <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+      <Bron xsi:type="xsd:string">WFM</Bron>
+      <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+      <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-27</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+      <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+    </NS2:TNotitie>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:45:20,501 [X-Request-ID:ff979b7706694e70ba48929105b675fb] [X-Message-ID:5ecb2819-c703-4393-84b6-03a037037161] [ObjectMessageID:SCS-0007] [11] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Can't update ticket 2661023-8 with MainStatus(RESOLVED) and SubStatus(CANCEL-EXPIRED) because this ticket already had status 'work in progress', You need use SubStatus(TEMPORARY-FIX) or none SubStatus for MainStatus(RESOLVED).
+2019-07-01 17:47:07,438 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:SCS-0001] [11] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Begin UpdateTaskByTicketRef request.
+2019-07-01 17:47:07,484 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:] [11] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - The request had: {"TicketRef":"2661023-8","SourceId":"CAIW","SourceSystemId":"CRS","CreationTime":"2019-05-29T01:55:11.87Z","ExternalTicketNo":"AS2019062501","RelatedIssue":"","Subject":"Testing for CAIW task 3","Status":{"MainStatus":"CANCELLED","SubStatus":"CANCEL-EXPIRED"},"Planned":{"From":"2019-09-04T14:18:00+07:00","Period":"MORNING","Time":{"fromTime":"2019-07-01T00:00:00+07:00","toTime":"2019-07-01T01:00:00+07:00"},"Till":"2019-09-30T00:00:00+07:00"},"StatusCode":{"Code":"C91","Text":"This is text for status code"},"WishDate":"2019-12-15T14:18:00+07:00","Originator":"originator","Contractant":"contractant","readonly":true,"UpdateCount":1,"Prio1":null,"Prio2":null,"Prio3":{"Affected":[{"Contact":{"PersonName":{"FirstName":"Danh","Intercalation":"Huu","LastName":"Nguyen"},"PhoneNumber":"0799063688","AdditionalphoneNumber":"0829279791","Email":"danh.nguyen@infodation.vn"},"Department":{"Organisation":"CAIW","Name":"NOC","Email":["a@gmail.com"],"PhoneNo":["0799063688"]},"Address":{"Street":"50 Le Thanh Ton","HouseNumber":{"Value":55,"Extension":""},"ZipCode":"8888EE","Room":"1","City":"Nha Trang","Country":"Viet Nam"}}],"Ftu":["1"],"Closure":{"Category":{"Level1":0,"Level2":2,"Level3":3},"Description":"description of closure"},"ActiveEquipmentEndpoint":{"PopName":"dn-16","Row":18,"Frame":66,"Block":"88","OdfTray":68,"Port":"86"},"TechnicalPath":{"PopName":"dn-18","Row":16,"Frame":66,"Block":"88","OdfTray":68,"OdfPosition":86,"Description":"88"},"Priority":3,"Analysis":{"Code":["1"]},"DomainPermission":"CityRing-1V_OUTAGE","ProblemDescription":"prob for meassage three","FiberCode":"FIBER_A","NetworkType":"FttH","TypeOfBuilding":"Building T03","ThroughputDependency":true,"Attenuation":"10","CableInfo":[{"CableId":"1","CableType":"FttH"}],"GpsLocation":[{"Latitude":"1110.16","Longitude":"1110.16"}],"MechanicOnSite":false,"DeliveryIssue":false,"Comment":[{"WmsTaskId":"123","HuurderOrderId":"123","BeheerderOrderId":"213","Party":"string","Author":{"FirstName":"1","Intercalation":"1","LastName":"1"},"Source":{"Id":"CAIW","SystemId":"CRS"},"Created":"2019-06-27T01:55:11.871Z","Note":"Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated"}],"ExecutorEnd":"2019-05-29T01:55:11.871Z"},"Prio4":null,"PrioBasic":null,"PrioPremium":null}
+2019-07-01 17:47:07,551 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:47:08,333 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [10] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService">
+    <NS1:searchOneResponse xmlns:NS2="urn:TicketServiceIntf">
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+      <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+        <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+        <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+        <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+        <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+        <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+        <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+        <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+        <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+        <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+        <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+        <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+        <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+        <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+        <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+        <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+        <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+        <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+        <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+        <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+        <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+        <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+        <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+        <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+        <Networktype xsi:type="xsd:string">COAX</Networktype>
+        <WFM_Status xsi:type="xsd:string">work in progress</WFM_Status>
+        <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+        <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+        <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+        <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+        <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+        <comment xsi:type="xsd:string"></comment>
+        <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+          <item href="#3" />
+          <item href="#6" />
+        </Notities>
+      </NS2:TsearchOneResult>
+      <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-26</Datum>
+        <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+        <Bron xsi:type="xsd:string">WFM</Bron>
+        <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+        <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+      </NS2:TNotitie>
+      <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-27</Datum>
+        <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+        <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+        <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+        <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+      </NS2:TNotitie>
+    </NS1:searchOneResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:47:08,638 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:] [11] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Error in deserializing body of reply message for operation 'searchOne'.
+System.AggregateException: One or more errors occurred. (Error in deserializing body of reply message for operation 'searchOne'.) ---> System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at styx2_crs_send.Handle.CRSClient.Search(TaskModel TaskModel) in D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\Handle\CRSClient.cs:line 99
+---> (Inner Exception #0) System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)<---
+
+2019-07-01 17:47:08,807 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRS detected a XML Parser Exception (method searchOne). Retry to search again 1 time(s)
+2019-07-01 17:47:08,822 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:] [11] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:47:09,214 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [10] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService" xmlns:NS2="urn:TicketServiceIntf">
+    <NS1:searchOneResponse>
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+    </NS1:searchOneResponse>
+    <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+      <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+      <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+      <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+      <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+      <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+      <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+      <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+      <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+      <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+      <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+      <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+      <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+      <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+      <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+      <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+      <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+      <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+      <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+      <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+      <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+      <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+      <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+      <Networktype xsi:type="xsd:string">COAX</Networktype>
+      <WFM_Status xsi:type="xsd:string">work in progress</WFM_Status>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+      <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+      <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+      <comment xsi:type="xsd:string"></comment>
+      <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+        <item href="#3" />
+        <item href="#6" />
+      </Notities>
+    </NS2:TsearchOneResult>
+    <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-26</Datum>
+      <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+      <Bron xsi:type="xsd:string">WFM</Bron>
+      <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+      <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-27</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+      <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+    </NS2:TNotitie>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:47:12,186 [X-Request-ID:05240ba7e378460cbc7f920a27e7b1d3] [X-Message-ID:8c3cf427-39c8-4889-b685-c1a3c9747c5e] [ObjectMessageID:SCS-0007] [11] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Can't update ticket 2661023-8 with MainStatus(CANCELLED) and SubStatus(CANCEL-EXPIRED) because this ticket already had status 'work in progress', You can update one of these status 
+ - resolved
+ - resolved (temporary-fix)
+ - work in progress
+ - on hold
+ - background-fix
+2019-07-01 17:49:17,714 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:SCS-0001] [5] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Begin UpdateTaskByTicketRef request.
+2019-07-01 17:49:17,740 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:] [5] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - The request had: {"TicketRef":"2661023-8","SourceId":"CAIW","SourceSystemId":"CRS","CreationTime":"2019-05-29T01:55:11.87Z","ExternalTicketNo":"AS2019062501","RelatedIssue":"","Subject":"Testing for CAIW task 3","Status":{"MainStatus":"RESOLVED","SubStatus":"CANCEL-EXPIRED"},"Planned":{"From":"2019-09-04T14:18:00+07:00","Period":"MORNING","Time":{"fromTime":"2019-07-01T00:00:00+07:00","toTime":"2019-07-01T01:00:00+07:00"},"Till":"2019-09-30T00:00:00+07:00"},"StatusCode":{"Code":"C91","Text":"This is text for status code"},"WishDate":"2019-12-15T14:18:00+07:00","Originator":"originator","Contractant":"contractant","readonly":true,"UpdateCount":1,"Prio1":null,"Prio2":null,"Prio3":{"Affected":[{"Contact":{"PersonName":{"FirstName":"Danh","Intercalation":"Huu","LastName":"Nguyen"},"PhoneNumber":"0799063688","AdditionalphoneNumber":"0829279791","Email":"danh.nguyen@infodation.vn"},"Department":{"Organisation":"CAIW","Name":"NOC","Email":["a@gmail.com"],"PhoneNo":["0799063688"]},"Address":{"Street":"50 Le Thanh Ton","HouseNumber":{"Value":55,"Extension":""},"ZipCode":"8888EE","Room":"1","City":"Nha Trang","Country":"Viet Nam"}}],"Ftu":["1"],"Closure":{"Category":{"Level1":0,"Level2":2,"Level3":3},"Description":"description of closure"},"ActiveEquipmentEndpoint":{"PopName":"dn-16","Row":18,"Frame":66,"Block":"88","OdfTray":68,"Port":"86"},"TechnicalPath":{"PopName":"dn-18","Row":16,"Frame":66,"Block":"88","OdfTray":68,"OdfPosition":86,"Description":"88"},"Priority":3,"Analysis":{"Code":["1"]},"DomainPermission":"CityRing-1V_OUTAGE","ProblemDescription":"prob for meassage three","FiberCode":"FIBER_A","NetworkType":"FttH","TypeOfBuilding":"Building T03","ThroughputDependency":true,"Attenuation":"10","CableInfo":[{"CableId":"1","CableType":"FttH"}],"GpsLocation":[{"Latitude":"1110.16","Longitude":"1110.16"}],"MechanicOnSite":false,"DeliveryIssue":false,"Comment":[{"WmsTaskId":"123","HuurderOrderId":"123","BeheerderOrderId":"213","Party":"string","Author":{"FirstName":"1","Intercalation":"1","LastName":"1"},"Source":{"Id":"CAIW","SystemId":"CRS"},"Created":"2019-06-27T01:55:11.871Z","Note":"Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated"}],"ExecutorEnd":"2019-05-29T01:55:11.871Z"},"Prio4":null,"PrioBasic":null,"PrioPremium":null}
+2019-07-01 17:49:17,820 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:49:18,684 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [10] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService">
+    <NS1:searchOneResponse xmlns:NS2="urn:TicketServiceIntf">
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+      <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+        <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+        <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+        <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+        <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+        <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+        <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+        <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+        <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+        <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+        <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+        <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+        <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+        <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+        <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+        <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+        <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+        <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+        <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+        <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+        <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+        <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+        <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+        <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+        <Networktype xsi:type="xsd:string">COAX</Networktype>
+        <WFM_Status xsi:type="xsd:string">to be cancelled</WFM_Status>
+        <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+        <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+        <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+        <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+        <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+        <comment xsi:type="xsd:string"></comment>
+        <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+          <item href="#3" />
+          <item href="#6" />
+        </Notities>
+      </NS2:TsearchOneResult>
+      <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-26</Datum>
+        <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+        <Bron xsi:type="xsd:string">WFM</Bron>
+        <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+        <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+      </NS2:TNotitie>
+      <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-27</Datum>
+        <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+        <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+        <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+        <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+      </NS2:TNotitie>
+    </NS1:searchOneResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:49:19,088 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:] [5] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Error in deserializing body of reply message for operation 'searchOne'.
+System.AggregateException: One or more errors occurred. (Error in deserializing body of reply message for operation 'searchOne'.) ---> System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at styx2_crs_send.Handle.CRSClient.Search(TaskModel TaskModel) in D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\Handle\CRSClient.cs:line 99
+---> (Inner Exception #0) System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)<---
+
+2019-07-01 17:49:19,275 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRS detected a XML Parser Exception (method searchOne). Retry to search again 1 time(s)
+2019-07-01 17:49:19,312 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:49:19,585 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [10] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService" xmlns:NS2="urn:TicketServiceIntf">
+    <NS1:searchOneResponse>
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+    </NS1:searchOneResponse>
+    <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+      <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+      <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+      <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+      <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+      <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+      <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+      <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+      <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+      <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+      <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+      <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+      <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+      <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+      <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+      <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+      <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+      <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+      <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+      <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+      <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+      <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+      <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+      <Networktype xsi:type="xsd:string">COAX</Networktype>
+      <WFM_Status xsi:type="xsd:string">to be cancelled</WFM_Status>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+      <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+      <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+      <comment xsi:type="xsd:string"></comment>
+      <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+        <item href="#3" />
+        <item href="#6" />
+      </Notities>
+    </NS2:TsearchOneResult>
+    <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-26</Datum>
+      <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+      <Bron xsi:type="xsd:string">WFM</Bron>
+      <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+      <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-27</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+      <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+    </NS2:TNotitie>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:49:22,578 [X-Request-ID:9f7d713cdb4246ab862e5a881f92866c] [X-Message-ID:ce0a0257-2c18-4880-b88f-1a8680fa3364] [ObjectMessageID:SCS-0007] [5] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Can't update ticket 2661023-8 with MainStatus(RESOLVED) and SubStatus(CANCEL-EXPIRED) because this ticket already had status 'to be cancelled', You can update status 'cancelled (effective)' or 'cancelled (expired)'.
+2019-07-01 17:51:08,221 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:SCS-0001] [5] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Begin UpdateTaskByTicketRef request.
+2019-07-01 17:51:08,385 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:] [5] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - The request had: {"TicketRef":"2661023-8","SourceId":"CAIW","SourceSystemId":"CRS","CreationTime":"2019-05-29T01:55:11.87Z","ExternalTicketNo":"AS2019062501","RelatedIssue":"","Subject":"Testing for CAIW task 3","Status":{"MainStatus":"CANCELLED","SubStatus":"TEMPORARY-FIX"},"Planned":{"From":"2019-09-04T14:18:00+07:00","Period":"MORNING","Time":{"fromTime":"2019-07-01T00:00:00+07:00","toTime":"2019-07-01T01:00:00+07:00"},"Till":"2019-09-30T00:00:00+07:00"},"StatusCode":{"Code":"C91","Text":"This is text for status code"},"WishDate":"2019-12-15T14:18:00+07:00","Originator":"originator","Contractant":"contractant","readonly":true,"UpdateCount":1,"Prio1":null,"Prio2":null,"Prio3":{"Affected":[{"Contact":{"PersonName":{"FirstName":"Danh","Intercalation":"Huu","LastName":"Nguyen"},"PhoneNumber":"0799063688","AdditionalphoneNumber":"0829279791","Email":"danh.nguyen@infodation.vn"},"Department":{"Organisation":"CAIW","Name":"NOC","Email":["a@gmail.com"],"PhoneNo":["0799063688"]},"Address":{"Street":"50 Le Thanh Ton","HouseNumber":{"Value":55,"Extension":""},"ZipCode":"8888EE","Room":"1","City":"Nha Trang","Country":"Viet Nam"}}],"Ftu":["1"],"Closure":{"Category":{"Level1":0,"Level2":2,"Level3":3},"Description":"description of closure"},"ActiveEquipmentEndpoint":{"PopName":"dn-16","Row":18,"Frame":66,"Block":"88","OdfTray":68,"Port":"86"},"TechnicalPath":{"PopName":"dn-18","Row":16,"Frame":66,"Block":"88","OdfTray":68,"OdfPosition":86,"Description":"88"},"Priority":3,"Analysis":{"Code":["1"]},"DomainPermission":"CityRing-1V_OUTAGE","ProblemDescription":"prob for meassage three","FiberCode":"FIBER_A","NetworkType":"FttH","TypeOfBuilding":"Building T03","ThroughputDependency":true,"Attenuation":"10","CableInfo":[{"CableId":"1","CableType":"FttH"}],"GpsLocation":[{"Latitude":"1110.16","Longitude":"1110.16"}],"MechanicOnSite":false,"DeliveryIssue":false,"Comment":[{"WmsTaskId":"123","HuurderOrderId":"123","BeheerderOrderId":"213","Party":"string","Author":{"FirstName":"1","Intercalation":"1","LastName":"1"},"Source":{"Id":"CAIW","SystemId":"CRS"},"Created":"2019-06-27T01:55:11.871Z","Note":"Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated"}],"ExecutorEnd":"2019-05-29T01:55:11.871Z"},"Prio4":null,"PrioBasic":null,"PrioPremium":null}
+2019-07-01 17:51:08,483 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:51:09,207 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [22] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService">
+    <NS1:searchOneResponse xmlns:NS2="urn:TicketServiceIntf">
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+      <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+        <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+        <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+        <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+        <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+        <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+        <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+        <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+        <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+        <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+        <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+        <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+        <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+        <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+        <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+        <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+        <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+        <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+        <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+        <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+        <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+        <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+        <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+        <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+        <Networktype xsi:type="xsd:string">COAX</Networktype>
+        <WFM_Status xsi:type="xsd:string">to be cancelled</WFM_Status>
+        <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+        <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+        <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+        <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+        <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+        <comment xsi:type="xsd:string"></comment>
+        <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+          <item href="#3" />
+          <item href="#6" />
+        </Notities>
+      </NS2:TsearchOneResult>
+      <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-26</Datum>
+        <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+        <Bron xsi:type="xsd:string">WFM</Bron>
+        <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+        <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+      </NS2:TNotitie>
+      <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+        <Datum xsi:type="xsd:date">2019-06-27</Datum>
+        <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+        <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+        <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+        <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+      </NS2:TNotitie>
+    </NS1:searchOneResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:51:09,631 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:] [5] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Error in deserializing body of reply message for operation 'searchOne'.
+System.AggregateException: One or more errors occurred. (Error in deserializing body of reply message for operation 'searchOne'.) ---> System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at styx2_crs_send.Handle.CRSClient.Search(TaskModel TaskModel) in D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\Handle\CRSClient.cs:line 99
+---> (Inner Exception #0) System.ServiceModel.CommunicationException: Error in deserializing body of reply message for operation 'searchOne'. ---> System.InvalidOperationException: There is an error in XML document (24, 419). ---> System.InvalidOperationException: The referenced element with ID '1' was not found in the document.
+   at System.Xml.Serialization.XmlSerializationReader.GetTarget(String id)
+   at System.Xml.Serialization.XmlSerializationReader.FixupArrayRefs(Object fixup)
+   at System.Xml.Serialization.XmlSerializationReader.DoFixups()
+   at System.Xml.Serialization.XmlSerializationReader.ReadReferencedElements()
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateEncodedMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.GenerateMembersElement(XmlMembersMapping xmlMembersMapping)
+   at System.Xml.Serialization.ReflectionXmlSerializationReader.ReadObject()
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   --- End of inner exception stack trace ---
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   --- End of inner exception stack trace ---
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, XmlSerializer serializer, MessagePartDescription returnPart, MessagePartDescriptionCollection bodyParts, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.XmlSerializerOperationFormatter.DeserializeBody(XmlDictionaryReader reader, MessageVersion version, String action, MessageDescription messageDescription, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeBodyContents(Message message, Object[] parameters, Boolean isRequest)
+   at System.ServiceModel.Dispatcher.OperationFormatter.DeserializeReply(Message message, Object[] parameters)
+   at System.ServiceModel.Dispatcher.ProxyOperationRuntime.AfterReply(ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.HandleReply(ProxyOperationRuntime operation, ProxyRpc& rpc)
+   at System.ServiceModel.Channels.ServiceChannel.EndCall(String action, Object[] outs, IAsyncResult result)
+   at System.ServiceModel.Channels.ServiceChannelProxy.TaskCreator.<>c__DisplayClass1_0.<CreateGenericTask>b__0(IAsyncResult asyncResult)<---
+
+2019-07-01 17:51:09,790 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRS detected a XML Parser Exception (method searchOne). Retry to search again 1 time(s)
+2019-07-01 17:51:09,821 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:] [5] INFO  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender is sending message (OUT_MESSAGE) -> 
+  <?xml version="1.0" encoding="utf-16"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Header>
+    <Action s:mustUnderstand="1" xmlns="http://schemas.microsoft.com/ws/2005/05/addressing/none">urn:TicketServiceIntf-TicketService#searchOne</Action>
+  </s:Header>
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <q1:searchOne xmlns:q1="urn:TicketServiceIntf-TicketService">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+    </q1:searchOne>
+  </s:Body>
+</s:Envelope>
+2019-07-01 17:51:10,116 [X-Request-ID:(null)] [X-Message-ID:(null)] [ObjectMessageID:] [22] INFO  _logger [ActionType:(null)] [TicketRef:(null)] [ExternalTicketNo:(null)] [sourceId:(null)] [SourceSystemId:(null)] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - CRSSender received message (IN_MESSAGE) -> 
+ <?xml version="1.0" encoding="utf-16"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Header xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" />
+  <SOAP-ENV:Body SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:NS1="urn:TicketServiceIntf-TicketService" xmlns:NS2="urn:TicketServiceIntf">
+    <NS1:searchOneResponse>
+      <return xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TsearchOneResult[1]">
+        <item href="#1" />
+      </return>
+    </NS1:searchOneResponse>
+    <NS2:TsearchOneResult id="1" xsi:type="NS2:TsearchOneResult">
+      <Ticket_Nummer xsi:type="xsd:string">2661023-8</Ticket_Nummer>
+      <Datum_Afspraak xsi:type="xsd:date">2019-07-08</Datum_Afspraak>
+      <Dagdeel_Afspraak xsi:type="xsd:string">VM</Dagdeel_Afspraak>
+      <Naw_naam xsi:type="xsd:string">Name of Customer</Naw_naam>
+      <Naw_adres xsi:type="xsd:string">Street 12</Naw_adres>
+      <Naw_Straat xsi:type="xsd:string">Street of customer</Naw_Straat>
+      <Naw_Huisnummer xsi:type="xsd:string">12</Naw_Huisnummer>
+      <Naw_Toevoeging xsi:type="xsd:string"></Naw_Toevoeging>
+      <Naw_Locatieomschrijving xsi:type="xsd:string">1e etage</Naw_Locatieomschrijving>
+      <Naw_postcode xsi:type="xsd:string">1234AA</Naw_postcode>
+      <Naw_woonplaats xsi:type="xsd:string">City of customer</Naw_woonplaats>
+      <Naw_telefoon xsi:type="xsd:string">1234567890</Naw_telefoon>
+      <Naw_mobiel xsi:type="xsd:string">0612345678</Naw_mobiel>
+      <Naw_email xsi:type="xsd:string">email@adres.domainname </Naw_email>
+      <Ticket_Onderwerp xsi:type="xsd:string">COAX ~ Internet ~ Slecht modemsignaal</Ticket_Onderwerp>
+      <Eigen_Input xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Eigen_Input>
+      <verzorgingsgebied xsi:type="xsd:string">3</verzorgingsgebied>
+      <Kastlocatieglas xsi:type="xsd:string">WRT.3.103.12.14</Kastlocatieglas>
+      <Kastlocatieglas_switch xsi:type="xsd:string">cn-wtr-wp3-cs01.caiw.net</Kastlocatieglas_switch>
+      <kastlocatieglas_port xsi:type="xsd:string">GigabitEthernet2/4</kastlocatieglas_port>
+      <Kastlocatiecoax xsi:type="xsd:string">--190201</Kastlocatiecoax>
+      <kastlocatiecabinet xsi:type="xsd:string">Korte Spruit 2</kastlocatiecabinet>
+      <Kastlocatietab xsi:type="xsd:string">A10</Kastlocatietab>
+      <Networktype xsi:type="xsd:string">COAX</Networktype>
+      <WFM_Status xsi:type="xsd:string">to be cancelled</WFM_Status>
+      <Oorzaak_Storing_Monteur xsi:type="xsd:string">description of closure
+C91 : This is text for status code
+Author: 1 1 1
+Note:Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated
+</Oorzaak_Storing_Monteur>
+      <Monteur_Medewerker xsi:type="xsd:string"></Monteur_Medewerker>
+      <Afmeldcode xsi:type="xsd:string">02-03</Afmeldcode>
+      <WFM_Id xsi:type="xsd:string">AS2019062501</WFM_Id>
+      <WFM_Ready xsi:type="xsd:string">False</WFM_Ready>
+      <comment xsi:type="xsd:string"></comment>
+      <Notities xsi:type="SOAP-ENC:Array" SOAP-ENC:arrayType="NS2:TNotitie[2]">
+        <item href="#3" />
+        <item href="#6" />
+      </Notities>
+    </NS2:TsearchOneResult>
+    <NS2:TNotitie id="3" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-26</Datum>
+      <Tijd xsi:type="xsd:time">12:10:23.000Z</Tijd>
+      <Bron xsi:type="xsd:string">WFM</Bron>
+      <Medewerker xsi:type="xsd:string">Jan Rietveld</Medewerker>
+      <Notitie xsi:type="xsd:string">This is a large text which will have a maximum of 4000 characters.
+
+There can occur in multiple rules.
+
+
+Name of customer: John Doe
+
+Phone number: 1234567890
+
+</Notitie>
+    </NS2:TNotitie>
+    <NS2:TNotitie id="6" xsi:type="NS2:TNotitie">
+      <Datum xsi:type="xsd:date">2019-06-27</Datum>
+      <Tijd xsi:type="xsd:time">01:55:11.000Z</Tijd>
+      <Bron xsi:type="xsd:string">CAIW CRS</Bron>
+      <Medewerker xsi:type="xsd:string">1 1</Medewerker>
+      <Notitie xsi:type="xsd:string">Test CAIW Styx2 sender task AS from CRS adapter to CAIW CRS, Updated</Notitie>
+    </NS2:TNotitie>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+2019-07-01 17:51:13,263 [X-Request-ID:0debcc4b27064381a97a04c6abc12199] [X-Message-ID:92e5931e-f543-44bc-9acc-324a76b13561] [ObjectMessageID:SCS-0007] [5] WARN  _logger [ActionType:UpdateTaskByTicketRef] [TicketRef:2661023-8] [ExternalTicketNo:AS2019062501] [sourceId:CAIW] [SourceSystemId:CRS] [X-WMS-source-id:(null)] [X-WMS-source-system-id:(null)] [CreatorTaskId:(null)] - Can't update ticket 2661023-8 with MainStatus(CANCELLED) and SubStatus(TEMPORARY-FIX) because this ticket already had status 'to be cancelled', You can update status 'cancelled (effective)' or 'cancelled (expired)'.

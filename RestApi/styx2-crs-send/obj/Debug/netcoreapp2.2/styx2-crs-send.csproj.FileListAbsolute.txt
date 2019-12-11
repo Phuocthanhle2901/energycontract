@@ -1,0 +1,14 @@
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\bin\Debug\netcoreapp2.2\styx2-crs-send.deps.json
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\bin\Debug\netcoreapp2.2\styx2-crs-send.runtimeconfig.json
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\bin\Debug\netcoreapp2.2\styx2-crs-send.runtimeconfig.dev.json
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\bin\Debug\netcoreapp2.2\styx2-crs-send.dll
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\bin\Debug\netcoreapp2.2\styx2-crs-send.pdb
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.csproj.CoreCompileInputs.cache
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.RazorAssemblyInfo.cache
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.RazorAssemblyInfo.cs
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.AssemblyInfoInputs.cache
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.AssemblyInfo.cs
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.RazorTargetAssemblyInfo.cache
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.dll
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.pdb
+D:\git\ifd\Styx2\styx2-crs-send\styx2-crs-send\styx2-crs-send\obj\Debug\netcoreapp2.2\styx2-crs-send.csprojAssemblyReference.cache

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Configurations>Debug;Release;Qc</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cifw.EventBus" Version="1.1.7" />
+    <PackageReference Include="IFD.Logging" Version="1.0.7" />
+    <PackageReference Include="IFD.Mailling" Version="1.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>

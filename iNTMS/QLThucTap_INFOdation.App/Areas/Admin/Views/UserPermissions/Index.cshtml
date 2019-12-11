@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Repository.Models.UserPermission>
+@{
+    /**/
+
+    ViewBag.Title = "List of Students";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>List of User Permission</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info", onclick = "JavascriptFunction();" })
+</p>
+
+
+
+<table id="userpermission" class="tableStyle1">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissionID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Function.FunctionName)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPermissionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Function.FunctionName)
+            </td>
+
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.UserPermissionID }, new { @class = "glyphicon glyphicon-edit", onclick = "JavascriptFunction();" })<br/>@Html.ActionLink(" ", "Details", new { id = item.UserPermissionID }, new { @class = "glyphicon glyphicon-eye-open", onclick = "JavascriptFunction();" })<br/>@Html.ActionLink(" ", "Delete", new { id = item.UserPermissionID }, new { @class = "glyphicon glyphicon-trash", onclick = "JavascriptFunction();" })
+            </td>
+        </tr>
+    }
+
+</table>
+<link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts
+{
+    <script src="/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#userpermission").DataTable();
+
+        });
+    </script>
+<style>
+    td.highlight1 {
+        background-color: #B961C3 !important;
+    }
+
+    .tableStyle1 {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: auto;
+    }
+        /*Style for Table Head - TH*/
+        .tableStyle1 th {
+            text-align: left;
+            background-color: #8b1dba;
+            color: #fff;
+            text-align: left;
+            padding: 25px;
+        }
+        /*TD and TH Style*/
+        .tableStyle1 td, .tableStyle1 th {
+            border: 1px solid #dedede; /*Border color*/
+            padding: 15px;
+        }
+        /*Table Even Rows Styles*/
+        .tableStyle1 tr:nth-child(even) {
+            background-color: #EFF1F1;
+        }
+        /*Table ODD Rows Styles*/
+        .tableStyle1 tr:nth-child(odd) {
+            background-color: #E3EDED;
+        }
+        /*Table Row HOver Style*/
+        .tableStyle1 tr:hover {
+            background-color: #B961C3;
+        }
+</style>
+<script>
+        $(document).ready(function () {
+            var table = $('#userpermission').DataTable();
+
+            $('#userpermission tbody')
+                .on('mouseenter', 'td', function () {
+                    var colIdx = table.cell(this).index().column;
+
+                    $(table.cells().nodes()).removeClass('highlight');
+                    $(table.column(colIdx).nodes()).addClass('highlight');
+                });
+        });
+</script>
+<div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px;
+    top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001;
+    opacity: .8; filter: alpha(opacity=70);display:none">
+    <p style="position: absolute; top: 50%; left: 50%; color: White;">
+        <img src="~/img/ajax-loader (1).gif"><br/>Please Wait...
+    </p>
+</div>
+
+<script type="text/javascript" language="javascript">
+    function JavascriptFunction() {
+        var url = '@Url.Action("Index", "UserPermissions")';
+        $("#divLoading").show();
+        $.post(url, null,
+                function (data) {
+                    $("#PID")[0].innerHTML = data;
+                    $("#divLoading").hide();
+                });
+    }
+</script>
+}
