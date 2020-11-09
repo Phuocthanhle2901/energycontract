@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>    
+    <PackageReference Include="AutoMapper" Version="6.2.2" />    
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\CifwCocon.Dal\CifwCocon.Entities.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.NetworkInformation.Bo\CifwCocon.NetworkInformation.Bo.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Service\CifwCocon.Service.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Utility\CifwCocon.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

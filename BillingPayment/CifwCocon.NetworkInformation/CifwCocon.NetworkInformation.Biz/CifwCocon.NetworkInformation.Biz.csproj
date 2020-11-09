@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="Cifw.Core" Version="1.0.6" />
+    <PackageReference Include="Cifw.EventBus" Version="1.1.7" />
+    <PackageReference Include="IFD.Logging" Version="1.0.7" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Dal\CifwCocon.Entities.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.NetworkInformation.Bo\CifwCocon.NetworkInformation.Bo.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Repositories\CifwCocon.Repositories.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Service\CifwCocon.Service.csproj" />
+    <ProjectReference Include="..\..\CifwCocon.Common\CifwCocon.Utility\CifwCocon.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

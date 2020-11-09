@@ -1,0 +1,119 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+  
+}
+.news-item { 
+  display:inline-block; 
+  width: 120px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+} 
+
+.tentuong{
+  text-align: center;
+}
+h2{
+  text-align:right;
+  margin-right:60px;
+}
+body {
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        height: 100%;}
+.ten{
+ font-family: 'Kaushan Script', cursive;
+  font-size: 60px;
+  color: #F3F56E;
+}
+.chude1{
+  font-family: 'Coiny', cursive;
+}
+.chude2{
+  font-family: 'Coiny', cursive;
+}
+.chude3{
+  font-family: 'Coiny', cursive;
+}
+.chunen{
+ font-family: 'Domine', serif;
+  color: #CF0B36
+}
+.game{
+  color: #0CF4F7;
+  font-size: 50px;
+}
+.container{
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+}
+.current{
+  font-family: 'Bungee Inline', cursive;
+}
+.tuong{
+  font-family: 'Bungee Inline', cursive;
+}
+.dark{
+  padding: 15px;
+  background: #35424a;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+
+header{
+  background: #353637;
+  color: #ffffff;
+  padding-top: 30px;
+  min-height: 70px;
+  border-bottom: #32a0c2 3px solid;
+}
+
+header a{
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+header li{
+  float: left;
+  display: inline;
+  padding: 0 20px 0 20px;
+}
+
+header #branding {
+  float: left;
+}
+
+header #branding h1{
+  margin: 0;
+}
+
+header nav{
+  float: right;
+  margin-top: 10px;
+}
+
+header .highlight, header .current a {
+  color: #0CA93B;
+  font-weight: bold;
+}
+
+header a:hover{
+  color: #cccccc;
+  font-weight: bold;
+}

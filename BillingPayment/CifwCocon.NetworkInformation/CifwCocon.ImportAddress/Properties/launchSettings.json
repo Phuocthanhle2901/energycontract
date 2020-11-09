@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CifwCocon.ImportAddress": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

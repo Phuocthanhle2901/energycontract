@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UpdateCoconPayment": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Debug"
+      }
+    }
+  }
+}
