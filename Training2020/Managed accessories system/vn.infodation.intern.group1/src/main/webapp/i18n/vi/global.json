@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Jhipster",
+    "title": "INFOdation",
     "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>quá cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt</a> của bạn để có trải nghiệm tốt nhất.",
     "menu": {
       "home": "Trang chủ",
@@ -62,7 +62,7 @@
           "suffix": ", bạn có thể thử với tài khoản mặc định:<br/>- Quản trị viên (tài khoản=\"admin\" và mật khẩu=\"admin\") <br/>- Người dùng (tài khoản=\"user\" và mật khẩu=\"user\")."
         },
         "register": {
-          "noaccount": "Bạn vẫn chưa có tài khoản?",
+          "noaccount": "Bạn vẫn chưa có tài khoản? Hãy liên hệ quản trị viên để được cấp tài khoản sử dụng.",
           "link": "Đăng ký tài khoản mới"
         }
       },
