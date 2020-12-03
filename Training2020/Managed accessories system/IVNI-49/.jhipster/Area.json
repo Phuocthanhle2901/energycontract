@@ -1,0 +1,44 @@
+{
+  "name": "Area",
+  "fields": [
+    {
+      "fieldName": "areaName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "equipment",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "equipment"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "employee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "leader",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201130145057",
+  "entityTableName": "area",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

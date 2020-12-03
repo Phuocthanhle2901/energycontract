@@ -1,0 +1,24 @@
+{
+  "managedAccessoriesSystemApp": {
+    "actionType": {
+      "home": {
+        "title": "Action Types",
+        "createLabel": "Create a new Action Type",
+        "createOrEditLabel": "Create or edit a Action Type",
+        "notFound": "No Action Types found"
+      },
+      "created": "A new Action Type is created with identifier {{ param }}",
+      "updated": "A Action Type is updated with identifier {{ param }}",
+      "deleted": "A Action Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Action Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Action Type"
+      },
+      "actionTitle": "Action Title",
+      "description": "Description",
+      "actionLog": "Action Log"
+    }
+  }
+}

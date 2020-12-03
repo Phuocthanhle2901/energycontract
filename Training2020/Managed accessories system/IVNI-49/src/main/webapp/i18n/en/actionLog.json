@@ -1,0 +1,30 @@
+{
+  "managedAccessoriesSystemApp": {
+    "actionLog": {
+      "home": {
+        "title": "Action Logs",
+        "createLabel": "Create a new Action Log",
+        "createOrEditLabel": "Create or edit a Action Log",
+        "notFound": "No Action Logs found"
+      },
+      "created": "A new Action Log is created with identifier {{ param }}",
+      "updated": "A Action Log is updated with identifier {{ param }}",
+      "deleted": "A Action Log is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Action Log {{ id }}?"
+      },
+      "detail": {
+        "title": "Action Log"
+      },
+      "startDate": "Start Date",
+      "expectedEndDate": "Expected End Date",
+      "actualEndDate": "Actual End Date",
+      "price": "Price",
+      "note": "Note",
+      "user": "User",
+      "actionType": "Action Type",
+      "placeToPerform": "Place To Perform",
+      "equipment": "Equipment"
+    }
+  }
+}

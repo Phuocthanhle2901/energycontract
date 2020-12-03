@@ -1,0 +1,135 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-action-log-heading" jhiTranslate="managedAccessoriesSystemApp.actionLog.home.createOrEditLabel">Create or edit a Action Log</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.startDate" for="field_startDate">Start Date</label>
+                    <div class="d-flex">
+                        <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" formControlName="startDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('startDate')!.invalid && (editForm.get('startDate')!.dirty || editForm.get('startDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('startDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('startDate')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.expectedEndDate" for="field_expectedEndDate">Expected End Date</label>
+                    <div class="d-flex">
+                        <input id="field_expectedEndDate" type="datetime-local" class="form-control" name="expectedEndDate" formControlName="expectedEndDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.actualEndDate" for="field_actualEndDate">Actual End Date</label>
+                    <div class="d-flex">
+                        <input id="field_actualEndDate" type="datetime-local" class="form-control" name="actualEndDate" formControlName="actualEndDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.price" for="field_price">Price</label>
+                    <input type="number" class="form-control" name="price" id="field_price"
+                           formControlName="price"/>
+                    <div *ngIf="editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('price')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('price')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.note" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.actionType" for="field_actionType">Action Type</label>
+                    <select class="form-control" id="field_actionType" name="actionType" formControlName="actionType">
+                        <option *ngIf="!editForm.get('actionType')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="actionTypeOption.id === editForm.get('actionType')!.value?.id ? editForm.get('actionType')!.value : actionTypeOption" *ngFor="let actionTypeOption of actiontypes; trackBy: trackById">{{ actionTypeOption.actionTitle }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('actionType')!.invalid && (editForm.get('actionType')!.dirty || editForm.get('actionType')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('actionType')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.placeToPerform" for="field_placeToPerform">Place To Perform</label>
+                    <select class="form-control" id="field_placeToPerform" name="placeToPerform" formControlName="placeToPerform">
+                        <option *ngIf="!editForm.get('placeToPerform')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="placeToPerformOption.id === editForm.get('placeToPerform')!.value?.id ? editForm.get('placeToPerform')!.value : placeToPerformOption" *ngFor="let placeToPerformOption of placetoperforms; trackBy: trackById">{{ placeToPerformOption.placeName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('placeToPerform')!.invalid && (editForm.get('placeToPerform')!.dirty || editForm.get('placeToPerform')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('placeToPerform')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.actionLog.equipment" for="field_equipment">Equipment</label>
+                    <select class="form-control" id="field_equipment" name="equipment" formControlName="equipment">
+                        <option *ngIf="!editForm.get('equipment')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="equipmentOption.id === editForm.get('equipment')!.value?.id ? editForm.get('equipment')!.value : equipmentOption" *ngFor="let equipmentOption of equipment; trackBy: trackById">{{ equipmentOption.equipmentName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('equipment')!.invalid && (editForm.get('equipment')!.dirty || editForm.get('equipment')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('equipment')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

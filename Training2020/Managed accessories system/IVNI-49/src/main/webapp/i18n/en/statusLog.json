@@ -1,0 +1,25 @@
+{
+  "managedAccessoriesSystemApp": {
+    "statusLog": {
+      "home": {
+        "title": "Status Logs",
+        "createLabel": "Create a new Status Log",
+        "createOrEditLabel": "Create or edit a Status Log",
+        "notFound": "No Status Logs found"
+      },
+      "created": "A new Status Log is created with identifier {{ param }}",
+      "updated": "A Status Log is updated with identifier {{ param }}",
+      "deleted": "A Status Log is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Status Log {{ id }}?"
+      },
+      "detail": {
+        "title": "Status Log"
+      },
+      "statusDateTime": "Status Date Time",
+      "note": "Note",
+      "statusType": "Status Type",
+      "equipment": "Equipment"
+    }
+  }
+}

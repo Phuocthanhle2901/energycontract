@@ -1,0 +1,30 @@
+{
+  "managedAccessoriesSystemApp": {
+    "actionLog": {
+      "home": {
+        "title": "Action Logs",
+        "createLabel": "Thêm mới một Action Log",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Action Log",
+        "notFound": "No Action Logs found"
+      },
+      "created": "Một Action Log mới được tạo với định danh {{ param }}",
+      "updated": "Một Action Log cập nhật với định danh {{ param }}",
+      "deleted": "Một Action Log đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Action Log {{ id }}?"
+      },
+      "detail": {
+        "title": "Action Log"
+      },
+      "startDate": "Start Date",
+      "expectedEndDate": "Expected End Date",
+      "actualEndDate": "Actual End Date",
+      "price": "Price",
+      "note": "Note",
+      "user": "User",
+      "actionType": "Action Type",
+      "placeToPerform": "Place To Perform",
+      "equipment": "Equipment"
+    }
+  }
+}
