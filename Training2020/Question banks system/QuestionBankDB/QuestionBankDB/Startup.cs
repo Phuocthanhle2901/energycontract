@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using QuestionBankDB.Models;
+using QuestionBankDB.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,15 @@ namespace QuestionBankDB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<QuestionDatabaseSetting>(
+               Configuration.GetSection(nameof(QuestionDatabaseSetting)));
+
+            services.AddSingleton<IQuestionBankSettings>(sp =>
+                sp.GetRequiredService<IOptions<QuestionDatabaseSetting>>().Value);
+
+            services.AddSingleton<QuestionService>();
+            services.AddSingleton<UserInfoService>();
+            services.AddSingleton<AnswerUserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
