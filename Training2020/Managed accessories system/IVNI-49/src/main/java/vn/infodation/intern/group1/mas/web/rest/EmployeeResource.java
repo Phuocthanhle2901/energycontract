@@ -4,9 +4,11 @@ import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.service.FileStorageService;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
-
+import vn.infodation.intern.group1.mas.web.rest.errors.EmployeeNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.micrometer.core.annotation.Timed;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -126,21 +128,14 @@ public class EmployeeResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
     
-    @GetMapping("/employees-export/{id}")
-    public ResponseEntity<Employee> exportEmployee(HttpServletResponse response, @PathVariable Long id) throws IOException{
-    	String name = "user.csv";
+    @GetMapping("/employees/{id}/$content")
+    @Timed
+    public ResponseEntity<Employee> exportEmployee(@PathVariable Long id){
+    	Employee employee = employeeRepository.findOneById(id).orElseThrow(EmployeeNotFoundException::new);
     	
-    	response.setContentType("text/csv");
-    	response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + name + "\"");
-    	
-    	FileWriter fileWriter = new FileWriter(name);
-    	FileStorageService service = new FileStorageService();
-    	
-    	fileWriter.write(service.getFile(id, employeeRepository));
-    	fileWriter.close();
-    	
-    	Optional<Employee> employee = employeeRepository.findById(id);
-    	return ResponseUtil.wrapOrNotFound(employee);
+    	return ResponseEntity.ok()
+    			.contentType(MediaType.parseMediaType("text/html"))
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"user\"")
+    			.body(employee);
     }
 }
