@@ -109,7 +109,9 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "export": "Export",
+      "import": "Import"
     },
     "detail": {
       "field": "Field",

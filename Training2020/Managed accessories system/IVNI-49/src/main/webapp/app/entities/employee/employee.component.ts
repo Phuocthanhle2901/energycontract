@@ -8,6 +8,8 @@ import { IEmployee } from 'app/shared/model/employee.model';
 import { EmployeeService } from './employee.service';
 import { EmployeeDeleteDialogComponent } from './employee-delete-dialog.component';
 
+import * as fileSaver from 'file-saver';
+
 @Component({
   selector: 'jhi-employee',
   templateUrl: './employee.component.html',
@@ -45,5 +47,18 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   delete(employee: IEmployee): void {
     const modalRef = this.modalService.open(EmployeeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.employee = employee;
+  }
+  
+  exportEmployee(employee: IEmployee): void{
+  	this.employeeService.export(employee.id!).subscribe(response => {
+  		const filename = response.headers.get('filename');
+  		
+  		this.saveFile(response.body, filename!);
+  	});
+  }
+  
+  saveFile(data: any, filename?: string): void{
+    const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
+    fileSaver.saveAs(blob, filename);
   }
 }

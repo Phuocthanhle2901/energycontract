@@ -62,6 +62,12 @@
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                             </button>
+                            
+                            <button type="button"
+				                    (click)="exportEmployee(employee)"
+				                    class="btn btn-primary">
+				                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
+				            </button>
                         </div>
                     </td>
                 </tr>
