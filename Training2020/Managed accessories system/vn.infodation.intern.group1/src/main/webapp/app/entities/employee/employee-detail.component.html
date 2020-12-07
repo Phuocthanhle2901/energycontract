@@ -14,12 +14,12 @@
                 </dd>
                 <dt><span jhiTranslate="jhipsterApp.employee.user">User</span></dt>
                 <dd>
-                    {{ employee.user?.id }}
+                    {{ employee.user?.lastName }}
                 </dd>
                 <dt><span jhiTranslate="jhipsterApp.employee.area">Area</span></dt>
                 <dd>
                     <div *ngIf="employee.area">
-                        <a [routerLink]="['/area', employee.area?.id, 'view']">{{ employee.area?.id }}</a>
+                        <a [routerLink]="['/area', employee.area?.id, 'view']">{{ employee.area?.areaName }}</a>
                     </div>
                 </dd>
             </dl>
