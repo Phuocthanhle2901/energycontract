@@ -148,6 +148,14 @@ public class EmployeeResource {
     	return fileService.getFile(employee.getUser().getLogin() + ".csv", response);
     }
     
+    @GetMapping(value = "/employees-export/", produces = "text/csv; charset=utf-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Resource exportAllEmployee(HttpServletResponse response){
+    	this.writeFile();
+    	
+    	return fileService.getFile("users.csv", response);
+    }
+    
     private void writeFile(Employee employee) {
     	String filename = employee.getUser().getLogin() + ".csv";
     	String path = "/csv/users/";
@@ -190,5 +198,51 @@ public class EmployeeResource {
     			e.printStackTrace();
     		}
     	}
+    }
+
+    private void writeFile() {
+    	String filename = "users.csv";
+    	String path = "/csv/users/";
+    	List<Employee> x = employeeRepository.findAll();
+    	
+    	File directory = new File(path);
+    	if(!directory.exists()) {
+    		directory.mkdirs();
+    	}
+    	
+    	File file = new File(path + filename);
+		final String fileHeader = "id,login,first_name,last_name,email,area_id,phone_number";
+		final String SEPERATOR = ",";
+		String value = fileHeader + "\n";
+		
+    	try {
+    		for (Employee employee : x) {
+    			User user = employee.getUser();
+    			final String[] elements = new String[] {
+    					employee.getId().toString(),
+    					user.getLogin(),
+    					user.getFirstName(),
+    					user.getLastName(),
+    					user.getEmail(),
+    					employee.getArea().getId().toString(),
+    					employee.getPhoneNumber()
+    			};
+    			
+    			for (String string : elements) {
+    				value += string;
+    				if(string != elements[elements.length - 1])
+    					value += SEPERATOR;
+				}
+    			
+    			value += "\n";
+			}
+    		
+    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(value);
+            bw.close();
+    	}catch (IOException e){
+			e.printStackTrace();
+		}
     }
 }

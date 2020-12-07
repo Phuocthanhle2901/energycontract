@@ -1,7 +1,13 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="managedAccessoriesSystemApp.employee.home.title">Employees</span>
-
+		
+		<button type="button"
+				(click)="exportAllEmployees()"
+				class="btn btn-success float-right ml-1">
+				&nbsp;<span jhiTranslate="entity.action.export">Export</span>
+		</button>
+		
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="managedAccessoriesSystemApp.employee.home.createLabel">
@@ -65,7 +71,7 @@
                             
                             <button type="button"
 				                    (click)="exportEmployee(employee)"
-				                    class="btn btn-primary">
+				                    class="btn btn-success ml-1">
 				                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
 				            </button>
                         </div>

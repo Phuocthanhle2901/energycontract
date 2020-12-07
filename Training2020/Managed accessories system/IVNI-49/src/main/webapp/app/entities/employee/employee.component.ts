@@ -57,6 +57,14 @@ export class EmployeeComponent implements OnInit, OnDestroy {
   	});
   }
   
+  exportAllEmployees(): void{
+  	this.employeeService.exportAll().subscribe(response => {
+  		const filename = response.headers.get('filename');
+  		
+  		this.saveFile(response.body, filename!);
+  	});
+  }
+  
   saveFile(data: any, filename?: string): void{
     const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
     fileSaver.saveAs(blob, filename);

@@ -46,4 +46,15 @@ export class EmployeeService {
       responseType: 'text'
     });
   }
+  
+  exportAll(): Observable<HttpResponse<string>> {
+  	let headers = new HttpHeaders();
+  	headers = headers.append('Accept', 'text/csv; charset=utf-8');
+  	
+  	return this.http.get('/api/employees-export/', {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
+  }
 }
