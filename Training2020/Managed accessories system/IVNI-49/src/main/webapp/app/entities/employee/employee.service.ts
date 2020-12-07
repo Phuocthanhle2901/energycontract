@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -36,7 +36,14 @@ export class EmployeeService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
   
-  export(id: number): Observable<Blob> {
-  	return this.http.get(`${this.resourceUrl}/${id}/$content`, {responseType: 'blob'});
+  export(id: number): Observable<HttpResponse<string>> {
+  	let headers = new HttpHeaders();
+  	headers = headers.append('Accept', 'text/csv; charset=utf-8');
+  	
+  	return this.http.get('/api/employees-export/' + id, {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
   }
 }
