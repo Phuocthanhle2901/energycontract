@@ -1,0 +1,16 @@
+.mod-footer{
+   background-image: url("../../../assets/Images/footer.jpg");
+   width: 100%;
+   color: #fff;
+   z-index: 1;
+
+  ul{
+    list-style: none;
+    li{
+      cursor: pointer;
+       &:hover{
+         color: rgb(105, 58, 58);
+       }
+    }
+  }
+}
