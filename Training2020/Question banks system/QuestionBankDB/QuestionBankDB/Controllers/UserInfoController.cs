@@ -73,5 +73,13 @@ namespace QuestionBankDB.Controllers
 
             return NoContent();
         }
+        
+        [HttpPost]
+        [Route("login")]
+        public string PostLogin( string email)
+        {
+            return "fda"+email;
+        }
+
     }
 }

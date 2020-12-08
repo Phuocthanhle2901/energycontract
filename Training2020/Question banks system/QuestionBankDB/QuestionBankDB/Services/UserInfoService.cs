@@ -30,7 +30,7 @@ namespace QuestionBankDB.Services
         {
             _userInfo.InsertOne(userInfo);
             return userInfo;
-        }
+        } 
 
         public void Update(string id, UserInfo userInfoId) =>
             _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
@@ -40,5 +40,12 @@ namespace QuestionBankDB.Services
 
         public void Remove(string id) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == id);
+
+
+        public Object postLogin( Object user)
+        {
+            return user;
+        }
+
     }
 }

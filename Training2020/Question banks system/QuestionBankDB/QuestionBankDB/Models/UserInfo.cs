@@ -24,7 +24,7 @@ namespace QuestionBankDB.Models
 
         [BsonElement("password")]
        
-        public long Password { get; set; }
+        public string Password { get; set; }
 
         [BsonElement("role")]
         public long Role { get; set; }
