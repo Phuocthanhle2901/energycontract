@@ -76,9 +76,9 @@ namespace QuestionBankDB.Controllers
         
         [HttpPost]
         [Route("login")]
-        public string PostLogin( string email)
+        public string PostLogin( UserInfo user)
         {
-            return "fda"+email;
+            return "fda"+ user;
         }
 
     }
