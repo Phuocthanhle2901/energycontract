@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpStatus;
 
 import com.google.common.net.HttpHeaders;
@@ -145,15 +146,20 @@ public class EmployeeResource {
     	Employee employee = employeeRepository.findOneById(id).orElseThrow(EmployeeNotFoundException::new);
     	this.writeFile(employee);
     	
-    	return fileService.getFile(employee.getUser().getLogin() + ".csv", response);
+    	return fileService.getEmployeeFile(employee.getUser().getLogin() + ".csv", response);
     }
     
-    @GetMapping(value = "/employees-export/", produces = "text/csv; charset=utf-8")
+    @GetMapping(value = "/employees-export", produces = "text/csv; charset=utf-8")
     @ResponseStatus(HttpStatus.OK)
     public Resource exportAllEmployee(HttpServletResponse response){
     	this.writeFile();
     	
-    	return fileService.getFile("users.csv", response);
+    	return fileService.getEmployeeFile("users.csv", response);
+    }
+    
+    @PostMapping("/employees-import")
+    public void importAllEmployee(@RequestParam("file") MultipartFile file){
+    	fileService.handleEmployeeFile(file, employeeRepository);
     }
     
     private void writeFile(Employee employee) {
