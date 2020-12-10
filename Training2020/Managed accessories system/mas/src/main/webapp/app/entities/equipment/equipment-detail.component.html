@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="equipment">
+            <h2><span jhiTranslate="masApp.equipment.detail.title">Equipment</span> {{ equipment.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="masApp.equipment.purchaseDate">Purchase Date</span></dt>
+                <dd>
+                    <span>{{ equipment.purchaseDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.equipmentName">Equipment Name</span></dt>
+                <dd>
+                    <span>{{ equipment.equipmentName }}</span>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.technicalFeatures">Technical Features</span></dt>
+                <dd>
+                    <span>{{ equipment.technicalFeatures }}</span>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.serialNumber">Serial Number</span></dt>
+                <dd>
+                    <span>{{ equipment.serialNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.note">Note</span></dt>
+                <dd>
+                    <span>{{ equipment.note }}</span>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.user">User</span></dt>
+                <dd>
+                    <div *ngIf="equipment.user">
+                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.equipmentGroup">Equipment Group</span></dt>
+                <dd>
+                    <div *ngIf="equipment.equipmentGroup">
+                        <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']">{{ equipment.equipmentGroup?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.equipmentType">Equipment Type</span></dt>
+                <dd>
+                    <div *ngIf="equipment.equipmentType">
+                        <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']">{{ equipment.equipmentType?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="masApp.equipment.area">Area</span></dt>
+                <dd>
+                    <div *ngIf="equipment.area">
+                        <a [routerLink]="['/area', equipment.area?.id, 'view']">{{ equipment.area?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/equipment', equipment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
