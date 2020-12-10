@@ -1,10 +1,9 @@
 ﻿using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using QuestionBankDB.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace QuestionBankDB.Services
 {
@@ -43,17 +42,12 @@ namespace QuestionBankDB.Services
 
         public ActionResult<List<string>> GetTheme()
         {
-            List<string> themes = new List<string>();
-            List<Question> questions = new List<Question>();
-            questions = _question.Find(question => true).ToList(); //get all questions
-            foreach(Question i in questions) //traverse questions list
-            {
-                if(themes.IndexOf(i.ThemeName)<0) { //check if theme name of current question exists in themes list
-                    themes.Add(i.ThemeName); //add theme name to themes list
-                }
-            }
-            return themes.ToList();
+            //get distinct values of theme names from questions collection and convert to string list
+            return _question.Distinct(new StringFieldDefinition<Question, string>("themeName"), FilterDefinition<Question>.Empty).ToList();
         }
+
+        //return questions with specific theme name
+        public List<Question> GetThemeQuestions(string theme) => _question.Find(question => question.ThemeName.Equals(theme)).ToList();
     }
 
 }
