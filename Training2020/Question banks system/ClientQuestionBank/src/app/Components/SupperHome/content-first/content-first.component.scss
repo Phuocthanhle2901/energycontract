@@ -1,0 +1,66 @@
+.content-first
+{
+
+    background-color: #f8ecf4;
+    padding: 5rem 0;
+  &-content{
+    h5{
+      color: #e42f2f;
+    }
+    h2{
+      position: relative;
+      color: #28395a;
+      z-index: 1;
+      font-weight: 1000;
+      &::after{
+        font-weight: 500;
+        display: block;
+        content:"-----";
+      }
+
+    }
+  }
+}
+@mixin hoverBox {
+  color: rgb(233, 34, 34);
+}
+.content-first-content{
+  position: relative;
+  .content-first-two{
+    top: -120px;
+    position: relative;
+    .card{
+      cursor: pointer;
+      position: relative;
+      display: block;
+      border:none;
+      transition: all 0.4s;
+      &:hover{
+        border: block;
+         box-shadow: 1px 2px 3px #16163a;
+        border-bottom: 2px solid red;
+         a,i{
+          color: rgb(233, 34, 34);
+         }
+      }
+
+      &-STT{
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        display: block;
+        h3{
+          color: #e42f2f;
+          font-size: 2.5rem;
+          font-weight: 1000;
+        }
+      }
+      &-name{
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
