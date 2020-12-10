@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using QuestionBankDB.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace QuestionBankDB.Services
 {
@@ -39,6 +40,18 @@ namespace QuestionBankDB.Services
 
         public void Remove(string id) =>
             _question.DeleteOne(question => question.Id == id);
+
+        public ActionResult<List<string>> GetTheme()
+        {
+            List<string> themes = new List<string>();
+            List<Question> questions = new List<Question>();
+            questions = _question.Find(question => true).ToList(); //get all questions
+            foreach(Question i in questions)
+            {
+                themes.Add(i.ThemeName); //add theme name of each question to themes list
+            }
+            return themes.Distinct().ToList(); //return themes list with distinct values
+        }
     }
 
 }

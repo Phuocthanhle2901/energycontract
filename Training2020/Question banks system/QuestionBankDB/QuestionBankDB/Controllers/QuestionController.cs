@@ -74,6 +74,10 @@ namespace QuestionBankDB.Controllers
 
             return NoContent();
         }
+
+        [HttpPost]
+        [Route("themes")]
+        public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
     }
     
 }
