@@ -1,0 +1,38 @@
+
+<div class="mod-login d-flex flex-column">
+  <div class="mod-login-header">
+    <app-haeder></app-haeder>
+  </div>
+
+    <div class="mod-login-form">
+      <h2 class="text-center">New Account</h2>
+      <form >
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email</label>
+          <input type="email" class="form-control " #email   id="exampleInputEmail1" placeholder="Email..." aria-describedby="emailHelp">
+
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" #password   placeholder="Password..." id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Confirm Password</label>
+          <input type="password" class="form-control" #repassword   placeholder="Confirm Password..." id="exampleInputPassword1">
+        </div>
+        <div class="form-group">
+          <button   class=" form-control btn btn-primary">  <fa-icon [icon]="register"></fa-icon>  Register </button>
+        </div>
+        <div class="login-link text-center">
+
+          <a href="/login">Back Login</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="mod-login-footer">
+      <app-footer></app-footer>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
