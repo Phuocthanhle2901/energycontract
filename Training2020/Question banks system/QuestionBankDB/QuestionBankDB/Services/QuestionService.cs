@@ -46,11 +46,13 @@ namespace QuestionBankDB.Services
             List<string> themes = new List<string>();
             List<Question> questions = new List<Question>();
             questions = _question.Find(question => true).ToList(); //get all questions
-            foreach(Question i in questions)
+            foreach(Question i in questions) //traverse questions list
             {
-                themes.Add(i.ThemeName); //add theme name of each question to themes list
+                if(themes.IndexOf(i.ThemeName)<0) { //check if theme name of current question exists in themes list
+                    themes.Add(i.ThemeName); //add theme name to themes list
+                }
             }
-            return themes.Distinct().ToList(); //return themes list with distinct values
+            return themes.ToList();
         }
     }
 
