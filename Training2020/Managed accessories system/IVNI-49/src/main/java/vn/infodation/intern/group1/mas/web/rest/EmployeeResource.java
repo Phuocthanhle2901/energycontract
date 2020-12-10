@@ -159,7 +159,7 @@ public class EmployeeResource {
     
     @PostMapping("/employees-import")
     public void importAllEmployee(@RequestParam("file") MultipartFile file){
-    	fileService.handleEmployeeFile(file, employeeRepository);
+    	fileService.handleEmployeeFile(file);
     }
     
     private void writeFile(Employee employee) {
