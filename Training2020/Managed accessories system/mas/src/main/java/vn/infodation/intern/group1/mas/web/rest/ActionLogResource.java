@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.ActionLog;
 import vn.infodation.intern.group1.mas.repository.ActionLogRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class ActionLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/action-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<ActionLog> createActionLog(@Valid @RequestBody ActionLog actionLog) throws URISyntaxException {
         log.debug("REST request to save ActionLog : {}", actionLog);
         if (actionLog.getId() != null) {
@@ -69,6 +72,7 @@ public class ActionLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/action-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<ActionLog> updateActionLog(@Valid @RequestBody ActionLog actionLog) throws URISyntaxException {
         log.debug("REST request to update ActionLog : {}", actionLog);
         if (actionLog.getId() == null) {
@@ -111,6 +115,7 @@ public class ActionLogResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/action-logs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteActionLog(@PathVariable Long id) {
         log.debug("REST request to delete ActionLog : {}", id);
         actionLogRepository.deleteById(id);

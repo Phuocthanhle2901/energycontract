@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.StatusType;
 import vn.infodation.intern.group1.mas.repository.StatusTypeRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class StatusTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/status-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<StatusType> createStatusType(@Valid @RequestBody StatusType statusType) throws URISyntaxException {
         log.debug("REST request to save StatusType : {}", statusType);
         if (statusType.getId() != null) {
@@ -69,6 +72,7 @@ public class StatusTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/status-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<StatusType> updateStatusType(@Valid @RequestBody StatusType statusType) throws URISyntaxException {
         log.debug("REST request to update StatusType : {}", statusType);
         if (statusType.getId() == null) {
@@ -111,6 +115,7 @@ public class StatusTypeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/status-types/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteStatusType(@PathVariable Long id) {
         log.debug("REST request to delete StatusType : {}", id);
         statusTypeRepository.deleteById(id);

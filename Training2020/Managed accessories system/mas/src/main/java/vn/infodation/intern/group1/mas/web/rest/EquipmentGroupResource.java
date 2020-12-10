@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.EquipmentGroup;
 import vn.infodation.intern.group1.mas.repository.EquipmentGroupRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class EquipmentGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/equipment-groups")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<EquipmentGroup> createEquipmentGroup(@Valid @RequestBody EquipmentGroup equipmentGroup) throws URISyntaxException {
         log.debug("REST request to save EquipmentGroup : {}", equipmentGroup);
         if (equipmentGroup.getId() != null) {
@@ -69,6 +72,7 @@ public class EquipmentGroupResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/equipment-groups")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<EquipmentGroup> updateEquipmentGroup(@Valid @RequestBody EquipmentGroup equipmentGroup) throws URISyntaxException {
         log.debug("REST request to update EquipmentGroup : {}", equipmentGroup);
         if (equipmentGroup.getId() == null) {
@@ -111,6 +115,7 @@ public class EquipmentGroupResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/equipment-groups/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteEquipmentGroup(@PathVariable Long id) {
         log.debug("REST request to delete EquipmentGroup : {}", id);
         equipmentGroupRepository.deleteById(id);

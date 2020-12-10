@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.StatusLog;
 import vn.infodation.intern.group1.mas.repository.StatusLogRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class StatusLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/status-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<StatusLog> createStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
         log.debug("REST request to save StatusLog : {}", statusLog);
         if (statusLog.getId() != null) {
@@ -69,6 +72,7 @@ public class StatusLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/status-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<StatusLog> updateStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
         log.debug("REST request to update StatusLog : {}", statusLog);
         if (statusLog.getId() == null) {
@@ -111,6 +115,7 @@ public class StatusLogResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/status-logs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteStatusLog(@PathVariable Long id) {
         log.debug("REST request to delete StatusLog : {}", id);
         statusLogRepository.deleteById(id);

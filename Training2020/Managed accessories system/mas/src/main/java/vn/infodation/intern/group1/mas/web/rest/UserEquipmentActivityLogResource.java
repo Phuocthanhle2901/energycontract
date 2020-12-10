@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.UserEquipmentActivityLog;
 import vn.infodation.intern.group1.mas.repository.UserEquipmentActivityLogRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class UserEquipmentActivityLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/user-equipment-activity-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserEquipmentActivityLog> createUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
         log.debug("REST request to save UserEquipmentActivityLog : {}", userEquipmentActivityLog);
         if (userEquipmentActivityLog.getId() != null) {
@@ -69,6 +72,7 @@ public class UserEquipmentActivityLogResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/user-equipment-activity-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserEquipmentActivityLog> updateUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
         log.debug("REST request to update UserEquipmentActivityLog : {}", userEquipmentActivityLog);
         if (userEquipmentActivityLog.getId() == null) {
@@ -111,6 +115,7 @@ public class UserEquipmentActivityLogResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/user-equipment-activity-logs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteUserEquipmentActivityLog(@PathVariable Long id) {
         log.debug("REST request to delete UserEquipmentActivityLog : {}", id);
         userEquipmentActivityLogRepository.deleteById(id);

@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="masApp.statusType.home.title">Status Types</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-status-type" [routerLink]="['/status-type/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-status-type" [routerLink]="['/status-type/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="masApp.statusType.home.createLabel">
             Create a new Status Type
@@ -42,14 +42,14 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/status-type', statusType.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(statusType)"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(statusType)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

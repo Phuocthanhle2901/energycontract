@@ -1,7 +1,9 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.PlaceToPerform;
 import vn.infodation.intern.group1.mas.repository.PlaceToPerformRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -48,6 +50,7 @@ public class PlaceToPerformResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/place-to-performs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<PlaceToPerform> createPlaceToPerform(@Valid @RequestBody PlaceToPerform placeToPerform) throws URISyntaxException {
         log.debug("REST request to save PlaceToPerform : {}", placeToPerform);
         if (placeToPerform.getId() != null) {
@@ -69,6 +72,7 @@ public class PlaceToPerformResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/place-to-performs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<PlaceToPerform> updatePlaceToPerform(@Valid @RequestBody PlaceToPerform placeToPerform) throws URISyntaxException {
         log.debug("REST request to update PlaceToPerform : {}", placeToPerform);
         if (placeToPerform.getId() == null) {
@@ -111,6 +115,7 @@ public class PlaceToPerformResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/place-to-performs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deletePlaceToPerform(@PathVariable Long id) {
         log.debug("REST request to delete PlaceToPerform : {}", id);
         placeToPerformRepository.deleteById(id);

@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="masApp.equipmentGroup.home.title">Equipment Groups</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-equipment-group" [routerLink]="['/equipment-group/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-equipment-group" [routerLink]="['/equipment-group/new']">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="masApp.equipmentGroup.home.createLabel">
             Create a new Equipment Group
@@ -40,14 +40,14 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/equipment-group', equipmentGroup.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(equipmentGroup)"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(equipmentGroup)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
