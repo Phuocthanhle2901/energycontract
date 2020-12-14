@@ -18,7 +18,7 @@ import { QuestionComponent } from './Components/ComponentQuestions/question/ques
 import { NavRightComponent } from './Components/ComponentQuestions/nav-right/nav-right.component';
 import { QuetstionBodyComponent } from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
 import { ValidatorsModule } from "ngx-validators";
-import { IndexComponent } from './Components/Admin/index/index.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { IndexComponent } from './Components/Admin/index/index.component';
     QuestionComponent,
     NavRightComponent,
     QuetstionBodyComponent,
-    IndexComponent
+
   ],
   imports: [
     ValidatorsModule,
