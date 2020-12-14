@@ -40,7 +40,7 @@ namespace QuestionBankDB.Services
         public void Remove(string id) =>
             _question.DeleteOne(question => question.Id == id);
 
-        public ActionResult<List<string>> GetTheme()
+        public List<string> GetTheme()
         {
             //get distinct values of theme names from questions collection and convert to string list
             return _question.Distinct(new StringFieldDefinition<Question, string>("themeName"), FilterDefinition<Question>.Empty).ToList();

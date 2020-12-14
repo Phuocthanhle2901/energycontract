@@ -79,7 +79,8 @@ namespace QuestionBankDB.Controllers
         [Route("themes")]
         public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
 
-        [HttpPost("themeQuestions")]
+        [HttpPost]
+        [Route("themeQuestions")]
         public ActionResult<List<Question>> GetThemeQuestions(string theme)
         {
             var questions = _questionService.GetThemeQuestions(theme);
