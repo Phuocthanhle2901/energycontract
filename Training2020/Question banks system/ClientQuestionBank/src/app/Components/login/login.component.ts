@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+
 import axios from 'axios';
 import { Router } from '@angular/router';
 import{EmailValidation,PasswordValidation} from '../../Validators/validator';
 import { faSign } from '@fortawesome/free-solid-svg-icons';
 import {authenticate,isAuth} from '../../../assets/js/auth.js';
 import { FormBuilder,FormControl,FormGroup } from '@angular/forms';// cung cấp các phương pháp thuận tiện để tạo điều khiển
+
+
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  //icon
   signin=faSign;
+
+  //icon cho font end
+
 
   message:string;
   //data from form
@@ -25,9 +31,11 @@ export class LoginComponent implements OnInit {
     });
    }
 
+
   ngOnInit(): void {
 
   }
+
   getAccount(e,data:any)
   {
 
@@ -50,4 +58,5 @@ export class LoginComponent implements OnInit {
     .catch(err=>{console.log(err)})
      e.preventDefault();
   }
+
 }

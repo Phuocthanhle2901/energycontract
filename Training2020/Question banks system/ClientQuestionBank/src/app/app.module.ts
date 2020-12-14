@@ -17,8 +17,12 @@ import { ContentSecondComponent } from './Components/SupperHome/content-second/c
 import { QuestionComponent } from './Components/ComponentQuestions/question/question.component';
 import { NavRightComponent } from './Components/ComponentQuestions/nav-right/nav-right.component';
 import { QuetstionBodyComponent } from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
+
 import { ValidatorsModule } from "ngx-validators";
 import { IndexComponent } from './Components/Admin/index/index.component';
+
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { IndexComponent } from './Components/Admin/index/index.component';
     ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
-    NgbAlertModule,NgbPaginationModule
+    NgbAlertModule,NgbPaginationModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

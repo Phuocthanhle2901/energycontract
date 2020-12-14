@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using QuestionBankDB.Models;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace QuestionBankDB.Services
 {
@@ -40,9 +40,20 @@ namespace QuestionBankDB.Services
         public void Remove(string id) =>
             _question.DeleteOne(question => question.Id == id);
 
+<<<<<<< HEAD
 
 
         
+=======
+        public List<string> GetTheme()
+        {
+            //get distinct values of theme names from questions collection and convert to string list
+            return _question.Distinct(new StringFieldDefinition<Question, string>("themeName"), FilterDefinition<Question>.Empty).ToList();
+        }
+
+        //return questions with specific theme name
+        public List<Question> GetThemeQuestions(string theme) => _question.Find(question => question.ThemeName.Equals(theme)).ToList();
+>>>>>>> 03d55d88478f5bb4e56691c7184d791df48586c5
     }
 
 }
