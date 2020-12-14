@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -35,5 +35,40 @@ export class UserService {
 
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
+  }
+  
+  export(id: number): Observable<HttpResponse<string>> {
+  	let headers = new HttpHeaders();
+  	headers = headers.append('Accept', 'text/csv; charset=utf-8');
+  	
+  	return this.http.get('/api/users-export/' + id, {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
+  }
+  
+  exportAll(): Observable<HttpResponse<string>> {
+  	let headers = new HttpHeaders();
+  	headers = headers.append('Accept', 'text/csv; charset=utf-8');
+  	
+  	return this.http.get('/api/users-export/', {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
+  }
+  
+  upload(file: File): Observable<HttpEvent<any>>{
+  	const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', '/api/users-import/', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 }

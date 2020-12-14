@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpResponse, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, combineLatest } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
@@ -11,6 +11,8 @@ import { Account } from 'app/core/user/account.model';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
 import { UserManagementDeleteDialogComponent } from './user-management-delete-dialog.component';
+
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -25,6 +27,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   page!: number;
   predicate!: string;
   ascending!: boolean;
+  selectedFiles: FileList | undefined | null;
+  currentFile: File | undefined | null;
+  progress = 0;
+  message = '';
 
   constructor(
     private userService: UserService,
@@ -103,4 +109,49 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
   }
+  
+  exportUser(user: User): void{
+  	this.userService.export(user.id).subscribe(response => {
+  		const filename = response.headers.get('filename');
+  		
+  		this.saveFile(response.body, filename!);
+  	});
+  }
+  
+  exportAllUsers(): void{
+  	this.userService.exportAll().subscribe(response => {
+  		const filename = response.headers.get('filename');
+  		
+  		this.saveFile(response.body, filename!);
+  	});
+  }
+  
+  saveFile(data: any, filename?: string): void{
+    const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
+    fileSaver.saveAs(blob, filename);
+  }
+  
+  selectFile(event: Event ): void {
+  	this.selectedFiles = (event.target as HTMLInputElement)!.files!;
+  }
+  
+  upload(): void {
+	  this.progress = 0;
+	
+	  this.currentFile = this.selectedFiles!.item(0);
+	  this.userService.upload(this.currentFile!).subscribe(
+	    event => {
+	      if (event.type === HttpEventType.UploadProgress) {
+	        this.progress = Math.round(100 * event.loaded / event.total!);
+	      } else if (event instanceof HttpResponse) {
+	        this.message = event.body.message;
+	      }
+	    },
+	    err => {
+	      this.progress = 0;
+	      this.message = 'Could not upload the file!';
+	      this.currentFile = undefined;
+	    });
+	  this.selectedFiles = undefined;
+	}
 }

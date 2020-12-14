@@ -8,14 +8,12 @@ import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 import vn.infodation.intern.group1.mas.web.rest.errors.EmployeeNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import io.micrometer.core.annotation.Timed;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +21,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpStatus;
 
-import com.google.common.net.HttpHeaders;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -144,7 +139,7 @@ public class EmployeeResource {
     @ResponseStatus(HttpStatus.OK)
     public Resource exportEmployee(@PathVariable Long id, HttpServletResponse response){
     	Employee employee = employeeRepository.findOneById(id).orElseThrow(EmployeeNotFoundException::new);
-    	this.writeFile(employee);
+    	fileService.writeFile(employee);
     	
     	return fileService.getEmployeeFile(employee.getUser().getLogin() + ".csv", response);
     }
@@ -152,7 +147,7 @@ public class EmployeeResource {
     @GetMapping(value = "/employees-export", produces = "text/csv; charset=utf-8")
     @ResponseStatus(HttpStatus.OK)
     public Resource exportAllEmployee(HttpServletResponse response){
-    	this.writeFile();
+    	fileService.writeFile();
     	
     	return fileService.getEmployeeFile("users.csv", response);
     }
@@ -162,93 +157,5 @@ public class EmployeeResource {
     	fileService.handleEmployeeFile(file);
     }
     
-    private void writeFile(Employee employee) {
-    	String filename = employee.getUser().getLogin() + ".csv";
-    	String path = "/csv/users/";
-    	
-    	File directory = new File(path);
-    	if(!directory.exists()) {
-    		directory.mkdirs();
-    	}
-    	
-    	File file = new File(path + filename);
-    	if(!file.exists()) {
-    		try {
-    			User user = employee.getUser();
-    			final String SEPERATOR = ",";
-    			final String fileHeader = "id,login,first_name,last_name,email,area_id,phone_number";
-    			final String[] elements = new String[] {
-    					employee.getId().toString(),
-    					user.getLogin(),
-    					user.getFirstName(),
-    					user.getLastName(),
-    					user.getEmail(),
-    					employee.getArea().getId().toString(),
-    					employee.getPhoneNumber()
-    			};
-    			
-    			String value = fileHeader + "\n";
-    			
-    			for (String string : elements) {
-    				value += string;
-    				if(string != elements[elements.length - 1])
-    					value += SEPERATOR;
-				}
-    			
-	    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-	            BufferedWriter bw = new BufferedWriter(fw);
-	            bw.write(value);
-	            bw.close();
-    		}
-    		catch (IOException e){
-    			e.printStackTrace();
-    		}
-    	}
-    }
-
-    private void writeFile() {
-    	String filename = "users.csv";
-    	String path = "/csv/users/";
-    	List<Employee> x = employeeRepository.findAll();
-    	
-    	File directory = new File(path);
-    	if(!directory.exists()) {
-    		directory.mkdirs();
-    	}
-    	
-    	File file = new File(path + filename);
-		final String fileHeader = "id,login,first_name,last_name,email,area_id,phone_number";
-		final String SEPERATOR = ",";
-		String value = fileHeader + "\n";
-		
-    	try {
-    		for (Employee employee : x) {
-    			User user = employee.getUser();
-    			final String[] elements = new String[] {
-    					employee.getId().toString(),
-    					user.getLogin(),
-    					user.getFirstName(),
-    					user.getLastName(),
-    					user.getEmail(),
-    					employee.getArea().getId().toString(),
-    					employee.getPhoneNumber()
-    			};
-    			
-    			for (String string : elements) {
-    				value += string;
-    				if(string != elements[elements.length - 1])
-    					value += SEPERATOR;
-				}
-    			
-    			value += "\n";
-			}
-    		
-    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(value);
-            bw.close();
-    	}catch (IOException e){
-			e.printStackTrace();
-		}
-    }
+    
 }

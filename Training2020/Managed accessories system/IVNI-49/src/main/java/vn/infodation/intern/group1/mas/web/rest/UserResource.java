@@ -1,9 +1,12 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
 import vn.infodation.intern.group1.mas.config.Constants;
+import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.domain.User;
+import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.UserRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
+import vn.infodation.intern.group1.mas.service.FileStorageService;
 import vn.infodation.intern.group1.mas.service.MailService;
 import org.springframework.data.domain.Sort;
 import java.util.Collections;
@@ -11,6 +14,7 @@ import vn.infodation.intern.group1.mas.service.UserService;
 import vn.infodation.intern.group1.mas.service.dto.UserDTO;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 import vn.infodation.intern.group1.mas.web.rest.errors.EmailAlreadyUsedException;
+import vn.infodation.intern.group1.mas.web.rest.errors.EmployeeNotFoundException;
 import vn.infodation.intern.group1.mas.web.rest.errors.LoginAlreadyUsedException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -20,6 +24,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -27,8 +32,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -71,13 +78,23 @@ public class UserResource {
     private final UserService userService;
 
     private final UserRepository userRepository;
+    
+    private final EmployeeRepository employeeRepository;
 
     private final MailService mailService;
+    
+    private final FileStorageService fileService;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    public UserResource(UserService userService, 
+    		UserRepository userRepository, 
+    		MailService mailService, 
+    		FileStorageService fileService, 
+    		EmployeeRepository employeeRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.fileService = fileService;
+        this.employeeRepository = employeeRepository;
     }
 
     /**
@@ -196,5 +213,27 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
+    }
+    
+    @GetMapping(value = "/users-export/{id}", produces = "text/csv; charset=utf-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Resource exportUser(@PathVariable Long id, HttpServletResponse response){
+    	User user = userRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+    	fileService.writeFile(user);
+    	
+    	return fileService.getEmployeeFile(user.getLogin() + ".csv", response);
+    }
+    
+    @GetMapping(value = "/users-export", produces = "text/csv; charset=utf-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Resource exportAllUsers(HttpServletResponse response){
+    	fileService.writeFile();
+    	
+    	return fileService.getEmployeeFile("users.csv", response);
+    }
+    
+    @PostMapping("/users-import")
+    public void importAllUsers(@RequestParam("file") MultipartFile file){
+    	fileService.handleEmployeeFile(file);
     }
 }

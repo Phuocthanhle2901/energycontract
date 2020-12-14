@@ -1,14 +1,17 @@
 package vn.infodation.intern.group1.mas.service;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,14 +19,12 @@ import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.domain.User;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.UserRepository;
+import vn.infodation.intern.group1.mas.service.dto.UserDTO;
 import vn.infodation.intern.group1.mas.repository.AreaRepository;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,18 +34,43 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileStorageService{
 	private final String FILE_DIRECTORY = "/csv/users/";
 	private final String DEFAULT_PASSWORD = "user";
+	private final Path root = Paths.get(FILE_DIRECTORY);
 
 	public FileStorageService(AreaRepository areaRepository, UserRepository userRepository,
-			EmployeeRepository employeeRepository) {
+			EmployeeRepository employeeRepository, UserService userService) {
 		super();
 		this.areaRepository = areaRepository;
 		this.userRepository = userRepository;
 		this.employeeRepository = employeeRepository;
+		this.userService = userService;
+		
+		try {
+			if(!Files.exists(root))
+				Files.createDirectory(root);
+		} catch (IOException e) {
+			throw new RuntimeException("Could not initialize folder for upload!");
+		}
 	}
 
 	private AreaRepository areaRepository;
 	private UserRepository userRepository;
 	private EmployeeRepository employeeRepository;
+	private UserService userService;
+	
+	public Resource load(String filename) {
+	    try {
+	    	Path file = root.resolve(filename);
+	    	Resource resource = new UrlResource(file.toUri());
+
+		    if (resource.exists() || resource.isReadable()) {
+		    	return resource;
+		    } else {
+		        throw new RuntimeException("Could not read the file!");
+		    }
+	    } catch (MalformedURLException e) {
+	    	throw new RuntimeException("Error: " + e.getMessage());
+	    }
+	}
 	
 	public Resource getEmployeeFile(String filename, HttpServletResponse response) {
 		response.setContentType("text/csv; charset=utf-8");
@@ -69,84 +95,246 @@ public class FileStorageService{
 					if(split.length == 8) {
 						User user;
 						Employee employee;
+						boolean newEmp = false, newUser = false;
 					
 						if(!split[0].isBlank()) { //User id
 							Long UID = Long.parseLong(split[0]);
-							if(!userRepository.findById(UID).isEmpty()) {
+							if(userRepository.existsById(UID)) {
 								user = userRepository.getOne(UID);
-								System.out.println("Existed");
+								System.out.println("User existed");
 							}
-							else {System.out.println("Non Existing"); continue;}
+							else {
+								System.out.println("User not found");
+								continue;
+							}
 						}
 						else {
 							user = new User();
-							user.setPassword(DEFAULT_PASSWORD);
+							System.out.println("New user");
+							newUser = true;
 						}
 						
 						if(!split[1].isBlank()) { //Employee id
 							Long EID = Long.parseLong(split[1]);
-							if(!employeeRepository.findById(EID).isEmpty())
+							if(employeeRepository.existsById(EID)) {
 								employee = employeeRepository.getOne(EID);
-							else continue;
+								System.out.println("Employee existed");
+							}
+							else {
+								System.out.println("Employee not found");
+								continue;
+							}
 						}
-						else
+						else {
 							employee = new Employee();
+							System.out.println("New employee");
+						}
 						
 						if(!split[2].isBlank())	//Employee - User login
-							user.setLogin(split[2]);	
-						else continue;
+							user.setLogin(split[2]);
+						else if(newUser) continue;
 						
-						if(!split[3].isBlank())	//Employee - User's first name
+						if(!split[3].isBlank()) 	//Employee - User's first name
 							user.setFirstName(split[3]);
-						else continue;
+						else if(newUser) continue;
 						
 						if(!split[4].isBlank())	//Employee - User's last name
 							user.setLastName(split[4]);
-						else continue;
+						else if(newUser) continue;
 						
 						if(!split[5].isBlank())	//Employee - User's email
 							user.setEmail(split[5]);
-						else continue;
+						else if(newUser) continue;
 						
 						if(!split[6].isBlank()) {	//Employee's area
 							Long AID = Long.parseLong(split[6]);
-							if(!areaRepository.findById(AID).isEmpty())
+							if(areaRepository.existsById(AID))
 								employee.setArea(areaRepository.getOne(AID));
-							else continue;
+							else if(newEmp) continue;
 						}
 						else continue;
 						
 						if(!split[7].isBlank())	//Employee's phone number
 							employee.setPhoneNumber(split[7]);
-						else continue;
+						else if(newEmp) continue;
 						
-						System.out.println(
-							"--------------------------------------------------------------\n" +
-							"User: {\n" +
-							"\tID: " + user.getId() +"\n" +
-							"\tLogin: " + user.getLogin() +"\n" +
-							"\tName: " + user.getFirstName() + " " + user.getLastName() +"\n" +
-							"}"
-						);
+						User savedUser;
+						if(newUser) {
+							UserDTO userDTO = new UserDTO(user);
+							savedUser = userService.registerUser(userDTO, DEFAULT_PASSWORD);
+						}
+						else {
+							savedUser = userRepository.save(user);
+						}
 						
-						User savedUser = userRepository.save(user);
-						employee.setUser(user);
+						if(employee.getUser() == null)
+							employee.setUser(savedUser);
+						else
+							System.out.println("Cannot change user");
 						employeeRepository.save(employee);
 						
 						System.out.println(
-							"--------------------------------------------------------------\n" +
-							"Saved User: {\n" +
-							"\tID: " + savedUser.getId() +"\n" +
-							"\tLogin: " + savedUser.getLogin() +"\n" +
-							"\tName: " + savedUser.getFirstName() + " " + savedUser.getLastName() +"\n" +
-							"}"
+							"-------------------------------------\n" +
+							"Saved User: \n" +
+							"- ID: " + savedUser.getId() +"\n" +
+							"- Login: " + savedUser.getLogin() +"\n" +
+							"- Name: " + savedUser.getFirstName() + " " + savedUser.getLastName() +"\n" +
+							"- Employee id: " + employee.getId() + "\n" +
+							"- Area: " + employee.getArea().getAreaName() + "\n" +
+							"-------------------------------------\n"
 						);
 					}
 				}
 			}
+			
+			br.close();
 		}
 		catch(IOException e){
 			e.printStackTrace();
 		}
 	}
+	
+	public void writeFile(Employee employee) {
+    	String filename = employee.getUser().getLogin() + ".csv";
+    	String path = "/csv/users/";
+    	
+    	File directory = new File(path);
+    	if(!directory.exists()) {
+    		directory.mkdirs();
+    	}
+    	
+    	File file = new File(path + filename);
+    	if(!file.exists()) {
+    		try {
+    			User user = employee.getUser();
+    			final String SEPERATOR = ",";
+    			final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+    			final String[] elements = new String[] {
+    					user.getId().toString(),
+    					employee.getId().toString(),
+    					user.getLogin(),
+    					user.getFirstName(),
+    					user.getLastName(),
+    					user.getEmail(),
+    					employee.getArea().getId().toString(),
+    					employee.getPhoneNumber()
+    			};
+    			
+    			String value = fileHeader + "\n";
+    			
+    			for (String string : elements) {
+    				value += string;
+    				if(string != elements[elements.length - 1])
+    					value += SEPERATOR;
+				}
+    			
+	    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	            BufferedWriter bw = new BufferedWriter(fw);
+	            bw.write(value);
+	            bw.close();
+    		}
+    		catch (IOException e){
+    			e.printStackTrace();
+    		}
+    	}
+    }
+
+	public void writeFile(User user) {
+		Employee employee = null;
+		for (Employee emp : employeeRepository.findAll()) {
+			if(emp.getUser().getId() == user.getId()) {
+				employee = emp;
+				break;
+			}
+		}
+		if(employee == null) return;
+    	String filename = employee.getUser().getLogin() + ".csv";
+    	String path = "/csv/users/";
+    	
+    	File directory = new File(path);
+    	if(!directory.exists()) {
+    		directory.mkdirs();
+    	}
+    	
+    	File file = new File(path + filename);
+    	if(!file.exists()) {
+    		try {
+    			final String SEPERATOR = ",";
+    			final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+    			final String[] elements = new String[] {
+    					user.getId().toString(),
+    					employee.getId().toString(),
+    					user.getLogin(),
+    					user.getFirstName(),
+    					user.getLastName(),
+    					user.getEmail(),
+    					employee.getArea().getId().toString(),
+    					employee.getPhoneNumber()
+    			};
+    			
+    			String value = fileHeader + "\n";
+    			
+    			for (String string : elements) {
+    				value += string;
+    				if(string != elements[elements.length - 1])
+    					value += SEPERATOR;
+				}
+    			
+	    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	            BufferedWriter bw = new BufferedWriter(fw);
+	            bw.write(value);
+	            bw.close();
+    		}
+    		catch (IOException e){
+    			e.printStackTrace();
+    		}
+    	}
+    }
+	
+    public void writeFile() {
+    	String filename = "users.csv";
+    	String path = "/csv/users/";
+    	List<Employee> x = employeeRepository.findAll();
+    	
+    	File directory = new File(path);
+    	if(!directory.exists()) {
+    		directory.mkdirs();
+    	}
+    	
+    	File file = new File(path + filename);
+		final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+		final String SEPERATOR = ",";
+		String value = fileHeader + "\n";
+		
+    	try {
+    		for (Employee employee : x) {
+    			User user = employee.getUser();
+    			final String[] elements = new String[] {
+    					user.getId().toString(),
+    					employee.getId().toString(),
+    					user.getLogin(),
+    					user.getFirstName(),
+    					user.getLastName(),
+    					user.getEmail(),
+    					employee.getArea().getId().toString(),
+    					employee.getPhoneNumber()
+    			};
+    			
+    			for (String string : elements) {
+    				value += string;
+    				if(string != elements[elements.length - 1])
+    					value += SEPERATOR;
+				}
+    			
+    			value += "\n";
+			}
+    		
+    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(value);
+            bw.close();
+    	}catch (IOException e){
+			e.printStackTrace();
+		}
+    }
 }
