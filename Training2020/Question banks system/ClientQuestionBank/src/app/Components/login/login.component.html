@@ -6,24 +6,38 @@
 
     <div class="mod-login-form">
       <h3 class="text-center">Sign In</h3>
-      <form >
+      <small class="form-text text-center showError">{{message}} </small>
+      <form  [formGroup]="dataform" (ngSubmit)="getAccount($event,dataform.value)">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email</label>
-          <input type="email" class="form-control " #email   id="exampleInputEmail1" placeholder="Email..." aria-describedby="emailHelp">
+          <label  >Email</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+          formControlName="email" placeholder="Email..." />
+          <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+            <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
+            <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+          </div>
 
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" #password   placeholder="Password..." id="exampleInputPassword1">
+          <label  >Password</label>
+          <input type="password" [ngClass]="{'is-invalid':dataform.get('password').touched && dataform.get('password').invalid}" class="form-control" formControlName="password"   placeholder="Password..."  >
+          <div class="invalid-feedback" *ngIf="dataform.get('password').touched && dataform.get('password').invalid">
+            <small *ngIf="dataform.get('password').errors.required" class="form-text showError">Password id required </small>
+            <small *ngIf="dataform.get('password').errors.minlength" class="form-text showError">password min is 6
+              character </small>
+          </div>
+
         </div>
         <div class="form-group">
-          <button   class=" form-control btn btn-primary" (click)="getAccount($event,email.value,password.value)">Sign In <fa-icon [icon]="signin"></fa-icon></button>
+          <button  type="submit"  class=" form-control btn btn-primary" [disabled]="dataform.status==='INVALID'"  >Sign In <fa-icon [icon]="signin"></fa-icon></button>
         </div>
-        <div class="login-link text-center">
-          <a routerLink="/register">Register Account</a><br>
-          <a href="#">Forget Password</a>
-        </div>
+
       </form>
+      <div class="login-link text-center">
+        <a routerLink="/register">Register Account</a><br>
+        <a href="#">Forget Password</a>
+      </div>
     </div>
 
     <div class="mod-login-footer">

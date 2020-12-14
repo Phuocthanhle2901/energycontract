@@ -39,6 +39,10 @@ namespace QuestionBankDB.Services
 
         public void Remove(string id) =>
             _question.DeleteOne(question => question.Id == id);
+
+
+
+        
     }
 
 }
