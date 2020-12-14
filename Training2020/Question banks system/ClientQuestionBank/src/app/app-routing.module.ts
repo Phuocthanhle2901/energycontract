@@ -7,13 +7,13 @@ import{HomeComponent} from'./Components/home/home.component';
 import {LoginComponent} from './Components/login/login.component';
 import {RegisterComponent} from './Components/register/register.component';
 import {QuestionComponent} from './Components/ComponentQuestions/question/question.component';
-import {IndexComponent}from './Components/Admin/index/index.component';
+
 const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"questions",component:QuestionComponent},
-  {path:"admin/index",component:IndexComponent},
+
 
 ];
 

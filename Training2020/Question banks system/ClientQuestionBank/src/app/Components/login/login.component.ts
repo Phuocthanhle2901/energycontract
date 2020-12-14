@@ -17,8 +17,6 @@ import { FormBuilder,FormControl,FormGroup } from '@angular/forms';// cung cấp
 export class LoginComponent implements OnInit {
   signin=faSign;
 
-  //icon cho font end
-
 
   message:string;
   //data from form
@@ -38,15 +36,13 @@ export class LoginComponent implements OnInit {
 
   getAccount(e,data:any)
   {
-
+    console.log("fda");
     axios.post("https://localhost:44328/api/userinfo/login",data)
     .then(res=>{
       if(res.data.status==200)
       {
          const data=JSON.parse(res.data.data);
          authenticate(data);
-
-
         this.router.navigate(["/"]);
       }
       else

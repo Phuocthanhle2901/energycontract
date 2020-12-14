@@ -19,7 +19,7 @@ import { NavRightComponent } from './Components/ComponentQuestions/nav-right/nav
 import { QuetstionBodyComponent } from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
 
 import { ValidatorsModule } from "ngx-validators";
-import { IndexComponent } from './Components/Admin/index/index.component';
+
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -39,7 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     QuestionComponent,
     NavRightComponent,
     QuetstionBodyComponent,
-    IndexComponent
+
   ],
   imports: [
     ValidatorsModule,
