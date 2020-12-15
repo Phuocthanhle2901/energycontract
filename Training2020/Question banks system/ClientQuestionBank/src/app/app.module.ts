@@ -17,12 +17,17 @@ import { ContentSecondComponent } from './Components/SupperHome/content-second/c
 import { QuestionComponent } from './Components/ComponentQuestions/question/question.component';
 import { NavRightComponent } from './Components/ComponentQuestions/nav-right/nav-right.component';
 import { QuetstionBodyComponent } from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
-
 import { ValidatorsModule } from "ngx-validators";
-
-
-
 import { HttpClientModule } from '@angular/common/http';
+import { IndexComponent } from './Components/Admin/index/index.component';
+import { NavleftComponent } from './Components/Admin/navleft/navleft.component';
+import { HeaderAdminComponent } from './Components/Admin/header-admin/header-admin.component';
+import { NavMainComponent } from './Components/Admin/nav-main/nav-main.component';
+import { BodyMainComponent } from './Components/Admin/body-main/body-main.component';
+import { BodysComponent } from './Components/Admin/bodys/bodys.component';
+import { CreateComponent } from './Components/Admin/Question/create/create.component';
+import { UpdateComponent } from './Components/Admin/Question/update/update.component';
+import { ListComponent } from './Components/Admin/Question/list/list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,6 @@ import { HttpClientModule } from '@angular/common/http';
     ContentComponent,
     FooterComponent,
     HomeComponent,
-
     ContentFirstComponent,
     LoginComponent,
     RegisterComponent,
@@ -39,6 +43,15 @@ import { HttpClientModule } from '@angular/common/http';
     QuestionComponent,
     NavRightComponent,
     QuetstionBodyComponent,
+    IndexComponent,
+    NavleftComponent,
+    HeaderAdminComponent,
+    NavMainComponent,
+    BodyMainComponent,
+    BodysComponent,
+    CreateComponent,
+    UpdateComponent,
+    ListComponent,
 
   ],
   imports: [
