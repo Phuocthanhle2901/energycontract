@@ -24,11 +24,15 @@
       <div class="col-lg-6 col-12">
         <div class="form-group" >
           <label >True Answer</label>
-            <select class="form-control" formControlName="trueAnswer" formArrayName="answer">
+            <select class="form-control " formControlName="trueAnswer" formArrayName="answer">
+
+              <option    class="text-center">-----Choose Answer Correct----- </option>
               <option *ngFor="let list_item of answer.controls;  let i=index"  [formGroupName]="i" [ngValue]="list_item.get('name').value">
                 {{list_item.get('name').value}}
               </option>
             </select>
+
+
         </div>
 
         <div class="row">

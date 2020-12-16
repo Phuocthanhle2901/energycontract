@@ -3,40 +3,6 @@
   <hr>
 
     <div class="mod-question-body-content d-flex flex-column">
-      <div class="detail-content">
-        <h6>A user opens their browser and navigates to your-blog.com/posts/first-post. What JavaScript is initially
-          loaded for this page?</h6>
-        <div class="form-check">
-          <label class="form-check-label" for="exampleRadios1">
-            Only the JavaScript for /posts/first-post is loaded.
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="exampleRadios1">
-            Only the JavaScript for /posts/first-post is loaded.
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="exampleRadios1">
-            Only the JavaScript for /posts/first-post is loaded.
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="exampleRadios2">
-            Only the JavaScript for /posts/first-post is loaded.
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="exampleRadios2">
-            <b>Answer: </b> Only the JavaScript for /posts/first-post is loaded.
-          </label>
-        </div>
-        <div class="detail-content-btn">
-        <button type="button" class="btn btn-edt"><i class="eva eva-edit-outline"></i>  </button>
-        <button type="button" class="btn btn-delete"><i class="eva eva-trash-2-outline"></i> </button>
-      </div>
-      </div>
-
 
       <div class="detail-content">
         <h6>A user opens their browser and navigates to your-blog.com/posts/first-post. What JavaScript is initially
@@ -67,12 +33,13 @@
           </label>
         </div>
         <div class="detail-content-btn">
-        <button type="button" class="btn btn-edt"><i class="eva eva-edit-outline"></i>  </button>
-        <button type="button" class="btn btn-delete"><i class="eva eva-trash-2-outline"></i> </button>
+        <button type="button" class="btn btn-edt" routerLink='/admin/updateQuestion'><i class="eva eva-edit-outline"></i>  </button>
+        <button type="button" class="btn btn-delete" (click)="deleteQuestion('id')" ><i class="eva eva-trash-2-outline"></i> </button>
       </div>
       </div>
 
 
     </div>
   </div>
+  <router-outlet></router-outlet>
 

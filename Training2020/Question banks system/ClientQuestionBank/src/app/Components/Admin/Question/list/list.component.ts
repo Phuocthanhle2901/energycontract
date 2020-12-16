@@ -12,4 +12,8 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  deleteQuestion(id:any)
+  {
+    // thực hiện xóa question tại đây
+  }
 }

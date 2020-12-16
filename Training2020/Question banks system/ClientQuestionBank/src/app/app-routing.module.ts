@@ -17,6 +17,7 @@ const routes: Routes = [
   {path:"admin/index",component:IndexComponent},
   {path:"admin/createQuestion",component:IndexComponent},// create question
   {path:"admin/questions",component:IndexComponent},// list question
+  {path:"admin/updateQuestion",component:IndexComponent},// list question
 
 
 ];
