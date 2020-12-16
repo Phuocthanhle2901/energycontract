@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity ActionLog.
+    -->
+    <changeSet id="20201130144857-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="action_log"
+                                 constraintName="fk_action_log_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="action_type_id"
+                                 baseTableName="action_log"
+                                 constraintName="fk_action_log_action_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="action_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="place_to_perform_id"
+                                 baseTableName="action_log"
+                                 constraintName="fk_action_log_place_to_perform_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="place_to_perform"/>
+
+        <addForeignKeyConstraint baseColumnNames="equipment_id"
+                                 baseTableName="action_log"
+                                 constraintName="fk_action_log_equipment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipment"/>
+
+    </changeSet>
+</databaseChangeLog>

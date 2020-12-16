@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity StatusLog.
+    -->
+    <changeSet id="20201130145557-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="status_type_id"
+                                 baseTableName="status_log"
+                                 constraintName="fk_status_log_status_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="status_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="equipment_id"
+                                 baseTableName="status_log"
+                                 constraintName="fk_status_log_equipment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipment"/>
+
+    </changeSet>
+</databaseChangeLog>
