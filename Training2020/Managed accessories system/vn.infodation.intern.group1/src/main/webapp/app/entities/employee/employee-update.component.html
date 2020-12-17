@@ -41,7 +41,7 @@
                     <label class="form-control-label" jhiTranslate="jhipsterApp.employee.area" for="field_area">Area</label>
                     <select class="form-control" id="field_area" name="area" formControlName="area">
                         <option *ngIf="!editForm.get('area')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption" *ngFor="let areaOption of areas; trackBy: trackById">{{ areaOption.id }}</option>
+                        <option [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption" *ngFor="let areaOption of areas; trackBy: trackById">{{ areaOption.areaName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('area')!.invalid && (editForm.get('area')!.dirty || editForm.get('area')!.touched)">
