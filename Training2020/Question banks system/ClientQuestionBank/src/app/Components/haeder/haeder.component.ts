@@ -26,6 +26,7 @@ export class HaederComponent implements OnInit {
 
           if(res.data!=null)
           {
+            console.log(res.data);
             this.role =res.data.result.role;
             this.email=res.data.result.email;
             this.ten = res.data.result.fullname
@@ -36,6 +37,7 @@ export class HaederComponent implements OnInit {
           }
       })
       .catch(err=>console.log(err));
+
     }
 
   }
