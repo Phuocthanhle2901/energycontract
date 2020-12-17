@@ -50,12 +50,12 @@
                     </td>
                     <td>
                         <div *ngIf="actionLog.actionType">
-                            <a [routerLink]="['/action-type', actionLog.actionType?.id, 'view']" >{{ actionLog.actionType?.id }}</a>
+                            <a [routerLink]="['/action-type', actionLog.actionType?.id, 'view']" >{{ actionLog.actionType?.actionTitle }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="actionLog.placeToPerform">
-                            <a [routerLink]="['/place-to-perform', actionLog.placeToPerform?.id, 'view']" >{{ actionLog.placeToPerform?.id }}</a>
+                            <a [routerLink]="['/place-to-perform', actionLog.placeToPerform?.id, 'view']" >{{ actionLog.placeToPerform?.address }}</a>
                         </div>
                     </td>
                     <td>
