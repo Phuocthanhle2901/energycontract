@@ -36,6 +36,7 @@ vn\infodation\intern\group1\mas\repository\StatusTypeRepository.class
 vn\infodation\intern\group1\mas\service\dto\PasswordChangeDTO.class
 vn\infodation\intern\group1\mas\security\jwt\JWTConfigurer.class
 vn\infodation\intern\group1\mas\security\jwt\JWTFilter.class
+vn\infodation\intern\group1\mas\web\rest\UploadCSVResource.class
 vn\infodation\intern\group1\mas\web\rest\ActionLogResource.class
 vn\infodation\intern\group1\mas\domain\Area.class
 vn\infodation\intern\group1\mas\web\rest\errors\BadRequestAlertException.class

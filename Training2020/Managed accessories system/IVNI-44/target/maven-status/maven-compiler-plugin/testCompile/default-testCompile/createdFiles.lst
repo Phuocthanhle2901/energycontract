@@ -28,6 +28,7 @@ vn\infodation\intern\group1\mas\service\UserServiceIT.class
 vn\infodation\intern\group1\mas\security\SecurityUtilsUnitTest.class
 vn\infodation\intern\group1\mas\repository\timezone\DateTimeWrapper.class
 vn\infodation\intern\group1\mas\web\rest\AccountResourceIT.class
+vn\infodation\intern\group1\mas\web\rest\UploadCSVResourceIT.class
 vn\infodation\intern\group1\mas\web\rest\StatusLogResourceIT.class
 vn\infodation\intern\group1\mas\web\rest\UserJWTControllerIT.class
 vn\infodation\intern\group1\mas\web\rest\EquipmentGroupResourceIT.class

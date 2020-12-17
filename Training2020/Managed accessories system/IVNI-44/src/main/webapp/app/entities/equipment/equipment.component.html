@@ -27,7 +27,7 @@
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName">Equipment Name</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures">Technical Features</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber">Serial Number</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span></th>
+                    <!-- <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span></th> -->
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType">Equipment Type</span></th>
@@ -42,10 +42,10 @@
                     <td>{{ equipment.equipmentName }}</td>
                     <td>{{ equipment.technicalFeatures }}</td>
                     <td>{{ equipment.serialNumber }}</td>
-                    <td>{{ equipment.note }}</td>
+                    <!-- <td>{{ equipment.note }}</td> -->
                     <td>
                         <div *ngIf="equipment.user">
-                            <a [routerLink]="['/employee', equipment.user?.id, 'view']" >{{ equipment.user?.user }}</a>
+                            <a [routerLink]="['/employee', equipment.user?.id, 'view']" >{{ equipment.user?.user?.login }}</a>
                         </div>
                     </td>
                     <td>

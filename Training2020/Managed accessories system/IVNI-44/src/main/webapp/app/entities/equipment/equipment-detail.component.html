@@ -31,7 +31,7 @@
                 <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span></dt>
                 <dd>
                     <div *ngIf="equipment.user">
-                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.id }}</a>
+                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.user?.login }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span></dt>
