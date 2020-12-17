@@ -1,0 +1,48 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "vn.infodation.intern.group1.mas",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "managedAccessoriesSystem",
+    "packageName": "vn.infodation.intern.group1.mas",
+    "packageFolder": "vn/infodation/intern/group1/mas",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YWUyYmQyOWNiNzY4YTFjMGNkNWM4ZmI3MzJlZGFiNWQzNmU3M2NiOThjOTE0NDVjNmIxMWY4NGU5YjNiNWM0OWQ4MGZlYjM5ZGZjMThlZTVjMDYxMzI4Njk0MmE3YTcwNzliNzhmOTdiZDQ2ZmJjZTRmY2RjMmQxMGY0OTI4ODk=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "creationTimestamp": 1606745968202,
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "vi"
+    ],
+    "blueprints": []
+  }
+}
