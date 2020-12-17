@@ -1,5 +1,5 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, AfterContentInit, OnInit } from '@angular/core';
+import { Component, AfterContentInit, OnInit,SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-users',
@@ -15,7 +15,13 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.route=this.router.url.split('/')[3];
-    console.log(this.route)
+
   }
+  getUsers(){
+
+  }
+
+
+
 
 }

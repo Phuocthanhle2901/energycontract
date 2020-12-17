@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {Router}from '@angular/router';
 @Component({
   selector: 'app-navleft',
   templateUrl: './navleft.component.html',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavleftComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
+
 
 }

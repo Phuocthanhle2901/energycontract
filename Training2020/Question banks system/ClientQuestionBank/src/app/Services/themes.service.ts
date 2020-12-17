@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
-import {Observable,of} from 'rxjs';
-import {Question} from '../Models/question.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-const httpOptions ={
-  headers:new HttpHeaders({'Content-Type':'Application/json'})
-}
 
 @Injectable({
   providedIn: 'root'
