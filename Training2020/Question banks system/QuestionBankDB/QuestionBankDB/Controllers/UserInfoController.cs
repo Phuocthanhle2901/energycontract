@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuestionBankDB.Models;
 using QuestionBankDB.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace QuestionBankDB.Controllers
 {
@@ -26,6 +27,7 @@ namespace QuestionBankDB.Controllers
         [HttpGet("{id:length(24)}",Name = "GetUserInfo")]
         public ActionResult<UserInfo> Get(string id)
         {
+
             var userInfo = _userInfoService.Get(id);
 
             if (userInfo == null)
@@ -76,10 +78,28 @@ namespace QuestionBankDB.Controllers
         
         [HttpPost]
         [Route("login")]
-        public string PostLogin( string email)
+        public object PostLogin( [FromBody]UserInfo user)
         {
-            return "fda"+email;
+           return _userInfoService.SignIn(user, HttpContext);
         }
+
+
+
+        [HttpPost]
+        [Route("register")]
+        public object PostRegister([FromBody] UserInfo user)
+        {
+            return _userInfoService.register(user);
+        }
+
+        [HttpPost]
+        [Route("user")]
+        public ActionResult<Object> getUserById(string id)
+        {
+            return _userInfoService.getInfoUserLogin(id);
+        }
+
+
 
     }
 }

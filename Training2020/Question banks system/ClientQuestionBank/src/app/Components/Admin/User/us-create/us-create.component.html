@@ -1,0 +1,31 @@
+<div class="mod-createUser my-5">
+  <div class="d-flex justify-content-center align-self-center ">
+    <div class="mod-createUser-avatar  ">
+      <img src="../../../../../assets/Images/logo.png" alt="logo">
+      <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
+      <label class="file form-control text-center" for="img">Avatar</label>
+    </div>
+  </div>
+  <div class="mod-createUser-form mt-5">
+    <form>
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Full name ... ">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email ... ">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password ... ">
+      </div>
+      <div class="form-group">
+        <select class="form-control">
+          <option selected>Default select</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn form-control"><i class="eva eva-save-outline"></i> Save </button>
+      </div>
+    </form>
+  </div>
+</div>

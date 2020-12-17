@@ -81,23 +81,16 @@ namespace QuestionBankDB.Controllers
 
         [HttpPost]
         [Route("themeQuestions")]
-        public ActionResult<List<Question>> GetThemeQuestions(string theme, byte page)
+        public ActionResult<List<Question>> GetThemeQuestions(string theme)
         {
-            var questions = _questionService.GetThemeQuestions(theme, page);
+            var questions = _questionService.GetThemeQuestions(theme);
 
             if (questions == null)
             {
                 return NotFound();
             }
-            return questions;
-        }
 
-        [HttpPost]
-        [Route("countQuestions")]
-        public ActionResult<int> GetQuestionsCount(string theme)
-        {
-            int count = _questionService.GetQuestionsCount(theme);
-            return count;
+            return questions;
         }
     }
     
