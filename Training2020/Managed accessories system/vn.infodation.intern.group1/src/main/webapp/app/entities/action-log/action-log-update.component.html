@@ -96,7 +96,7 @@
                     <label class="form-control-label" jhiTranslate="jhipsterApp.actionLog.placeToPerform" for="field_placeToPerform">Place To Perform</label>
                     <select class="form-control" id="field_placeToPerform" name="placeToPerform" formControlName="placeToPerform">
                         <option *ngIf="!editForm.get('placeToPerform')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="placeToPerformOption.id === editForm.get('placeToPerform')!.value?.id ? editForm.get('placeToPerform')!.value : placeToPerformOption" *ngFor="let placeToPerformOption of placetoperforms; trackBy: trackById">{{ placeToPerformOption.id }}</option>
+                        <option [ngValue]="placeToPerformOption.id === editForm.get('placeToPerform')!.value?.id ? editForm.get('placeToPerform')!.value : placeToPerformOption" *ngFor="let placeToPerformOption of placetoperforms; trackBy: trackById">{{ placeToPerformOption.placeName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('placeToPerform')!.invalid && (editForm.get('placeToPerform')!.dirty || editForm.get('placeToPerform')!.touched)">
@@ -110,7 +110,7 @@
                     <label class="form-control-label" jhiTranslate="jhipsterApp.actionLog.equipment" for="field_equipment">Equipment</label>
                     <select class="form-control" id="field_equipment" name="equipment" formControlName="equipment">
                         <option *ngIf="!editForm.get('equipment')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="equipmentOption.id === editForm.get('equipment')!.value?.id ? editForm.get('equipment')!.value : equipmentOption" *ngFor="let equipmentOption of equipment; trackBy: trackById">{{ equipmentOption.id }}</option>
+                        <option [ngValue]="equipmentOption.id === editForm.get('equipment')!.value?.id ? editForm.get('equipment')!.value : equipmentOption" *ngFor="let equipmentOption of equipment; trackBy: trackById">{{ equipmentOption.equipmentName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('equipment')!.invalid && (editForm.get('equipment')!.dirty || editForm.get('equipment')!.touched)">

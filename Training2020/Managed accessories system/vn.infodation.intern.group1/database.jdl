@@ -103,7 +103,7 @@ entity UserEquipmentActivityLog {
 }
 
 relationship OneToOne{
-	Employee{user required} to User{employee required}
+	Employee{user(login) required} to User
 }
 
 relationship OneToMany {
@@ -111,16 +111,16 @@ relationship OneToMany {
     // User to ActionLog{user required}
     // User to UserEquipmentActivityLog{user required}
 
-    ActionType 		to ActionLog{actionType required}
-    PlaceToPerform 	to ActionLog{placeToPerform required}
-    Equipment 		to ActionLog{equipment required}
-    StatusType 		to StatusLog{statusType required}
-    Equipment 		to StatusLog{equipment required}
-    EquipmentGroup 	to Equipment{equipmentGroup required}
-    EquipmentType 	to Equipment{equipmentType required}
-    Area 			to Equipment{area required}
-    Equipment 		to UserEquipmentActivityLog{equipment required}
-	Area 			to Employee{area required}
+    ActionType 		to ActionLog{actionType(actionTitle) required}
+    PlaceToPerform 	to ActionLog{placeToPerform(placeName) required}
+    Equipment 		to ActionLog{equipment(equipmentName) required}
+    StatusType 		to StatusLog{statusType(statusTitle) required}
+    Equipment 		to StatusLog{equipment(equipmentName) required}
+    EquipmentGroup 	to Equipment{equipmentGroup(equipmentGroupName) required}
+    EquipmentType 	to Equipment{equipmentType(equipmentTypeName) required}
+    Area 			to Equipment{area(areaName) required}
+    Equipment 		to UserEquipmentActivityLog{equipment(equipmentName) required}
+	Area 			to Employee{area(areaName) required}
 	Employee 		to Area{leader}
 }
 
