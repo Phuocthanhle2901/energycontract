@@ -34,11 +34,11 @@
                     <td><a [routerLink]="['/employee', employee.id, 'view']">{{ employee.id }}</a></td>
                     <td>{{ employee.phoneNumber }}</td>
                     <td>
-                        {{ employee.user?.id }}
+                        {{ employee.user?.firstName + " " + employee.user?.lastName }}
                     </td>
                     <td>
                         <div *ngIf="employee.area">
-                            <a [routerLink]="['/area', employee.area?.id, 'view']" >{{ employee.area?.id }}</a>
+                            <a [routerLink]="['/area', employee.area?.id, 'view']" >{{ employee.area?.areaName }}</a>
                         </div>
                     </td>
                     <td class="text-right">
