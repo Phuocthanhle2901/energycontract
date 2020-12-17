@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse, HttpEvent, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -70,4 +70,45 @@ export class EquipmentService {
     }
     return res;
   }
+
+
+
+
+
+
+  export(id: number): Observable<HttpResponse<string>> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'text/csv; charset=utf-8');
+
+    return this.http.get('/api/equipment-export/' + id, {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
+  }
+
+  exportAll(): Observable<HttpResponse<string>> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'text/csv; charset=utf-8');
+
+    return this.http.get('/api/equipment-export/', {
+      headers,
+      observe: 'response',
+      responseType: 'text'
+    });
+  }
+
+  upload(file: File): Observable<HttpEvent<any>>{
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', '/api/equipment-import/', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
 }

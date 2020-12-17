@@ -1,6 +1,41 @@
+<div class="alert alert-warning" *ngIf="equipment?.length === 0">
+    <span jhiTranslate="managedAccessoriesSystemApp.employee.home.notFound">No equipment found</span>
+</div>
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+	<div *ngIf="currentFile" class="progress">
+		<div
+			class="progress-bar progress-bar-info progress-bar-striped"
+			role="progressbar"
+			attr.aria-valuenow="{{ progress }}"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			[ngStyle]="{ width: progress + '%' }"
+		>
+			{{ progress }}%
+		</div>
+	</div>
+</div>
+
+
+<label *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-default">
+    <input type="file" (change)="selectFile($event)" />
+</label>
+
+<button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+    Upload
+</button>
+
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="alert alert-light" role="alert">{{ message }}</div>
+
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="masApp.equipment.home.title">Equipment</span>
+
+        <button type="button"
+                (click)="exportAllEquipments()"
+                class="btn btn-success float-right ml-1">
+            &nbsp;<span jhiTranslate="entity.action.exportAll">Export All</span>
+        </button>
 
         <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-equipment" [routerLink]="['/equipment/new']">
             <fa-icon icon="plus"></fa-icon>
@@ -84,6 +119,13 @@
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                             </button>
+
+                            <button type="button"
+                                    (click)="exportEquipment(equipment)"
+                                    class="btn btn-success ml-1">
+                                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
+                            </button>
+
                         </div>
                     </td>
                 </tr>

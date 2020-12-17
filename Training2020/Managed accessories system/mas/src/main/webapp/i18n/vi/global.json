@@ -107,7 +107,9 @@
       "edit": "Sửa",
       "open": "Mở",
       "save": "Lưu",
-      "view": "Xem"
+      "view": "Xem",
+	  "export": "Xuất",
+	  "exportAll": "Xuất tất cả"
     },
     "detail": {
       "field": "Trường",

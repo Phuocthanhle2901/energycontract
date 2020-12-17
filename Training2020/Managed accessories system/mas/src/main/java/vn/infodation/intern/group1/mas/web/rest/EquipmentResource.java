@@ -1,21 +1,30 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+//import jdk.internal.loader.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import vn.infodation.intern.group1.mas.domain.Equipment;
 import vn.infodation.intern.group1.mas.repository.EquipmentRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
+import vn.infodation.intern.group1.mas.service.SaveFileService;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
-
+import vn.infodation.intern.group1.mas.web.rest.errors.EquipmentNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -29,6 +38,8 @@ import java.util.Optional;
 @Transactional
 public class EquipmentResource {
 
+    private final SaveFileService fileService;
+
     private final Logger log = LoggerFactory.getLogger(EquipmentResource.class);
 
     private static final String ENTITY_NAME = "equipment";
@@ -38,8 +49,11 @@ public class EquipmentResource {
 
     private final EquipmentRepository equipmentRepository;
 
-    public EquipmentResource(EquipmentRepository equipmentRepository) {
+    public EquipmentResource(EquipmentRepository equipmentRepository,
+                             SaveFileService fileService) {
+
         this.equipmentRepository = equipmentRepository;
+        this.fileService = fileService;
     }
 
     /**
@@ -121,4 +135,32 @@ public class EquipmentResource {
         equipmentRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+
+
+
+
+    @GetMapping(value = "/equipment-export/{id}", produces = "text/csv; charset=utf-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Resource exportEquipment(@PathVariable Long id, HttpServletResponse response){
+        Equipment equipment = equipmentRepository.findById(id).orElseThrow(EquipmentNotFoundException::new);
+        fileService.writeFile(equipment);
+
+        return fileService.getEquipmentFile(equipment.getId() + ".csv", response);
+    }
+
+    @GetMapping(value = "/equipment-export", produces = "text/csv; charset=utf-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Resource exportAllEquipment(HttpServletResponse response){
+        fileService.writeFile();
+
+        return fileService.getEquipmentFile("equipments.csv", response);
+    }
+
+    @PostMapping("/equipment-import")
+    public void importAllEquipment(@RequestParam("file") MultipartFile file){
+        fileService.handleEquipmentFile(file);
+    }
+
 }
