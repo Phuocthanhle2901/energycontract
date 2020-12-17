@@ -1,0 +1,25 @@
+{
+  "managedAccessoriesSystemApp": {
+    "userEquipmentActivityLog": {
+      "home": {
+        "title": "User Equipment Activity Logs",
+        "createLabel": "Thêm mới một User Equipment Activity Log",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật User Equipment Activity Log",
+        "notFound": "No User Equipment Activity Logs found"
+      },
+      "created": "Một User Equipment Activity Log mới được tạo với định danh {{ param }}",
+      "updated": "Một User Equipment Activity Log cập nhật với định danh {{ param }}",
+      "deleted": "Một User Equipment Activity Log đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa User Equipment Activity Log {{ id }}?"
+      },
+      "detail": {
+        "title": "User Equipment Activity Log"
+      },
+      "activity": "Activity",
+      "date": "Date",
+      "user": "User",
+      "equipment": "Equipment"
+    }
+  }
+}
