@@ -1,0 +1,100 @@
+{
+  "name": "Equipment",
+  "fields": [
+    {
+      "fieldName": "purchaseDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "equipmentName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "technicalFeatures",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "serialNumber",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "actionLog",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipName": "actionLog"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "statusLog",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipName": "statusLog"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "userEquipmentActivityLog",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipName": "userEquipmentActivityLog"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipValidateRules": "required",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "equipmentGroup",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipValidateRules": "required",
+      "relationshipName": "equipmentGroup",
+      "otherEntityField": "equipmentGroupName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "equipmentType",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipValidateRules": "required",
+      "relationshipName": "equipmentType",
+      "otherEntityField": "equipmentTypeName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "area",
+      "otherEntityRelationshipName": "equipment",
+      "relationshipValidateRules": "required",
+      "relationshipName": "area",
+      "otherEntityField": "areaName"
+    }
+  ],
+  "changelogDate": "20201130145157",
+  "entityTableName": "equipment",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,23 @@
+{
+  "managedAccessoriesSystemApp": {
+    "equipmentType": {
+      "home": {
+        "title": "Equipment Types",
+        "createLabel": "Create a new Equipment Type",
+        "createOrEditLabel": "Create or edit a Equipment Type",
+        "notFound": "No Equipment Types found"
+      },
+      "created": "A new Equipment Type is created with identifier {{ param }}",
+      "updated": "A Equipment Type is updated with identifier {{ param }}",
+      "deleted": "A Equipment Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Equipment Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Equipment Type"
+      },
+      "equipmentTypeName": "Equipment Type Name",
+      "equipment": "Equipment"
+    }
+  }
+}

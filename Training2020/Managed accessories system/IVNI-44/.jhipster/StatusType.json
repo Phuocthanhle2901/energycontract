@@ -1,0 +1,38 @@
+{
+  "name": "StatusType",
+  "fields": [
+    {
+      "fieldName": "statusTitle",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "statusLog",
+      "otherEntityRelationshipName": "statusType",
+      "relationshipName": "statusLog"
+    }
+  ],
+  "changelogDate": "20201130145657",
+  "entityTableName": "status_type",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

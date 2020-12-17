@@ -1,0 +1,136 @@
+entity ActionLog {
+    // actionid Long required,
+    // actiontypeid Integer required,
+    // equipmentid Integer required,
+    // placetoperformid Integer required,
+    // urepresentativeid Integer required,
+    startDate Instant required,
+    expectedEndDate Instant,
+    actualEndDate Instant,
+    price Long required,
+    note String
+}
+entity ActionType {
+    //actiontypeid Integer required,
+    actionTitle String required,
+    description String required
+}
+entity Area {
+    //areaid Integer required,
+    areaName String required
+}
+entity Equipment {
+    // eid Integer required,
+    // egroupid Integer required,
+    // etypeid Integer required,
+    // areaid Integer required,
+    // currentuid Integer required,
+    purchaseDate Instant,
+    equipmentName String required,
+    technicalFeatures String required,
+    serialNumber String required,
+    note String required
+}
+
+entity EquipmentGroup {
+    // egroupid Integer required,
+    equipmentGroupName String required
+}
+
+entity EquipmentType {
+    // etypeid Integer required,
+    equipmentTypeName String required
+}
+
+// entity Permissions {
+//     // pid Integer required,
+//     // roleid Integer required,
+//     description String required
+// }
+
+entity PlaceToPerform {
+    // placeid Integer required,
+    placeName String required,
+    address String required,
+    phoneNumber String required,
+    email String required,
+    representativeName Instant required
+}
+
+// entity Role {
+//     roleid Integer required,
+//     roletitle String required
+// }
+
+entity StatusLog {
+    // statusid Long required,
+    // statustypeid Integer required,
+    // equipmentid Integer required,
+    statusDateTime Instant,
+    note String required
+}
+
+entity StatusType {
+    // statustypeid Integer required,
+    statusTitle String required,
+    description String required
+}
+
+// entity User {
+//     uid Integer required,
+//     areaid Integer required,
+//     roleid Integer required,
+//     username String required,
+//     password String required,
+//     firstname String required,
+//     lastname String required,
+//     avatar String required,
+//     email String required,
+//     phonenumber String required,
+//     address String required
+// }
+
+entity Employee{
+	phoneNumber String required
+}
+
+entity UserEquipmentActivityLog {
+    // activityid Long required,
+    // uid Integer required,
+    // equipmentid Integer required,
+    activity String required,
+    date Instant
+}
+
+relationship OneToOne{
+	Employee{user(login) required} to User
+}
+
+relationship OneToMany {
+    // User to Equipment{user required}
+    // User to ActionLog{user required}
+    // User to UserEquipmentActivityLog{user required}
+	
+    ActionType 		to ActionLog{actionType(actionTitle) required}
+    PlaceToPerform 	to ActionLog{placeToPerform(placeName) required}
+    Equipment 		to ActionLog{equipment(equipmentName) required}
+    StatusType 		to StatusLog{statusType(statusTitle) required}
+    Equipment 		to StatusLog{equipment(equipmentName) required}
+    EquipmentGroup 	to Equipment{equipmentGroup(equipmentGroupName) required}
+    EquipmentType 	to Equipment{equipmentType(equipmentTypeName) required}
+    Area 			to Equipment{area(areaName) required}
+    Equipment 		to UserEquipmentActivityLog{equipment(equipmentName) required}
+	Area 			to Employee{area(areaName) required}
+	Employee 		to Area{leader}
+}
+
+/**
+ * Many to one relationship.
+ */
+relationship ManyToOne {
+    ActionLog{user required} to Employee
+    Equipment{user required} to Employee
+    UserEquipmentActivityLog{user required} to Employee
+	
+    //User{area} to Area
+}

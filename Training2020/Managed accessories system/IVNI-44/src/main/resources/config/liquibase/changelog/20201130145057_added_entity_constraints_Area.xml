@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Area.
+    -->
+    <changeSet id="20201130145057-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="leader_id"
+                                 baseTableName="area"
+                                 constraintName="fk_area_leader_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+    </changeSet>
+</databaseChangeLog>

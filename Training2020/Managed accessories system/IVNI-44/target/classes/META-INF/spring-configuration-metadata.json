@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "application",
+      "type": "vn.infodation.intern.group1.mas.config.ApplicationProperties",
+      "sourceType": "vn.infodation.intern.group1.mas.config.ApplicationProperties"
+    },
+    {
+      "name": "spring.datasource.hikari",
+      "type": "javax.sql.DataSource",
+      "sourceType": "vn.infodation.intern.group1.mas.config.CloudDatabaseConfiguration",
+      "sourceMethod": "dataSource()"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
