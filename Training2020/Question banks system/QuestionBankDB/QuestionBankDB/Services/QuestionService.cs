@@ -47,23 +47,11 @@ namespace QuestionBankDB.Services
             return _question.Distinct(new StringFieldDefinition<Question, string>("themeName"), FilterDefinition<Question>.Empty).ToList();
         }
 
-<<<<<<< HEAD
-=======
- 
-        //return questions with specific theme name
-        public List<Question> GetThemeQuestions(string theme) => _question.Find(question => question.ThemeName.Equals(theme)).ToList();
- 
- 
->>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
         //get questions with specific theme name
         public List<Question> GetThemeQuestions(string theme, byte page) => _question.Find(question => question.ThemeName.Equals(theme))
                                                                                      .Limit(5).Skip(5 * page).ToList(); //5 results per page
         //get count of questions of a specific theme
         public int GetQuestionsCount(string theme) => (int)_question.Find(question => question.ThemeName.Equals(theme)).CountDocuments();
-<<<<<<< HEAD
-=======
- 
->>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
     }
 
 }

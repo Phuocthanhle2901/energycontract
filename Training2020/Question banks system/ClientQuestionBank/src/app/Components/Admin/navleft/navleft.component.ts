@@ -11,6 +11,11 @@ export class NavleftComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  onClickUserOrAdmin(s){
+    this.router.navigate(["/admin/users/"+s]);
+  }
 
 
 }
+

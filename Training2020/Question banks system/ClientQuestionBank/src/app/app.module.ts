@@ -31,6 +31,7 @@ import { ListComponent } from './Components/Admin/Question/list/list.component';
 import { UsersComponent } from './Components/Admin/User/users/users.component';
 import { UsCreateComponent } from './Components/Admin/User/us-create/us-create.component';
 import { UsUpdateComponent } from './Components/Admin/User/us-update/us-update.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,9 @@ import { UsUpdateComponent } from './Components/Admin/User/us-update/us-update.c
     NgbModule,
     FontAwesomeModule,
     NgbAlertModule,NgbPaginationModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

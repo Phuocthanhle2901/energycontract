@@ -19,29 +19,57 @@ namespace QuestionBankDB.Services
         private readonly supperService _supper=new supperService();
         public UserInfoService(IQuestionBankSettings settings)
         {
-            
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName); 
             _userInfo = database.GetCollection<UserInfo>(settings.UserInfoCollectionName);
-
-          
-
+        }
+        public List<Object> GetAllAdmin()
+        {
+            var project = Builders<UserInfo>.Projection.Include("email").Include("fullname").Include(x=>x.Avatar).Exclude("_id").Include(x=>x.Status);
+            var result = _userInfo.Find(user => user.Role== 2).Project(project).ToList();
+            if (result.Count > 0)
+            {
+                List<Object> list = new List<object>();
+                result.ForEach((e) =>
+                {
+                    list.Add(BsonTypeMapper.MapToDotNetValue(e));
+                });
+                return list;
+            }
+            return null;
+        }
+        public List<Object> GetAllUser()
+        {
+            var project = Builders<UserInfo>.Projection.Include("email").Include("fullname").Include(x => x.Avatar).Exclude("_id").Include(x => x.Status);
+            var result = _userInfo.Find(user => user.Role == 1).Project(project).ToList();
+            if (result.Count > 0)
+            {
+                List<Object> list = new List<object>();
+                result.ForEach((e) =>
+                {
+                    list.Add(BsonTypeMapper.MapToDotNetValue(e));
+                });
+                return list;
+            }
+            return null;
         }
 
-        public List<UserInfo> Get() =>
-            _userInfo.Find(AnswerUser => true).ToList();
-
-        public UserInfo Get(string id) =>
-            _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id).FirstOrDefault();
-
-        public UserInfo Create(UserInfo userInfo)
+        public Boolean DisableUser(string email)
         {
-            _userInfo.InsertOne(userInfo);
-            return userInfo;
-        } 
+            var user = _userInfo.Find(user => user.Email == email).FirstOrDefault();
+            if(user != null)
+            {
+                user.Status = !user.Status;
+                _userInfo.ReplaceOne(x => x.Email == email, user);
+
+                return true;
+            }
+            
+            return false;
+        }
 
         public void Update(string id, UserInfo userInfoId) =>
-            _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
+           _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
 
         public void Remove(UserInfo userInfo) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == userInfo.Id);
@@ -49,7 +77,14 @@ namespace QuestionBankDB.Services
         public void Remove(string id) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == id);
 
-        
+        public UserInfo Get(string id) =>
+            _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
+
+        public UserInfo Create(UserInfo userInfo)
+        {
+            _userInfo.InsertOne(userInfo);
+            return userInfo;
+        } 
 
         public object register(UserInfo fuser)
         {
@@ -57,7 +92,7 @@ namespace QuestionBankDB.Services
             
             try
             {
-                if (_supper.IsNull(res)){
+                if (res == null){
                     fuser.Password = _supper.GetMD5(fuser.Password);
                     fuser.Role=1;
                     fuser.Status = true;
@@ -73,12 +108,8 @@ namespace QuestionBankDB.Services
             {
                 return ex.Message;
             }
-
-          
              
         }
-
-
         public object SignIn(UserInfo fuser, HttpContext context)
         {
             try {
@@ -107,7 +138,6 @@ namespace QuestionBankDB.Services
             }
            
         }
-
         public string CountAccess(HttpContext context,UserInfo user)
         {
             // Lấy ISession
@@ -130,9 +160,6 @@ namespace QuestionBankDB.Services
 
             return jsonSave;
         }
-
-
-
         public   Object getInfoUserLogin(string id)
         {
             Console.WriteLine(id);
@@ -152,17 +179,8 @@ namespace QuestionBankDB.Services
             catch (Exception ex)
             {
                 return ex;
-            }
-           
-            
+            }  
         }
-
-
-        
-
-
-
-
 
     }
 }

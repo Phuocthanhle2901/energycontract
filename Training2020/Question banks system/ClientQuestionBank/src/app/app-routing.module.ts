@@ -20,7 +20,8 @@ const routes: Routes = [
   {path:"admin/questions",component:IndexComponent},// list question
   {path:"admin/updateQuestion",component:IndexComponent},// list question
 
-  {path:"admin/users",component:IndexComponent},
+  {path:"admin/users/ad",component:IndexComponent},
+  {path:"admin/users/us",component:IndexComponent},
   {path:"admin/createUsers",component:IndexComponent},// list question
 
 

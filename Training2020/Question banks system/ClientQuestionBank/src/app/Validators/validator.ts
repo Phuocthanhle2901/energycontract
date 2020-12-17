@@ -16,7 +16,7 @@ export const RepeatPasswordValidator = (
     ? null
     : { identityRevealed: true };
 };
-
+export const FullNameValidation = [Validators.required];
 export const EmailValidation = [Validators.required, Validators.email];
 export const PasswordValidation = [
   Validators.required,
