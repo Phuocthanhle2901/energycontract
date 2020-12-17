@@ -13,6 +13,7 @@ export class HaederComponent implements OnInit {
   constructor(private router:ActivatedRoute) { }
   email:string;
   role:any='';
+  ten:string;
 
   use=faUser;
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class HaederComponent implements OnInit {
           {
             this.role =res.data.result.role;
             this.email=res.data.result.email;
+            this.ten = res.data.result.fullname
           }
           else{
             this.role=false;

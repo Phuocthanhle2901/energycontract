@@ -63,10 +63,10 @@
     </a>
     <div id="user" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
+        <div class="bg-white py-2 collapse-inner rounded"> 
             <h6 class="collapse-header">Users</h6>
-            <a class="collapse-item" routerLink="/admin/users/ad" >Admin</a>
-            <a class="collapse-item" routerLink="/admin/users/us">user</a>
+            <a class="collapse-item" (click)="onClickUserOrAdmin('ad')">Admin</a>
+            <a class="collapse-item" (click)="onClickUserOrAdmin('us')">User</a>
 
         </div>
     </div>

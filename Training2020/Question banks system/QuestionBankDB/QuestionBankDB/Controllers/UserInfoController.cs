@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using QuestionBankDB.Models;
 using QuestionBankDB.Services;
 using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
 
 namespace QuestionBankDB.Controllers
 {
@@ -20,9 +21,6 @@ namespace QuestionBankDB.Controllers
             _userInfoService = userInfoService;
         }
 
-        [HttpGet]
-        public ActionResult<List<UserInfo>> Get() =>
-            _userInfoService.Get();
 
         [HttpGet("{id:length(24)}",Name = "GetUserInfo")]
         public ActionResult<UserInfo> Get(string id)
@@ -100,6 +98,43 @@ namespace QuestionBankDB.Controllers
         }
 
 
-
+        //Lay toan bo admin
+        [HttpPost]
+        [Route("user/admin")]
+        public ActionResult<List<Object>> getUserAdminAll()
+        {
+            var listAdmin = _userInfoService.GetAllAdmin();
+            if (listAdmin == null)
+            {
+                return null;
+            }
+            else
+            {
+                return listAdmin;
+            }
+        }
+        //Lay toan bo user
+        [HttpPost]
+        [Route("user/user")]
+        public ActionResult<List<Object>> getUserAll()
+        {
+            var listAdmin = _userInfoService.GetAllUser();
+            if (listAdmin == null)
+            {
+                return null;
+            }
+            else
+            {
+                return listAdmin;
+            }
+        }
+        //disable user
+        [HttpPost]
+        [Route("user/disable_user")]
+        public ActionResult<Boolean> disableUser(string email)
+        {
+            _userInfoService.DisableUser(email);
+            return true;
+        }
     }
 }
