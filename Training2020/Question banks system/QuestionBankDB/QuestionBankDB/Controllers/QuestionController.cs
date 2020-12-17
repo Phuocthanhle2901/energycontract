@@ -81,9 +81,9 @@ namespace QuestionBankDB.Controllers
 
         [HttpPost]
         [Route("themeQuestions")]
-        public ActionResult<List<Question>> GetThemeQuestions(string theme)
+        public ActionResult<List<Question>> GetThemeQuestions(string theme, byte page)
         {
-            var questions = _questionService.GetThemeQuestions(theme);
+            var questions = _questionService.GetThemeQuestions(theme, page);
 
             if (questions == null)
             {
@@ -92,6 +92,9 @@ namespace QuestionBankDB.Controllers
 
             return questions;
         }
+        [HttpPost]
+        [Route("countQuestions")]
+        public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
     }
     
 }

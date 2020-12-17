@@ -16,18 +16,15 @@ export class BodysComponent implements OnInit {
 
     if(this.router.url.split('/')[2]==='users')
     {
-      console.log("users")
       this.routes=this.router.url.slice(0,12);
     }
    else if(this.router.url.split('/')[2]==='questions')
     {
-      console.log("ad")
       this.routes=this.router.url.slice(0,16);
     }
     else{
       this.routes=this.router.url;
     }
-    console.log(this.routes)
   }
 
 }

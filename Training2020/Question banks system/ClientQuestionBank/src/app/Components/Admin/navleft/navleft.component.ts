@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemesService } from '../../../Services/themes.service';
 
 @Component({
   selector: 'app-navleft',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navleft.component.scss']
 })
 export class NavleftComponent implements OnInit {
-
-  constructor() { }
+  themes:string[] = [];
+  constructor(private themesService:ThemesService) { }
 
   ngOnInit(): void {
+    this.getThemes();
+  }
+
+  getThemes() {
+    this.themesService.getThemes().subscribe((res:any)=>{
+      this.themes = res;
+    })
   }
 
 }
