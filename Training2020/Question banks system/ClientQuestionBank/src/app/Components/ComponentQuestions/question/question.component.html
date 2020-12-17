@@ -41,7 +41,7 @@
                 <a class="link-bgWhite" ng-href="#">Web API Questions</a>
               </li>
               <li class="nav-item" *ngFor="let item of themes">
-                <a class="link-bgWhite" (click)="getThemeQuestions(item)">{{item}} Questions</a>
+                <a class="link-bgWhite" (click)="getThemeQuestions(item,0); getPageCount()">{{item}} Questions</a>
               </li>
             </ul>
           </div>

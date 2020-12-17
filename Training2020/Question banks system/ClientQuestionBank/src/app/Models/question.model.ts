@@ -1,5 +1,5 @@
 export class Question{
-    
+    id:string;
     question:string;
     answer:string[];
     trueAnswer:string[];
@@ -8,6 +8,4 @@ export class Question{
     point:number;
     timeallow:number;
     status:boolean;
-    constructor(){}
-
 }

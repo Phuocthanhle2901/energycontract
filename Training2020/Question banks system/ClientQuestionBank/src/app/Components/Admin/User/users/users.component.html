@@ -1,35 +1,51 @@
 <div class="mod-adminUsers">
-  <button routerLink="/admin/createUsers" type="button" class="btn btn-primary">Create Account +</button>
+  <div class="d-flex justify-content-between">
+    <button routerLink="/admin/createUsers" type="button" class="btn btn-primary">Create Account +</button>
+    <ul class="navbar-nav">
+
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small">Users <i class="eva eva-arrow-ios-downward-outline "></i></span>
+
+        </a>
+        <!-- Dropdown - User Information -->
+        <div class="dropdown-menu   shadow  " aria-labelledby="userDropdown">
+          <a class="dropdown-item" (click)="getUsers()">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            name
+          </a>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+
   <hr>
 
   <div class="mod-adminUsers-table">
     <table class="table table-striped">
       <thead  >
         <tr>
-          <th>#</th>
+          <th>Index</th>
           <th>Full Name</th>
           <th>Email</th>
-          <th>Password</th>
           <th>Avatar</th>
-          <th>Role</th>
-          <th>status</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>John</td>
-          <td>john@example.com</td>
-          <td>123123</td>
-          <td>anh.jpg</td>
-          <td>1</td>
-          <td>true</td>
+      
+        <tr *ngFor="let item of list; let i=index">
+          <td>{{i+1}}</td>
+          <td>{{item.fullname}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.avatar}}</td>
+          <td (click)="Xoa(item.email,i)" [ngStyle]="{color: getColor(i)}" >{{status[i] ? "Enable" : "Disable"}}</td> 
           <td>
-
-            <button type="button" class="btn btn-edt" title="edit" ><i class="eva eva-edit-outline"></i>  </button>
-           <button type="button" class="btn btn-delete" title="detele"><i class="eva eva-trash-2-outline"></i> </button>
-           <button type="button" class="btn btn-achi" title="achievement" [ngClass]="route==='us'?'d-inline':'d-none'" ><i class="eva eva-pantone-outline"></i> </button>
+            <button type="button" class="btn btn-edt" title="edit" (click)="Sua(item.email)" ><i class="eva eva-edit-outline"></i>  </button>
+           <button type="button" class="btn btn-achi" title="achievement" [ngClass]="r==='us'?'d-inline':'d-none'" ><i class="eva eva-pantone-outline"></i> </button>
           </td>
         </tr>
 

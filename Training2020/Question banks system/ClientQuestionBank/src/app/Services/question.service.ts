@@ -11,14 +11,18 @@ const httpOptions ={
   providedIn: 'root'
 })
 export class QuestionService {
-  apiUrl:string;
-
+  questionUrl:string;
+  count:string
   constructor(private httpClient:HttpClient) { }
 
-  getThemeQuestions(theme:string):Observable<JSON>{
-    this.apiUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme);
-    console.log(this.apiUrl);
-    return this.httpClient.post<JSON>(this.apiUrl, null).pipe();
+  getThemeQuestions(theme:string, page:number):Observable<JSON>{
+    this.questionUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme) + "&page=" + page;
+    return this.httpClient.post<JSON>(this.questionUrl, null).pipe();
+  }
+
+  getCount(theme:string){
+    this.count = "https://localhost:44328/api/Question/countQuestions?theme=" + encodeURIComponent(theme);
+    return this.httpClient.post<JSON>(this.count, null);
   }
 
   createQuestion(question:any)

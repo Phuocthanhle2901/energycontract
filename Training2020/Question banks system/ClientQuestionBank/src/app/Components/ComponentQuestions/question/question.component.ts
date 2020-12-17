@@ -15,7 +15,6 @@ export class QuestionComponent implements OnInit {
   currentTheme:string;
   pageCount:number;
   currentPage:number;
-  
   constructor(
       private questionService:QuestionService,
       private themesService:ThemesService
@@ -31,11 +30,19 @@ export class QuestionComponent implements OnInit {
     })
   }
 
-  getThemeQuestions(theme:string) {
-    console.log(theme);
-    this.questionService.getThemeQuestions(theme).subscribe((res:any)=>{
+  getThemeQuestions(theme:string, page:number) {
+    this.currentTheme = theme;
+    this.questionService.getThemeQuestions(theme, page).subscribe((res:any)=>{
       this.data = res;
-      console.log(this.data);
+    })
+    this.currentPage = page;
+  }
+
+  getPageCount(){
+    this.questionService.getCount(this.currentTheme).subscribe((res:any)=>{
+      this.pageCount = res;
+      this.pageCount = Math.floor(this.pageCount/5);
+      console.log(this.pageCount);
     })
   }
 
