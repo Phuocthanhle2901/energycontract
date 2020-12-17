@@ -40,7 +40,7 @@
           data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Theme</h6>
-              <a class="collapse-item" routerLink="/admin/questions" >Java</a>
+              <a class="collapse-item" routerLink="/admin/questions/java" >Java</a>
               <a class="collapse-item" href="utilities-border.html">Borders</a>
               <a class="collapse-item" href="utilities-animation.html">Animations</a>
               <a class="collapse-item" href="utilities-other.html">Other</a>
@@ -56,10 +56,21 @@
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-      <a class="nav-link collapsed">
+    <a class="nav-link collapsed" data-toggle="collapse" data-target="#user"
+        aria-expanded="true" aria-controls="user">
         <i class="eva eva-award-outline"></i>
-          <span>Manager Users</span>
-      </a>
-  </li>
+        <span>Manager Users</span>
+    </a>
+    <div id="user" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Users</h6>
+            <a class="collapse-item" routerLink="/admin/users/ad" >Admin</a>
+            <a class="collapse-item" routerLink="/admin/users/us">user</a>
+
+        </div>
+    </div>
+</li>
+
 </ul>
 <router-outlet></router-outlet>

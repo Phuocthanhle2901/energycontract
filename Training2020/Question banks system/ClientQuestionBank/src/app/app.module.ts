@@ -28,6 +28,9 @@ import { BodysComponent } from './Components/Admin/bodys/bodys.component';
 import { CreateComponent } from './Components/Admin/Question/create/create.component';
 import { UpdateComponent } from './Components/Admin/Question/update/update.component';
 import { ListComponent } from './Components/Admin/Question/list/list.component';
+import { UsersComponent } from './Components/Admin/User/users/users.component';
+import { UsCreateComponent } from './Components/Admin/User/us-create/us-create.component';
+import { UsUpdateComponent } from './Components/Admin/User/us-update/us-update.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ import { ListComponent } from './Components/Admin/Question/list/list.component';
     CreateComponent,
     UpdateComponent,
     ListComponent,
+    UsersComponent,
+    UsCreateComponent,
+    UsUpdateComponent,
 
   ],
   imports: [

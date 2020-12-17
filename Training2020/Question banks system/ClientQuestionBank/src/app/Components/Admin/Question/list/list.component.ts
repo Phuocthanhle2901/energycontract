@@ -10,6 +10,7 @@ export class ListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   deleteQuestion(id:any)
