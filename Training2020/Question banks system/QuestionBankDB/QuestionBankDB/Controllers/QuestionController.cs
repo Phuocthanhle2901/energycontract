@@ -41,7 +41,6 @@ namespace QuestionBankDB.Controllers
         public ActionResult<Question> Create(Question question)
         {
             _questionService.Create(question);
-
             return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, question);
         }
 

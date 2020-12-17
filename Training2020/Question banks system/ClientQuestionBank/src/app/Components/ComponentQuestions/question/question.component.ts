@@ -12,6 +12,9 @@ import { Question } from '../../../Models/question.model'
 export class QuestionComponent implements OnInit {
   themes:string[] = [];
   data:Question[] = [];
+  currentTheme:string;
+  pageCount:number;
+  currentPage:number;
   
   constructor(
       private questionService:QuestionService,

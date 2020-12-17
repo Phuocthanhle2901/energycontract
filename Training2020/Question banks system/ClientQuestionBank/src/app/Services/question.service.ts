@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {Observable,of} from 'rxjs';
 import {Question} from '../Models/question.model';
-
+import axios from "axios";
 const httpOptions ={
   headers:new HttpHeaders({'Content-Type':'Application/json'})
 }
@@ -19,5 +19,16 @@ export class QuestionService {
     this.apiUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme);
     console.log(this.apiUrl);
     return this.httpClient.post<JSON>(this.apiUrl, null).pipe();
+  }
+
+  createQuestion(question:any)
+  {
+     
+    axios.post("https://localhost:44328/api/Question",question)
+    .then(res=>{
+      console.log(res);
+      return res;
+    })
+    .catch(err=> err)
   }
 }
