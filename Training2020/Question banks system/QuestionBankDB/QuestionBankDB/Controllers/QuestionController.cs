@@ -89,12 +89,22 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
-
             return questions;
         }
+<<<<<<< HEAD
         [HttpPost]
         [Route("countQuestions")]
         public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
+=======
+
+        [HttpPost]
+        [Route("countQuestions")]
+        public ActionResult<int> GetQuestionsCount(string theme)
+        {
+            int count = _questionService.GetQuestionsCount(theme);
+            return count;
+        }
+>>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
     }
     
 }

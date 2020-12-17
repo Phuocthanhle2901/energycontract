@@ -12,6 +12,7 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.route=this.router.url;
+      console.log(this.router.url)
   }
 
 }

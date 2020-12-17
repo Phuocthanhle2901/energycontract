@@ -1,18 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { QuestionService } from '../../../../Services/question.service';
 import { Question } from '../../../../Models/question.model'
+=======
+import {Router} from '@angular/router';
+>>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+<<<<<<< HEAD
   questions:Question[] = [];
   currentTheme:string;
   pageCount:number;
   currentPage:number;
   url = window.location.href;
   constructor(private questionService:QuestionService) { }
+=======
+
+  constructor(private route:Router) { }
+>>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
 
   ngOnInit(): void {
     this.url = window.location.href;
@@ -37,6 +46,11 @@ export class ListComponent implements OnInit {
       this.pageCount = Math.floor(this.pageCount/5);
       console.log(this.pageCount);
     })
+  }
+
+  getQuestion()
+  {
+
   }
 
   deleteQuestion(id:any)

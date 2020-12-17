@@ -15,7 +15,11 @@ export class QuestionComponent implements OnInit {
   currentTheme:string;
   pageCount:number;
   currentPage:number;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> fbe32e79729b3d2da22f74509e0ab727240e4790
   constructor(
       private questionService:QuestionService,
       private themesService:ThemesService
