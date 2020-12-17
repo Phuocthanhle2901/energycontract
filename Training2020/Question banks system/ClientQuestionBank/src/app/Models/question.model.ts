@@ -1,11 +1,11 @@
 export class Question{
-    Id:string;
+    id:string;
     question:string;
-    Answer:string[];
-    TrueAnswer:string[];
-    ThemeName:string;
-    Level:number;
-    Point:number;
-    Timeallow:number;
-    Status:boolean;
+    answer:string[];
+    trueAnswer:string[];
+    themeName:string;
+    level:number;
+    point:number;
+    timeallow:number;
+    status:boolean;
 }
