@@ -7,7 +7,7 @@
           aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Themes <i class="eva eva-arrow-ios-downward-outline "></i></span>
         </a>
-        <!-- Dropdown - User Information -->
+        <!-- Dropdown - Question Themes -->
         <div class="dropdown-menu shadow " aria-labelledby="userDropdown">
           <div class="dropdown-item" *ngFor="let item of themes">
             <a (click)="getThemeQuestions(item,0); getPageCount()">
@@ -38,12 +38,13 @@
             class="eva eva-trash-2-outline"></i> </button>
       </div>
     </div>
+    <!-- Question Pagination -->
     <nav aria-label=" navigation"class=" pagination-page">
       <ul class="pagination">
-        <li class="page-item" *ngIf="currentPage>1">
+        <li class="page-item" *ngIf="currentPage>0">
           <a class="page-link" (click)="getThemeQuestions(currentTheme,0)"><i class="eva eva-arrowhead-left-outline"></i></a>
         </li>
-        <li class="page-item" *ngIf="currentPage>1">
+        <li class="page-item" *ngIf="currentPage>0">
           <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
         </li>
         <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">

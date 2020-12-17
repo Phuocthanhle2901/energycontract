@@ -61,10 +61,10 @@
 
           <nav aria-label=" navigation"class=" pagination-page">
             <ul class="pagination">
-              <li class="page-item" *ngIf="currentPage>1">
+              <li class="page-item" *ngIf="currentPage>0">
                 <a class="page-link" (click)="getThemeQuestions(currentTheme,0)"><i class="eva eva-arrowhead-left-outline"></i></a>
               </li>
-              <li class="page-item" *ngIf="currentPage>1">
+              <li class="page-item" *ngIf="currentPage>0">
                 <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
               </li>
               <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">
