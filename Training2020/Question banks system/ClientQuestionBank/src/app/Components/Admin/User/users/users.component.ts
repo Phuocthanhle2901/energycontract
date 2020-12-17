@@ -1,5 +1,5 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, AfterContentInit, OnInit } from '@angular/core';
+import { Component, AfterContentInit, OnInit,SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from "axios";
 

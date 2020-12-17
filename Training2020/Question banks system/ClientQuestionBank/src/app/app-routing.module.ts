@@ -17,7 +17,7 @@ const routes: Routes = [
   {path:"admin/index",component:IndexComponent},
 
   {path:"admin/createQuestion",component:IndexComponent},// create question
-  {path:"admin/questions/:name",component:IndexComponent},// list question
+  {path:"admin/questions",component:IndexComponent},// list question
   {path:"admin/updateQuestion",component:IndexComponent},// list question
 
   {path:"admin/users/ad",component:IndexComponent},
@@ -28,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports:[RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

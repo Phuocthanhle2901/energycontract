@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router}from '@angular/router';
 @Component({
   selector: 'app-navleft',
   templateUrl: './navleft.component.html',
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class NavleftComponent implements OnInit {
 
-  constructor(private router: Router ) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -15,6 +15,7 @@ export class NavleftComponent implements OnInit {
   onClickUserOrAdmin(s){
     this.router.navigate(["/admin/users/"+s]);
   }
+
 
 }
 

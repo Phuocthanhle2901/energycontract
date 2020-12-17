@@ -4,6 +4,7 @@ using System.Linq;
 using QuestionBankDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using System;
 
 namespace QuestionBankDB.Services
 {
@@ -51,8 +52,16 @@ namespace QuestionBankDB.Services
             return _question.Distinct(new StringFieldDefinition<Question, string>("themeName"), FilterDefinition<Question>.Empty).ToList();
         }
 
+ 
         //return questions with specific theme name
         public List<Question> GetThemeQuestions(string theme) => _question.Find(question => question.ThemeName.Equals(theme)).ToList();
+ 
+ 
+        //get questions with specific theme name
+        public List<Question> GetThemeQuestions(string theme, byte page) => _question.Find(question => question.ThemeName.Equals(theme))
+                                                                                     .Limit(5).Skip(5 * page).ToList(); //5 results per page
+        //get count of questions of a specific theme
+        public int GetQuestionsCount(string theme) => (int)_question.Find(question => question.ThemeName.Equals(theme)).CountDocuments();
  
     }
 
