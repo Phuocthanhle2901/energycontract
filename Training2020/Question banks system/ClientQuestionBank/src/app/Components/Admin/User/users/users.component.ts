@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   constructor(private router: Router) {
     console.log(this.router.url.split('/')[3])
   }
-  
+
   ngOnInit(): void {
     this.r = this.r = this.router.url.split('/')[3];
     if(this.r =="ad"){
@@ -58,7 +58,7 @@ export class UsersComponent implements OnInit {
         .catch(err => console.log(err));
   }
  }
-    
+
   getColor(i){return this.status[i] ? 'green' : 'red';}
- 
+
 }
