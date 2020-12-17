@@ -12,30 +12,37 @@ export class HaederComponent implements OnInit {
 
   constructor(private router:ActivatedRoute) { }
   email:string;
-  role:"";
+  role:any='';
+  ten:string;
 
   use=faUser;
   ngOnInit(): void {
 
     var cookie=getCookie();
-    axios.post("https://localhost:44328/api/UserInfo/user?id="+cookie.token)
-    .then(res=>{
-      console.log(res.data)
-        if(res.data!=null)
-        {
-          this.role=res.data.result.role;
-          this.email=res.data.result.email;
-        }
-        else{
-          this.role="";
-          this.email="";
-        }
-    })
-    .catch(err=>console.log(err));
+    if(cookie.token!=undefined)
+    {
+      axios.post("https://localhost:44328/api/UserInfo/user?id="+cookie.token)
+      .then(res=>{
+
+          if(res.data!=null)
+          {
+            console.log(res.data);
+            this.role =res.data.result.role;
+            this.email=res.data.result.email;
+            this.ten = res.data.result.fullname
+          }
+          else{
+            this.role=false;
+            this.email="";
+          }
+      })
+      .catch(err=>console.log(err));
+
+    }
+
   }
   userSignout()
   {
-
     signout();
      window.location.reload();
   }

@@ -29,16 +29,16 @@
             <a class="link"  href="#">Learn</a>
           </li>
           <li class="nav-item"  [ngClass]="role == '2' ? 'd-block': 'd-none'" >
-            <a class="link"  href="#">Manager</a>
+            <a class="link" routerLink="/admin/index" >Manager</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-0 ml-lg-5">
           <li class="nav-item mt-md-0 mt-1 login">
-            <a class="link py-2" class="login-btn" [ngClass]="role ==null ? 'd-block':'d-none'" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
+            <a class="link py-2" class="login-btn" [ngClass]="role =='' ? 'd-block':'d-none'" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
           </li>
-          <li class="nav-item dropdown  link py-2 login-btn" [ngClass]="role !=null ? 'd-block': 'd-none'">
+          <li class="nav-item dropdown  link py-2 login-btn" [ngClass]="role != '' ? 'd-block': 'd-none'">
             <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <fa-icon [icon]="use"></fa-icon> Profile
+              <fa-icon [icon]="use"></fa-icon> {{ten}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#"> <fa-icon [icon]="use"></fa-icon> {{email}}</a>
