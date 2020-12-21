@@ -34,7 +34,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileStorageService{
 	private final String FILE_DIRECTORY = "/csv/users/";
 	private final String DEFAULT_PASSWORD = "user";
-	private final Path root = Paths.get(FILE_DIRECTORY);
 
 	public FileStorageService(AreaRepository areaRepository, UserRepository userRepository,
 			EmployeeRepository employeeRepository, UserService userService) {
@@ -44,33 +43,15 @@ public class FileStorageService{
 		this.employeeRepository = employeeRepository;
 		this.userService = userService;
 		
-		try {
-			if(!Files.exists(root))
-				Files.createDirectory(root);
-		} catch (IOException e) {
-			throw new RuntimeException("Could not initialize folder for upload!");
-		}
+		File directory = new File(FILE_DIRECTORY);
+		if(!directory.exists())
+			directory.mkdirs();
 	}
 
 	private AreaRepository areaRepository;
 	private UserRepository userRepository;
 	private EmployeeRepository employeeRepository;
 	private UserService userService;
-	
-	public Resource load(String filename) {
-	    try {
-	    	Path file = root.resolve(filename);
-	    	Resource resource = new UrlResource(file.toUri());
-
-		    if (resource.exists() || resource.isReadable()) {
-		    	return resource;
-		    } else {
-		        throw new RuntimeException("Could not read the file!");
-		    }
-	    } catch (MalformedURLException e) {
-	    	throw new RuntimeException("Error: " + e.getMessage());
-	    }
-	}
 	
 	public Resource getEmployeeFile(String filename, HttpServletResponse response) {
 		response.setContentType("text/csv; charset=utf-8");
@@ -196,14 +177,8 @@ public class FileStorageService{
 	
 	public void writeFile(Employee employee) {
     	String filename = employee.getUser().getLogin() + ".csv";
-    	String path = "/csv/users/";
     	
-    	File directory = new File(path);
-    	if(!directory.exists()) {
-    		directory.mkdirs();
-    	}
-    	
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
     	if(!file.exists()) {
     		try {
     			User user = employee.getUser();
@@ -249,14 +224,8 @@ public class FileStorageService{
 		}
 		if(employee == null) return;
     	String filename = employee.getUser().getLogin() + ".csv";
-    	String path = "/csv/users/";
     	
-    	File directory = new File(path);
-    	if(!directory.exists()) {
-    		directory.mkdirs();
-    	}
-    	
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
     	if(!file.exists()) {
     		try {
     			final String SEPERATOR = ",";
@@ -293,15 +262,9 @@ public class FileStorageService{
 	
     public void writeFile() {
     	String filename = "users.csv";
-    	String path = "/csv/users/";
     	List<Employee> x = employeeRepository.findAll();
     	
-    	File directory = new File(path);
-    	if(!directory.exists()) {
-    		directory.mkdirs();
-    	}
-    	
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
 		final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
 		final String SEPERATOR = ",";
 		String value = fileHeader + "\n";
