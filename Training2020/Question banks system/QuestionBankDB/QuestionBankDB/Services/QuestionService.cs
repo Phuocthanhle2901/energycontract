@@ -52,6 +52,44 @@ namespace QuestionBankDB.Services
                                                                                      .Limit(5).Skip(5 * page).ToList(); //5 results per page
         //get count of questions of a specific theme
         public int GetQuestionsCount(string theme) => (int)_question.Find(question => question.ThemeName.Equals(theme)).CountDocuments();
+
+        //get random question of a theme based on count
+        public List<Question> GetRandomQuestions(string theme, byte count)
+        {
+            int range = GetQuestionsCount(theme) - 1;
+            int index;
+            if (count > range) count = (byte)(range);
+            int[] indexList = new int[count];
+            List<Question> questions = new List<Question>();
+            for(int i=0; i<count; i++)
+            {
+                index = RandomDistinct(indexList, range); //take random index in range
+                indexList[i] = index; //add index to list to isolate it
+                questions.Add(_question.Find(question => question.ThemeName.Equals(theme)) //find question of specific theme
+                                       .Skip(index) //skip index
+                                       .FirstOrDefault());
+            }
+            return questions;
+        }
+
+        private int RandomDistinct(int[] list, int range)
+        {
+            Random random = new Random();
+            int result = 0;
+            bool lap = false; //flag if result exists in list
+            int i; //list iterator
+
+            do
+            {
+                result = random.Next(0, range);
+                i = 0;
+                while (i < list.Length && list[i] != result) i++; //tripwire check
+                if (i < list.Length) lap = true;
+                else lap = false;
+            } while (lap);
+
+            return result;
+        }
     }
 
 }

@@ -33,8 +33,7 @@
               Test
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item"routerLink="/questionTest/java">Java</a>
-
+              <a class="dropdown-item" *ngFor='let theme of themes' routerLink="/questionTest/{{theme}}">{{theme}}</a>
             </div>
           </li>
 

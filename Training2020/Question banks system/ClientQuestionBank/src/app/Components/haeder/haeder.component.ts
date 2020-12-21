@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import {getCookie,signout} from '../../../assets/js/auth.js';
+import {ThemesService} from '../../Services/themes.service';
 import axios from "axios";
 @Component({
   selector: 'app-haeder',
@@ -10,14 +11,18 @@ import axios from "axios";
 })
 export class HaederComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute) { }
+  constructor(
+    private router:ActivatedRoute,
+    private themesService:ThemesService
+  ) { }
   email:string;
   role:any='';
   ten:string;
-
+  themes:string[]=[];
   use=faUser;
   ngOnInit(): void {
-
+    this.getThemes();
+    console.log(this.themes);
     var cookie=getCookie();
     if(cookie.token!=undefined)
     {
@@ -39,12 +44,21 @@ export class HaederComponent implements OnInit {
       .catch(err=>console.log(err));
 
     }
-
   }
+
   userSignout()
   {
     signout();
      window.location.reload();
+  }
+
+  getThemes() {
+    this.themesService.getThemes().subscribe((res:any)=>{
+      this.themes = res;
+    })
+    this.themes.forEach(theme => {
+      theme = encodeURIComponent(theme);
+    });
   }
 
 
