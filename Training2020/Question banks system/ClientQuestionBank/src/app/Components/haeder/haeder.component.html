@@ -26,8 +26,18 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="link"  href="#">Learn</a>
+            <a class="link"  href="#learn">Learn</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Test
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item"routerLink="/questionTest/java">Java</a>
+
+            </div>
+          </li>
+
           <li class="nav-item"  [ngClass]="role == '2' ? 'd-block': 'd-none'" >
             <a class="link" routerLink="/admin/index" >Manager</a>
           </li>
