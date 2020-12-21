@@ -39,12 +39,12 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPost]
-         
-        public ActionResult<Question> Create(Question question)
+         [Route("create")]
+        public ActionResult<object> Create(Question question)
         {
-            _questionService.Create(question);
+            var res= _questionService.Create(question);
 
-            return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, question);
+            return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, res);
         }
 
         [HttpPut("{id:length(24)}")]

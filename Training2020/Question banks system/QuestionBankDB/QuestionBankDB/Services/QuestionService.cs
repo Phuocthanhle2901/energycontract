@@ -26,10 +26,27 @@ namespace QuestionBankDB.Services
         public Question Get(string id) =>
             _question.Find<Question>(question => question.Id == id).FirstOrDefault();
 
-        public Question Create(Question question)
+        public object Create(Question question)
         {
-            _question.InsertOne(question);
-            return question;
+            var res = _question.Find(que => que.question == question.question && que.ThemeName==question.ThemeName).FirstOrDefault();
+            try {
+                if (res == null)
+                {
+                    _question.InsertOne(question);
+                    return (new { status = 200, message = "create question success" });
+                }
+                else
+                {
+                    return (new { status = 400, message = "question exits" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return (new { message = ex });
+            }
+            
+          
+            
         }
 
         public void Update(string id, Question questionIn) =>

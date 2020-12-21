@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
-
+import {Question} from '../../../../Models/question.model';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -9,11 +9,10 @@ import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
 export class CreateComponent implements OnInit {
 
   index:number=0;
-  question:string;
   Answers:string[]=[];// list answer
-
   dataForm:FormGroup;
-  constructor(private formBuilder:FormBuilder) {
+  question:Question;
+  constructor(private formBuilder:FormBuilder ) {
 
   }
 
@@ -62,9 +61,20 @@ export class CreateComponent implements OnInit {
 
   onSubmit(data:any)
   {
-    // const control = <FormArray>this.dataForm.controls['answer'];
 
-    console.log(data);
+    // const control = <FormArray>this.dataForm.controls['answer'];
+    this.question.question=data.question;
+    this.question.trueAnswer=data.trueAnswer;
+    this.question.themeName=data.themeName;
+    this.question.timeallow=data.timeallow;
+    this.question.level=data.level;
+    this.question.point=data.point;
+    data.answer.forEach(data=>{
+      this.question.answer.push(data.value);
+    })
+
+
+    console.log(this.question);
 
     // thực hiện đưa dữ liệu lên wep Api tại đây
   }
