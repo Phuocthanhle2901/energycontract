@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import {getCookie,signout} from '../../../assets/js/auth.js';
+import {UserService} from '../../Services/user.service';
 import axios from "axios";
 @Component({
   selector: 'app-haeder',
@@ -10,7 +11,8 @@ import axios from "axios";
 })
 export class HaederComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute) { }
+  constructor(private router:ActivatedRoute,private userService:UserService) { }
+
   email:string;
   role:any='';
   ten:string;
