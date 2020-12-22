@@ -13,28 +13,27 @@
 
           <div class="collapse navbar-collapse justify-content-center"  id="collapsibleNavbar">
             <ul class="navbar-nav d-flex flex-wrap w-50 " *ngFor="let link of ' '.repeat(count).split(''); index as i">
-                 <li><a href="questionTest/theme1#q{{i}}" class="btn btn-item">{{i+1}}</a></li>
+                 <li><a href="questionTest/{{theme}}#q{{i}}" class="btn btn-item">{{i+1}}</a></li>
             </ul>
           </div>
         </nav>
 
       </div>
       <div class="col-md-8  m-0 col-sm-12">
-        <form class="mod-question-body-content">
+        <form class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult(answerSheet.value)">
             <div class="boxItem" *ngFor='let question of questions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
-                <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" name='q{{o}}' id='op'> -->
-                <input *ngIf='question.trueAnswer.length==1' type="radio" class="form-check-input" name='q{{i}}'>
+                <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i}}">
                 <label class="form-check-label" for="op">{{option}}</label>
               </div>
             </div>
             <button type="submit" class="btn btn-primary mt-2">submit</button>
         </form>
+        <p class="text-center">{{result}}</p>
       </div>
     </div>
-
-
 
   </div>
 

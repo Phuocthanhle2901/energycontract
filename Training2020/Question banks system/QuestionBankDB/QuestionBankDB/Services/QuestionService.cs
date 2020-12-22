@@ -77,7 +77,7 @@ namespace QuestionBankDB.Services
             Random random = new Random();
             int result = 0;
             bool lap = false; //flag if result exists in list
-            int i; //list iterator
+            int i; //list iterator position
 
             do
             {
