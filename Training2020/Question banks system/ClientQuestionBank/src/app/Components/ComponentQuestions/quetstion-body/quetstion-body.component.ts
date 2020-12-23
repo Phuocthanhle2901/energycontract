@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { generate } from 'rxjs';
 import { Question } from 'src/app/Models/question.model';
 import { TestService } from '../../../Services/test.service'
+import { QuestionService } from '../../../Services/question.service'
 
 @Component({
   selector: 'app-quetstion-body',
@@ -18,7 +19,7 @@ export class QuetstionBodyComponent implements OnInit {
   answerSheet:FormGroup;
   result:string;
 
-  constructor(private testService:TestService) {
+  constructor(private testService:TestService, private questionService:QuestionService) {
     let cutPost = window.location.href.indexOf('Test/');
     this.theme =  window.location.href.substring(cutPost+5);
     this.count = 3;
@@ -42,9 +43,14 @@ export class QuetstionBodyComponent implements OnInit {
     let maxScore = 0;
     let score = 0;
     for (let i = 0; i < this.questions.length; i++) {
-      maxScore += this.questions[i].point;
-      if(this.questions[i].trueAnswer===answersheet[i]) score += this.questions[i].point;
+      maxScore += this.questions[i].point; //get total point of the test
+      //get true answer for current question
+      this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
+        if(res===answersheet[i])
+        score += this.questions[i].point; //compare answer
+        this.result = "Your score: " + score + "/" + maxScore; //update score
+      });
     }
-    this.result = "Your score: " + score + "/" + maxScore;
+    
   }
 }

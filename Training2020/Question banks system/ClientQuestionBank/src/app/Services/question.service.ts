@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-  questionUrl:string;
-  count:string
+
   constructor(private httpClient:HttpClient) { }
 
-  getThemeQuestions(theme:string, page:number):Observable<JSON>{
-    this.questionUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme) + "&page=" + page;
-    return this.httpClient.post<JSON>(this.questionUrl, null).pipe(); //get paged questions, convert to iterable observable
+  getThemeQuestions(theme:string, page:number){
+    let questionUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme) + "&page=" + page;
+    return this.httpClient.post<JSON>(questionUrl, null).pipe(); //get paged questions, convert to iterable observable
   }
 
   getCount(theme:string){
-    this.count = "https://localhost:44328/api/Question/countQuestions?theme=" + encodeURIComponent(theme);
-    return this.httpClient.post<JSON>(this.count, null); //get question count of a theme
+    let count = "https://localhost:44328/api/Question/countQuestions?theme=" + encodeURIComponent(theme);
+    return this.httpClient.post<JSON>(count, null); //get question count of a theme
+  }
+
+  getAnswer(id:string){
+    let answer = "https://localhost:44328/api/Question/GetAnswer?id=" + id;
+    return this.httpClient.post<JSON>(answer, null); //get answer of a question
   }
 }

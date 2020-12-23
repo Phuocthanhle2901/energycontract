@@ -111,6 +111,11 @@ namespace QuestionBankDB.Controllers
             }
             return questions;
         }
+
+        //get answer of a test
+        [HttpPost]
+        [Route("GetAnswer")]
+        public ActionResult<string> GetAnswer(string id) => _questionService.GetAnswer(id);
     }
     
 }

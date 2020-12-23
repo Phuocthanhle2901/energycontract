@@ -61,13 +61,15 @@ namespace QuestionBankDB.Services
             if (count > range) count = (byte)(range);
             int[] indexList = new int[count];
             List<Question> questions = new List<Question>();
-            for(int i=0; i<count; i++)
+            for (int i=0; i<count; i++)
             {
                 index = RandomDistinct(indexList, range); //take random index in range
                 indexList[i] = index; //add index to list to isolate it
-                questions.Add(_question.Find(question => question.ThemeName.Equals(theme)) //find question of specific theme
-                                       .Skip(index) //skip index
-                                       .FirstOrDefault());
+                Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Status)//find available question of a theme
+                                                      .Skip(index) //skip index
+                                                      .FirstOrDefault();
+                question.TrueAnswer = null; //nullify true answer to avoid cheating
+                questions.Add(question);
             }
             return questions;
         }
@@ -75,11 +77,10 @@ namespace QuestionBankDB.Services
         private int RandomDistinct(int[] list, int range)
         {
             Random random = new Random();
-            int result = 0;
-            bool lap = false; //flag if result exists in list
             int i; //list iterator position
-
-            do
+            bool lap;
+            int result;
+            do //check if index is already in list
             {
                 result = random.Next(0, range);
                 i = 0;
@@ -89,6 +90,13 @@ namespace QuestionBankDB.Services
             } while (lap);
 
             return result;
+        }
+
+        public string GetAnswer(string id)
+        {
+            var project = Builders<Question>.Projection.Include("trueAnswer"); //get true answer only
+            return _question.Find(question => question.Id == id) //find question, project to answer
+                                         .FirstOrDefault().TrueAnswer.ToJson(); //convert result to json string
         }
     }
 
