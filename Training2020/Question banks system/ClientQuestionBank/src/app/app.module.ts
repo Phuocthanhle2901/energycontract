@@ -18,7 +18,20 @@ import { QuestionComponent } from './Components/ComponentQuestions/question/ques
 import { NavRightComponent } from './Components/ComponentQuestions/nav-right/nav-right.component';
 import { QuetstionBodyComponent } from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
 import { ValidatorsModule } from "ngx-validators";
-
+import { HttpClientModule } from '@angular/common/http';
+import { IndexComponent } from './Components/Admin/index/index.component';
+import { NavleftComponent } from './Components/Admin/navleft/navleft.component';
+import { HeaderAdminComponent } from './Components/Admin/header-admin/header-admin.component';
+import { NavMainComponent } from './Components/Admin/nav-main/nav-main.component';
+import { BodyMainComponent } from './Components/Admin/body-main/body-main.component';
+import { BodysComponent } from './Components/Admin/bodys/bodys.component';
+import { CreateComponent } from './Components/Admin/Question/create/create.component';
+import { UpdateComponent } from './Components/Admin/Question/update/update.component';
+import { ListComponent } from './Components/Admin/Question/list/list.component';
+import { UsersComponent } from './Components/Admin/User/users/users.component';
+import { UsCreateComponent } from './Components/Admin/User/us-create/us-create.component';
+import { UsUpdateComponent } from './Components/Admin/User/us-update/us-update.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +40,6 @@ import { ValidatorsModule } from "ngx-validators";
     ContentComponent,
     FooterComponent,
     HomeComponent,
-
     ContentFirstComponent,
     LoginComponent,
     RegisterComponent,
@@ -35,6 +47,18 @@ import { ValidatorsModule } from "ngx-validators";
     QuestionComponent,
     NavRightComponent,
     QuetstionBodyComponent,
+    IndexComponent,
+    NavleftComponent,
+    HeaderAdminComponent,
+    NavMainComponent,
+    BodyMainComponent,
+    BodysComponent,
+    CreateComponent,
+    UpdateComponent,
+    ListComponent,
+    UsersComponent,
+    UsCreateComponent,
+    UsUpdateComponent,
 
   ],
   imports: [
@@ -45,7 +69,10 @@ import { ValidatorsModule } from "ngx-validators";
     ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
-    NgbAlertModule,NgbPaginationModule
+    NgbAlertModule,NgbPaginationModule,
+    HttpClientModule,
+    CommonModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

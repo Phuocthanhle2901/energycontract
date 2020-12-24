@@ -6,10 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  FullNameValidation,
   EmailValidation,
   PasswordValidation,
 } from '../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import {authenticate,isAuth} from '../../../assets/js/auth.js';
 
 import axios from 'axios';
 @Component({
@@ -24,8 +27,9 @@ export class RegisterComponent implements OnInit {
   //data from form
   dataform: FormGroup;
 
-  constructor(private formbuilder: FormBuilder) {
+  constructor(private formbuilder: FormBuilder,private router: Router) {
     this.dataform = this.formbuilder.group({
+      fullname: new FormControl('',FullNameValidation),
       email: new FormControl('', EmailValidation),
       password: new FormControl('', PasswordValidation),
       confirmpassword: ['',[Validators.required, this.passwordMatcher.bind(this)]],
@@ -48,11 +52,12 @@ export class RegisterComponent implements OnInit {
   }
 
   sumbitRegister(e, data: any) {
+    console.log(data)
     axios
       .post('https://localhost:44328/api/userinfo/register', data)
       .then((res) => {
-        if (res.data.status == 200) {
-          this.message = res.data.message;
+        if (res.data.status == 200){
+          this.router.navigate(["login"]);
         } else {
           this.message = res.data.message;
         }
@@ -61,4 +66,5 @@ export class RegisterComponent implements OnInit {
         console.log(err);
       });
   }
+    
 }

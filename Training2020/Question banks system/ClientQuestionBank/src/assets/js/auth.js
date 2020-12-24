@@ -4,14 +4,14 @@ import cookie from "js-cookie";
 export const setCookies=(key,val)=>{
     if(window!=='undefiend')
     {
-        cookie.set(key,val,{expires: 1})
+        cookie.set(key,val,{expires: 0.2})
     }
 }
 //remove cookied
 export const removeCookie=(key)=>{
     if(window!=='undefiend')
     {
-        cookie.remove(key,{expires: 1})
+        cookie.remove(key,{expires: 0.2})
     }
 }
 // get cookie from token
