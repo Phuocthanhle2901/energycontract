@@ -26,21 +26,53 @@ namespace QuestionBankDB.Services
         public Question Get(string id) =>
             _question.Find<Question>(question => question.Id == id).FirstOrDefault();
 
-        public Question Create(Question question)
+        public Object Create(Question question)
         {
-            _question.InsertOne(question);
-
-            return question;
+  
+            var res = _question.Find(que => que.question == question.question && que.ThemeName==question.ThemeName).FirstOrDefault();
+            try {
+                if (res == null)
+                {
+                    _question.InsertOne(question);
+                    return (new { status = 200, message = "create question success" });
+                }
+                else
+                {
+                    return (new { status = 400, message = "question exits" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return ex;
+            }
+             
+ 
         }
 
-        public void Update(string id, Question questionIn) =>
-            _question.ReplaceOne(question => question.Id == id, questionIn);
+        public Object Update(string id, Question questionIn)
+        {
+            
+            var res= _question.ReplaceOne(question => question.Id == id, questionIn).IsAcknowledged;
+            if(res)
+            {
+                return (new { data = Get(id), status = 200 });
+            }
+            return (new { stauts = 400 });
+        }
+           
 
         public void Remove(Question questionIn) =>
             _question.DeleteOne(question => question.Id == questionIn.Id);
 
-        public void Remove(string id) =>
-            _question.DeleteOne(question => question.Id == id);
+        public object Remove(string id)
+        {
+           var res= _question.DeleteOne(question => question.Id == id);
+            
+
+            return res;
+            
+        }
+            
 
         public List<string> GetTheme()
         {
