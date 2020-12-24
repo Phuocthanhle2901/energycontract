@@ -7,11 +7,24 @@ import{HomeComponent} from'./Components/home/home.component';
 import {LoginComponent} from './Components/login/login.component';
 import {RegisterComponent} from './Components/register/register.component';
 import {QuestionComponent} from './Components/ComponentQuestions/question/question.component';
+import {IndexComponent} from "./Components/Admin/index/index.component";
+import{QuetstionBodyComponent} from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
+
 const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"questions",component:QuestionComponent},
+  {path:"questionTest/:name",component:QuetstionBodyComponent},// thực hiện test
+  {path:"admin/index",component:IndexComponent},
+  {path:"admin/createQuestion",component:IndexComponent},// create question
+  {path:"admin/questions",component:IndexComponent},// list question
+  {path:"admin/updateQuestion",component:IndexComponent},// list question
+
+  {path:"admin/users",component:IndexComponent},
+
+  {path:"admin/createUsers",component:IndexComponent},// list question
+
 
 ];
 

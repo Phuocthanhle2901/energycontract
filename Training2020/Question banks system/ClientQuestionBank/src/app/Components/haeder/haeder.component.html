@@ -26,22 +26,35 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="link"  href="#">Learn</a>
+            <a class="link"  href="#learn">Learn</a>
           </li>
-        </ul>
-        <ul class="navbar-nav ">
-          <li class="nav-item mt-md-0 mt-1 login">
-            <a class="link py-2" class="login-btn" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
-          </li>
-          <li class="nav-item dropdown d-none">
+          <li class="nav-item dropdown">
             <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sign Out
+              Test
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item"routerLink="/questionTest/java">Java</a>
+
+            </div>
+          </li>
+
+          <li class="nav-item"  [ngClass]="role == '2' ? 'd-block': 'd-none'" >
+            <a class="link" routerLink="/admin/index" >Manager</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-0 ml-lg-5">
+          <li class="nav-item mt-md-0 mt-1 login">
+            <a class="link py-2" class="login-btn" [ngClass]="role =='' ? 'd-block':'d-none'" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
+          </li>
+          <li class="nav-item dropdown  link py-2 login-btn" [ngClass]="role != '' ? 'd-block': 'd-none'">
+            <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <fa-icon [icon]="use"></fa-icon> {{ten}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#"> <fa-icon [icon]="use"></fa-icon> {{email}}</a>
+              <a class="dropdown-item" href="#"><i class="eva eva-award-outline"></i> achievements</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" (click)="userSignout()" > <i class="eva eva-log-in-outline"></i>  Sign out</a>
             </div>
           </li>
         </ul>
