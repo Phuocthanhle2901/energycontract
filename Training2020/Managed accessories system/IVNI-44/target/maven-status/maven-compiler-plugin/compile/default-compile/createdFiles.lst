@@ -32,6 +32,7 @@ vn\infodation\intern\group1\mas\config\JacksonConfiguration.class
 vn\infodation\intern\group1\mas\security\SecurityUtils.class
 vn\infodation\intern\group1\mas\security\SpringSecurityAuditorAware.class
 vn\infodation\intern\group1\mas\service\AuditEventService.class
+vn\infodation\intern\group1\mas\web\rest\PrintResource.class
 vn\infodation\intern\group1\mas\repository\StatusTypeRepository.class
 vn\infodation\intern\group1\mas\service\dto\PasswordChangeDTO.class
 vn\infodation\intern\group1\mas\security\jwt\JWTConfigurer.class
