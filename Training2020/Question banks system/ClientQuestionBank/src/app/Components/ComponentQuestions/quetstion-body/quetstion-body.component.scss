@@ -15,8 +15,12 @@
 
     &-nav{
       height: auto;
-      position: relative;
+      position: relative; 
       display: block;
+      .navbar{
+        position: fixed;
+        top:100px;
+      }
       border-right: 1px solid rgb(36, 35, 35);
       .btn-item{
         margin: 0.2rem;

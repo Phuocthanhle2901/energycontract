@@ -12,36 +12,28 @@
           <h3>Types of questions</h3>
 
           <div class="collapse navbar-collapse justify-content-center"  id="collapsibleNavbar">
-            <ul class="navbar-nav d-flex flex-wrap w-50 ">
-                 <a href=""class="btn btn-item">1</a>
-
+            <ul class="navbar-nav d-flex flex-wrap w-50 " *ngFor="let link of ' '.repeat(count).split(''); index as i">
+                 <li><a href="questionTest/{{theme}}#q{{i}}" class="btn btn-item">{{i+1}}</a></li>
             </ul>
           </div>
         </nav>
 
       </div>
       <div class="col-md-8  m-0 col-sm-12">
-        <form class="mod-question-body-content">
-            <div class="boxItem">
-              <h5>Name question</h5>
-              <div class="  pl-5 form-check">
-                <input type="checkbox" class="form-check-input" id="index">
-                <label class="form-check-label" for="index">answers</label>
-              </div>
-              <div class="  pl-5 form-check">
-                <input type="radio" class="form-check-input" id="index1">
-                <label class="form-check-label" for="index1">answers</label>
+        <form class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult(answerSheet.value)">
+            <div class="boxItem my-2" *ngFor='let question of questions; index as i'>
+              <h5 id='q{{i}}'>{{question.question}}</h5>
+              <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
+                <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i}}">
+                <label class="form-check-label" for="op">{{option}}</label>
               </div>
             </div>
-
-
-
             <button type="submit" class="btn btn-primary mt-2">submit</button>
         </form>
+        <p class="text-center">{{result}}</p>
       </div>
     </div>
-
-
 
   </div>
 
