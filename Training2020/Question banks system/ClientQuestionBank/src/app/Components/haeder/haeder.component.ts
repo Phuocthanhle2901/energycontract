@@ -12,7 +12,7 @@ export class HaederComponent implements OnInit {
 
   constructor(private router:ActivatedRoute) { }
   email:string;
-  role:"";
+  role:any;
 
   use=faUser;
   ngOnInit(): void {

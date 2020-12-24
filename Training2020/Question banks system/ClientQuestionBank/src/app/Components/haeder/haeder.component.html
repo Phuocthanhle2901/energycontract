@@ -28,15 +28,15 @@
           <li class="nav-item">
             <a class="link"  href="#">Learn</a>
           </li>
-          <li class="nav-item"  [ngClass]="role == '2' ? 'd-block': 'd-none'" >
+          <li class="nav-item"  *ngIf ="role == '2'" >
             <a class="link"  href="#">Manager</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-0 ml-lg-5">
           <li class="nav-item mt-md-0 mt-1 login">
-            <a class="link py-2" class="login-btn" [ngClass]="role ==null ? 'd-block':'d-none'" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
+            <a class="link py-2" class="login-btn" *ngIf="role ==null" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
           </li>
-          <li class="nav-item dropdown  link py-2 login-btn" [ngClass]="role !=null ? 'd-block': 'd-none'">
+          <li class="nav-item dropdown  link py-2 login-btn" *ngIf="role != null">
             <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <fa-icon [icon]="use"></fa-icon> Profile
             </a>
