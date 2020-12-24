@@ -40,15 +40,13 @@ namespace QuestionBankDB.Controllers
 
         [HttpPost]
          [Route("create")]
-        public ActionResult<object> Create(Question question)
+        public ActionResult<Object> Create(Question question)
         {
-            var res= _questionService.Create(question);
-
-            return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, res);
+            return _questionService.Create(question); 
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Question questionIn)
+        public ActionResult<Object> Update(string id, Question questionIn)
         {
             var question = _questionService.Get(id);
 
@@ -56,14 +54,13 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
+             
 
-            _questionService.Update(id, questionIn);
-
-            return NoContent();
+            return _questionService.Update(id, questionIn);
         }
 
         [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        public ActionResult<object> Delete(string id)
         {
             var question = _questionService.Get(id);
 
@@ -72,14 +69,16 @@ namespace QuestionBankDB.Controllers
                 return NotFound();
             }
 
-            _questionService.Remove(question.Id);
+            return _questionService.Remove(question.Id);
 
-            return NoContent();
+            
         }
         //get theme names
         [HttpPost]
         [Route("themes")]
         public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
+
+
         //get questions of a theme
         [HttpPost]
         [Route("themeQuestions")]

@@ -16,7 +16,6 @@ export class UsersComponent implements OnInit {
   status :any[]=[];
 
   constructor(private router: Router) {
-    console.log(this.router.url.split('/')[3])
   }
 
   ngOnInit(): void {
