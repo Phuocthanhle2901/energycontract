@@ -18,8 +18,8 @@ namespace QuestionBankDB.Models
         [BsonElement("listquestion")]
         public Listquestion[] Listquestion { get; set; }
 
-        [BsonElement("summarry")]
-        public long Summarry { get; set; }
+        [BsonElement("summary")]
+        public int Summary { get; set; }
 
         [BsonElement("date")]
         public DateTime Date { get; set; }

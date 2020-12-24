@@ -21,7 +21,7 @@
       </div>
       <div class="col-md-8  m-0 col-sm-12">
         <form class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult(answerSheet.value)">
-            <div class="boxItem" *ngFor='let question of questions; index as i'>
+            <div class="boxItem my-2" *ngFor='let question of questions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
                 <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
