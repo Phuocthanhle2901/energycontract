@@ -48,6 +48,7 @@ export class HaederComponent implements OnInit {
 
   userSignout()
   {
+
     signout();
      window.location.reload();
   }
