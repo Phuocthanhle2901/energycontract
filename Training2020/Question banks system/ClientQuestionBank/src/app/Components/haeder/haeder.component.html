@@ -38,7 +38,7 @@
             </div>
           </li>
 
-          <li class="nav-item"  [ngClass]="role == '2' ? 'd-block': 'd-none'" >
+          <li class="nav-item"  *ngIf="role == '2'" >
             <a class="link" routerLink="/admin/index" >Manager</a>
           </li>
         </ul>
