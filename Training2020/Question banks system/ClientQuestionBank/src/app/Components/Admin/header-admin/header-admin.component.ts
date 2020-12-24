@@ -31,14 +31,11 @@ export class HeaderAdminComponent implements OnInit {
             this.email=res.data.result.email;
             this.ten = res.data.result.fullname
           }
-          else{
-            this.role=false;
-            this.email="";
-          }
+          if(this.role!=2) this.router.navigate(["/"]);
       })
       .catch(err=>console.log(err));
-
     }
+    else this.router.navigate(['/']);
   }
   userSignout()
   {
