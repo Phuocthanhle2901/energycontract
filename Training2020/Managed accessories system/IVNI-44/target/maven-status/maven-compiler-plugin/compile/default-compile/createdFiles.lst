@@ -78,7 +78,6 @@ vn\infodation\intern\group1\mas\web\rest\PlaceToPerformResource.class
 vn\infodation\intern\group1\mas\security\UserNotActivatedException.class
 vn\infodation\intern\group1\mas\web\rest\EquipmentResource.class
 vn\infodation\intern\group1\mas\web\rest\ActionTypeResource.class
-vn\infodation\intern\group1\mas\domain\Print_.class
 vn\infodation\intern\group1\mas\repository\PlaceToPerformRepository.class
 vn\infodation\intern\group1\mas\web\rest\errors\LoginAlreadyUsedException.class
 vn\infodation\intern\group1\mas\web\rest\EquipmentGroupResource.class
@@ -87,7 +86,6 @@ vn\infodation\intern\group1\mas\ApplicationWebXml.class
 vn\infodation\intern\group1\mas\web\rest\vm\ManagedUserVM.class
 vn\infodation\intern\group1\mas\web\rest\vm\LoginVM.class
 vn\infodation\intern\group1\mas\ManagedAccessoriesSystemApp.class
-vn\infodation\intern\group1\mas\domain\Print.class
 vn\infodation\intern\group1\mas\repository\EquipmentGroupRepository.class
 vn\infodation\intern\group1\mas\web\rest\UserJWTController$JWTToken.class
 vn\infodation\intern\group1\mas\web\rest\errors\EmployeeNotFoundException.class
