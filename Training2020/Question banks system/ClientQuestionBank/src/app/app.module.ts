@@ -72,7 +72,7 @@ import { CommonModule } from '@angular/common';
     NgbAlertModule,NgbPaginationModule,
     HttpClientModule,
     CommonModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

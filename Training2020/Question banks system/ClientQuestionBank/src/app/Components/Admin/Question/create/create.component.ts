@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
-
+import {QuestionService} from "../../../../Services/question.service";
+import {Question} from '../../../../Models/question.model';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -9,11 +10,23 @@ import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
 export class CreateComponent implements OnInit {
 
   index:number=0;
-  question:string;
+  question={
+   
+    question:"",
+    answer:[],
+    trueAnswer:"",
+    themeName:"",
+    level:1,
+    point:1,
+    timeallow:1,
+    status:true,
+     
+  };
   Answers:string[]=[];// list answer
 
+
   dataForm:FormGroup;
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder,private questionService:QuestionService) {
 
   }
 
@@ -64,9 +77,26 @@ export class CreateComponent implements OnInit {
   {
     // const control = <FormArray>this.dataForm.controls['answer'];
 
-    console.log(data);
+
+    console.log(data.question)
+    this.question.question=data.question;
+    this.question.level=data.level;
+    this.question.point=data.point;
+    this.question.status=true;
+    this.question.themeName=data.themeName;
+    this.question.timeallow=data.timeallow;
+    this.question.trueAnswer=data.trueAnswer;
+    data.answer.forEach(element => {
+      this.question.answer.push(element.name);
+      
+    });
+    console.log(this.question);
 
     // thực hiện đưa dữ liệu lên wep Api tại đây
+   var result= this.questionService.createQuestion(this.question);
+
+     console.log(result);
+
   }
 
 }

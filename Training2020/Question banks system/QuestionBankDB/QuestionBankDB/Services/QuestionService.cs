@@ -29,6 +29,7 @@ namespace QuestionBankDB.Services
         public Question Create(Question question)
         {
             _question.InsertOne(question);
+
             return question;
         }
 
