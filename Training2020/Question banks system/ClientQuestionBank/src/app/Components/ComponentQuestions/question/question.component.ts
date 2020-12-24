@@ -41,7 +41,7 @@ export class QuestionComponent implements OnInit {
   getPageCount(){
     this.questionService.getCount(this.currentTheme).subscribe((res:any)=>{
       this.pageCount = res;
-      this.pageCount = Math.floor(this.pageCount/5);
+      this.pageCount = Math.ceil(this.pageCount/5);
       console.log(this.pageCount);
     })
   }
