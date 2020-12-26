@@ -25,7 +25,7 @@
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
                 <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
-                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i}}">
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i}}" [disabled]='submitted==1'>
                 <label class="form-check-label" for="op">{{option}}</label>
               </div>
             </div>
