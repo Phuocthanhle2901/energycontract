@@ -19,15 +19,10 @@ namespace QuestionBankDB.Services
         private readonly supperService _supper=new supperService();
         public UserInfoService(IQuestionBankSettings settings)
         {
-            
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName); 
             _userInfo = database.GetCollection<UserInfo>(settings.UserInfoCollectionName);
-
-          
-
         }
-
         public List<Object> GetAllAdmin()
         {
             var project = Builders<UserInfo>.Projection.Include("email").Include("fullname").Include(x=>x.Avatar).Exclude("_id").Include(x=>x.Status);
@@ -73,10 +68,6 @@ namespace QuestionBankDB.Services
             return false;
         }
 
-
-
-
-
         public void Update(string id, UserInfo userInfoId) =>
            _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
 
@@ -86,11 +77,6 @@ namespace QuestionBankDB.Services
         public void Remove(string id) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == id);
 
-
-
-
-
-
         public UserInfo Get(string id) =>
             _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
 
@@ -99,10 +85,6 @@ namespace QuestionBankDB.Services
             _userInfo.InsertOne(userInfo);
             return userInfo;
         } 
-
-        
-
-        
 
         public object register(UserInfo fuser)
         {
@@ -126,12 +108,8 @@ namespace QuestionBankDB.Services
             {
                 return ex.Message;
             }
-
-          
              
         }
-
-
         public object SignIn(UserInfo fuser, HttpContext context)
         {
             try {
@@ -160,7 +138,6 @@ namespace QuestionBankDB.Services
             }
            
         }
-
         public string CountAccess(HttpContext context,UserInfo user)
         {
             // Lấy ISession
@@ -183,9 +160,6 @@ namespace QuestionBankDB.Services
 
             return jsonSave;
         }
-
-
-
         public   Object getInfoUserLogin(string id)
         {
             Console.WriteLine(id);
@@ -205,9 +179,7 @@ namespace QuestionBankDB.Services
             catch (Exception ex)
             {
                 return ex;
-            }
-           
-            
+            }  
         }
 
     }

@@ -17,12 +17,12 @@ export class QuestionService {
 
   getThemeQuestions(theme:string, page:number):Observable<JSON>{
     this.questionUrl = "https://localhost:44328/api/Question/themeQuestions?theme=" + encodeURIComponent(theme) + "&page=" + page;
-    return this.httpClient.post<JSON>(this.questionUrl, null).pipe();
+    return this.httpClient.post<JSON>(this.questionUrl, null).pipe(); //get paged questions, convert to iterable observable
   }
 
   getCount(theme:string){
     this.count = "https://localhost:44328/api/Question/countQuestions?theme=" + encodeURIComponent(theme);
-    return this.httpClient.post<JSON>(this.count, null);
+    return this.httpClient.post<JSON>(this.count, null); //get question count of a theme
   }
 
   createQuestion(question:any)

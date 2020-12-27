@@ -2,24 +2,19 @@
   <div class="d-flex justify-content-between">
     <button routerLink="/admin/createQuestion" type="button" class="btn btn-primary">Create Question +</button>
     <ul class="navbar-nav">
-
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Themes <i class="eva eva-arrow-ios-downward-outline "></i></span>
         </a>
-        <!-- Dropdown - User Information -->
-        <div class="dropdown-menu   shadow  " aria-labelledby="userDropdown">
-          <a class="dropdown-item" (click)="getQuestion()">
-            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Profile
-          </a>
-
-
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="eva eva-log-in-outline"></i>
-            Logout
-          </a>
+        <!-- Dropdown - Question Themes -->
+        <div class="dropdown-menu shadow " aria-labelledby="userDropdown">
+          <div class="dropdown-item" *ngFor="let item of themes">
+            <a (click)="getThemeQuestions(item,0); getPageCount()">
+              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              {{item}} Questions
+            </a>
+          </div>
         </div>
       </li>
     </ul>
@@ -28,34 +23,16 @@
   <hr>
 
   <div class="mod-question-body-content d-flex flex-column">
-
-    <div class="detail-content">
-      <h6>A user opens their browser and navigates to your-blog.com/posts/first-post. What JavaScript is initially
-        loaded for this page?</h6>
+    <div class="detail-content" *ngFor="let item of questions; index as q">
       <div class="form-check">
-        <label class="form-check-label" for="exampleRadios1">
-          Only the JavaScript for /posts/first-post is loaded.
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label" for="exampleRadios1">
-          Only the JavaScript for /posts/first-post is loaded.
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label" for="exampleRadios1">
-          Only the JavaScript for /posts/first-post is loaded.
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label" for="exampleRadios2">
-          Only the JavaScript for /posts/first-post is loaded.
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label" for="exampleRadios2">
-          <b>Answer: </b> Only the JavaScript for /posts/first-post is loaded.
-        </label>
+          <table *ngIf="item.status">
+            <tr><th><b>{{q+(currentPage*5+1)}}. {{item.question}}</b></th></tr>
+            <tr *ngFor="let a of item.answer; index as i"><td>{{i+1}}. {{a}}</td></tr>
+            <tr><td><b>Answer:</b> {{item.trueAnswer}}</td></tr>
+            <tr><td><b>Level:</b> {{item.level}}</td></tr>
+            <tr><td><b>Points:</b> {{item.point}}</td></tr>
+            <tr><td><b>Time Allowed:</b> {{item.timeallow}}</td></tr>
+          </table>
       </div>
       <div class="detail-content-btn">
         <button type="button" class="btn btn-edt" routerLink='/admin/updateQuestion'><i
@@ -64,6 +41,26 @@
             class="eva eva-trash-2-outline"></i> </button>
       </div>
     </div>
+    <!-- Question Pagination -->
+    <nav aria-label=" navigation"class=" pagination-page">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="currentPage>0">
+          <a class="page-link" (click)="getThemeQuestions(currentTheme,0)"><i class="eva eva-arrowhead-left-outline"></i></a>
+        </li>
+        <li class="page-item" *ngIf="currentPage>0">
+          <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">
+          <a class="page-link" (click)="getThemeQuestions(currentTheme,i)">{{i+1}}</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage<pageCount-1">
+          <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage+1)"><i class="eva eva-arrow-ios-forward-outline"></i></a>
+        </li>
+        <li class="page-item" *ngIf="currentPage<pageCount-1">
+          <a class="page-link" (click)="getThemeQuestions(currentTheme,pageCount-1)"><i class="eva eva-arrowhead-right-outline"></i></a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 <router-outlet></router-outlet>

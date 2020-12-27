@@ -11,10 +11,11 @@ import { Question } from '../../../Models/question.model'
 
 export class QuestionComponent implements OnInit {
   themes:string[] = [];
-  data:Question[] = [];
+  questions:Question[] = [];
   currentTheme:string;
   pageCount:number;
   currentPage:number;
+
   constructor(
       private questionService:QuestionService,
       private themesService:ThemesService
@@ -33,16 +34,15 @@ export class QuestionComponent implements OnInit {
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
     this.questionService.getThemeQuestions(theme, page).subscribe((res:any)=>{
-      this.data = res;
+      this.questions = res; //get paged questions of a theme
     })
     this.currentPage = page;
   }
 
   getPageCount(){
     this.questionService.getCount(this.currentTheme).subscribe((res:any)=>{
-      this.pageCount = res;
-      this.pageCount = Math.floor(this.pageCount/5);
-      console.log(this.pageCount);
+      this.pageCount = res; //get question count
+      this.pageCount = Math.ceil(this.pageCount/5); // 5 results per page
     })
   }
 

@@ -22,7 +22,7 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Email</label>
         <input type="text" class="form-control"
-          [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+          ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
           formControlName="email" placeholder="Email..." />
         <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
           <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>

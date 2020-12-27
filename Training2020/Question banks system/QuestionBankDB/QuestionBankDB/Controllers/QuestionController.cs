@@ -73,11 +73,11 @@ namespace QuestionBankDB.Controllers
 
             return NoContent();
         }
-
+        //get theme names
         [HttpPost]
         [Route("themes")]
         public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
-
+        //get questions of a theme
         [HttpPost]
         [Route("themeQuestions")]
         public ActionResult<List<Question>> GetThemeQuestions(string theme, byte page)
@@ -90,14 +90,10 @@ namespace QuestionBankDB.Controllers
             }
             return questions;
         }
-
+        //count questions of a theme
         [HttpPost]
         [Route("countQuestions")]
-        public ActionResult<int> GetQuestionsCount(string theme)
-        {
-            int count = _questionService.GetQuestionsCount(theme);
-            return count;
-        }
+        public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
     }
     
 }
