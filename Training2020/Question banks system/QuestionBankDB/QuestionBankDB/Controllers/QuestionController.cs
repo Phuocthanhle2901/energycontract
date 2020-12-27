@@ -41,9 +41,9 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
          [Route("create")]
         public ActionResult<Object> Create(Question question)
-        {
-             return _questionService.Create(question); 
+        { 
  
+            return _questionService.Create(question);  
         }
 
         [HttpPut("{id:length(24)}")]
@@ -97,6 +97,25 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("countQuestions")]
         public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
+
+        //get random questions
+        [HttpPost]
+        [Route("randomQuestions")]
+        public ActionResult<List<Question>> GetRandomQuestions(string theme, byte count=3)
+        {
+            var questions = _questionService.GetRandomQuestions(theme, count);
+
+            if (questions == null)
+            {
+                return NotFound();
+            }
+            return questions;
+        }
+
+        //get answer of a test
+        [HttpPost]
+        [Route("GetAnswer")]
+        public ActionResult<string> GetAnswer(string id) => _questionService.GetAnswer(id);
     }
     
 }
