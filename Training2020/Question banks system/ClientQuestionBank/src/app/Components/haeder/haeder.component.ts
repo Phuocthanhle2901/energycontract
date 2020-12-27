@@ -16,7 +16,7 @@ export class HaederComponent implements OnInit {
     private themesService:ThemesService
   ) { }
   email:string;
-  role:any='';
+  role:any=null;
   ten:string;
   themes:string[]=[];
   use=faUser;
@@ -41,8 +41,7 @@ export class HaederComponent implements OnInit {
             this.email="";
           }
       })
-      .catch(err=>console.log(err));
-
+      .catch(err=>console.log(err)); 
     }
   }
 

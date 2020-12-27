@@ -10,6 +10,9 @@ import {QuestionComponent} from './Components/ComponentQuestions/question/questi
 import {IndexComponent} from "./Components/Admin/index/index.component";
 import{QuetstionBodyComponent} from './Components/ComponentQuestions/quetstion-body/quetstion-body.component';
 import {UpdateComponent} from './Components/Admin/Question/update/update.component';
+import {AchievementsComponent} from './Components/achievements/achievements.component';
+import {DetailAchievementComponent} from './Components/detail-achievement/detail-achievement.component';
+
 const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
@@ -24,6 +27,8 @@ const routes: Routes = [
   {path:"admin/users",component:IndexComponent},
   {path:"admin/createUsers",component:IndexComponent},// list question
 
+  {path:"achievements",component:AchievementsComponent},// AchievementsComponent user
+  {path:"detail/achievements/:id",component:DetailAchievementComponent},// AchievementsComponent user
 
 ];
 

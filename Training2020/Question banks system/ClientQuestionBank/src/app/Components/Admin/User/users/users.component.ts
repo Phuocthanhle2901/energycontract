@@ -44,9 +44,9 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  Sua(email){
-
+  Sua(email){ 
   }
+  
   Xoa(email:string,i){
     if(this.r == "us"){
       email = email.replace('@',"%40");
