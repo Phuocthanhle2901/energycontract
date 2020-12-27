@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class ListComponent implements OnInit {
   themes:string[] = [];
   questions:Question[] = [];
@@ -16,7 +17,7 @@ export class ListComponent implements OnInit {
   currentPage:number;
   constructor(
     private questionService:QuestionService,
-    private themesService:ThemesService
+    private themesService:ThemesService,private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -44,8 +45,31 @@ export class ListComponent implements OnInit {
     })
   }
 
+
+getIdForEditQuestion(value:any)
+{
+   this.questionService.getQuestionById(value).subscribe((res:any)=>{
+      if(res!=null)
+      {
+
+        this.questionService.setQuestion(res);
+        this.router.navigate(["/admin/updateQuestion"]);
+      }
+      else{
+        alert("Choose agin");
+      }
+
+   })
+}
   deleteQuestion(id:any)
   {
+    this.questionService.deleteQuestion(id).subscribe((res:any)=>{
+      if(res.deletedCount==1)
+      {
+        this.getThemeQuestions(this.currentTheme,this.currentPage);
+        alert("delete question success")
+      }
+    })
     // thực hiện xóa question tại đây
   }
 }
