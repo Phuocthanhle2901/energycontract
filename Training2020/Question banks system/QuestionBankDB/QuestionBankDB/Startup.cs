@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +40,13 @@ namespace QuestionBankDB
             services.AddSingleton<AnswerUserService>();
 
             services.AddControllers();
+
+            services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
+            services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
+                cfg.Cookie.Name = "cookie";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
+                cfg.IdleTimeout = new TimeSpan(0,0, 60);    // Thời gian tồn tại của Session
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuestionBankDB", Version = "v1" });
@@ -62,7 +69,7 @@ namespace QuestionBankDB
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseSession();//// Đăng ký Middleware Session vào Pipeline
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

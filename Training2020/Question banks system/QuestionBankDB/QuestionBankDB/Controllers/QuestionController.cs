@@ -41,7 +41,6 @@ namespace QuestionBankDB.Controllers
         public ActionResult<Question> Create(Question question)
         {
             _questionService.Create(question);
-
             return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, question);
         }
 
@@ -73,6 +72,31 @@ namespace QuestionBankDB.Controllers
             _questionService.Remove(question.Id);
 
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("themes")]
+        public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
+
+        [HttpPost]
+        [Route("themeQuestions")]
+        public ActionResult<List<Question>> GetThemeQuestions(string theme, byte page)
+        {
+            var questions = _questionService.GetThemeQuestions(theme, page);
+
+            if (questions == null)
+            {
+                return NotFound();
+            }
+            return questions;
+        }
+
+        [HttpPost]
+        [Route("countQuestions")]
+        public ActionResult<int> GetQuestionsCount(string theme)
+        {
+            int count = _questionService.GetQuestionsCount(theme);
+            return count;
         }
     }
     

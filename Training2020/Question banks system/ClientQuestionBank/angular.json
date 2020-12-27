@@ -29,12 +29,9 @@
             ],
             "styles": [
               "src/styles.scss"
-
-
             ],
             "scripts": [
               "node_modules/eva-icons/eva.min.js"
-
             ]
           },
           "configurations": {
@@ -129,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "ClientQuestionBank"
+  "defaultProject": "ClientQuestionBank",
+  "cli": {
+    "analytics": "dc1f7920-18e5-49da-962d-afddba252c14"
+  }
 }
