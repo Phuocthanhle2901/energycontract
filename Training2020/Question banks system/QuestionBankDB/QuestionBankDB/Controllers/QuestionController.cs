@@ -22,8 +22,8 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Question>> Get() =>
-            _questionService.Get();
+        public ActionResult<List<Question>> Get(byte page) =>
+            _questionService.Get(page);
 
         [HttpGet("{id:length(24)}",Name ="GetQuestion")]
         public ActionResult<Question> Get(string id)
@@ -96,6 +96,8 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("countQuestions")]
         public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
+
+        
     }
     
 }

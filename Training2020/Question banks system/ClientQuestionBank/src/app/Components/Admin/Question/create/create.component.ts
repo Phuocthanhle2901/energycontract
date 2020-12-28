@@ -109,10 +109,11 @@ export class CreateComponent implements OnInit {
     this.question.timeallow=data.timeallow;
     this.question.level=data.level;
     this.question.point=data.point;
+    this.question.answer=[];
     data.answer.forEach(data=>{
       this.question.answer.push(data.name);
     })
-    console.log(this.question )
+
     this.questionService.createQuestion(this.question).subscribe((data:any)=>{
 
       if(data!=null)

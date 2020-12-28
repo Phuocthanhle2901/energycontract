@@ -22,6 +22,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getThemes();
+    this.getAllQuestion(1);
   }
 
   getThemes() {
@@ -29,6 +30,16 @@ export class ListComponent implements OnInit {
       this.themes = res;
     })
   }
+
+  getAllQuestion(page:any)
+  {
+    this.questionService.getAllQuestion(page).subscribe((data:any)=>{
+      console.log(data);
+      this.questions=data;
+    })
+    this.currentPage = page;
+  }
+
 
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
@@ -58,18 +69,24 @@ getIdForEditQuestion(value:any)
       else{
         alert("Choose agin");
       }
-
    })
 }
   deleteQuestion(id:any)
   {
-    this.questionService.deleteQuestion(id).subscribe((res:any)=>{
-      if(res.deletedCount==1)
-      {
-        this.getThemeQuestions(this.currentTheme,this.currentPage);
-        alert("delete question success")
-      }
-    })
+    var confirmText = "Are you sure you want to delete this question?";
+    if(confirm(confirmText)) {
+      this.questionService.deleteQuestion(id).subscribe((res:any)=>{
+        if(res.deletedCount==1)
+        {
+          this.getThemeQuestions(this.currentTheme,this.currentPage);
+          alert("delete question success")
+        }
+      })
+   }else{
+      return false;
+   }
+
+
     // thực hiện xóa question tại đây
   }
 }
