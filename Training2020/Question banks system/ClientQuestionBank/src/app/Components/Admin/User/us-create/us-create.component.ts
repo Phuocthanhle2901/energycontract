@@ -25,7 +25,7 @@ export class UsCreateComponent implements OnInit {
   message: string;
   passwordNotMatch: boolean;
   defaultValue = "Admin";
-  
+
 
   constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
     this.dataform = this.formbuilder.group({
