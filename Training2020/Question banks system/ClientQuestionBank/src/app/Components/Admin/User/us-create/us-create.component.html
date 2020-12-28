@@ -63,11 +63,13 @@
           <option>User</option>
         </select>
       </div>
-      
+
       <div class="form-group">
-        <button type="submit" [disabled]="dataform.status=='INVALID'" class=" form-control btn btn-primary">
-           Save
+        <button type="submit" [disabled]="dataform.status=='INVALID'" class=" btndes  btn btn-primary">
+          <i  class="eva eva-save-outline"></i>  Save
         </button>
+        <button type="submit" routerLink="/admin/users" class="btn btn-danger ml-1"><i class="eva eva-close-circle-outline
+          "></i> Cancel</button>
       </div>
     </form>
   </div>

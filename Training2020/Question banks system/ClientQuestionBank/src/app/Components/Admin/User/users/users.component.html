@@ -1,6 +1,13 @@
 <div class="mod-adminUsers">
   <div class="d-flex justify-content-between">
     <button routerLink="/admin/createUsers" type="button" class="btn btn-primary">Create Account +</button>
+    <div class="d-flex flex-wrap">
+      <input type="text" class=" w-75 form-control small" placeholder="Full name..."
+          />
+          <button class="btn btn-primary" type="button">
+              <i class="eva eva-search-outline"></i>
+          </button>
+   </div>
     <ul class="navbar-nav">
 
       <li class="nav-item dropdown no-arrow">
@@ -41,6 +48,8 @@
           <td>{{item.avatar}}</td>
           <td>
             <button type="button" class="btn btn-edt" title="edit" (click)="Sua(item.email)" ><i class="eva eva-edit-outline"></i>  </button>
+            <button type="button" class="btn btn-delete"><i
+              class="eva eva-trash-2-outline"></i> </button>
            <button type="button" *ngIf="item.role==1" class="btn btn-achi" title="achievement" routerLink="/achievements"  ><i class="eva eva-pantone-outline"></i> </button>
           </td>
         </tr>
