@@ -25,6 +25,10 @@ export class QuetstionBodyComponent implements OnInit {
   submitted:boolean;
   userAnswer:UserAnswer;
   email:string
+  pageQuestions:Question[] = [];
+  questionsPerPage:number=1;
+  pageCount:number;
+  currentPage:number;
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let cutPost = window.location.href.indexOf('Test/');
@@ -46,7 +50,15 @@ export class QuetstionBodyComponent implements OnInit {
   generateTest(theme:string, count:number ){
     this.testService.generateTest(theme, count).subscribe((res:any)=>{
       this.questions = res;
+      this.loadPage(Math.ceil(this.questions.length/this.questionsPerPage), 0, this.questions); //not on display yet
     })
+  }
+
+  loadPage(pageCount:number ,page:number, questions:Question[]){
+    for (let i = 0; i < this.questionsPerPage; i++) {
+      this.pageQuestions[i] = questions[i + page*pageCount];
+    }
+    console.log(this.pageQuestions);
   }
 
   getResult(answersheet:string[]){
@@ -61,7 +73,8 @@ export class QuetstionBodyComponent implements OnInit {
       maxScore += this.questions[i].point; //get total point of the test
       this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
       this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
-      this.userAnswer.ListQuestion[i].Answer = answersheet[i]; //get answer
+      this.userAnswer.ListQuestion[i].Answer = this.questions[i].answer; //get options
+      this.userAnswer.ListQuestion[i].UserAnswer = answersheet[i]; //get answer
       //get true answer for current question
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
         this.userAnswer.ListQuestion[i].TrueAnswer = res; //get true answer
