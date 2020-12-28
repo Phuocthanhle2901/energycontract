@@ -12,7 +12,7 @@ import{QuetstionBodyComponent} from './Components/ComponentQuestions/quetstion-b
 import {UpdateComponent} from './Components/Admin/Question/update/update.component';
 import {AchievementsComponent} from './Components/achievements/achievements.component';
 import {DetailAchievementComponent} from './Components/detail-achievement/detail-achievement.component';
-
+import{UsUpdateComponent}from './Components/Admin/User/us-update/us-update.component';
 const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
@@ -29,7 +29,7 @@ const routes: Routes = [
 
   {path:"achievements",component:AchievementsComponent},// AchievementsComponent user
   {path:"detail/achievements/:id",component:DetailAchievementComponent},// AchievementsComponent user
-
+  {path:"editUser",component:UsUpdateComponent},
 ];
 
 @NgModule({

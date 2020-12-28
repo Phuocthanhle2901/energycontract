@@ -37,11 +37,12 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserInfo> Create(UserInfo userInfo)
+        [Route("Create")]
+        public ActionResult<Boolean> Create(UserInfo userInfo)
         {
-            _userInfoService.Create(userInfo);
+         return   _userInfoService.Create(userInfo);
 
-            return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+         //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
         }
 
         [HttpPut("{id:length(24)}")]

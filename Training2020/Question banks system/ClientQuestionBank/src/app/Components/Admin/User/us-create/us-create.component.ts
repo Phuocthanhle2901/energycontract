@@ -13,6 +13,7 @@ import {
   PasswordValidation,
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import {UserService} from '../../../../Services/user.service';
 @Component({
   selector: 'app-us-create',
   templateUrl: './us-create.component.html',
@@ -23,9 +24,10 @@ export class UsCreateComponent implements OnInit {
   register = faDownload;
   message: string;
   passwordNotMatch: boolean;
-  defaultValue = "Admin"
+  defaultValue = "Admin";
+  
 
-  constructor(private http: HttpClient, private formbuilder: FormBuilder) {
+  constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
     this.dataform = this.formbuilder.group({
       fullname: new FormControl('', FullNameValidation),
       email: new FormControl('', EmailValidation),
@@ -50,8 +52,19 @@ export class UsCreateComponent implements OnInit {
     return null;
   }
 
-  submitAddUser(e, data: any){
+  submitAddUser(data: any){
+
+    this.serviceuser.createUser(data).subscribe((data:any)=>{
+      if(data==true)
+      {
+        alert("create user success")
+      }
+      else{
+        this.message="email exist !";
+      }
+    })
     console.log(data)
+
   }
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
@@ -75,4 +88,6 @@ export class UsCreateComponent implements OnInit {
   //     .map(() => { return true; })
   //     .catch((e) => console.log(e));
   // }
+
+
 }

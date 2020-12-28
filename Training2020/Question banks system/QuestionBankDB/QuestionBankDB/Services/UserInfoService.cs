@@ -80,10 +80,16 @@ namespace QuestionBankDB.Services
         public UserInfo Get(string id) =>
             _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
 
-        public UserInfo Create(UserInfo userInfo)
+        public Boolean Create(UserInfo userInfo)
         {
-            _userInfo.InsertOne(userInfo);
-            return userInfo;
+            var user = _userInfo.Find(res => res.Email == userInfo.Email).FirstOrDefault();
+            if(user==null)
+            {
+                _userInfo.InsertOne(userInfo);
+                return true;
+            }
+           
+            return false;
         } 
 
         public object register(UserInfo fuser)

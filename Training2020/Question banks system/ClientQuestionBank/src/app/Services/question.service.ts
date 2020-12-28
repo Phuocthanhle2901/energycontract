@@ -48,7 +48,7 @@ export class QuestionService {
     );
   }
 
-  ediQuestion(id:any,data: any) {
+  editQuestion(id:any,data: any) {
     return this.httpClient.put<JSON>(
       'https://localhost:44328/api/Question/'+id,
       data
@@ -62,3 +62,4 @@ export class QuestionService {
     return this.httpClient.get<JSON>("https://localhost:44328/api/Question",page);
   }
 }
+

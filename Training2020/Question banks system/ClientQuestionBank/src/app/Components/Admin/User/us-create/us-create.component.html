@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="mod-createUser-form mt-5">
-    <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitAddUser($event,dataform.value)">
+    <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitAddUser(dataform.value)">
 
       <div class="form-group">
         <label for="exampleInputName1">Name</label>
@@ -24,6 +24,7 @@
         <input type="text" class="form-control"
           ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
           formControlName="email" placeholder="Email..." />
+          <small class="form-text  showError">{{message}}</small>
         <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
           <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
           <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
@@ -59,8 +60,8 @@
       <div class="form-group">
         <label for="role"></label>
         <select class="form-control"  formControlName="role" id="role">
-          <option selected >Admin</option>
-          <option>User</option>
+          <option selected value="2">Admin</option>
+          <option value="1">User</option>
         </select>
       </div>
 

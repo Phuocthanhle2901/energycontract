@@ -133,7 +133,7 @@ idQuestion:string="";
       this.question.answer.push(data.name);
     })
     console.log(this.question.answer);
-    this.questionSevice.ediQuestion(this.idQuestion,this.question).subscribe((res:any)=>{
+    this.questionSevice.editQuestion(this.idQuestion,this.question).subscribe((res:any)=>{
       if(res.status==200)
       {
 
