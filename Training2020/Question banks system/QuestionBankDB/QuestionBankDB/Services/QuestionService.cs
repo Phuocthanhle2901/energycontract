@@ -102,7 +102,7 @@ namespace QuestionBankDB.Services
                 for (int i = 0; i < answer.Length; i++)
                 {
                     index = random.Next(0, answer.Length - 1);
-                    if (i != index) //swap if index != i
+                    if (i != index && random.Next(0,3)!=0) //swap if index != i with chance 75%
                     {
                         temp = answer[i];
                         answer[i] = answer[index];

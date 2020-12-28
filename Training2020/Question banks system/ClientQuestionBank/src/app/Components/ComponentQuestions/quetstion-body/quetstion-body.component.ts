@@ -18,7 +18,7 @@ export class QuetstionBodyComponent implements OnInit {
 
   cookie:any;
   theme:string;
-  count:number;
+  count:number=4;
   questions:Question[] = [];
   answerSheet:FormGroup;
   result:string;
@@ -26,14 +26,14 @@ export class QuetstionBodyComponent implements OnInit {
   userAnswer:UserAnswer;
   email:string
   pageQuestions:Question[] = [];
-  questionsPerPage:number=1;
+  questionsPerPage:number=2;
   pageCount:number;
   currentPage:number;
+  maxScore:number=0;
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let cutPost = window.location.href.indexOf('Test/');
     this.theme =  window.location.href.substring(cutPost+5);
-    this.count = 3;
     this.submitted = false;
     this.answerSheet = new FormGroup({});
     for (let i = 0; i < this.count; i++) {
@@ -44,46 +44,53 @@ export class QuetstionBodyComponent implements OnInit {
   ngOnInit(): void {
     this.cookie = getCookie();
     this.checkLogin();
+    console.log(this.email);
     this.generateTest(this.theme, this.count);
   }
 
   generateTest(theme:string, count:number ){
     this.testService.generateTest(theme, count).subscribe((res:any)=>{
       this.questions = res;
-      this.loadPage(Math.ceil(this.questions.length/this.questionsPerPage), 0, this.questions); //not on display yet
+      this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
+      this.loadPage(this.pageCount, 0, this.questions); //load first page
     })
   }
 
-  loadPage(pageCount:number ,page:number, questions:Question[]){
+  loadPage(pageCount:number ,page:number, questions:Question[]=[]){
+    if(questions.length==0) questions = this.questions;
     for (let i = 0; i < this.questionsPerPage; i++) {
-      this.pageQuestions[i] = questions[i + page*pageCount];
+      if(questions[i + this.questionsPerPage * page]!=undefined) this.pageQuestions[i] = questions[i + this.questionsPerPage * page];
     }
-    console.log(this.pageQuestions);
+    this.currentPage = page;
+  }
+
+  savePage(answersheet:string[]){
+    console.log(answersheet); //check form value
   }
 
   getResult(answersheet:string[]){
-    let maxScore = 0;
-    //create new result sheet
-    this.userAnswer = new UserAnswer(); //init model
+    this.userAnswer = new UserAnswer(); //init user answer
     this.userAnswer.ListQuestion = []; //init question list
     this.userAnswer.Email = this.email; //set email
     this.userAnswer.Summary = 0; //init summary
     this.userAnswer.Date = new Date(); //get date
+    //create new result sheet
     for (let i = 0; i < this.questions.length; i++) {
-      maxScore += this.questions[i].point; //get total point of the test
-      this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
-      this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
-      this.userAnswer.ListQuestion[i].Answer = this.questions[i].answer; //get options
-      this.userAnswer.ListQuestion[i].UserAnswer = answersheet[i]; //get answer
       //get true answer for current question
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
+        this.maxScore += this.questions[i].point; //get total point of the test
+        this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
+        this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
+        this.userAnswer.ListQuestion[i].Answer = this.questions[i].answer; //get options
+        this.userAnswer.ListQuestion[i].Point = 0;
         this.userAnswer.ListQuestion[i].TrueAnswer = res; //get true answer
         if(res===answersheet[i]){
           this.userAnswer.ListQuestion[i].Point = this.questions[i].point;
           this.userAnswer.Summary += this.questions[i].point;
         }
         else this.userAnswer.ListQuestion[i].Point = 0;
-        this.result = "Your score: " + this.userAnswer.Summary + "/" + maxScore; //update score
+        this.userAnswer.ListQuestion[i].UserAnswer = answersheet[i];
+        this.result = "Your score: " + this.userAnswer.Summary + "/" + this.maxScore; //update score
         if(i == this.questions.length-1) this.saveResult();
       });
     }
