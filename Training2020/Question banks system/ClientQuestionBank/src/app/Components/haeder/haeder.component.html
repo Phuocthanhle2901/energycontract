@@ -43,15 +43,15 @@
         </ul>
         <ul class="navbar-nav ml-0 ml-lg-5">
           <li class="nav-item mt-md-0 mt-1 login">
-            <a class="link py-2" class="login-btn" *ngIf="role ==null" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
+            <a class="link py-2" class="login-btn" *ngIf="role == null" routerLink="/login"><fa-icon [icon]="use"></fa-icon>  Sign In </a>
           </li>
           <li class="nav-item dropdown  link py-2 login-btn" *ngIf="role != null">
             <a class=" link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <fa-icon [icon]="use"></fa-icon> Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#"> <fa-icon [icon]="use"></fa-icon> {{email}}</a>
-              <a class="dropdown-item" href="#"><i class="eva eva-award-outline"></i> achievements</a>
+              <a class="dropdown-item"  > <fa-icon [icon]="use"></fa-icon> {{email}}</a>
+              <a class="dropdown-item"  routerLink="/achievements"><i class="eva eva-award-outline"></i> achievements</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" (click)="userSignout()" > <i class="eva eva-log-in-outline"></i>  Sign out</a>
             </div>

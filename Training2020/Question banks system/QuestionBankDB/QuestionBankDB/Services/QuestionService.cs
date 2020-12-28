@@ -101,6 +101,7 @@ namespace QuestionBankDB.Services
                 Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Status)//find available question of a theme
                                                       .Skip(index) //skip index
                                                       .FirstOrDefault();
+                Shuffle(question.Answer); //shuffle up options
                 question.TrueAnswer = null; //nullify true answer to avoid cheating
                 questions.Add(question);
             }
@@ -123,6 +124,25 @@ namespace QuestionBankDB.Services
             } while (lap);
 
             return result;
+        }
+        private void Shuffle(string[] answer)
+        {
+            Random random = new Random();
+            int index; //index to swap
+            string temp;
+            if (answer.Length > 1)
+            {
+                for (int i = 0; i < answer.Length; i++)
+                {
+                    index = random.Next(0, answer.Length - 1);
+                    if (i != index) //swap if index != i
+                    {
+                        temp = answer[i];
+                        answer[i] = answer[index];
+                        answer[index] = temp;
+                    }
+                }
+            }
         }
 
         public string GetAnswer(string id)

@@ -19,10 +19,8 @@ export class QuetstionBodyComponent implements OnInit {
   cookie:any;
   theme:string;
   count:number;
-  score:number;
   questions:Question[] = [];
   answerSheet:FormGroup;
-  answers:string[]=[];
   result:string;
   submitted:boolean;
   userAnswer:UserAnswer;
@@ -53,42 +51,34 @@ export class QuetstionBodyComponent implements OnInit {
 
   getResult(answersheet:string[]){
     let maxScore = 0;
-    this.score = 0;
+    //create new result sheet
+    this.userAnswer = new UserAnswer(); //init model
+    this.userAnswer.ListQuestion = []; //init question list
+    this.userAnswer.Email = this.email; //set email
+    this.userAnswer.Summary = 0; //init summary
+    this.userAnswer.Date = new Date(); //get date
     for (let i = 0; i < this.questions.length; i++) {
       maxScore += this.questions[i].point; //get total point of the test
+      this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
+      this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
+      this.userAnswer.ListQuestion[i].Answer = answersheet[i]; //get answer
       //get true answer for current question
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
-        this.answers[i] = res;
-        if(res===answersheet[i])
-        this.score += this.questions[i].point; //compare answer
-        this.result = "Your score: " + this.score + "/" + maxScore; //update score
+        this.userAnswer.ListQuestion[i].TrueAnswer = res; //get true answer
+        if(res===answersheet[i]){
+          this.userAnswer.ListQuestion[i].Point = this.questions[i].point;
+          this.userAnswer.Summary += this.questions[i].point;
+        }
+        else this.userAnswer.ListQuestion[i].Point = 0;
+        this.result = "Your score: " + this.userAnswer.Summary + "/" + maxScore; //update score
+        if(i == this.questions.length-1) this.saveResult();
       });
     }
     this.submitted = true;
-    this.saveResult(answersheet);
   }
 
-  saveResult(answersheet:string[]){
-    if(this.email!=null)
-    { //create new result sheet
-      this.userAnswer = new UserAnswer(); //init model
-      this.userAnswer.ListQuestion = []; //init question list
-      this.userAnswer.Email = this.email; //set email
-      this.userAnswer.Summary = 0; //init summary
-      this.userAnswer.Date = new Date(); //get date
-      for (let i = 0; i < this.questions.length; i++) {
-        this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
-        this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
-        this.userAnswer.ListQuestion[i].Answer = answersheet[i]; //get answer
-        this.userAnswer.ListQuestion[i].TrueAnswer = this.answers[i]; //get true answer
-        if(answersheet[i]===this.answers[i]){ //sum points
-          this.userAnswer.ListQuestion[i].Point = this.questions[i].point;
-          this.userAnswer.Summary += this.questions[i].point;
-        } 
-        else this.userAnswer.ListQuestion[i].Point = 0;
-      }
-      this.testService.saveResult(this.userAnswer).subscribe(); //post result
-    }
+  saveResult(){
+    if(this.email!=null) this.testService.saveResult(this.userAnswer).subscribe(); //post result
   }
 
   checkLogin(){
