@@ -27,7 +27,8 @@
       "user": "User",
       "equipmentGroup": "Equipment Group",
       "equipmentType": "Equipment Type",
-      "area": "Area"
+      "area": "Area",
+	  "title": "EQUIPMENT DETAILS"
     }
   }
 }

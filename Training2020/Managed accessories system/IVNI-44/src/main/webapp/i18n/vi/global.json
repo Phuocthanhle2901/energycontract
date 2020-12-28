@@ -109,7 +109,8 @@
       "save": "Lưu",
       "view": "Xem",
 	  "export": "Xuất",
-	  "exportAll": "Xuất tất cả"
+	  "exportAll": "Xuất tất cả",
+	  "print": "In"
     },
     "detail": {
       "field": "Trường",

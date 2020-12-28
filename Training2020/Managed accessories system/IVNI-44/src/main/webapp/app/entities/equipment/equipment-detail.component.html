@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-8" id="no-print">
         <div *ngIf="equipment">
             <h2><span jhiTranslate="managedAccessoriesSystemApp.equipment.detail.title">Equipment</span> {{ equipment.id }}</h2>
 
@@ -65,6 +65,74 @@
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
+
+            <button type="submit"
+                    onclick="window.print()"
+                    class="btn btn-info">
+               <span jhiTranslate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-12" id="print">
+        <div *ngIf="equipment">
+        	<img class="logo-info" alt="" src="../../../content/images/logo-info.png">
+        	<div class="w-100 text-center">
+        		<h2 class="mt-5 mb-4"><b><span jhiTranslate="managedAccessoriesSystemApp.equipment.title">EQUIPMENT DETAILS</span></b></h2>
+			</div>
+            <div class="row">
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.detail.title">Equipment</span><span>:</span></b>
+            		<span>{{ equipment.id }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.purchaseDate">Purchase Date</span><span>:</span></b>
+            		<span>{{ equipment.purchaseDate }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span><span>:</span></b>
+            		<span>{{ equipment.user?.user?.firstName }} {{ equipment.user?.user?.lastName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName">Equipment Name</span><span>:</span></b>
+            		<span>{{ equipment.equipmentName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span><span>:</span></b>
+            		<span>{{ equipment.equipmentGroup?.equipmentGroupName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType">Equipment Type</span><span>:</span></b>
+            		<span>{{ equipment.equipmentType?.equipmentTypeName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.area">Area</span><span>:</span></b>
+            		<span>{{ equipment.area?.areaName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber">Serial Number</span><span>:</span></b>
+            		<span>{{ equipment.serialNumber }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures">Technical Features</span><span>:</span></b>
+            		<br>
+            		<span>{{ equipment.technicalFeatures }}</span>
+            	</div>
+            	<hr class="col-12">
+                <div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span><span>:</span></b>
+            		<br>
+            		<span>{{ equipment.note }}</span>
+            	</div>
+                <hr class="col-12">
+                
+            </div>
         </div>
     </div>
 </div>
