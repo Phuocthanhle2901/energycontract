@@ -49,6 +49,10 @@ export class UserService {
     // return this.httpClient.post<JSON>(' https://localhost:44328/api/UserInfo/users?role='+role,null);
   }
   getUserById(id:string){
-    this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo/"+id);
+    return this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo/"+id);
+  }
+
+  removeUser(id:any){
+    return this.httpClient.delete<JSON>("https://localhost:44328/api/UserInfo/"+id);
   }
 }

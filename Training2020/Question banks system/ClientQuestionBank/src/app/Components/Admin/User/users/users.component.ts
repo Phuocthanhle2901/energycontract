@@ -50,16 +50,20 @@ export class UsersComponent implements OnInit {
   Sua(email){
   }
 
-  Xoa(email:string,i){
-    if(this.r == "us"){
-      email = email.replace('@',"%40");
-    axios.post("https://localhost:44328/api/UserInfo/user/disable_user?email="+email)
-        .then(res => {
-             this.status[i] = !this.status[i];
-        })
-        .catch(err => console.log(err));
+  removeUser(id:any){
+    this.userservice.removeUser(id).subscribe((data:any) => {this.userservice.removeUser(id)});
+    console.log(id);
   }
- }
+//   Xoa(email:string,i){
+//     if(this.r == "us"){
+//       email = email.replace('@',"%40");
+//     axios.post("https://localhost:44328/api/UserInfo/user/disable_user?email="+email)
+//         .then(res => {
+//              this.status[i] = !this.status[i];
+//         })
+//         .catch(err => console.log(err));
+//   }
+//  }
   getColor(i){return this.status[i] ? 'green' : 'red';}
  getRole() // get all role in database/
  {
@@ -77,7 +81,7 @@ export class UsersComponent implements OnInit {
 
  getAchievementById(id:any)
  {
-
  }
+ getUserById(id:any){}
 
 }

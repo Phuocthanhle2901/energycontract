@@ -61,5 +61,10 @@ export class QuestionService {
   getAllQuestion(page:any){
     return this.httpClient.get<JSON>("https://localhost:44328/api/Question",page);
   }
+
+  getAnswer(id:string){
+    let answer = "https://localhost:44328/api/Question/GetAnswer?id=" + id;
+    return this.httpClient.post<JSON>(answer, null); //get answer of a question
+  }
 }
 
