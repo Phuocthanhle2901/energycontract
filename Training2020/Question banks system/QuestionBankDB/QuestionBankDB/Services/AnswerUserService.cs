@@ -39,6 +39,11 @@ namespace QuestionBankDB.Services
 
         public void Remove(string id) =>
             _aswerUser.DeleteOne(answerUser => answerUser.Id == id);
+
+        public List<AnswerUser> getAchievement(string email)
+        {
+            return _aswerUser.Find(answeruser => answeruser.Email == email).ToList();
+        }
     }
 
 }

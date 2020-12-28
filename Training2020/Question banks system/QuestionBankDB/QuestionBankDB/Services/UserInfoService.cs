@@ -138,6 +138,20 @@ namespace QuestionBankDB.Services
             }
            
         }
+
+        public List<int> GetRoleUsser()
+        {
+            //get distinct values of theme role  from User collection and convert to string list
+            return _userInfo.Distinct(new StringFieldDefinition<UserInfo, int>("role"), FilterDefinition<UserInfo>.Empty).ToList();
+        }
+        // get user by role
+        public List<UserInfo>getUserbyRole(int role)
+        {
+            return _userInfo.Find(user => user.Role == role).ToList();
+        }
+
+    
+
         public string CountAccess(HttpContext context,UserInfo user)
         {
             // Lấy ISession

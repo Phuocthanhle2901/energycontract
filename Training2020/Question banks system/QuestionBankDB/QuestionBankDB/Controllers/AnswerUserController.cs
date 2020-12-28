@@ -74,6 +74,14 @@ namespace QuestionBankDB.Controllers
 
             return NoContent();
         }
+        
+        [HttpPost]
+        [Route("getAchievement")]
+
+        public ActionResult<List<AnswerUser>>getAnswerUser(string email)
+        {
+            return _answerUserService.getAchievement(email);
+        }
     }
     
 }
