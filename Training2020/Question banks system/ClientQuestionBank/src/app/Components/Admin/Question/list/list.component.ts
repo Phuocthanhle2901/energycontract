@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
       console.log(data);
       this.questions=data;
     })
-    this.currentPage = page;
+
   }
 
 
