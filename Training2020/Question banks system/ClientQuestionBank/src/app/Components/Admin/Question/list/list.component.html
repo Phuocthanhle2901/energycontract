@@ -26,7 +26,7 @@
     <div class="detail-content" *ngFor="let item of questions; index as q">
       <div class="form-check">
           <table *ngIf="item.status">
-            <tr><th><b>{{q+(currentPage*5+1)}}. {{item.question}}</b></th></tr>
+            <tr><th><b>{{q+(currentPage*q+1)}}. {{item.question}}</b></th></tr>
             <tr *ngFor="let a of item.answer; index as i"><td>{{i+1}}. {{a}}</td></tr>
             <tr><td><b>Answer:</b> {{item.trueAnswer}}</td></tr>
             <tr><td><b>Level:</b> {{item.level}}</td></tr>

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {getCookie} from '../../assets/js/auth.js';
+import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) { }
 
   getInfoUser()
   {
@@ -28,5 +29,18 @@ export class UserService {
       .catch(err=>console.log(err));
 
     }
+  }
+  getRole()
+  {
+    return this.httpClient.post<JSON>('https://localhost:44328/api/UserInfo/role',null); //get question count of a theme
+  }
+
+  getUserbyRole(role:any)
+  {
+    return this.httpClient.post<JSON>(' https://localhost:44328/api/UserInfo/users?role='+role,null);
+  }
+  getAchievementByEmail(email:any)
+  {
+    // return this.httpClient.post<JSON>(' https://localhost:44328/api/UserInfo/users?role='+role,null);
   }
 }
