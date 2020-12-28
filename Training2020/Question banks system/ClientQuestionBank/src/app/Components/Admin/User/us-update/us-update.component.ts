@@ -14,7 +14,7 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 @Component({
   selector: 'app-us-update',
   templateUrl: './us-update.component.html',
