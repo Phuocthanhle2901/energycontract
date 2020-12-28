@@ -1,4 +1,4 @@
-<!-- <div class="mod-createUser my-5">
+<div class="mod-createUser my-5">
     <div class="d-flex justify-content-center align-self-center ">
         <div class="mod-createUser-avatar  ">
             <img src="../../../../../assets/Images/logo.png" alt="logo">
@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="mod-createUser-form mt-5">
-        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitAddUser($event,dataform.value)">
+        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser($event,dataform.value)">
             <div class="form-group">
             <label for="exampleInputName1">Name</label>
             <input type="text" class="form-control"
@@ -16,7 +16,7 @@
             <div class="invalid-feedback" *ngIf="dataform.get('fullname').touched && dataform.get('fullname').invalid">
                 <small *ngIf="dataform.get('fullname').errors.required" class="form-text  showError">Name is required</small>
             </div>
-    
+
             </div>
             <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
@@ -27,9 +27,9 @@
                 <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
                 <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
             </div>
-    
+
             </div>
-    
+
             <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" (keydown)="onchange()"
@@ -56,19 +56,20 @@
             </div>
             </div>
             <div class="form-group">
-            <label for="role"></label>
+            <label for="role">Role</label>
             <select class="form-control"  formControlName="role" id="role">
                 <option selected >Admin</option>
                 <option>User</option>
             </select>
             </div>
-            
+
             <div class="form-group">
-            <button type="submit" [disabled]="dataform.status=='INVALID'" class=" form-control btn btn-primary">
-                Save
+            <button type="submit" [disabled]="dataform.status=='INVALID'" class=" btndes btn btn-primary">
+              <i  class="eva eva-save-outline"></i> Save
             </button>
+            <button type="submit" routerLink="/admin/users" class="btn btn-danger ml-1"><i class="eva eva-close-circle-outline
+              "></i> Cancel</button>
             </div>
         </form>
     </div>
 </div>
-   -->

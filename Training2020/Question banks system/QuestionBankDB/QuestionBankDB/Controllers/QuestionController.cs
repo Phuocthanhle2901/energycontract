@@ -22,8 +22,8 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Question>> Get() =>
-            _questionService.Get();
+        public ActionResult<List<Question>> Get(byte page) =>
+            _questionService.Get(page);
 
         [HttpGet("{id:length(24)}",Name ="GetQuestion")]
         public ActionResult<Question> Get(string id)
@@ -39,16 +39,15 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPost]
-         
-        public ActionResult<Question> Create(Question question)
-        {
-            _questionService.Create(question);
-
-            return CreatedAtRoute("GetQuestion", new { id = question.Id.ToString() }, question);
+         [Route("create")]
+        public ActionResult<Object> Create(Question question)
+        { 
+ 
+            return _questionService.Create(question);  
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Question questionIn)
+        public ActionResult<Object> Update(string id, Question questionIn)
         {
             var question = _questionService.Get(id);
 
@@ -56,14 +55,13 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
+             
 
-            _questionService.Update(id, questionIn);
-
-            return NoContent();
+            return _questionService.Update(id, questionIn);
         }
 
         [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        public ActionResult<object> Delete(string id)
         {
             var question = _questionService.Get(id);
 
@@ -72,14 +70,16 @@ namespace QuestionBankDB.Controllers
                 return NotFound();
             }
 
-            _questionService.Remove(question.Id);
+            return _questionService.Remove(question.Id);
 
-            return NoContent();
+            
         }
         //get theme names
         [HttpPost]
         [Route("themes")]
         public ActionResult<List<string>> GetThemes() => _questionService.GetTheme();
+
+
         //get questions of a theme
         [HttpPost]
         [Route("themeQuestions")]
@@ -98,6 +98,7 @@ namespace QuestionBankDB.Controllers
         [Route("countQuestions")]
         public ActionResult<int> GetQuestionsCount(string theme) => _questionService.GetQuestionsCount(theme);
 
+ 
         //get random questions
         [HttpPost]
         [Route("randomQuestions")]
@@ -116,6 +117,7 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("GetAnswer")]
         public ActionResult<string> GetAnswer(string id) => _questionService.GetAnswer(id);
+ 
     }
     
 }

@@ -1,6 +1,5 @@
 .mod-question{
   display: block;
-  position: relative;
   &-header{
     display: block;
     top:0;
@@ -12,7 +11,6 @@
   &-body{
     position: relative;
     display: block;
-
     &-nav{
       height: auto;
       position: relative;
@@ -24,13 +22,10 @@
       .pagination-page{
         margin-top: 2rem;
         position: relative;
-        bottom: 0;
-        left: 0;
         display: inline;
 
       }
       .detail-content{
-        background-color: #e6e7e9;
         border-radius: 0.3rem;
         padding: 1rem 0.8rem;
         margin: 0.3rem 0;
@@ -49,10 +44,14 @@
     }
   }
   &-footer{
-    position: relative;
-    bottom: 0;
-    left: 0;
     display: block;
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    transform: translate(-0%,-0%);
+    overflow: hidden;
+
   }
 }
 @media only screen and (max-width: 768px) {

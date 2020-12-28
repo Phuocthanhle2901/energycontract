@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
-
+import {ThemesService} from '../../../../Services/themes.service';
+import {QuestionService} from '../../../../Services/question.service';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -8,41 +9,80 @@ import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
 })
 export class CreateComponent implements OnInit {
 
+  question={
+
+    question:"",
+    answer:[],
+    trueAnswer:"",
+    themeName:"",
+    level:1,
+    point:1,
+    timeallow:1,
+    status:true,
+
+  };
   index:number=0;
-  question:string;
   Answers:string[]=[];// list answer
-
   dataForm:FormGroup;
-  constructor(private formBuilder:FormBuilder) {
+  message:any;
+  themes:string[]=[];
+  newTheme:string="";
+  hiden:boolean=false;
+  constructor(private formBuilder:FormBuilder,
+    private questionService: QuestionService,
+    private themesService: ThemesService ) {
 
-  }
-
-  get answer(): FormArray {
-		return this.dataForm.get('answer') as FormArray;
-  }
-
-  addanswer(as:string) {
-    const control = <FormArray>this.dataForm.controls['answer'];
-		let fg = this.formBuilder.group({name:as});
-		control.push(fg);
-	}
-  ngOnInit(): void {
-
-		this.dataForm = this.formBuilder.group({// create form group
+    this.dataForm = this.formBuilder.group({// create form group
       question:new FormControl(),
       trueAnswer:new FormControl(),// answer correst
       themeName:new FormControl(),
       timeallow:new FormControl(),
       level:new FormControl(),
       point:new FormControl(),
+
 			answer: this.formBuilder.array([// ceate formArray container one formGroup
 				this.formBuilder.group({
           name: new FormControl()
         }),
 			])
     });
-    this.dataForm.controls['point'].setValue('12');
   }
+
+  get answer(): FormArray {
+		return this.dataForm.get('answer') as FormArray;// get list answer
+  }
+
+  openNewTheme()// open and close new theme
+  {
+    this.hiden=!this.hiden;
+    if(this.hiden==false)
+    {
+      this.newTheme="";
+    }
+  }
+
+
+  addanswer(as:string) {// add formgroup to formdata
+    const control = <FormArray>this.dataForm.controls['answer'];
+		let fg = this.formBuilder.group({name:as});
+		control.push(fg);
+	}
+  ngOnInit(): void {
+
+    // get themes
+    this.themesService.getThemes().subscribe((data:any)=>{
+      this.themes=data;
+
+    })
+
+  }
+
+  modelChangeFn(e) {
+    this.newTheme = e.target.value;
+    this.themes.push(this.newTheme);
+  }
+
+
 
   addAnswer(choose:boolean)// create item answer
   {
@@ -63,10 +103,53 @@ export class CreateComponent implements OnInit {
   onSubmit(data:any)
   {
     // const control = <FormArray>this.dataForm.controls['answer'];
+    this.question.question=data.question;
+    this.question.trueAnswer=data.trueAnswer;
+    this.question.themeName=data.themeName;
+    this.question.timeallow=data.timeallow;
+    this.question.level=data.level;
+    this.question.point=data.point;
+    this.question.answer=[];
+    data.answer.forEach(data=>{
+      this.question.answer.push(data.name);
+    })
 
-    console.log(data);
+    this.questionService.createQuestion(this.question).subscribe((data:any)=>{
+
+      if(data!=null)
+      {
+         if(data.status==200)
+         {
+           alert(data.message)
+         }
+         else{
+          alert(data.message)
+         }
+      }else{
+        this.message="have some error. plaese try agin !";
+      }
+    });
+
+
+    console.log(data.question)
+    this.question.question=data.question;
+    this.question.level=data.level;
+    this.question.point=data.point;
+    this.question.status=true;
+    this.question.themeName=data.themeName;
+    this.question.timeallow=data.timeallow;
+    this.question.trueAnswer=data.trueAnswer;
+    data.answer.forEach(element => {
+      this.question.answer.push(element.name);
+
+    });
+    console.log(this.question);
 
     // thực hiện đưa dữ liệu lên wep Api tại đây
+   var result= this.questionService.createQuestion(this.question);
+
+     console.log(result);
+
   }
 
 }

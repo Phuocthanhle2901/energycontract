@@ -32,6 +32,9 @@ import { UsersComponent } from './Components/Admin/User/users/users.component';
 import { UsCreateComponent } from './Components/Admin/User/us-create/us-create.component';
 import { UsUpdateComponent } from './Components/Admin/User/us-update/us-update.component';
 import { CommonModule } from '@angular/common';
+import { AchievementsComponent } from './Components/achievements/achievements.component';
+import { DetailAchievementComponent } from './Components/detail-achievement/detail-achievement.component';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 @NgModule({
   declarations: [
@@ -59,12 +62,15 @@ import { CommonModule } from '@angular/common';
     UsersComponent,
     UsCreateComponent,
     UsUpdateComponent,
+    AchievementsComponent,
+    DetailAchievementComponent,
 
   ],
   imports: [
     ValidatorsModule,
     BrowserModule,
     AppRoutingModule,
+    NgxPageScrollModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -72,7 +78,7 @@ import { CommonModule } from '@angular/common';
     NgbAlertModule,NgbPaginationModule,
     HttpClientModule,
     CommonModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
