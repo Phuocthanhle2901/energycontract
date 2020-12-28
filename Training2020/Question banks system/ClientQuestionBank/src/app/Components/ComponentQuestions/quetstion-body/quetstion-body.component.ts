@@ -70,28 +70,34 @@ export class QuetstionBodyComponent implements OnInit {
 
   getResult(answersheet:string[]){
     this.userAnswer = new UserAnswer(); //init user answer
-    this.userAnswer.ListQuestion = []; //init question list
-    this.userAnswer.Email = this.email; //set email
-    this.userAnswer.Summary = 0; //init summary
-    this.userAnswer.Date = new Date(); //get date
+    this.userAnswer.listQuestion = []; //init question list
+    this.userAnswer.email = this.email; //get email
+    this.userAnswer.summary = 0; //init summary
+    this.userAnswer.theme = this.theme; //get theme
+    this.userAnswer.date = new Date(); //get date
+    this.maxScore = 0;
+    console.log(answersheet); //check form value
     //create new result sheet
     for (let i = 0; i < this.questions.length; i++) {
       //get true answer for current question
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
         this.maxScore += this.questions[i].point; //get total point of the test
-        this.userAnswer.ListQuestion[i] = new ListQuestion(); //init question
-        this.userAnswer.ListQuestion[i].Question = this.questions[i].question; //get question content
-        this.userAnswer.ListQuestion[i].Answer = this.questions[i].answer; //get options
-        this.userAnswer.ListQuestion[i].Point = 0;
-        this.userAnswer.ListQuestion[i].TrueAnswer = res; //get true answer
+        this.userAnswer.listQuestion[i] = new ListQuestion(); //init question
+        this.userAnswer.listQuestion[i].question = this.questions[i].question; //get question content
+        this.userAnswer.listQuestion[i].answer = this.questions[i].answer; //get options
+        this.userAnswer.listQuestion[i].point = 0;
+        this.userAnswer.listQuestion[i].trueAnswer = res; //get true answer
         if(res===answersheet[i]){
-          this.userAnswer.ListQuestion[i].Point = this.questions[i].point;
-          this.userAnswer.Summary += this.questions[i].point;
+          this.userAnswer.listQuestion[i].point = this.questions[i].point;
+          this.userAnswer.summary += this.questions[i].point;
         }
-        else this.userAnswer.ListQuestion[i].Point = 0;
-        this.userAnswer.ListQuestion[i].UserAnswer = answersheet[i];
-        this.result = "Your score: " + this.userAnswer.Summary + "/" + this.maxScore; //update score
-        if(i == this.questions.length-1) this.saveResult();
+        else this.userAnswer.listQuestion[i].point = 0;
+        this.userAnswer.listQuestion[i].userAnswer = answersheet[i];
+        this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //update score
+        if(i == this.questions.length-1){
+          console.log(this.userAnswer.listQuestion); //check answer sheet before posting
+          this.saveResult();
+        }
       });
     }
     this.submitted = true;

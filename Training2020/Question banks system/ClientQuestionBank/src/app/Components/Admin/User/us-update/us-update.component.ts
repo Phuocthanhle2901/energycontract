@@ -61,7 +61,7 @@ export class UsUpdateComponent implements OnInit {
   }
   submitEditUser(data: any){
 
-    this.serviceuser.editUser().subscribe((data:any)=>{
+    this.serviceuser.editUser(this.idUser, data).subscribe((data:any)=>{
       if(data==true)
       {
         alert("create user success")

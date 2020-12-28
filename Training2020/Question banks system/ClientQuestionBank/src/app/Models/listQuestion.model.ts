@@ -1,7 +1,7 @@
 export class ListQuestion {
-    Question:string;
-    Answer:string[];
-    UserAnswer:string;
-    TrueAnswer:string;
-    Point:number
+    question:string;
+    answer:string[];
+    userAnswer:string;
+    trueAnswer:string;
+    point:number
 }

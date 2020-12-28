@@ -15,6 +15,9 @@ namespace QuestionBankDB.Models
         [BsonElement("email")]
         public string Email { get; set; }
 
+        [BsonElement("theme")]
+        public string Theme { get; set; }
+
         [BsonElement("listquestion")]
         public Listquestion[] Listquestion { get; set; }
 
