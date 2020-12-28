@@ -7,30 +7,29 @@
   <div class=" mod-detailAchievement mt-5">
     <div class="row my-4">
       <div class="col-md-8">
-        <h2>Summary of your previous attempts</h2>
-        <div class="boxs my-3">
-          <div class="mod-detailAchievement-boxq my-2" id="index1">
-            <h5>Câu 1 Con mèo rừng có mấy chân</h5>
+        <h2>Summary of your previous attempt</h2>
+        <h2>Date: {{result.date|date:'dd/MM/yyyy (HH:mm)'}} (Score {{result.summary}}/{{result.total}})</h2>
+        <div class="boxs my-3" *ngFor='let question of result.listquestion; index as i'>
+          <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
+            <h5>{{question.question}}</h5>
             <ul>
-              <li>Có hai chân <i [ngStyle]="show==true?correct:hiden" class="eva eva-checkmark-outline "></i> 
-              <i [ngStyle]="show==false?correct:hiden" class="eva eva-close-outline "></i></li>
+              <li>{{question.userAnswer}} <i *ngIf='question.point>0' class="eva eva-checkmark-outline text-success"></i> 
+              <i *ngIf='question.point==0' class="eva eva-close-outline text-danger"></i></li>
             </ul>
           </div>
-          <div class="mod-detailAchievement-boxa my-1">
-            <h5>Câu trả lời của bạn là: correct if answer == trueanswer else fail</h5>
+          <div class="mod-detailAchievement-boxa" *ngIf='question.point==0'>
             <ul>
-              <li>The correct answer is: </li>
-              <li>The your answer is: </li>
+              <li>The correct answer is: {{question.trueAnswer}}</li>
+              <li>The your answer is: {{question.userAnswer}}</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="col-md-4 box-link">
-        <h2>Quiz navigation</h2>
+        <h2>Navigation</h2>
         <div class="justify-content-center  box-link-item">
           <ul class="d-flex flex-wrap">
-            <li><a pageScroll  href="#index1" class="btn btn-item">1</a></li>
-            <li><a pageScroll  href="#index2" class="btn btn-item">2</a></li>
+            <li *ngFor="let link of ' '.repeat(result.listquestion.length).split(''); index as i"><a pageScroll  href="#index{{i}}" class="btn btn-item">{{i+1}}</a></li>
           </ul>
           <a routerLink="/achievements"> Finish review </a>
         </div>

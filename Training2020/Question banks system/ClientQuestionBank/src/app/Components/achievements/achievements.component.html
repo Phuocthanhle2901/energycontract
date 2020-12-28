@@ -20,7 +20,7 @@
       <tbody>
         <tr *ngFor='let result of testResults; index as i'>
           <td>{{i+1}}</td>
-          <td>{{result.date}}</td>
+          <td>{{result.date|date:'dd/MM/yyyy (HH:mm)'}}</td>
           <td>{{result.theme}}</td>
           <td>{{result.summary}}/{{result.total}}</td>
           <td><a routerLink="/detail/achievements/{{result.id}}">Review</a></td>
@@ -28,7 +28,7 @@
       </tbody>
     </table>
     <!-- pagination -->
-    <nav aria-label=" navigation"class=" pagination-page">
+    <nav aria-label=" navigation" class="pagination-page">
       <ul class="pagination">
         <li class="page-item" *ngIf="currentPage>0">
           <a class="page-link" (click)="getResults(email, 0)"><i class="eva eva-arrowhead-left-outline"></i></a>

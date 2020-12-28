@@ -59,7 +59,7 @@ export class UsUpdateComponent implements OnInit {
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-  submitEditUser(data: any){
+  submitEditUser(e, data: any){
 
     this.serviceuser.editUser(this.idUser, data).subscribe((data:any)=>{
       if(data==true)

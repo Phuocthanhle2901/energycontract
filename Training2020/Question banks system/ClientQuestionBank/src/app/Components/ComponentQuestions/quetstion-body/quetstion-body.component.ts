@@ -70,7 +70,7 @@ export class QuetstionBodyComponent implements OnInit {
 
   getResult(answersheet:string[]){
     this.userAnswer = new UserAnswer(); //init user answer
-    this.userAnswer.listQuestion = []; //init question list
+    this.userAnswer.listquestion = []; //init question list
     this.userAnswer.email = this.email; //get email
     this.userAnswer.summary = 0; //init summary
     this.userAnswer.theme = this.theme; //get theme
@@ -83,20 +83,20 @@ export class QuetstionBodyComponent implements OnInit {
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
         this.maxScore += this.questions[i].point; //get total point of the test
         this.userAnswer.total = this.maxScore; //set total score
-        this.userAnswer.listQuestion[i] = new ListQuestion(); //init question
-        this.userAnswer.listQuestion[i].question = this.questions[i].question; //get question content
-        this.userAnswer.listQuestion[i].answer = this.questions[i].answer; //get options
-        this.userAnswer.listQuestion[i].point = 0;
-        this.userAnswer.listQuestion[i].trueAnswer = res; //get true answer
+        this.userAnswer.listquestion[i] = new ListQuestion(); //init question
+        this.userAnswer.listquestion[i].question = this.questions[i].question; //get question content
+        this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
+        this.userAnswer.listquestion[i].point = 0;
+        this.userAnswer.listquestion[i].trueAnswer = res; //get true answer
         if(res===answersheet[i]){
-          this.userAnswer.listQuestion[i].point = this.questions[i].point;
+          this.userAnswer.listquestion[i].point = this.questions[i].point;
           this.userAnswer.summary += this.questions[i].point;
         }
-        else this.userAnswer.listQuestion[i].point = 0;
-        this.userAnswer.listQuestion[i].userAnswer = answersheet[i];
+        else this.userAnswer.listquestion[i].point = 0;
+        this.userAnswer.listquestion[i].userAnswer = answersheet[i];
         this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //update score
         if(i == this.questions.length-1){
-          console.log(this.userAnswer.listQuestion); //check answer sheet before posting
+          console.log(this.userAnswer.listquestion); //check answer sheet before posting
           this.saveResult();
         }
       });

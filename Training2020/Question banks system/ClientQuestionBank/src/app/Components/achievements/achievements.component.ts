@@ -45,7 +45,6 @@ export class AchievementsComponent implements OnInit {
           this.email = res.data.result.email;
           this.getResults(this.email, 0);
           this.getPageCount();
-          console.log(this.pageCount);
       })
       .catch(err=>console.log(err));
     }

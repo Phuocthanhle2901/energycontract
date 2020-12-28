@@ -32,7 +32,7 @@ export class TestService {
 
   getDetail(id:string){
     let detail ='https://localhost:44328/api/AnswerUser/' + id;
-    return this.httpClient.post<UserAnswer>(detail, null);
+    return this.httpClient.get<UserAnswer>(detail);
   }
 
 }

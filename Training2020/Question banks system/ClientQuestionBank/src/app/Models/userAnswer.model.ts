@@ -4,7 +4,7 @@ export class UserAnswer{
     id:string;
     email:string;
     theme:string;
-    listQuestion:ListQuestion[];
+    listquestion:ListQuestion[];
     summary:number;
     total:number;
     date:Date;

@@ -8,12 +8,12 @@
     <div class="container row  ml-0">
       <div class="col-md-4 mod-question-body-nav p-0 m-0 col-sm-12">
         <nav class="navbar  navbar-expand-md  navbar-light d-flex flex-md-column ">
-
-          <h3>Types of questions1</h3>
-
+          <h3>Navigation</h3>
           <div class="collapse navbar-collapse justify-content-center"  id="collapsibleNavbar">
-            <ul class="navbar-nav d-flex flex-wrap w-50 " *ngFor="let link of ' '.repeat(pageQuestions.length).split(''); index as i">
-                 <li><a href="questionTest/{{theme}}#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a></li>
+            <ul class="navbar-nav d-flex flex-wrap w-50" *ngFor="let link of ' '.repeat(pageQuestions.length).split(''); index as i">
+              <li>
+                <a href="questionTest/{{theme}}#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a>
+              </li>
             </ul>
           </div>
         </nav>
