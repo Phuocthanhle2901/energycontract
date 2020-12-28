@@ -28,7 +28,7 @@ namespace QuestionBankDB.Services
 
         public Object Create(Question question)
         {
-  
+
             var res = _question.Find(que => que.question == question.question && que.ThemeName==question.ThemeName).FirstOrDefault();
             try {
                 if (res == null)
@@ -45,7 +45,6 @@ namespace QuestionBankDB.Services
             {
                 return ex;
             }
-             
  
         }
 

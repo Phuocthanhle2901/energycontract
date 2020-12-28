@@ -136,5 +136,12 @@ namespace QuestionBankDB.Controllers
             _userInfoService.DisableUser(email);
             return true;
         }
+        [HttpPost]
+        [Route("role")]
+        public ActionResult<List<int>> GetThemes() => _userInfoService.GetRoleUsser();
+        [HttpPost]
+        [Route("users")]
+        public ActionResult<List<UserInfo>> GetUserByRole(int role) => _userInfoService.getUserbyRole(role);
+
     }
 }

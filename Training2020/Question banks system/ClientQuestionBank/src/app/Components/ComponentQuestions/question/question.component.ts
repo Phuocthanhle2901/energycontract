@@ -19,7 +19,6 @@ export class QuestionComponent implements OnInit {
       private questionService:QuestionService,
       private themesService:ThemesService
     ) { }
-
   ngOnInit(): void {
     this.getThemes();
   }

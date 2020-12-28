@@ -41,10 +41,9 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
          [Route("create")]
         public ActionResult<Object> Create(Question question)
-        {
+        { 
  
-            return _questionService.Create(question); 
- 
+            return _questionService.Create(question);  
         }
 
         [HttpPut("{id:length(24)}")]
