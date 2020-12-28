@@ -8,7 +8,12 @@ import axios from 'axios';
 export class UserService {
 
   constructor(private httpClient:HttpClient) { }
-
+  createUser(user:any){
+    return this.httpClient.post<JSON>('https://localhost:44328/api/UserInfo/Create', user);
+  }
+  editUser(id:any, user:any){
+    return this.httpClient.put<JSON>("https://localhost:44328/api/UserInfo/"+id, user);
+  }
   getInfoUser()
   {
     var cookie=getCookie();
@@ -42,5 +47,8 @@ export class UserService {
   getAchievementByEmail(email:any)
   {
     // return this.httpClient.post<JSON>(' https://localhost:44328/api/UserInfo/users?role='+role,null);
+  }
+  getUserById(id:string){
+    this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo/"+id);
   }
 }
