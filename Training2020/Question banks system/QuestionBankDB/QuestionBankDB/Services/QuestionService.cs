@@ -20,7 +20,7 @@ namespace QuestionBankDB.Services
             _question = database.GetCollection<Question>(settings.QuestionCollectionName);
         }
 
-        public List<Question> Get(byte page) =>
+        public List<Question> Get(int page) =>
             _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
 
         public Question Get(string id) =>
@@ -80,7 +80,7 @@ namespace QuestionBankDB.Services
         }
 
         //get questions with specific theme name
-        public List<Question> GetThemeQuestions(string theme, byte page) => _question.Find(question => question.ThemeName.Equals(theme))
+        public List<Question> GetThemeQuestions(string theme, int page) => _question.Find(question => question.ThemeName.Equals(theme))
                                                                                      .Limit(5).Skip(5 * page).ToList(); //5 results per page
 
         

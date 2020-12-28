@@ -82,6 +82,7 @@ export class QuetstionBodyComponent implements OnInit {
       //get true answer for current question
       this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
         this.maxScore += this.questions[i].point; //get total point of the test
+        this.userAnswer.total = this.maxScore; //set total score
         this.userAnswer.listQuestion[i] = new ListQuestion(); //init question
         this.userAnswer.listQuestion[i].question = this.questions[i].question; //get question content
         this.userAnswer.listQuestion[i].answer = this.questions[i].answer; //get options

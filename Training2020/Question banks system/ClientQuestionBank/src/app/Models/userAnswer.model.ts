@@ -6,5 +6,6 @@ export class UserAnswer{
     theme:string;
     listQuestion:ListQuestion[];
     summary:number;
+    total:number;
     date:Date;
 }

@@ -22,7 +22,7 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Question>> Get(byte page) =>
+        public ActionResult<List<Question>> Get(int page) =>
             _questionService.Get(page);
 
         [HttpGet("{id:length(24)}",Name ="GetQuestion")]
@@ -83,7 +83,7 @@ namespace QuestionBankDB.Controllers
         //get questions of a theme
         [HttpPost]
         [Route("themeQuestions")]
-        public ActionResult<List<Question>> GetThemeQuestions(string theme, byte page)
+        public ActionResult<List<Question>> GetThemeQuestions(string theme, int page)
         {
             var questions = _questionService.GetThemeQuestions(theme, page);
 

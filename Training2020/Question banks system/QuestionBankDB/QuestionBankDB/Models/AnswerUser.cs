@@ -24,6 +24,9 @@ namespace QuestionBankDB.Models
         [BsonElement("summary")]
         public int Summary { get; set; }
 
+        [BsonElement("total")]
+        public int Total { get; set; }
+
         [BsonElement("date")]
         public DateTime Date { get; set; }
     }
