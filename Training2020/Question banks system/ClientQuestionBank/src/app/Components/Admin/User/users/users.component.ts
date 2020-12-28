@@ -61,6 +61,7 @@ export class UsersComponent implements OnInit {
   }
  }
   getColor(i){return this.status[i] ? 'green' : 'red';}
+
  getRole() // get all role in database/
  {
     this.userservice.getRole().subscribe((data:any)=>{
