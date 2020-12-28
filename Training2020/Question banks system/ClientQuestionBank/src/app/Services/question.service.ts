@@ -19,7 +19,10 @@ export class QuestionService {
     // set new data for subcribed
     this.question.next(question);
   }
-
+  getAnswer(id:string){
+    let answer = "https://localhost:44328/api/Question/GetAnswer?id=" + id;
+    return this.httpClient.post<JSON>(answer, null); //get answer of a question
+  }
   getThemeQuestions(theme: string, page: number): Observable<JSON> {
     this.questionUrl =
       'https://localhost:44328/api/Question/themeQuestions?theme=' +

@@ -29,7 +29,7 @@ const routes: Routes = [
 
   {path:"achievements",component:AchievementsComponent},// AchievementsComponent user
   {path:"detail/achievements/:id",component:DetailAchievementComponent},// AchievementsComponent user
-  {path:"editUser",component:UsUpdateComponent},
+  {path:"admin/editUser",component:IndexComponent},
 ];
 
 @NgModule({
