@@ -42,9 +42,9 @@ export class QuestionService {
     return this.httpClient.post<JSON>(
       'https://localhost:44328/api/Question/create',
       question
-    ); //get question count of a theme
+    );
   }
-
+  //get question count of a theme
   getQuestionById(id: string) {
     return this.httpClient.get<JSON>(
       'https://localhost:44328/api/Question/' + id

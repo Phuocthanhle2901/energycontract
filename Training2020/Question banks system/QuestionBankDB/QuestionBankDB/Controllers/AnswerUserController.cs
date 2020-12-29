@@ -77,10 +77,16 @@ namespace QuestionBankDB.Controllers
         
         [HttpPost]
         [Route("getAchievement")]
-
-        public ActionResult<List<AnswerUser>>getAnswerUser(string email)
+        public ActionResult<List<AnswerUser>>getAnswerUser(string email, int page)
         {
-            return _answerUserService.getAchievement(email);
+            return _answerUserService.getAchievement(email, page+1);
+        }
+
+        [HttpPost]
+        [Route("getResultCount")]
+        public ActionResult<int> getResultCount(string email)
+        {
+            return _answerUserService.GetResultCount(email);
         }
     }
     

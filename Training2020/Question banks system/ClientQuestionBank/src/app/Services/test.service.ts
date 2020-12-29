@@ -19,4 +19,20 @@ export class TestService {
     let resultUrl = 'https://localhost:44328/api/AnswerUser';
     return this.httpClient.post<UserAnswer>(resultUrl, userAnswer);
   }
+
+  getResults(email:string, page:number){
+    let resultsUrl = 'https://localhost:44328/api/AnswerUser/getAchievement?email='+ encodeURIComponent(email) + '&page=' + page;
+    return this.httpClient.post<JSON>(resultsUrl, null).pipe();
+  }
+
+  getResultCount(email:string){
+    let count = 'https://localhost:44328/api/AnswerUser/getResultCount?email=' + encodeURIComponent(email);
+    return this.httpClient.post<number>(count, null);
+  }
+
+  getDetail(id:string){
+    let detail ='https://localhost:44328/api/AnswerUser/' + id;
+    return this.httpClient.get<UserAnswer>(detail);
+  }
+
 }

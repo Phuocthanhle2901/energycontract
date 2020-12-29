@@ -40,10 +40,24 @@ namespace QuestionBankDB.Services
         public void Remove(string id) =>
             _aswerUser.DeleteOne(answerUser => answerUser.Id == id);
 
-        public List<AnswerUser> getAchievement(string email)
+        public List<AnswerUser> getAchievement(string email, int page) //get test results in a page
         {
-            return _aswerUser.Find(answeruser => answeruser.Email == email).ToList();
+            int limit = 5; //5 results per page
+            int count = GetResultCount(email);
+            int skip = count - limit * page; //skip backward
+            if (skip < 0)
+            {
+                skip = 0;
+                limit = count - limit * (page - 1); //limit of last page
+            }
+            List<AnswerUser> result = _aswerUser.Find(answeruser => answeruser.Email == email).Limit(limit)
+                                                .Skip(skip).ToList(); //get from latest results
+            result.Reverse(); //reverse order
+            return result;
         }
+
+        //get count of questions of a specific theme
+        public int GetResultCount(string email) => (int)_aswerUser.Find(result => result.Email.Equals(email)).CountDocuments();
     }
 
 }

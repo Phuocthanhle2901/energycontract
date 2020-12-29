@@ -13,7 +13,6 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
-
 @Component({
   selector: 'app-us-update',
   templateUrl: './us-update.component.html',
@@ -39,7 +38,7 @@ export class UsUpdateComponent implements OnInit {
   }
   fileToUpload: File = null;
   ngOnInit(): void {
-    
+
 
   }
 

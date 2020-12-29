@@ -15,11 +15,17 @@ namespace QuestionBankDB.Models
         [BsonElement("email")]
         public string Email { get; set; }
 
+        [BsonElement("theme")]
+        public string Theme { get; set; }
+
         [BsonElement("listquestion")]
         public Listquestion[] Listquestion { get; set; }
 
         [BsonElement("summary")]
         public int Summary { get; set; }
+
+        [BsonElement("total")]
+        public int Total { get; set; }
 
         [BsonElement("date")]
         public DateTime Date { get; set; }
@@ -30,7 +36,10 @@ namespace QuestionBankDB.Models
         public string Question { get; set; }
 
         [BsonElement("answer")]
-        public string Answer { get; set; }
+        public string[] Answer { get; set; }
+
+        [BsonElement("userAnswer")]
+        public string UserAnswer { get; set; }
 
         [BsonElement("trueAnswer")]
         public string TrueAnswer { get; set; }
