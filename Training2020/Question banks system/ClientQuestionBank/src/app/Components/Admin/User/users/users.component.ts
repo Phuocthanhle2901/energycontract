@@ -3,6 +3,7 @@ import { Component, AfterContentInit, OnInit,SimpleChanges, OnChanges } from '@a
 import { Router } from '@angular/router';
 import {UserService}from '../../../../Services/user.service';
 import axios from "axios";
+
 import {
   FormBuilder,
   FormControl,
@@ -85,9 +86,6 @@ export class UsersComponent implements OnInit {
     })
   }
 
-
-
-
   removeUser(id:any){
 
     var confirmText = "Are you sure you want to delete this Account?";
@@ -129,6 +127,11 @@ export class UsersComponent implements OnInit {
  getAchievementById(id:any)
  {
  }
- getUserById(id:any){}
+ getUserById(id:any){
+   this.userservice.getUserForUpdate(id).subscribe((data:any)=>{
+     this.userservice.setuserObservable(data);
+     this.router.navigate(["/admin/editUser"])
+   })
+ }
 
 }

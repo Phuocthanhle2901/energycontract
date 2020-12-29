@@ -2,12 +2,20 @@ import { Injectable } from '@angular/core';
 import {getCookie} from '../../assets/js/auth.js';
 import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
+import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  private user: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  user$: Observable<any> = this.user.asObservable(); // new data
   constructor(private httpClient:HttpClient) { }
+
+  setuserObservable(data:any)
+  {
+    this.user.next(data);
+  }
   createUser(user:any){
     return this.httpClient.post<JSON>('https://localhost:44328/api/UserInfo/Create', user);
   }
@@ -59,4 +67,15 @@ export class UserService {
   {
     return this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo");
   }
+
+  getUserForUpdate(id:any)
+  {
+    return this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo/getuserById?id="+id);
+  }
+  updateUser(id:any,data:any)
+  {
+    return this.httpClient.put<JSON>("https://localhost:44328/api/UserInfo/"+id,data);
+
+  }
+
 }

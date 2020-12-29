@@ -53,6 +53,10 @@ namespace QuestionBankDB.Services
             }
             return null;
         }
+        // get User by id
+        public UserInfo getUserByidi(string id)=>
+            _userInfo.Find(us => us.Id == id).FirstOrDefault();
+        
         public List<UserInfo>listUser()
         {
             return _userInfo.Find(s => true).ToList();
@@ -72,8 +76,17 @@ namespace QuestionBankDB.Services
             return false;
         }
 
-        public Object Update(string id, UserInfo userInfoId) =>
-           _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
+        public Object Update(string id, UserInfo userInfoId)
+        {
+            var res = _userInfo.ReplaceOne(us => us.Id == id, userInfoId).IsAcknowledged;
+            if (res)
+            {
+                return (new { data = Get(id), status = 200 });
+            }
+            return (new { stauts = 400 });
+
+        }
+          
 
         public void Remove(UserInfo userInfo) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == userInfo.Id);
@@ -187,7 +200,7 @@ namespace QuestionBankDB.Services
         }
         public   Object getInfoUserLogin(string id)
         {
-            Console.WriteLine(id);
+            
             try
             {
                 //c1

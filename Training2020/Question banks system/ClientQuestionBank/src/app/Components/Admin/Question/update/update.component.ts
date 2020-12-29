@@ -30,7 +30,7 @@ export class UpdateComponent implements OnInit {
   hiden1:boolean=false;
   dataForm:FormGroup;
   newTheme:string='';
-idQuestion:string="";
+  idQuestion:string="";
 
   constructor(private formBuilder:FormBuilder, private themesService:ThemesService,
     private questionSevice:QuestionService) {

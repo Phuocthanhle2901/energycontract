@@ -61,6 +61,8 @@ namespace QuestionBankDB.Controllers
             return _userInfoService.Update(id, userInfoIn);
         }
 
+
+
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
         {
@@ -83,6 +85,12 @@ namespace QuestionBankDB.Controllers
            return _userInfoService.SignIn(user, HttpContext);
         }
 
+        [HttpGet]
+        [Route("getuserById")]
+        public ActionResult<UserInfo> getUserByIdi(string id)
+        {
+            return _userInfoService.getUserByidi(id);
+        }
 
 
         [HttpPost]

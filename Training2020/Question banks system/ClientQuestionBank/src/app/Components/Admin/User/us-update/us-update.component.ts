@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {User} from '../../../../Models/user.model';
 import {
   FormBuilder,
   FormControl,
@@ -24,14 +25,17 @@ export class UsUpdateComponent implements OnInit {
   message: string;
   passwordNotMatch: boolean;
   defaultValue = "Admin";
-
   idUser:string="";
+  aUser= new User;
+
 
   constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
     this.dataform = this.formbuilder.group({
       fullname: new FormControl('', FullNameValidation),
+      id: new FormControl(''),
       email: new FormControl('', EmailValidation),
       password: new FormControl('', PasswordValidation),
+      status: new FormControl(Boolean),
       confirmpassword: ['', [Validators.required, this.passwordMatcher.bind(this)]],
       role: new FormControl('')
     });
@@ -39,6 +43,11 @@ export class UsUpdateComponent implements OnInit {
   fileToUpload: File = null;
   ngOnInit(): void {
 
+    this.serviceuser.user$.subscribe((data:any)=>{
+      console.log(data)
+      this.idUser=data.id;
+      this.ShowDataToForm(data);
+    })
 
   }
 
@@ -58,20 +67,34 @@ export class UsUpdateComponent implements OnInit {
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-  submitEditUser(id:any, user: any){
+  ShowDataToForm(data:any)
+  {
+    this.dataform.controls['id'].setValue(data.id);
+      this.dataform.controls['fullname'].setValue(data.fullname);
+      this.dataform.controls['email'].setValue(data.email);
+      this.dataform.controls['password'].setValue(data.password);
+      this.dataform.controls['role'].setValue(data.role);
+      this.dataform.controls['status'].setValue(data.status);
+      this.dataform.controls['confirmpassword'].setValue(data.password);
+  }
+  submitEditUser(data: any){
+    this.aUser.id=data.id;
+    this.aUser.fullname=data.fullname;
+    this.aUser.email=data.email;
+    this.aUser.password=data.password;
+    this.aUser.role=data.role;
+    this.aUser.status=data.status=="true"?true:false;
+    this.aUser.avatar="";
+    this.serviceuser.updateUser(this.idUser,this.aUser).subscribe((res:any)=>{
+      if(res.status==200)
+      {
+        alert("update question success");
+      }
+      else{
+        alert("update question No success");
+      }
+    })
 
-    this.serviceuser.editUser(id, user).subscribe((data:any)=>{
-      // if(data==true)
-      // {
-      //   alert("edit user success")
-      // }
-      // else{
-      //   this.message="email exist !";
-      // }
-      this.serviceuser.editUser(id, data)
-      // console.log(data);
-    });
-    console.log(user)
 
   }
 
