@@ -69,39 +69,41 @@ export class QuetstionBodyComponent implements OnInit {
   }
 
   getResult(answersheet:string[]){
-    this.userAnswer = new UserAnswer(); //init user answer
-    this.userAnswer.listquestion = []; //init question list
-    this.userAnswer.email = this.email; //get email
-    this.userAnswer.summary = 0; //init summary
-    this.userAnswer.theme = decodeURIComponent(this.theme); //get theme
-    this.userAnswer.date = new Date(); //get date
-    this.maxScore = 0;
-    //create new result sheet
-    for (let i = 0; i < this.questions.length; i++) {
-      //get true answer for current question
-      this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
-        this.maxScore += this.questions[i].point; //get total point of the test
-        this.userAnswer.listquestion[i] = new ListQuestion(); //init question
-        this.userAnswer.listquestion[i].question = this.questions[i].question; //get question content
-        this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
-        this.userAnswer.listquestion[i].point = 0;
-        this.userAnswer.listquestion[i].trueAnswer = res; //get true answer
-        if(res===answersheet[i]){
-          this.userAnswer.listquestion[i].point = this.questions[i].point;
-          this.userAnswer.summary += this.questions[i].point;
-        }
-        else this.userAnswer.listquestion[i].point = 0;
-        this.userAnswer.listquestion[i].userAnswer = answersheet[i];
-        if(i == this.questions.length-1){
-          this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
-          this.userAnswer.total = this.maxScore; //set total score
-          console.log(answersheet); //check form value
-          console.log(this.userAnswer.listquestion); //check answer sheet before posting
-          this.saveResult(this.userAnswer);
-        }
-      });
+    if(confirm("Are you ready to submit?")){
+      this.userAnswer = new UserAnswer(); //init user answer
+      this.userAnswer.listquestion = []; //init question list
+      this.userAnswer.email = this.email; //get email
+      this.userAnswer.summary = 0; //init summary
+      this.userAnswer.theme = decodeURIComponent(this.theme); //get theme
+      this.userAnswer.date = new Date(); //get date
+      this.maxScore = 0;
+      //create new result sheet
+      for (let i = 0; i < this.questions.length; i++) {
+        //get true answer for current question
+        this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
+          this.maxScore += this.questions[i].point; //get total point of the test
+          this.userAnswer.listquestion[i] = new ListQuestion(); //init question
+          this.userAnswer.listquestion[i].question = this.questions[i].question; //get question content
+          this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
+          this.userAnswer.listquestion[i].point = 0;
+          this.userAnswer.listquestion[i].trueAnswer = res; //get true answer
+          if(res===answersheet[i]){
+            this.userAnswer.listquestion[i].point = this.questions[i].point;
+            this.userAnswer.summary += this.questions[i].point;
+          }
+          else this.userAnswer.listquestion[i].point = 0;
+          this.userAnswer.listquestion[i].userAnswer = answersheet[i];
+          if(i == this.questions.length-1){
+            this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
+            this.userAnswer.total = this.maxScore; //set total score
+            console.log(answersheet); //check form value
+            console.log(this.userAnswer.listquestion); //check answer sheet before posting
+            this.saveResult(this.userAnswer);
+          }
+        });
+      }
+      this.submitted = true;
     }
-    this.submitted = true;
   }
 
   saveResult(sheet:UserAnswer){
