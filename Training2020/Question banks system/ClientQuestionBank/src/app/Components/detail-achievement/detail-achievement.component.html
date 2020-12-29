@@ -13,14 +13,16 @@
           <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
             <h5>{{question.question}}</h5>
             <ul>
-              <li>{{question.userAnswer}} <i *ngIf='question.point>0' class="eva eva-checkmark-outline text-success"></i> 
-              <i *ngIf='question.point==0' class="eva eva-close-outline text-danger"></i></li>
+              <li *ngFor="let option of question.answer; index as i">{{i+1}}. {{option}}</li>
+              <li>Your answer: {{question.userAnswer}} <i *ngIf='question.point>0' class="eva eva-checkmark-outline text-success"></i> 
+                <i *ngIf='question.point==0' class="eva eva-close-outline text-danger"></i>
+              </li>
+              <li>Point: {{question.point}}</li>
             </ul>
           </div>
           <div class="mod-detailAchievement-boxa" *ngIf='question.point==0'>
             <ul>
               <li>The correct answer is: {{question.trueAnswer}}</li>
-              <li>Your answer is: {{question.userAnswer}}</li>
             </ul>
           </div>
         </div>

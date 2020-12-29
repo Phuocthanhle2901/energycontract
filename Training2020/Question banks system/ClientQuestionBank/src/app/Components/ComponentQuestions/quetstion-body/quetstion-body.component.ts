@@ -48,7 +48,7 @@ export class QuetstionBodyComponent implements OnInit {
     this.generateTest(this.theme, this.count);
   }
 
-  generateTest(theme:string, count:number ){
+  async generateTest(theme:string, count:number ){
     this.testService.generateTest(theme, count).subscribe((res:any)=>{
       this.questions = res;
       this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
@@ -68,12 +68,12 @@ export class QuetstionBodyComponent implements OnInit {
     console.log(answersheet); //check form value
   }
 
-  getResult(answersheet:string[]){
+  async getResult(answersheet:string[]){
     this.userAnswer = new UserAnswer(); //init user answer
     this.userAnswer.listquestion = []; //init question list
     this.userAnswer.email = this.email; //get email
     this.userAnswer.summary = 0; //init summary
-    this.userAnswer.theme = this.theme; //get theme
+    this.userAnswer.theme = decodeURIComponent(this.theme); //get theme
     this.userAnswer.date = new Date(); //get date
     this.maxScore = 0;
     console.log(answersheet); //check form value
@@ -104,11 +104,11 @@ export class QuetstionBodyComponent implements OnInit {
     this.submitted = true;
   }
 
-  saveResult(){
+  async saveResult(){
     if(this.email!=null) this.testService.saveResult(this.userAnswer).subscribe(); //post result
   }
 
-  checkLogin(){
+  async checkLogin(){
     if(this.cookie.token!=undefined) //get user email
     {
       axios.post("https://localhost:44328/api/UserInfo/user?id="+ this.cookie.token)
