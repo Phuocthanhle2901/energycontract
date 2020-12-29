@@ -42,7 +42,18 @@ namespace QuestionBankDB.Services
 
         public List<AnswerUser> getAchievement(string email, int page) //get test results in a page
         {
-            return _aswerUser.Find(answeruser => answeruser.Email == email).Limit(5).Skip(5 * page).ToList(); //5 results per page
+            int limit = 5; //5 results per page
+            int count = GetResultCount(email);
+            int skip = count - limit * page; //skip backward
+            if (skip < 0)
+            {
+                skip = 0;
+                limit = count - limit * (page - 1); //limit of last page
+            }
+            List<AnswerUser> result = _aswerUser.Find(answeruser => answeruser.Email == email).Limit(limit)
+                                                .Skip(skip).ToList(); //get from latest results
+            result.Reverse(); //reverse order
+            return result;
         }
 
         //get count of questions of a specific theme

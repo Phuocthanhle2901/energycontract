@@ -36,7 +36,6 @@ export class DetailAchievementComponent implements OnInit {
     let cutPost = window.location.href.indexOf('achievements/');
     this.id = window.location.href.substring(cutPost+13);
     this.result = new UserAnswer();
-    console.log("bruh");
     this.getDetail(this.id);
   }
 

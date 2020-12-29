@@ -79,7 +79,7 @@ namespace QuestionBankDB.Controllers
         [Route("getAchievement")]
         public ActionResult<List<AnswerUser>>getAnswerUser(string email, int page)
         {
-            return _answerUserService.getAchievement(email, page);
+            return _answerUserService.getAchievement(email, page+1);
         }
 
         [HttpPost]

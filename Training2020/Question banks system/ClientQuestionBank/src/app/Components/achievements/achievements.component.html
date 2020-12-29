@@ -12,6 +12,7 @@
         <tr>
           <th>Attempt</th>
           <th>Date</th>
+          <th>Time submitted</th>
           <th>Theme</th>
           <th>Score</th>
           <th>Action</th>
@@ -19,8 +20,9 @@
       </thead>
       <tbody>
         <tr *ngFor='let result of testResults; index as i'>
-          <td>{{i+1}}</td>
-          <td>{{result.date|date:'dd/MM/yyyy (HH:mm)'}}</td>
+          <td>{{i+1 + currentPage*5}}</td>
+          <td>{{result.date|date:'dd/MM/yyyy'}}</td>
+          <td>{{result.date|date:'HH:mm:ss'}}</td>
           <td>{{result.theme}}</td>
           <td>{{result.summary}}/{{result.total}}</td>
           <td><a routerLink="/detail/achievements/{{result.id}}">Review</a></td>

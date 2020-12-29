@@ -25,7 +25,7 @@
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
                 <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
-                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}" [disabled]='submitted==1'>
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}" *ngIf='submitted==false'>
                 <label class="form-check-label" for="op">{{option}}</label>
               </div>
             </div>
@@ -50,7 +50,7 @@
               </ul>
             </nav>
             <!-- submitt -->
-            <button type="submit" class="btn btn-primary mt-2">submit</button>
+            <button type="submit" class="btn btn-primary mt-2" *ngIf='submitted==false'>submit</button>
         </form>
         <p class="text-center">{{result}}</p>
       </div>

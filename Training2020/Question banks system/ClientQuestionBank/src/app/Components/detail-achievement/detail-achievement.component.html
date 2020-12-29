@@ -8,7 +8,9 @@
     <div class="row my-4">
       <div class="col-md-8">
         <h2>Details of your previous attempt</h2>
-        <h2>Date: {{result.date|date:'dd/MM/yyyy (HH:mm)'}} (Score {{result.summary}}/{{result.total}})</h2>
+        <h4>Date: {{result.date|date:'dd/MM/yyyy'}}</h4>
+        <h4>Time submitted: {{result.date|date:'HH:mm:ss'}}</h4>
+        <h4>Score: {{result.summary}}/{{result.total}}</h4>
         <div class="boxs my-3" *ngFor='let question of result.listquestion; index as i'>
           <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
             <h5>{{question.question}}</h5>
