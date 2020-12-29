@@ -39,6 +39,7 @@ export class UsUpdateComponent implements OnInit {
   }
   fileToUpload: File = null;
   ngOnInit(): void {
+    
 
   }
 
@@ -58,18 +59,20 @@ export class UsUpdateComponent implements OnInit {
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-  submitEditUser(data: any){
+  submitEditUser(id:any, user: any){
 
-    this.serviceuser.createUser(data).subscribe((data:any)=>{
-      if(data==true)
-      {
-        alert("create user success")
-      }
-      else{
-        this.message="email exist !";
-      }
-    })
-    console.log(data)
+    this.serviceuser.editUser(id, user).subscribe((data:any)=>{
+      // if(data==true)
+      // {
+      //   alert("edit user success")
+      // }
+      // else{
+      //   this.message="email exist !";
+      // }
+      this.serviceuser.editUser(id, data)
+      // console.log(data);
+    });
+    console.log(user)
 
   }
 

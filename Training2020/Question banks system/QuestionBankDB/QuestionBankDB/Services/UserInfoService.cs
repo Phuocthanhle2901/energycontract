@@ -72,7 +72,7 @@ namespace QuestionBankDB.Services
             return false;
         }
 
-        public void Update(string id, UserInfo userInfoId) =>
+        public Object Update(string id, UserInfo userInfoId) =>
            _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
 
         public void Remove(UserInfo userInfo) =>

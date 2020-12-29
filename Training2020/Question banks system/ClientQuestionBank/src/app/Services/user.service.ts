@@ -11,8 +11,8 @@ export class UserService {
   createUser(user:any){
     return this.httpClient.post<JSON>('https://localhost:44328/api/UserInfo/Create', user);
   }
-  editUser(id:any, user:any){
-    return this.httpClient.put<JSON>("https://localhost:44328/api/UserInfo/"+id, user);
+  editUser(id:any, data:any){
+    return this.httpClient.put<JSON>('https://localhost:44328/api/UserInfo/'+id, data);
   }
   getInfoUser()
   {

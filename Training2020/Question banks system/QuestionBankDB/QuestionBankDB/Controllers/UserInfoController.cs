@@ -49,7 +49,7 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UserInfo userInfoIn)
+        public ActionResult<Object> Update(string id, UserInfo userInfoIn)
         {
             var userInfo = _userInfoService.Get(id);
 
@@ -58,9 +58,7 @@ namespace QuestionBankDB.Controllers
                 return NotFound();
             }
 
-            _userInfoService.Update(id, userInfoIn);
-
-            return NoContent();
+            return _userInfoService.Update(id, userInfoIn);
         }
 
         [HttpDelete("{id:length(24)}")]
