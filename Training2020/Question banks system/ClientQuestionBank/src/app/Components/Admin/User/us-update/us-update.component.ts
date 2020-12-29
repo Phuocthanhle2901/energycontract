@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
 import {
   FormBuilder,
@@ -14,7 +13,7 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
-import { userInfo } from 'os';
+
 @Component({
   selector: 'app-us-update',
   templateUrl: './us-update.component.html',
@@ -26,7 +25,7 @@ export class UsUpdateComponent implements OnInit {
   message: string;
   passwordNotMatch: boolean;
   defaultValue = "Admin";
-  
+
   idUser:string="";
 
   constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
@@ -41,12 +40,12 @@ export class UsUpdateComponent implements OnInit {
   fileToUpload: File = null;
   ngOnInit(): void {
 
-  } 
-  
+  }
+
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
   }
-  
+
   passwordMatcher(control: FormControl): { [s: string]: boolean } {
     if (
       this.dataform &&

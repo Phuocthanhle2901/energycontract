@@ -35,6 +35,9 @@ namespace QuestionBankDB.Controllers
 
             return userInfo;
         }
+        [HttpGet]
+        public ActionResult<List<UserInfo>> Get() =>
+           _userInfoService.listUser();
 
         [HttpPost]
         [Route("Create")]

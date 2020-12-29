@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="mod-createUser-form mt-5">
-        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser($event,dataform.value)">
+        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser(dataform.value)">
             <div class="form-group">
             <label for="exampleInputName1">Name</label>
             <input type="text" class="form-control"

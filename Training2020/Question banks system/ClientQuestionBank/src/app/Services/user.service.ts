@@ -55,4 +55,8 @@ export class UserService {
   removeUser(id:any){
     return this.httpClient.delete<JSON>("https://localhost:44328/api/UserInfo/"+id);
   }
+  getAlluser()
+  {
+    return this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo");
+  }
 }

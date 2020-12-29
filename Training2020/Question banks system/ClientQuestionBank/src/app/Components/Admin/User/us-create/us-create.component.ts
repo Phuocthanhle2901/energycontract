@@ -54,6 +54,7 @@ export class UsCreateComponent implements OnInit {
 
   submitAddUser(data: any){
 
+    data['status']=true;
     this.serviceuser.createUser(data).subscribe((data:any)=>{
       if(data==true)
       {

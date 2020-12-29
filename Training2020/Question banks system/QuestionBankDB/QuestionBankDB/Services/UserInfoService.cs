@@ -53,6 +53,10 @@ namespace QuestionBankDB.Services
             }
             return null;
         }
+        public List<UserInfo>listUser()
+        {
+            return _userInfo.Find(s => true).ToList();
+        }
 
         public Boolean DisableUser(string email)
         {
@@ -85,6 +89,7 @@ namespace QuestionBankDB.Services
             var user = _userInfo.Find(res => res.Email == userInfo.Email).FirstOrDefault();
             if(user==null)
             {
+                userInfo.Password = _supper.GetMD5(userInfo.Password);
                 _userInfo.InsertOne(userInfo);
                 return true;
             }
