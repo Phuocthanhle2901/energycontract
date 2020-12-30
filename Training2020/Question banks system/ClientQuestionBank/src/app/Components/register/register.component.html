@@ -1,0 +1,84 @@
+<div class="mod-login d-flex flex-column">
+  <div class="mod-login-header">
+    <app-haeder></app-haeder>
+  </div>
+
+  <div class="mod-login-form">
+    <h2 class="text-center">New Account</h2>
+
+    <form [formGroup]="dataform" name="dataform" (ngSubmit)="sumbitRegister($event,dataform.value)">
+      <div class="form-group">
+        <label for="exampleInputName1">Name</label>
+        <input type="text" class="form-control"
+          [ngClass]="{'is-invalid':dataform.get('fullname').touched && dataform.get('fullname').invalid}"
+          formControlName="fullname" placeholder="Name..." />
+        <div class="invalid-feedback" *ngIf="dataform.get('fullname').touched && dataform.get('fullname').invalid">
+          <small *ngIf="dataform.get('fullname').errors.required" class="form-text  showError">Name is required</small>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input type="text" class="form-control"
+          [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+          formControlName="email" placeholder="Email..." />
+        <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+          <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
+          <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" (keydown)="onchange()"
+          [ngClass]="{'is-invalid':dataform.get('password').touched && dataform.get('password').invalid}"
+          formControlName="password" placeholder="Password...">
+        <div class="invalid-feedback" *ngIf="dataform.get('password').touched && dataform.get('password').invalid">
+          <small *ngIf="dataform.get('password').errors.required" class="form-text  showError">password is
+            required</small>
+          <small *ngIf="dataform.get('password').errors.minlength" class="form-text  showError"> password min is 6
+            character</small>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Confirm Password</label>
+        <input type="password" class="form-control"
+          [ngClass]="{'is-invalid':dataform.get('confirmpassword').touched && dataform.get('confirmpassword').invalid}"
+          formControlName="confirmpassword" placeholder="Confirm Password...">
+        <div class="invalid-feedback"
+          *ngIf="dataform.get('confirmpassword').touched  && dataform.get('password').dirty && dataform.get('confirmpassword').invalid">
+          <small *ngIf="dataform.get('confirmpassword').errors.required" class="form-text  showError">password is
+            required</small>
+          <small *ngIf="dataform.controls['confirmpassword'].errors.passwordNotMatch"
+            class="form-text showError">Confirm password does not match</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" [disabled]="dataform.status=='INVALID'" class=" form-control btn btn-primary">
+          <fa-icon [icon]="register"></fa-icon> Register
+        </button>
+      </div>
+      <div class="login-link text-center">
+        <!-- hiển thị thông tin vừa nhập dưới dạng json
+            <span>{{dataform.value|json}}</span><br>
+             Cho biết hợp lệ hay không -->
+        <!-- <span>{{dataform.status|json}}</span><br> -->
+        <!-- chuột có cham vao hay chưa -->
+        <!-- <span>{{dataform.untouched|json}}</span><br> -->
+        <!-- chạm chuột và nhập giá trị -->
+        <!-- <span>{{dataform.dirty|json}}</span><br>  -->
+        <small class="form-text showError">{{message}}</small>
+        <a href="/login">Back Login</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="mod-login-footer">
+    <app-footer></app-footer>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

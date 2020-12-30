@@ -1,0 +1,49 @@
+
+<div class="mod-login d-flex flex-column">
+  <div class="mod-login-header w-100">
+    <app-haeder></app-haeder>
+  </div>
+
+    <div class="mod-login-form">
+      <h3 class="text-center">Sign In</h3>
+      <small class="form-text text-center showError">{{message}} </small>
+      <form  [formGroup]="dataform" (ngSubmit)="getAccount($event,dataform.value)">
+        <div class="form-group">
+          <label  >Email</label>
+          <input type="text" class="form-control"
+          [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+          formControlName="email" placeholder="Email..." />
+          <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+            <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
+            <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label  >Password</label>
+          <input type="password" [ngClass]="{'is-invalid':dataform.get('password').touched && dataform.get('password').invalid}" class="form-control" formControlName="password"   placeholder="Password..."  >
+          <div class="invalid-feedback" *ngIf="dataform.get('password').touched && dataform.get('password').invalid">
+            <small *ngIf="dataform.get('password').errors.required" class="form-text showError">Password id required </small>
+            <small *ngIf="dataform.get('password').errors.minlength" class="form-text showError">password min is 6
+              character </small>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <button  type="submit"  class=" form-control btn btn-primary" [disabled]="dataform.status==='INVALID'"  >Sign In <fa-icon [icon]="signin"></fa-icon></button>
+        </div>
+
+      </form>
+      <div class="login-link text-center">
+        <a routerLink="/register">Register Account</a><br>
+        <a href="#">Forget Password</a>
+      </div>
+    </div>
+
+    <div class="mod-login-footer">
+      <app-footer></app-footer>
+    </div>
+</div>
+
+
+<router-outlet></router-outlet>
