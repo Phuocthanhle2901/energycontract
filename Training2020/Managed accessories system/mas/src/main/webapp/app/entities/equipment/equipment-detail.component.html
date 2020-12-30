@@ -31,25 +31,25 @@
                 <dt><span jhiTranslate="masApp.equipment.user">User</span></dt>
                 <dd>
                     <div *ngIf="equipment.user">
-                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.id }}</a>
+                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.user }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="masApp.equipment.equipmentGroup">Equipment Group</span></dt>
                 <dd>
                     <div *ngIf="equipment.equipmentGroup">
-                        <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']">{{ equipment.equipmentGroup?.id }}</a>
+                        <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']">{{ equipment.equipmentGroup?.equipmentGroupName }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="masApp.equipment.equipmentType">Equipment Type</span></dt>
                 <dd>
                     <div *ngIf="equipment.equipmentType">
-                        <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']">{{ equipment.equipmentType?.id }}</a>
+                        <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']">{{ equipment.equipmentType?.equipmentTypeName }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="masApp.equipment.area">Area</span></dt>
                 <dd>
                     <div *ngIf="equipment.area">
-                        <a [routerLink]="['/area', equipment.area?.id, 'view']">{{ equipment.area?.id }}</a>
+                        <a [routerLink]="['/area', equipment.area?.id, 'view']">{{ equipment.area?.areaName }}</a>
                     </div>
                 </dd>
             </dl>
@@ -65,6 +65,14 @@
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
+
+            <!--
+            <button type="button"
+                    (click)="exportEquipment(equipment)"
+                    class="btn btn-success ml-1">
+                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
+            </button>
+            -->
         </div>
     </div>
 </div>

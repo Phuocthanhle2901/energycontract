@@ -70,7 +70,7 @@
                     <label class="form-control-label" jhiTranslate="masApp.equipment.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option>
+                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.user }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
@@ -84,7 +84,7 @@
                     <label class="form-control-label" jhiTranslate="masApp.equipment.equipmentGroup" for="field_equipmentGroup">Equipment Group</label>
                     <select class="form-control" id="field_equipmentGroup" name="equipmentGroup" formControlName="equipmentGroup">
                         <option *ngIf="!editForm.get('equipmentGroup')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="equipmentGroupOption.id === editForm.get('equipmentGroup')!.value?.id ? editForm.get('equipmentGroup')!.value : equipmentGroupOption" *ngFor="let equipmentGroupOption of equipmentgroups; trackBy: trackById">{{ equipmentGroupOption.id }}</option>
+                        <option [ngValue]="equipmentGroupOption.id === editForm.get('equipmentGroup')!.value?.id ? editForm.get('equipmentGroup')!.value : equipmentGroupOption" *ngFor="let equipmentGroupOption of equipmentgroups; trackBy: trackById">{{ equipmentGroupOption.equipmentGroupName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('equipmentGroup')!.invalid && (editForm.get('equipmentGroup')!.dirty || editForm.get('equipmentGroup')!.touched)">
@@ -98,7 +98,7 @@
                     <label class="form-control-label" jhiTranslate="masApp.equipment.equipmentType" for="field_equipmentType">Equipment Type</label>
                     <select class="form-control" id="field_equipmentType" name="equipmentType" formControlName="equipmentType">
                         <option *ngIf="!editForm.get('equipmentType')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="equipmentTypeOption.id === editForm.get('equipmentType')!.value?.id ? editForm.get('equipmentType')!.value : equipmentTypeOption" *ngFor="let equipmentTypeOption of equipmenttypes; trackBy: trackById">{{ equipmentTypeOption.id }}</option>
+                        <option [ngValue]="equipmentTypeOption.id === editForm.get('equipmentType')!.value?.id ? editForm.get('equipmentType')!.value : equipmentTypeOption" *ngFor="let equipmentTypeOption of equipmenttypes; trackBy: trackById">{{ equipmentTypeOption.equipmentTypeName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('equipmentType')!.invalid && (editForm.get('equipmentType')!.dirty || editForm.get('equipmentType')!.touched)">
@@ -112,7 +112,7 @@
                     <label class="form-control-label" jhiTranslate="masApp.equipment.area" for="field_area">Area</label>
                     <select class="form-control" id="field_area" name="area" formControlName="area">
                         <option *ngIf="!editForm.get('area')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption" *ngFor="let areaOption of areas; trackBy: trackById">{{ areaOption.id }}</option>
+                        <option [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption" *ngFor="let areaOption of areas; trackBy: trackById">{{ areaOption.areaName }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('area')!.invalid && (editForm.get('area')!.dirty || editForm.get('area')!.touched)">

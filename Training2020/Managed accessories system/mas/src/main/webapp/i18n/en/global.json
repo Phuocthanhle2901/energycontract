@@ -20,6 +20,12 @@
         "userEquipmentActivityLog": "User Equipment Activity Log",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
+      "necessaryforms": {
+        "main": "Forms",
+        "proposingBuyEquipment": "Proposing Buy Equipment",
+        "equipmentLiquidation": "Equipment Liquidation",
+        "guaranteeDevices": "Guarantee Devices"
+      },
       "account": {
         "main": "Account",
         "settings": "Settings",
@@ -110,6 +116,7 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
+      "send": "Send",
 	  "export": "Export",
 	  "exportAll": "Export all"
     },

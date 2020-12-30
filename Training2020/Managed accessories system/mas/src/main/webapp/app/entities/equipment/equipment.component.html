@@ -80,22 +80,22 @@
                     <td>{{ equipment.note }}</td>
                     <td>
                         <div *ngIf="equipment.user">
-                            <a [routerLink]="['/employee', equipment.user?.id, 'view']" >{{ equipment.user?.id }}</a>
+                            <a [routerLink]="['/employee', equipment.user?.id, 'view']" >{{ equipment.user?.user }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="equipment.equipmentGroup">
-                            <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']" >{{ equipment.equipmentGroup?.id }}</a>
+                            <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']" >{{ equipment.equipmentGroup?.equipmentGroupName }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="equipment.equipmentType">
-                            <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']" >{{ equipment.equipmentType?.id }}</a>
+                            <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']" >{{ equipment.equipmentType?.equipmentTypeName }}</a>
                         </div>
                     </td>
                     <td>
                         <div *ngIf="equipment.area">
-                            <a [routerLink]="['/area', equipment.area?.id, 'view']" >{{ equipment.area?.id }}</a>
+                            <a [routerLink]="['/area', equipment.area?.id, 'view']" >{{ equipment.area?.areaName }}</a>
                         </div>
                     </td>
                     <td class="text-right">

@@ -30,6 +30,7 @@ export const userManagementRoute: Routes = [
     },
   },
   {
+
     path: ':login/view',
     component: UserManagementDetailComponent,
     resolve: {

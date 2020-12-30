@@ -20,6 +20,12 @@
         "userEquipmentActivityLog": "User Equipment Activity Log",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
+      "necessaryforms": {
+        "main": "Biểu mẫu",
+        "proposingBuyEquipment": "Đề Xuất Mua Trang Thiết Bị",
+        "equipmentLiquidation": "Thanh Lý Trang Thiết Bị",
+        "guaranteeDevices": "Bảo Hành Thiết Bị"
+      },
       "account": {
         "main": "Tài khoản",
         "settings": "Cài đặt",
@@ -108,6 +114,7 @@
       "open": "Mở",
       "save": "Lưu",
       "view": "Xem",
+      "send": "Gửi",
 	  "export": "Xuất",
 	  "exportAll": "Xuất tất cả"
     },
