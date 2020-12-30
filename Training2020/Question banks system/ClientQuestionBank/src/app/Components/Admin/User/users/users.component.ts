@@ -2,6 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, AfterContentInit, OnInit,SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import {UserService}from '../../../../Services/user.service';
+import {TestService}from '../../../../Services/test.service';
 import axios from "axios";
 
 import {
@@ -28,7 +29,7 @@ export class UsersComponent implements OnInit {
   private listUser: BehaviorSubject<any> = new BehaviorSubject<any>({});
   listUser$: Observable<any> = this.listUser.asObservable(); // new data
 
-  constructor(private router: Router,private userservice:UserService,private fb:FormBuilder) {
+  constructor(private router: Router,private userservice:UserService,private fb:FormBuilder, private testService:TestService) {
     this.dataform=this.fb.group({
       search:new FormControl(""),
     })
@@ -124,14 +125,16 @@ export class UsersComponent implements OnInit {
    console.log(this.list);
  }
 
- getAchievementById(id:any)
- {
- }
  getUserById(id:any){
    this.userservice.getUserForUpdate(id).subscribe((data:any)=>{
      this.userservice.setuserObservable(data);
      this.router.navigate(["/admin/editUser"])
    })
+ }
+
+ viewAchievements(email:string){
+  this.testService.setEmail(email);
+  this.router.navigate(["/achievements"]);
  }
 
 }
