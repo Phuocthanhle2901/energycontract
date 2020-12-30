@@ -70,7 +70,7 @@
                     <label class="form-control-label" jhiTranslate="masApp.equipment.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.user }}</option>
+                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option>
                     </select>
                 </div>
                 <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">

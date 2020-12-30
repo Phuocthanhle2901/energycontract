@@ -31,7 +31,7 @@
                 <dt><span jhiTranslate="masApp.equipment.user">User</span></dt>
                 <dd>
                     <div *ngIf="equipment.user">
-                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.user }}</a>
+                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="masApp.equipment.equipmentGroup">Equipment Group</span></dt>
