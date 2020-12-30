@@ -80,10 +80,16 @@ namespace QuestionBankDB.Services
         public UserInfo Get(string id) =>
             _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
 
-        public UserInfo Create(UserInfo userInfo)
+        public Boolean Create(UserInfo userInfo)
         {
-            _userInfo.InsertOne(userInfo);
-            return userInfo;
+            var user = _userInfo.Find(res => res.Email == userInfo.Email).FirstOrDefault();
+            if(user==null)
+            {
+                _userInfo.InsertOne(userInfo);
+                return true;
+            }
+           
+            return false;
         } 
 
         public object register(UserInfo fuser)
@@ -138,6 +144,20 @@ namespace QuestionBankDB.Services
             }
            
         }
+
+        public List<int> GetRoleUsser()
+        {
+            //get distinct values of theme role  from User collection and convert to string list
+            return _userInfo.Distinct(new StringFieldDefinition<UserInfo, int>("role"), FilterDefinition<UserInfo>.Empty).ToList();
+        }
+        // get user by role
+        public List<UserInfo>getUserbyRole(int role)
+        {
+            return _userInfo.Find(user => user.Role == role).ToList();
+        }
+
+    
+
         public string CountAccess(HttpContext context,UserInfo user)
         {
             // Lấy ISession

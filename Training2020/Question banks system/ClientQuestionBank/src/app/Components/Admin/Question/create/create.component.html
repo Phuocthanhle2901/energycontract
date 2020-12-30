@@ -36,16 +36,33 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group ">
+            <div class="col-lg-6 d-flex ">
+
+              <div class="form-group w-100 ">
                 <label >Theme</label>
-                <input type="text" formControlName="themeName"  class="form-control" id="exampleInputPassword1">
+                <select  class="form-control "  formControlName="themeName">
+                  <option *ngFor="let item of themes"  [value]="item"  >{{item}}</option>
+                </select>
+
+              </div>
+              <div class="form-group " [ngClass]='hiden==true?"d-block":"d-none"'>
+                <label >New Theme</label>
+                <input type="text"  [value]="newTheme" (change)="modelChangeFn($event)"  class="form-control" >
+              </div>
+              <div class="nav-item dropdown">
+                <a  title="new theme" class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown"  >
+                  <i class="eva eva-more-vertical-outline    "></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" (click)="openNewTheme()">{{hiden==true?"close":" other theme"}}</a>
+
+                </div>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group ">
                 <label >Point</label>
-                <input type="text" formControlName="point"  class="form-control" id="exampleInputPassword1">
+                <input type="text" formControlName="point"  class="form-control" >
               </div>
             </div>
         </div>
@@ -53,19 +70,22 @@
           <div class="col-lg-6">
             <div class="form-group ">
               <label >level</label>
-              <input type="text" formControlName="level"  class="form-control" id="exampleInputPassword1">
+              <input type="text" formControlName="level"  class="form-control" >
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group ">
               <label >Time</label>
-              <input type="text" formControlName="timeallow"  class="form-control" id="exampleInputPassword1">
+              <input type="text" formControlName="timeallow"  class="form-control" >
             </div>
           </div>
       </div>
 
 
-        <button type="submit" class="btn btn-primary">Create Question  </button>
+        <button type="submit" class="btn btn-primary"><i class="eva eva-save-outline
+          "></i> Save  </button>
+        <button type="submit" routerLink="/admin/questions" class="btn btn-danger ml-1"><i class="eva eva-close-circle-outline
+          "></i> Cancel</button>
       </div>
 
 

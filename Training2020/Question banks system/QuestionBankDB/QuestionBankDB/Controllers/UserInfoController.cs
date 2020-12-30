@@ -37,11 +37,12 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserInfo> Create(UserInfo userInfo)
+        [Route("Create")]
+        public ActionResult<Boolean> Create(UserInfo userInfo)
         {
-            _userInfoService.Create(userInfo);
+         return   _userInfoService.Create(userInfo);
 
-            return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+         //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
         }
 
         [HttpPut("{id:length(24)}")]
@@ -136,5 +137,12 @@ namespace QuestionBankDB.Controllers
             _userInfoService.DisableUser(email);
             return true;
         }
+        [HttpPost]
+        [Route("role")]
+        public ActionResult<List<int>> GetThemes() => _userInfoService.GetRoleUsser();
+        [HttpPost]
+        [Route("users")]
+        public ActionResult<List<UserInfo>> GetUserByRole(int role) => _userInfoService.getUserbyRole(role);
+
     }
 }

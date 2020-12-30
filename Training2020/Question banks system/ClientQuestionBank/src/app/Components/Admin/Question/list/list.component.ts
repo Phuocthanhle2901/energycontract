@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class ListComponent implements OnInit {
   themes:string[] = [];
   questions:Question[] = [];
@@ -16,11 +17,12 @@ export class ListComponent implements OnInit {
   currentPage:number;
   constructor(
     private questionService:QuestionService,
-    private themesService:ThemesService
+    private themesService:ThemesService,private router:Router
   ) { }
 
   ngOnInit(): void {
     this.getThemes();
+    this.getAllQuestion(1);
   }
 
   getThemes() {
@@ -28,6 +30,16 @@ export class ListComponent implements OnInit {
       this.themes = res;
     })
   }
+
+  getAllQuestion(page:any)
+  {
+    this.questionService.getAllQuestion(page).subscribe((data:any)=>{
+      console.log(data);
+      this.questions=data;
+    })
+
+  }
+
 
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
@@ -44,8 +56,37 @@ export class ListComponent implements OnInit {
     })
   }
 
+
+getIdForEditQuestion(value:any)
+{
+   this.questionService.getQuestionById(value).subscribe((res:any)=>{
+      if(res!=null)
+      {
+
+        this.questionService.setQuestion(res);
+        this.router.navigate(["/admin/updateQuestion"]);
+      }
+      else{
+        alert("Choose agin");
+      }
+   })
+}
   deleteQuestion(id:any)
   {
+    var confirmText = "Are you sure you want to delete this question?";
+    if(confirm(confirmText)) {
+      this.questionService.deleteQuestion(id).subscribe((res:any)=>{
+        if(res.deletedCount==1)
+        {
+          this.getThemeQuestions(this.currentTheme,this.currentPage);
+          alert("delete question success")
+        }
+      })
+   }else{
+      return false;
+   }
+
+
     // thực hiện xóa question tại đây
   }
 }

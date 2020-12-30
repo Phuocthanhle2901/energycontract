@@ -1,6 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, AfterContentInit, OnInit,SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import {UserService}from '../../../../Services/user.service';
 import axios from "axios";
 
 
@@ -14,11 +15,11 @@ export class UsersComponent implements OnInit {
   list = [];
   userOrAdmin = "";
   status :any[]=[];
+  role:any[]=[];
 
-  constructor(private router: Router) {
-    console.log(this.router.url.split('/')[3])
+  constructor(private router: Router,private userservice:UserService) {
   }
-  
+
   ngOnInit(): void {
     this.r = this.r = this.router.url.split('/')[3];
     if(this.r =="ad"){
@@ -43,11 +44,12 @@ export class UsersComponent implements OnInit {
         })
         .catch(err => console.log(err));
     }
+    this.getRole();
   }
 
   Sua(email){
-
   }
+
   Xoa(email:string,i){
     if(this.r == "us"){
       email = email.replace('@',"%40");
@@ -58,7 +60,25 @@ export class UsersComponent implements OnInit {
         .catch(err => console.log(err));
   }
  }
-    
   getColor(i){return this.status[i] ? 'green' : 'red';}
- 
+
+ getRole() // get all role in database/
+ {
+    this.userservice.getRole().subscribe((data:any)=>{
+      this.role=data;
+    })
+ }
+ getUserbyRole(role:any)
+ {
+   this.userservice.getUserbyRole(role).subscribe((data:any)=>{
+     this.list=data;
+   })
+   console.log(this.list);
+ }
+
+ getAchievementById(id:any)
+ {
+
+ }
+
 }

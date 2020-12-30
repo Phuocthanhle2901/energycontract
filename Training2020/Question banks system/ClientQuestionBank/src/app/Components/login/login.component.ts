@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
 
   getAccount(e,data:any)
   {
-    console.log("fda");
     axios.post("https://localhost:44328/api/userinfo/login",data)
     .then(res=>{
       if(res.data.status==200)

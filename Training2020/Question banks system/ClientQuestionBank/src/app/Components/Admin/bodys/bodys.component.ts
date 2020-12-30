@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-bodys',
   templateUrl: './bodys.component.html',
@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
 })
 export class BodysComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private routerAction:ActivatedRoute) { }
 
   @Input() themeName:string;
 
   routes:string='';
+  params="";
   ngOnInit(): void {
 
     if(this.router.url.split('/')[2]==='users')
@@ -21,10 +22,18 @@ export class BodysComponent implements OnInit {
    else if(this.router.url.split('/')[2]==='questions')
     {
       this.routes=this.router.url.slice(0,16);
+
+      this.routerAction.queryParams
+      .subscribe(params => {
+        console.log(params)
+      });
+     console.log(this.params);
     }
     else{
       this.routes=this.router.url;
     }
+
+
   }
 
 }

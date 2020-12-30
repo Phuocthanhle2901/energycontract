@@ -1,0 +1,47 @@
+<div class="mod-login d-flex flex-column h-100">
+  <div class="mod-login-header w-100">
+    <app-haeder></app-haeder>
+  </div>
+</div>
+<div class="container py-5">
+  <div class=" mod-detailAchievement mt-5">
+    <div class="row my-4">
+      <div class="col-md-8">
+        <h2>Details of your previous attempt</h2>
+        <h4>Date: {{result.date|date:'dd/MM/yyyy'}}</h4>
+        <h4>Time submitted: {{result.date|date:'HH:mm:ss'}}</h4>
+        <h4>Score: {{result.summary}}/{{result.total}}</h4>
+        <div class="boxs my-3" *ngFor='let question of result.listquestion; index as i'>
+          <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
+            <h5>{{question.question}}</h5>
+            <ul>
+              <li *ngFor="let option of question.answer; index as i">{{i+1}}. {{option}}</li>
+              <li>Your answer: {{question.userAnswer}} <i *ngIf='question.point>0' class="eva eva-checkmark-outline text-success"></i> 
+                <i *ngIf='question.point==0' class="eva eva-close-outline text-danger"></i>
+              </li>
+              <li>Point: {{question.point}}</li>
+            </ul>
+          </div>
+          <div class="mod-detailAchievement-boxa" *ngIf='question.point==0'>
+            <ul>
+              <li>The correct answer is: {{question.trueAnswer}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 box-link">
+        <h2>Navigation</h2>
+        <div class="justify-content-center  box-link-item">
+          <ul class="d-flex flex-wrap">
+            <li *ngFor="let link of ' '.repeat(result.listquestion.length).split(''); index as i"><a pageScroll  href="#index{{i}}" class="btn btn-item">{{i+1}}</a></li>
+          </ul>
+          <a routerLink="/achievements"> Finish review </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mod-login-footer">
+  <app-footer></app-footer>
+</div>
+<router-outlet></router-outlet>

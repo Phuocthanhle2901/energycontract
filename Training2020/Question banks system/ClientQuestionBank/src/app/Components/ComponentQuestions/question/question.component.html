@@ -3,13 +3,11 @@
     cursor: pointer;
   }
 </style>
-
-<div class="mod-question">
-  <div class="mod-question-header">
-    <app-haeder></app-haeder>
-  </div>
-
-  <div class="mod-question-body my-md-5">
+<div class="mod-question-header">
+  <app-haeder></app-haeder>
+</div>
+<div class="mod-question h-100 my-5">
+  <div class="mod-question-body my-md-5 py-5">
     <div class="container row  ml-0">
       <div class="col-md-4 mod-question-body-nav p-0 m-0 col-sm-12">
         <nav class="navbar  navbar-expand-md  navbar-light d-flex flex-md-column ">
@@ -21,25 +19,6 @@
           <!-- Navbar links -->
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav d-flex  flex-column">
-              <!-- <li class="nav-item dropdown ">
-                <a class="  dropdown-toggle link-bgWhite" data-toggle="collapse" data-target="#demo">
-                  Dropdown link
-                </a>
-                <div id="demo" class="collapse">
-                  <a class="dropdown-item link-bgWhite" href="#">Link 1</a>
-                  <a class="dropdown-item link-bgWhite" href="#">Link 2</a>
-                  <a class="dropdown-item link-bgWhite" href="#">Link 3</a>
-                </div>
-              </li> -->
-              <!-- <li class="nav-item">
-                <a class="link-bgWhite" href="#">Php Questions</a>
-              </li>
-              <li class="nav-item">
-                <a class="link-bgWhite" href="#">ASP.NET Questions</a>
-              </li>
-              <li class="nav-item">
-                <a class="link-bgWhite" ng-href="#">Web API Questions</a>
-              </li> -->
               <li class="nav-item" *ngFor="let item of themes">
                 <a class="link-bgWhite" (click)="getThemeQuestions(item,0); getPageCount()">{{item}} Questions</a>
               </li>
@@ -58,7 +37,7 @@
                 <tr><td><b>Answer:</b> {{item.trueAnswer}}</td></tr>
               </table>
           </div>
-
+          <!-- pagination -->
           <nav aria-label=" navigation"class=" pagination-page">
             <ul class="pagination">
               <li class="page-item" *ngIf="currentPage>0">
@@ -82,9 +61,7 @@
       </div>
     </div>
   </div>
-
-  <div class="mod-question-footer">
-    <app-footer></app-footer>
-  </div>
-
+</div>
+<div class="mod-question-footer">
+  <app-footer></app-footer>
 </div>

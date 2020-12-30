@@ -1,0 +1,57 @@
+
+<div class="mod-login d-flex flex-column h-100">
+  <div class="mod-login-header w-100">
+    <app-haeder></app-haeder>
+  </div>
+</div>
+  <div class=" mod-achievement my-5 py-5">
+    <div class=" container">
+    <h2>Summary of your previous attempts</h2>
+    <table class="table table-hover" *ngIf='testResults.length>0'>
+      <thead class="table-header" >
+        <tr>
+          <th>Attempt</th>
+          <th>Date</th>
+          <th>Time submitted</th>
+          <th>Theme</th>
+          <th>Score</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let result of testResults; index as i'>
+          <td>{{i+1 + currentPage*5}}</td>
+          <td>{{result.date|date:'dd/MM/yyyy'}}</td>
+          <td>{{result.date|date:'HH:mm:ss'}}</td>
+          <td>{{result.theme}}</td>
+          <td>{{result.summary}}/{{result.total}}</td>
+          <td><a routerLink="/detail/achievements/{{result.id}}">Review</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- pagination -->
+    <nav aria-label=" navigation" class="pagination-page">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="currentPage>0">
+          <a class="page-link" (click)="getResults(email, 0)"><i class="eva eva-arrowhead-left-outline"></i></a>
+        </li>
+        <li class="page-item" *ngIf="currentPage>0">
+          <a class="page-link" (click)="getResults(email, currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">
+          <a class="page-link" (click)="getResults(email, i)">{{i+1}}</a>
+        </li>
+        <li class="page-item" *ngIf="currentPage<pageCount-1">
+          <a class="page-link" (click)="getResults(email, currentPage+1)"><i class="eva eva-arrow-ios-forward-outline"></i></a>
+        </li>
+        <li class="page-item" *ngIf="currentPage<pageCount-1">
+          <a class="page-link" (click)="getResults(email, pageCount-1)"><i class="eva eva-arrowhead-right-outline"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+    <div class="mod-login-footer">
+      <app-footer></app-footer>
+    </div>
+<router-outlet></router-outlet>
