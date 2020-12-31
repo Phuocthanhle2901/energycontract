@@ -25,7 +25,7 @@ spring:
     include:
       - swagger
       # Uncomment to activate TLS for the dev profile
-      #- tls
+      - tls
   devtools:
     restart:
       enabled: true
@@ -54,10 +54,16 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: smtp.gmail.com
+    port: 587
+    username: tuongnghi.ngonguyen@gmail.com
+    password: kyyzmxrahltgymeh
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -90,7 +96,7 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: fc82b03bbf0f72d68917d2c1eb578acfd623cbff960822b21e849dc2944ff6a63537369f51015a253720fdadd33450ccd4ae
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
+    base-url: https://172.16.20.167:8080
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

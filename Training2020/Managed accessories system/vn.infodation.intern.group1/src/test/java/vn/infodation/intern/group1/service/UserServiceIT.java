@@ -213,7 +213,7 @@ public class UserServiceIT {
         token.setUser(user);
         token.setTokenValue(tokenSeries + "-data");
         token.setTokenDate(localDate);
-        token.setIpAddress("127.0.0.1");
+        token.setIpAddress("172.16.20.167");
         token.setUserAgent("Test agent");
         persistentTokenRepository.saveAndFlush(token);
     }

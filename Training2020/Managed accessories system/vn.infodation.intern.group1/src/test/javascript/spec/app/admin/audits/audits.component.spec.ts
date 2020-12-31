@@ -113,7 +113,7 @@ describe('Component Tests', () => {
       it('Should call load all on init', () => {
         // GIVEN
         const headers = new HttpHeaders().append('X-Total-Count', '1');
-        const audit = new Audit({ remoteAddress: '127.0.0.1', sessionId: '123' }, 'user', '20140101', 'AUTHENTICATION_SUCCESS');
+        const audit = new Audit({ remoteAddress: '172.16.20.167', sessionId: '123' }, 'user', '20140101', 'AUTHENTICATION_SUCCESS');
         spyOn(service, 'query').and.returnValue(
           of(
             new HttpResponse({

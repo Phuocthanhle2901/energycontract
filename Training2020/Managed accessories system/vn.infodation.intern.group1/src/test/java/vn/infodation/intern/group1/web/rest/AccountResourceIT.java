@@ -711,7 +711,7 @@ public class AccountResourceIT {
         token.setUser(user);
         token.setTokenValue("current-session-data");
         token.setTokenDate(LocalDate.of(2017, 3, 23));
-        token.setIpAddress("127.0.0.1");
+        token.setIpAddress("172.16.20.167");
         token.setUserAgent("Test agent");
         persistentTokenRepository.saveAndFlush(token);
 
@@ -738,7 +738,7 @@ public class AccountResourceIT {
         token.setUser(user);
         token.setTokenValue("invalidate-data");
         token.setTokenDate(LocalDate.of(2017, 3, 23));
-        token.setIpAddress("127.0.0.1");
+        token.setIpAddress("172.16.20.167");
         token.setUserAgent("Test agent");
         persistentTokenRepository.saveAndFlush(token);
 

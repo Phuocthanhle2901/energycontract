@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Hệ thống quản lý trang thiết bị điện tử",
+    "title": "Hệ thống quản lý trang thiết bị điện tử!",
     "subtitle": "Công ty INFOdation Việt Nam",
     "logged": {
       "message": "Bạn đang đăng nhập bằng tài khoản \"{{username}}\"."
@@ -13,7 +13,7 @@
       "chat": "Tiến độ công việc Atlassian",
       "follow": "Theo dõi @INFOdation trên Twitter"
     },
-    "like": "Đừng quên cho vote cho công ty 5 sao trên",
+    "like": "Đừng quên vote cho công ty 5 sao trên",
     "github": "ReviewCompany"
   }
 }

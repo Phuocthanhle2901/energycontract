@@ -36,7 +36,7 @@ describe('Service Tests', () => {
 
       it('should return Audits', () => {
         let expectedResult: HttpResponse<Audit[]> = new HttpResponse({ body: [] });
-        const audit = new Audit({ remoteAddress: '127.0.0.1', sessionId: '123' }, 'user', '20140101', 'AUTHENTICATION_SUCCESS');
+        const audit = new Audit({ remoteAddress: '172.16.20.167', sessionId: '123' }, 'user', '20140101', 'AUTHENTICATION_SUCCESS');
 
         service.query(fakeRequest).subscribe(received => {
           expectedResult = received;
