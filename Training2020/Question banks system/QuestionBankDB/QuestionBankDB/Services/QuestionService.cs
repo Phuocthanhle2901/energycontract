@@ -91,43 +91,32 @@ namespace QuestionBankDB.Services
         //get random question of a theme based on count
         public List<Question> GetRandomQuestions(string theme, byte level, byte count)
         {
-            int range = GetQuestionsCount(theme) - 1;
-            int index;
-            if (count > range) count = (byte)(range);
-            int[] indexList = new int[count];
-            List<Question> questions = new List<Question>();
-            for (int i=0; i<count; i++)
+            int range = GetQuestionsCount(theme);
+            if (range > 0)
             {
-                index = RandomDistinct(indexList, range); //take random index in range
-                //find available question of a theme based on level
-                indexList[i] = index; //add index to list to isolate it
-                Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Level==level && question.Status)
-                                                      .Skip(index) //skip index
-                                                      .FirstOrDefault();
-                Shuffle(question.Answer); //shuffle up options
-                question.TrueAnswer = null; //nullify true answer to avoid cheating
-                questions.Add(question);
+                Random random = new Random();
+                int index;
+                if (count > range) count = (byte)(range);
+                List<int> indexList = new List<int>();
+                List<Question> questions = new List<Question>(range); //init index list with size of range
+                for (int i = 0; i < range; i++) indexList.Add(i); //fill list of indexes
+                for (int i = 0; i < count; i++)
+                {
+                    index = indexList[random.Next(0, indexList.Count - 1)]; //take random index in list
+                    indexList.Remove(index); //remove index in list to avoid duplicates
+                    //find available question of a theme based on level
+                    Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Level==level && question.Status)
+                                                          .Skip(index) //skip index
+                                                          .FirstOrDefault();
+                    Shuffle(question.Answer); //shuffle up options
+                    question.TrueAnswer = null; //nullify true answer to avoid cheating
+                    questions.Add(question);
+                }
+                return questions;
             }
-            return questions;
+            return null;
         }
 
-        private int RandomDistinct(int[] list, int range)
-        {
-            Random random = new Random();
-            int i; //list iterator position
-            bool lap;
-            int result;
-            do //check if index is already in list
-            {
-                result = random.Next(0, range);
-                i = 0;
-                while (i < list.Length && list[i] != result) i++; //tripwire check
-                if (i < list.Length) lap = true;
-                else lap = false;
-            } while (lap);
-
-            return result;
-        }
         private void Shuffle(string[] answer)
         {
             Random random = new Random();

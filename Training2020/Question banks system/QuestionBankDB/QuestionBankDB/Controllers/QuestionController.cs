@@ -102,9 +102,9 @@ namespace QuestionBankDB.Controllers
         //get random questions
         [HttpPost]
         [Route("randomQuestions")]
-        public ActionResult<List<Question>> GetRandomQuestions(string theme, byte count=3)
+        public ActionResult<List<Question>> GetRandomQuestions(string theme, byte level=1, byte count=3)
         {
-            var questions = _questionService.GetRandomQuestions(theme, count);
+            var questions = _questionService.GetRandomQuestions(theme, level, count);
 
             if (questions == null)
             {
