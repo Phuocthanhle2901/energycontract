@@ -91,7 +91,7 @@ export class UsersComponent implements OnInit {
     var confirmText = "Are you sure you want to delete this Account?";
     if(confirm(confirmText)) {
       this.userservice.removeUser(id).subscribe((data:any) => {this.userservice.removeUser(id)});
-          alert("delete question success")
+          alert("delete user success")
           this.getListUser();
    }else{
       return false;
