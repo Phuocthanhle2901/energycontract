@@ -109,7 +109,12 @@
       "save": "Lưu",
       "view": "Xem",
 	  "export": "Xuất",
+<<<<<<< HEAD
 	  "exportAll": "Xuất tất cả"
+=======
+	  "exportAll": "Xuất tất cả",
+	  "print": "In"
+>>>>>>> feature/IVNI-55
     },
     "detail": {
       "field": "Trường",

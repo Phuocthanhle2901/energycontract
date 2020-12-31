@@ -54,7 +54,8 @@
       "confirmpassword.label": "New password confirmation",
       "confirmpassword.placeholder": "Confirm the new password",
       "email.label": "Email",
-      "email.placeholder": "Your email"
+      "email.placeholder": "Your email",
+      "equipment.title": "EQUIPMENT DETAILS"
     },
     "messages": {
       "info": {
@@ -111,7 +112,12 @@
       "save": "Save",
       "view": "View",
 	  "export": "Export",
+<<<<<<< HEAD
 	  "exportAll": "Export all"
+=======
+	  "exportAll": "Export all",
+	  "print": "Print"
+>>>>>>> feature/IVNI-55
     },
     "detail": {
       "field": "Field",
