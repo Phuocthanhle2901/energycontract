@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-  
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -136,6 +137,7 @@ namespace QuestionBankDB.Services
             }
              
         }
+
         public object SignIn(UserInfo fuser, HttpContext context)
         {
             try {
@@ -222,5 +224,29 @@ namespace QuestionBankDB.Services
             }  
         }
 
+        public ActionResult<bool> SendLink(string email)
+        {
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("tranhuythinh97@gmail.com");
+            msg.To.Add(email);
+            msg.Subject = "Password reset link";
+            msg.Body = "Follow this link to reset your password:" + '\n' + "<link>";
+            SmtpClient smt = new SmtpClient();
+            smt.Host = "smtp.gmail.com";
+            System.Net.NetworkCredential credential = new NetworkCredential
+            {
+                UserName = "tranhuythinh97@gmail.com",
+                Password = "14061997"
+            };
+            smt.UseDefaultCredentials = false;
+            smt.Credentials = credential;
+            smt.Port = 587;
+            smt.EnableSsl = true;
+            try { 
+                smt.Send(msg);
+                return true;
+            }
+            catch (Exception) { return false; };
+        }
     }
 }

@@ -42,8 +42,11 @@ export class AchievementsComponent implements OnInit {
     {
       axios.post("https://localhost:44328/api/UserInfo/user?id="+ this.cookie.token)
       .then(res=>{
-          this.email = res.data.result.email;
-          this.getResults(this.email, 0);
+        console.log(this.testService.getEmail());
+          //if navigated from manager page, serive mail will not be null
+          if(this.testService.getEmail()!=undefined && res.data.result.role==2) this.email = this.testService.getEmail();
+          else this.email = res.data.result.email; //if not, service will return user result using login email
+          this.getResults(this.email, 0); 
           this.getPageCount();
       })
       .catch(err=>console.log(err));

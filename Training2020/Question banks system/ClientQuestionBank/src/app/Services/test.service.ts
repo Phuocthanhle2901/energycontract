@@ -7,7 +7,7 @@ import { UserAnswer } from '../Models/UserAnswer.model';
   providedIn: 'root'
 })
 export class TestService {
-
+  email:string;
   constructor(private httpClient:HttpClient) { }
 
   generateTest(theme:string, count:number){
@@ -35,4 +35,10 @@ export class TestService {
     return this.httpClient.get<UserAnswer>(detail);
   }
 
+  getEmail(){
+    return this.email;
+  }
+  setEmail(email:string){
+    this.email = email;
+  }
 }
