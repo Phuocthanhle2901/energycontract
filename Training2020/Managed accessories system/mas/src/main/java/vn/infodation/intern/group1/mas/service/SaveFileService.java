@@ -143,7 +143,7 @@ public class SaveFileService{
                                 "- Technical Features: " + savedEquipment.getTechnicalFeatures() +"\n" +
                                 "- Serial Number: " + savedEquipment.getSerialNumber() + "\n" +
                                 "- Note: " + savedEquipment.getNote() + "\n" +
-                                "- Area: " + savedEquipment.getArea().getAreaName() + "\n" +
+                                "- Area: " + savedEquipment.getArea().getAreaName()  + "\n" +
                                 "-------------------------------------\n"
                         );
                     }
