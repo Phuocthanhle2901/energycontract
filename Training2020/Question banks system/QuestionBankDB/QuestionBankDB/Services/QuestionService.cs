@@ -89,7 +89,7 @@ namespace QuestionBankDB.Services
         public int GetQuestionsCount(string theme) => (int)_question.Find(question => question.ThemeName.Equals(theme)).CountDocuments();
 
         //get random question of a theme based on count
-        public List<Question> GetRandomQuestions(string theme, byte count)
+        public List<Question> GetRandomQuestions(string theme, byte level, byte count)
         {
             int range = GetQuestionsCount(theme) - 1;
             int index;
@@ -99,8 +99,9 @@ namespace QuestionBankDB.Services
             for (int i=0; i<count; i++)
             {
                 index = RandomDistinct(indexList, range); //take random index in range
+                //find available question of a theme based on level
                 indexList[i] = index; //add index to list to isolate it
-                Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Status)//find available question of a theme
+                Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Level==level && question.Status)
                                                       .Skip(index) //skip index
                                                       .FirstOrDefault();
                 Shuffle(question.Answer); //shuffle up options

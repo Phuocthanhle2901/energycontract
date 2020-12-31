@@ -18,6 +18,7 @@ export class QuetstionBodyComponent implements OnInit {
 
   cookie:any;
   theme:string;
+  level:number=1;
   count:number=4;
   questions:Question[] = [];
   answerSheet:FormGroup;
@@ -45,11 +46,11 @@ export class QuetstionBodyComponent implements OnInit {
     this.cookie = getCookie();
     this.checkLogin();
     console.log(this.email);
-    this.generateTest(this.theme, this.count);
+    this.generateTest(this.theme, this.level, this.count);
   }
 
-  generateTest(theme:string, count:number ){
-    this.testService.generateTest(theme, count).subscribe((res:any)=>{
+  generateTest(theme:string, level:number, count:number){
+    this.testService.generateTest(theme, level, count).subscribe((res:any)=>{
       this.questions = res;
       this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
       this.loadPage(this.pageCount, 0, this.questions); //load first page

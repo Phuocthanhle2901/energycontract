@@ -10,8 +10,8 @@ export class TestService {
 
   constructor(private httpClient:HttpClient) { }
 
-  generateTest(theme:string, count:number){
-    let testUrl = 'https://localhost:44328/api/Question/randomQuestions?'+ 'theme='+ theme +'&count=' + count;
+  generateTest(theme:string, level:number, count:number){
+    let testUrl = 'https://localhost:44328/api/Question/randomQuestions?'+ 'theme='+ theme + '&level=' + level +'&count=' + count;
     return this.httpClient.post<JSON>(testUrl, null).pipe();
   }
 
