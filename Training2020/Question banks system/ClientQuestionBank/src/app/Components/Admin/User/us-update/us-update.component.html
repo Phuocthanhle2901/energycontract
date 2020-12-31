@@ -22,7 +22,6 @@
 
             </div>
             <div class="form-group">
-<<<<<<< HEAD
             <label for="exampleInputEmail1">Email</label>
             <input type="text" class="form-control"
                 ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
@@ -32,16 +31,6 @@
                 <small *ngIf="dataform.get('email').errors.email" class="form-text  showError">
                   Enter a valid email address</small>
             </div>
-=======
-              <label  >Email</label>
-              <input type="text" class="form-control"
-              [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
-              formControlName="email" placeholder="Email..." />
-              <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
-                <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
-                <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
-              </div>
->>>>>>> 88123bb20fa6f6c1ba9858ef887248cc473c245e
 
             </div>
             <div class="form-group">
