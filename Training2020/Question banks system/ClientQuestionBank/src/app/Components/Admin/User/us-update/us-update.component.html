@@ -1,18 +1,20 @@
 <div class="mod-createUser my-5">
-    <div class="d-flex justify-content-center align-self-center ">
-        <div class="mod-createUser-avatar  ">
-            <img src="../../../../../assets/Images/logo.png" alt="logo">
-            <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
-            <label class="file form-control text-center" for="img">Avatar</label>
-        </div>
-    </div>
+
     <div class="mod-createUser-form mt-5">
-        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser($event,dataform.value)">
-            <div class="form-group">
+        <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser(dataform.value)">
+          <div class="d-flex justify-content-center align-self-center ">
+            <div class="mod-createUser-avatar  ">
+                <img src="https://localhost:44328/{{dataform.controls['avatar'].value}}" alt="logo">
+                <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
+                <label class="file form-control text-center" for="img">Avatar</label>
+            </div>
+        </div>
+
+          <div class="form-group">
             <label for="exampleInputName1">Name</label>
             <input type="text" class="form-control"
                 [ngClass]="{'is-invalid':dataform.get('fullname').touched && dataform.get('fullname').invalid}"
-                formControlName="fullname" placeholder="Name..." />
+                formControlName="fullname"   placeholder="Name..." />
             <div class="invalid-feedback" *ngIf="dataform.get('fullname').touched && dataform.get('fullname').invalid">
                 <small *ngIf="dataform.get('fullname').errors.required" class="form-text  showError">
                   Enter your name</small>
@@ -20,6 +22,7 @@
 
             </div>
             <div class="form-group">
+<<<<<<< HEAD
             <label for="exampleInputEmail1">Email</label>
             <input type="text" class="form-control"
                 ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
@@ -29,9 +32,18 @@
                 <small *ngIf="dataform.get('email').errors.email" class="form-text  showError">
                   Enter a valid email address</small>
             </div>
+=======
+              <label  >Email</label>
+              <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+              formControlName="email" placeholder="Email..." />
+              <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+                <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
+                <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+              </div>
+>>>>>>> 88123bb20fa6f6c1ba9858ef887248cc473c245e
 
             </div>
-
             <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" (keydown)="onchange()"
@@ -56,14 +68,22 @@
                 Passwords must match</small>
             </div>
             </div>
-            <div class="form-group">
-            <label for="role">Role</label>
-            <select class="form-control"  formControlName="role" id="role">
-                <option selected >Admin</option>
-                <option>User</option>
-            </select>
+            <div class="form-group d-flex w-100">
+              <div class="w-100">
+                <label for="role">Role</label>
+                <select class="form-control "  formControlName="role" id="role1">
+                    <option selected value="2">Admin</option>
+                    <option value="1">User</option>
+                </select>
+              </div>
+              <div class="w-100">
+                <label for="status">Status</label>
+                <select class="form-control "  formControlName="status" id="status">
+                    <option selected value="true">enable</option>
+                    <option value="false">disable</option>
+                </select>
+              </div>
             </div>
-
             <div class="form-group">
             <button type="submit" [disabled]="dataform.status=='INVALID'" class=" btndes btn btn-primary">
               <i  class="eva eva-save-outline"></i> Save

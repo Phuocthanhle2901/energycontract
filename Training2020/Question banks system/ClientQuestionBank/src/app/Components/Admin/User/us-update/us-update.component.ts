@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
+import {User} from '../../../../Models/user.model';
 import {
   FormBuilder,
   FormControl,
@@ -14,7 +14,6 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
-// import { userInfo } from 'os';
 @Component({
   selector: 'app-us-update',
   templateUrl: './us-update.component.html',
@@ -26,14 +25,18 @@ export class UsUpdateComponent implements OnInit {
   message: string;
   passwordNotMatch: boolean;
   defaultValue = "Admin";
-  
   idUser:string="";
+  aUser= new User;
+
 
   constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
     this.dataform = this.formbuilder.group({
       fullname: new FormControl('', FullNameValidation),
+      id: new FormControl(''),
       email: new FormControl('', EmailValidation),
       password: new FormControl('', PasswordValidation),
+      status: new FormControl(Boolean),
+      avatar: new FormControl(""),
       confirmpassword: ['', [Validators.required, this.passwordMatcher.bind(this)]],
       role: new FormControl('')
     });
@@ -41,12 +44,18 @@ export class UsUpdateComponent implements OnInit {
   fileToUpload: File = null;
   ngOnInit(): void {
 
-  } 
-  
+    this.serviceuser.user$.subscribe((data:any)=>{
+      console.log(data)
+      this.idUser=data.id;
+      this.ShowDataToForm(data);
+    })
+
+  }
+
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
   }
-  
+
   passwordMatcher(control: FormControl): { [s: string]: boolean } {
     if (
       this.dataform &&
@@ -59,18 +68,35 @@ export class UsUpdateComponent implements OnInit {
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-  submitEditUser(e, data: any){
-
-    this.serviceuser.editUser(data.id, data).subscribe((data:any)=>{
-      if(data==true)
+  ShowDataToForm(data:any)
+  {
+    this.dataform.controls['id'].setValue(data.id);
+      this.dataform.controls['fullname'].setValue(data.fullname);
+      this.dataform.controls['email'].setValue(data.email);
+      this.dataform.controls['password'].setValue(data.password);
+      this.dataform.controls['role'].setValue(data.role);
+      this.dataform.controls['status'].setValue(data.status);
+      this.dataform.controls['avatar'].setValue(data.avatar);
+      this.dataform.controls['confirmpassword'].setValue(data.password);
+  }
+  submitEditUser(data: any){
+    this.aUser.id=data.id;
+    this.aUser.fullname=data.fullname;
+    this.aUser.email=data.email;
+    this.aUser.password=data.password;
+    this.aUser.role=data.role;
+    this.aUser.status=data.status=="true"?true:false;
+    this.aUser.avatar="";
+    this.serviceuser.updateUser(this.idUser,this.aUser).subscribe((res:any)=>{
+      if(res.status==200)
       {
-        alert("create user success")
+        alert("update question success");
       }
       else{
-        this.message="email exist !";
+        alert("update question No success");
       }
     })
-    console.log(data)
+
 
   }
 

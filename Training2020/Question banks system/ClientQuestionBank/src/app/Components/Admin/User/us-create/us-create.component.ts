@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit,Output, EventEmitter } from '@angular/core';
+import { HttpClient,HttpEventType } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {
   FormBuilder,
   FormControl,
@@ -14,6 +14,7 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-us-create',
   templateUrl: './us-create.component.html',
@@ -25,23 +26,42 @@ export class UsCreateComponent implements OnInit {
   message: string;
   passwordNotMatch: boolean;
   defaultValue = "Admin";
+  url:string;
 
 
-  constructor(private http: HttpClient, private formbuilder: FormBuilder, private serviceuser:UserService) {
+
+  private image: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  image$: Observable<any> = this.image.asObservable(); // new data
+  @Output() public onUploadFinished = new EventEmitter();
+  constructor(private http: HttpClient,private formbuilder: FormBuilder, private serviceuser:UserService) {
     this.dataform = this.formbuilder.group({
       fullname: new FormControl('', FullNameValidation),
       email: new FormControl('', EmailValidation),
       password: new FormControl('', PasswordValidation),
       confirmpassword: ['', [Validators.required, this.passwordMatcher.bind(this)]],
-      role: new FormControl('')
+      role: new FormControl(''),
+      avatar: new FormControl(''),
+      status: new FormControl(true),
     });
   }
-  fileToUpload: File = null;
+   fileToUpload:any=null;
+
   ngOnInit(): void {
   }
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+
+  readUrl=(files)=> {
+
+    if (files.length != 0) {
+      var reader = new FileReader();
+      this.fileToUpload=<File>files[0];
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      }
+      reader.readAsDataURL(files[0]);
+    }
+
   }
+
   passwordMatcher(control: FormControl): { [s: string]: boolean } {
     if (
       this.dataform &&
@@ -51,43 +71,52 @@ export class UsCreateComponent implements OnInit {
     }
     return null;
   }
+  public uploadFile = (files) => {
+    const formData = new FormData();
+    formData.append('file', files, files.name);
+    this.http.post('https://localhost:44328/api/UserInfo/Upload', formData)
+      .subscribe((event:any) => {
+        this.dataform.controls['avatar'].setValue(event.data);
+      });
+  }
 
   submitAddUser(data: any){
 
-    this.serviceuser.createUser(data).subscribe((data:any)=>{
-      if(data==true)
-      {
-        alert("create user success")
-      }
-      else{
-        this.message="email exist !";
-      }
-    })
-    console.log(data)
+    if(this.fileToUpload!=null)
+    {
+      const formData = new FormData();
+      formData.append('file', this.fileToUpload, this.fileToUpload.name);
+      this.http.post('https://localhost:44328/api/UserInfo/Upload', formData)
+      .subscribe((event:any) => {
+        if(event.data!="")
+        {
+          this.dataform.controls["avatar"].setValue(event.data);
+          this.createUser(this.dataform.value);
+        }
+      });
+    }
+    else{
+      this.createUser(data);
+    }
+
 
   }
+
+  createUser(value:any)
+  {
+  this.serviceuser.createUser(value).subscribe((data:any)=>{
+    if(data==true)
+    {
+      alert("Create Account success")
+    }
+    else{
+      alert("Email already exists")
+    }
+ })}
+
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-
-  // uploadFileToActivity() {
-  //   this.postFile(this.fileToUpload).subscribe(data => {
-  //     // do something, if upload success
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  // }
-  // postFile(fileToUpload: File): Observable<boolean> {
-  //   const endpoint = 'your-destination-url';
-  //   const formData: FormData = new FormData();
-  //   formData.append('fileKey', fileToUpload, fileToUpload.name);
-
-  //   console.log(formData);
-  //   return this.http
-  //     .post(endpoint, formData)
-  //     .map(() => { return true; })
-  //     .catch((e) => console.log(e));
-  // }
 
 
 }

@@ -42,9 +42,9 @@ export class QuestionService {
     return this.httpClient.post<JSON>(
       'https://localhost:44328/api/Question/create',
       question
-    ); //get question count of a theme
+    );
   }
-
+  //get question count of a theme
   getQuestionById(id: string) {
     return this.httpClient.get<JSON>(
       'https://localhost:44328/api/Question/' + id
@@ -61,8 +61,12 @@ export class QuestionService {
   {
     return this.httpClient.delete<JSON>('https://localhost:44328/api/Question/'+id);
   }
-  getAllQuestion(page:any){
-    return this.httpClient.get<JSON>("https://localhost:44328/api/Question",page);
+  getAllQuestion(){
+    return this.httpClient.get<JSON>("https://localhost:44328/api/Question");
+  }
+
+  SearchQuestionByName(name:any){
+    return this.httpClient.get<JSON>("https://localhost:44328/api/Question/search?name="+name);
   }
 }
 

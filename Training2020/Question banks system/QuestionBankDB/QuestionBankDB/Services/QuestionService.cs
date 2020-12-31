@@ -19,9 +19,13 @@ namespace QuestionBankDB.Services
 
             _question = database.GetCollection<Question>(settings.QuestionCollectionName);
         }
-
-        public List<Question> Get(byte page) =>
-            _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
+ 
+        public List<Question> Get() =>
+            _question.Find(question => true).ToList();
+ 
+       // public List<Question> Get(int page) =>
+         //   _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
+ 
 
         public Question Get(string id) =>
             _question.Find<Question>(question => question.Id == id).FirstOrDefault();
@@ -80,7 +84,7 @@ namespace QuestionBankDB.Services
         }
 
         //get questions with specific theme name
-        public List<Question> GetThemeQuestions(string theme, byte page) => _question.Find(question => question.ThemeName.Equals(theme))
+        public List<Question> GetThemeQuestions(string theme, int page) => _question.Find(question => question.ThemeName.Equals(theme))
                                                                                      .Limit(5).Skip(5 * page).ToList(); //5 results per page
 
         
@@ -137,7 +141,7 @@ namespace QuestionBankDB.Services
                 for (int i = 0; i < answer.Length; i++)
                 {
                     index = random.Next(0, answer.Length - 1);
-                    if (i != index) //swap if index != i
+                    if (i != index && random.Next(0,3)!=0) //swap if index != i with chance 75%
                     {
                         temp = answer[i];
                         answer[i] = answer[index];
@@ -153,6 +157,11 @@ namespace QuestionBankDB.Services
             return _question.Find(question => question.Id == id) //find question, project to answer
                                          .FirstOrDefault().TrueAnswer.ToJson(); //convert result to json string
         }
+
+        public List<Question> searchQuesionByName(string name)
+        {
+            return _question.Find(question=>question.question.Contains(name)).ToList();
+     }
     }
 
 }
