@@ -155,6 +155,6 @@ namespace QuestionBankDB.Controllers
 
         [HttpPost]
         [Route("resetPassword")]
-        public ActionResult<Boolean> SendLink(string email) => _userInfoService.SendLink(email);
+        public ActionResult<sbyte> SendLink(string email) => _userInfoService.SendLink(email);
     }
 }

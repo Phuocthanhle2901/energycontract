@@ -223,29 +223,36 @@ namespace QuestionBankDB.Services
             }  
         }
 
-        public ActionResult<bool> SendLink(string email)
+        public ActionResult<sbyte> SendLink(string email)
         {
-            MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("tranhuythinh97@gmail.com");
-            msg.To.Add(email);
-            msg.Subject = "Password reset link";
-            msg.Body = "Follow this link to reset your password:" + '\n' + "<link>";
-            SmtpClient smt = new SmtpClient();
-            smt.Host = "smtp.gmail.com";
-            System.Net.NetworkCredential credential = new NetworkCredential
+            if (_userInfo.Find(user => user.Email == email).FirstOrDefault()!=null)
             {
-                UserName = "tranhuythinh97@gmail.com",
-                Password = "14061997"
-            };
-            smt.UseDefaultCredentials = false;
-            smt.Credentials = credential;
-            smt.Port = 587;
-            smt.EnableSsl = true;
-            try { 
-                smt.Send(msg);
-                return true;
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("tranhuythinh97@gmail.com");
+                msg.To.Add(email);
+                msg.Subject = "Password reset link";
+                msg.Body = "Follow this link to reset your password:" + '\n' + "<link>";
+                SmtpClient smt = new SmtpClient();
+                smt.Host = "smtp.gmail.com";
+                System.Net.NetworkCredential credential = new NetworkCredential
+                {
+                    UserName = "tranhuythinh97@gmail.com",
+                    Password = "14061997"
+                };
+                smt.UseDefaultCredentials = false;
+                smt.Credentials = credential;
+                smt.Port = 587;
+                smt.EnableSsl = true;
+                try
+                {
+                    smt.Send(msg);
+                    return 0; //return 0 if mail sent successfully
+                }
+                catch (Exception) {
+                    return 1; //return 1 if could not send mail
+                };
             }
-            catch (Exception) { return false; };
+            return 2; //return 2 if email isn't registered
         }
     }
 }
