@@ -117,7 +117,14 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("GetAnswer")]
         public ActionResult<string> GetAnswer(string id) => _questionService.GetAnswer(id);
- 
+
+        [HttpPost]
+        [Route("getLevels")]
+        public ActionResult<List<byte>> GetLevels(string theme) => _questionService.GetLevels(theme);
+
+        [HttpPost]
+        [Route("levelCount")]
+        public ActionResult<int> GetLevelCount(string theme, byte level) => _questionService.GetLevelCount(theme, level);
     }
     
 }

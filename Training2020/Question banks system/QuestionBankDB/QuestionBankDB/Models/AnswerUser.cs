@@ -18,6 +18,9 @@ namespace QuestionBankDB.Models
         [BsonElement("theme")]
         public string Theme { get; set; }
 
+        [BsonElement("level")]
+        public byte Level { get; set; }
+
         [BsonElement("listquestion")]
         public Listquestion[] Listquestion { get; set; }
 
@@ -45,6 +48,6 @@ namespace QuestionBankDB.Models
         public string TrueAnswer { get; set; }
 
         [BsonElement("point")]
-        public long Point { get; set; }
+        public byte Point { get; set; }
     }
 }

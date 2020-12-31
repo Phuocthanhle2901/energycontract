@@ -14,6 +14,7 @@
           <th>Date</th>
           <th>Time submitted</th>
           <th>Theme</th>
+          <th>Level</th>
           <th>Score</th>
           <th>Action</th>
         </tr>
@@ -24,6 +25,7 @@
           <td>{{result.date|date:'dd/MM/yyyy'}}</td>
           <td>{{result.date|date:'HH:mm:ss'}}</td>
           <td>{{result.theme}}</td>
+          <td>{{result.level}}</td>
           <td>{{result.summary}}/{{result.total}}</td>
           <td><a routerLink="/detail/achievements/{{result.id}}">Review</a></td>
         </tr>

@@ -19,9 +19,9 @@ export class QuestionService {
     // set new data for subcribed
     this.question.next(question);
   }
-  getAnswer(id:string){
+  async getAnswer(id:string){
     let answer = "https://localhost:44328/api/Question/GetAnswer?id=" + id;
-    return this.httpClient.post<JSON>(answer, null); //get answer of a question
+    return this.httpClient.post<string>(answer, null).toPromise(); //get answer of a question
   }
   getThemeQuestions(theme: string, page: number): Observable<JSON> {
     this.questionUrl =
@@ -36,7 +36,7 @@ export class QuestionService {
     this.count =
       'https://localhost:44328/api/Question/countQuestions?theme=' +
       encodeURIComponent(theme);
-    return this.httpClient.post<JSON>(this.count, null); //get question count of a theme
+    return this.httpClient.post<number>(this.count, null); //get question count of a theme
   }
   createQuestion(question: any) {
     return this.httpClient.post<JSON>(

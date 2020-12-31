@@ -12,7 +12,7 @@
           <div class="collapse navbar-collapse justify-content-center"  id="collapsibleNavbar">
             <ul class="navbar-nav d-flex flex-wrap w-50" *ngFor="let link of ' '.repeat(pageQuestions.length).split(''); index as i">
               <li>
-                <a href="questionTest/{{theme}}#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a>
+                <a href="{{location}}#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a>
               </li>
             </ul>
           </div>
@@ -20,7 +20,20 @@
 
       </div>
       <div class="col-md-8  m-0 col-sm-12">
-        <form class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult(answerSheet.value)">
+        <h1 class="text-center">{{theme}} Test</h1>
+        <h4 *ngIf='configured==true' class="text-center">Time: {{clock.hours}}:{{clock.minutes}}:{{clock.seconds}}</h4>
+        <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
+          <h2>Number of questions:</h2>
+            <select class="form-control col-md-4" name="count">
+              <option *ngFor="let count of ' '.repeat(levelCount-1).split(''); index as c" value="{{c+2}}">{{c+2}}</option>
+            </select>
+            <h2>Level:</h2>
+            <select class="form-control col-md-4" name="level">
+              <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Start test</button>
+        </form>
+        <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult(answerSheet.value)">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>

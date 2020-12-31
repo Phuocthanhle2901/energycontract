@@ -41,7 +41,7 @@
       <div class="form-check">
         <table *ngIf="item.status">
           <tr>
-            <th><b>{{currentPage>0?q+(currentPage*q+1):q+1}}. {{item.question}}</b></th>
+            <th><b>{{q+1 +  5*currentPage}}. {{item.question}}</b></th>
           </tr>
           <tr *ngFor="let a of item.answer; index as i">
             <td>{{i+1}}. {{a}}</td>

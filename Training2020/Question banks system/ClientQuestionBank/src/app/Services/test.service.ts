@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Question } from '../Models/question.model';
 import { UserAnswer } from '../Models/UserAnswer.model';
 
 @Injectable({
@@ -10,9 +11,10 @@ export class TestService {
 
   constructor(private httpClient:HttpClient) { }
 
-  generateTest(theme:string, level:number, count:number){
-    let testUrl = 'https://localhost:44328/api/Question/randomQuestions?'+ 'theme='+ theme + '&level=' + level +'&count=' + count;
-    return this.httpClient.post<JSON>(testUrl, null).pipe();
+  async generateTest(theme:string, level:number, count:number){
+    let testUrl = 'https://localhost:44328/api/Question/randomQuestions?'
+                    + 'theme='+ encodeURIComponent(theme) + '&level=' + level +'&count=' + count;
+    return this.httpClient.post<Question[]>(testUrl, null).pipe().toPromise();
   }
 
   saveResult(userAnswer:UserAnswer){
@@ -22,7 +24,7 @@ export class TestService {
 
   getResults(email:string, page:number){
     let resultsUrl = 'https://localhost:44328/api/AnswerUser/getAchievement?email='+ encodeURIComponent(email) + '&page=' + page;
-    return this.httpClient.post<JSON>(resultsUrl, null).pipe();
+    return this.httpClient.post<string>(resultsUrl, null).pipe();
   }
 
   getResultCount(email:string){
@@ -35,4 +37,19 @@ export class TestService {
     return this.httpClient.get<UserAnswer>(detail);
   }
 
+  async getLevels(theme:string){
+    let levelsUrl = 'https://localhost:44328/api/Question/getLevels?theme=' + encodeURIComponent(theme);
+    console.log(levelsUrl);
+    return this.httpClient.post<number[]>(levelsUrl, null).pipe().toPromise();
+  }
+
+  async getTestCount(theme:string, level:number){
+    let testCountUrl = 'https://localhost:44328/api/Question/levelCount?theme=' + encodeURIComponent(theme) + '&level=' + level;
+    console.log(testCountUrl);
+    return this.httpClient.post<number>(testCountUrl, null).toPromise();
+  }
+
+  countDown(time:number){
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
 }
