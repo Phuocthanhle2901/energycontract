@@ -14,7 +14,7 @@ import {
 } from '../../../../Validators/validator';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../../../Services/user.service';
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 @Component({
   selector: 'app-us-update',
   templateUrl: './us-update.component.html',
@@ -59,9 +59,9 @@ export class UsUpdateComponent implements OnInit {
   onchange() {
     this.dataform.controls['confirmpassword'].setValue('');
   }
-  submitEditUser(data: any){
+  submitEditUser(e, data: any){
 
-    this.serviceuser.editUser().subscribe((data:any)=>{
+    this.serviceuser.editUser(data.id, data).subscribe((data:any)=>{
       if(data==true)
       {
         alert("create user success")
