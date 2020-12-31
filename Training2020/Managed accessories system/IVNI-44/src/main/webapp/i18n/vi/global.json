@@ -1,12 +1,12 @@
 {
   "global": {
-    "title": "ManagedAccessoriesSystem",
-    "browsehappy": "Báº¡n Ä‘ang sá»­ dá»¥ng má»™t trÃ¬nh duyá»‡t <strong>quÃ¡ cÅ©</strong>. Vui lÃ²ng <a href=\"http://browsehappy.com/?locale=en\">nÃ¢ng cáº¥p trÃ¬nh duyá»‡t</a> cá»§a báº¡n Ä‘á»ƒ cÃ³ tráº£i nghiá»‡m tá»‘t nháº¥t.",
+    "title": "Mas",
+    "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>quá cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt</a> của bạn để có trải nghiệm tốt nhất.",
     "menu": {
-      "home": "Trang chá»§",
+      "home": "Trang chủ",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
-        "main": "Thá»±c thá»ƒ",
+        "main": "Thực thể",
         "actionLog": "Action Log",
         "actionType": "Action Type",
         "area": "Area",
@@ -21,71 +21,71 @@
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
-        "main": "TÃ i khoáº£n",
-        "settings": "CÃ i Ä‘áº·t",
-        "password": "Máº­t kháº©u",
-        "sessions": "PhiÃªn Ä‘Äƒng nháº­p",
-        "login": "Ä�Äƒng nháº­p",
-        "logout": "Ä�Äƒng xuáº¥t",
-        "register": "Ä�Äƒng kÃ½"
+        "main": "Tài khoản",
+        "settings": "Cài đặt",
+        "password": "Mật khẩu",
+        "sessions": "Phiên đăng nhập",
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "register": "Đăng ký"
       },
       "admin": {
-        "main": "Quáº£n trá»‹",
-        "userManagement": "Quáº£n lÃ½ tÃ i khoáº£n",
-        "tracker": "Theo dÃµi ngÆ°á»�i dÃ¹ng",
-        "metrics": "Sá»‘ liá»‡u",
-        "health": "TÃ¬nh tráº¡ng",
-        "configuration": "Cáº¥u hÃ¬nh",
+        "main": "Quản trị",
+        "userManagement": "Quản lý tài khoản",
+        "tracker": "Theo dõi người dùng",
+        "metrics": "Số liệu",
+        "health": "Tình trạng",
+        "configuration": "Cấu hình",
         "logs": "Ghi logs",
-        "audits": "Kiá»ƒm duyá»‡t",
+        "audits": "Kiểm duyệt",
         "apidocs": "API",
-        "database": "CÆ¡ sá»Ÿ dá»¯ liá»‡u",
+        "database": "Cơ sở dữ liệu",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
-      "language": "NgÃ´n ngá»¯"
+      "language": "Ngôn ngữ"
     },
     "form": {
-      "username.label": "TÃªn tÃ i khoáº£n",
-      "username.placeholder": "Nháº­p tÃªn tÃ i khoáº£n cá»§a báº¡n",
-      "newpassword.label": "Máº­t kháº©u má»›i",
-      "newpassword.placeholder": "Nháº­p máº­t kháº©u má»›i",
-      "confirmpassword.label": "XÃ¡c nháº­n máº­t kháº©u má»›i",
-      "confirmpassword.placeholder": "Nháº­p láº¡i máº­t kháº©u má»›i",
+      "username.label": "Tên tài khoản",
+      "username.placeholder": "Nhập tên tài khoản của bạn",
+      "newpassword.label": "Mật khẩu mới",
+      "newpassword.placeholder": "Nhập mật khẩu mới",
+      "confirmpassword.label": "Xác nhận mật khẩu mới",
+      "confirmpassword.placeholder": "Nhập lại mật khẩu mới",
       "email.label": "Email",
-      "email.placeholder": "Nháº­p email cá»§a báº¡n"
+      "email.placeholder": "Nhập email của bạn"
     },
     "messages": {
       "info": {
         "authenticated": {
-          "prefix": "Náº¿u báº¡n muá»‘n ",
-          "link": "Ä‘Äƒng nháº­p",
-          "suffix": ", báº¡n cÃ³ thá»ƒ thá»­ vá»›i tÃ i khoáº£n máº·c Ä‘á»‹nh:<br/>- Quáº£n trá»‹ viÃªn (tÃ i khoáº£n=\"admin\" vÃ  máº­t kháº©u=\"admin\") <br/>- NgÆ°á»�i dÃ¹ng (tÃ i khoáº£n=\"user\" vÃ  máº­t kháº©u=\"user\")."
+          "prefix": "Nếu bạn muốn ",
+          "link": "đăng nhập",
+          "suffix": ", bạn có thể thử với tài khoản mặc định:<br/>- Quản trị viên (tài khoản=\"admin\" và mật khẩu=\"admin\") <br/>- Người dùng (tài khoản=\"user\" và mật khẩu=\"user\")."
         },
         "register": {
-          "noaccount": "Báº¡n váº«n chÆ°a cÃ³ tÃ i khoáº£n?",
-          "link": "Ä�Äƒng kÃ½ tÃ i khoáº£n má»›i"
+          "noaccount": "Bạn vẫn chưa có tài khoản?",
+          "link": "Đăng ký tài khoản mới"
         }
       },
       "error": {
-        "dontmatch": "XÃ¡c nháº­n máº­t kháº©u khÃ´ng khá»›p!"
+        "dontmatch": "Xác nhận mật khẩu không khớp!"
       },
       "validate": {
         "newpassword": {
-          "required": "Báº¡n pháº£i nháº­p máº­t kháº©u.",
-          "minlength": "Máº­t kháº©u pháº£i cÃ³ Ã­t nháº¥t 4 kÃ½ tá»±.",
-          "maxlength": "Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 50 kÃ½ tá»±.",
-          "strength": "Ä�á»™ máº¡nh cá»§a máº­t kháº©u:"
+          "required": "Bạn phải nhập mật khẩu.",
+          "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
+          "maxlength": "Mật khẩu không được vượt quá 50 ký tự.",
+          "strength": "Độ mạnh của mật khẩu:"
         },
         "confirmpassword": {
-          "required": "Báº¡n pháº£i nháº­p láº¡i máº­t kháº©u Ä‘á»ƒ xÃ¡c nháº­n.",
-          "minlength": "Máº­t kháº©u pháº£i cÃ³ Ã­t nháº¥t 4 kÃ½ tá»±.",
-          "maxlength": "Máº­t kháº©u khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 50 kÃ½ tá»±."
+          "required": "Bạn phải nhập lại mật khẩu để xác nhận.",
+          "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
+          "maxlength": "Mật khẩu không được vượt quá 50 ký tự."
         },
         "email": {
-          "required": "Báº¡n pháº£i nháº­p email.",
-          "invalid": "Email báº¡n nháº­p khÃ´ng há»£p lá»‡.",
-          "minlength": "Email pháº£i cÃ³ Ã­t nháº¥t 5 kÃ½ tá»±.",
-          "maxlength": "Email khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ 50 kÃ½ tá»±."
+          "required": "Bạn phải nhập email.",
+          "invalid": "Email bạn nhập không hợp lệ.",
+          "minlength": "Email phải có ít nhất 5 ký tự.",
+          "maxlength": "Email không được vượt quá 50 ký tự."
         }
       }
     },
@@ -93,58 +93,63 @@
       "id": "ID"
     },
     "ribbon": {
-      "dev": "PhÃ¡t triá»ƒn"
+      "dev": "Phát triển"
     },
     "item-count": "Showing {{first}} - {{second}} of {{total}} items."
   },
   "entity": {
     "action": {
-      "addblob": "ThÃªm ná»™i dung",
-      "addimage": "ThÃªm áº£nh",
-      "back": "Quay láº¡i",
-      "cancel": "Há»§y",
-      "delete": "XÃ³a",
-      "edit": "Sá»­a",
-      "open": "Má»Ÿ",
-      "save": "LÆ°u",
+      "addblob": "Thêm nội dung",
+      "addimage": "Thêm ảnh",
+      "back": "Quay lại",
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "edit": "Sửa",
+      "open": "Mở",
+      "save": "Lưu",
       "view": "Xem",
-      "export": "Nhập tệp",
-      "import": "Xuất tệp"
+	  "export": "Xuất",
+<<<<<<< HEAD
+	  "exportAll": "Xuất tất cả"
+=======
+	  "exportAll": "Xuất tất cả",
+	  "print": "In"
+>>>>>>> feature/IVNI-55
     },
     "detail": {
-      "field": "TrÆ°á»�ng",
-      "value": "GiÃ¡ trá»‹"
+      "field": "Trường",
+      "value": "Giá trị"
     },
     "delete": {
-      "title": "XÃ¡c nháº­n hÃ nh Ä‘á»™ng xÃ³a"
+      "title": "Xác nhận hành động xóa"
     },
     "validation": {
-      "required": "TrÆ°á»�ng nÃ y báº¯t buá»™c pháº£i nháº­p.",
-      "minlength": "TrÆ°á»�ng nÃ y pháº£i cÃ³ Ã­t nháº¥t {{ min }} kÃ½ tá»±.",
-      "maxlength": "TrÆ°á»�ng nÃ y khÃ´ng Ä‘Æ°á»£c vÆ°á»£t quÃ¡ {{ max }} kÃ½ tá»±.",
-      "min": "TrÆ°á»�ng nÃ y pháº£i lá»›n hÆ¡n {{ min }}.",
-      "max": "TrÆ°á»�ng nÃ y pháº£i nhá»� hÆ¡n {{ max }}.",
-      "minbytes": "Dung lÆ°á»£ng trÆ°á»�ng nÃ y pháº£i lá»›n hÆ¡n {{ min }} bytes.",
-      "maxbytes": "Dung lÆ°á»£ng trÆ°á»�ng nÃ y pháº£i nhá»� hÆ¡n {{ max }} bytes.",
-      "pattern": "TrÆ°á»�ng nÃ y pháº£i theo Ä‘á»‹nh dáº¡ng {{ pattern }}.",
-      "number": "TrÆ°á»�ng nÃ y pháº£i lÃ  má»™t sá»‘.",
-      "datetimelocal": "TrÆ°á»�ng nÃ y pháº£i lÃ  Ä‘á»‹nh dáº¡ng thá»�i gian."
+      "required": "Trường này bắt buộc phải nhập.",
+      "minlength": "Trường này phải có ít nhất {{ min }} ký tự.",
+      "maxlength": "Trường này không được vượt quá {{ max }} ký tự.",
+      "min": "Trường này phải lớn hơn {{ min }}.",
+      "max": "Trường này phải nhỏ hơn {{ max }}.",
+      "minbytes": "Dung lượng trường này phải lớn hơn {{ min }} bytes.",
+      "maxbytes": "Dung lượng trường này phải nhỏ hơn {{ max }} bytes.",
+      "pattern": "Trường này phải theo định dạng {{ pattern }}.",
+      "number": "Trường này phải là một số.",
+      "datetimelocal": "Trường này phải là định dạng thời gian."
     }
   },
   "error": {
-    "internalServerError": "Lá»—i mÃ¡y chá»§ ná»™i bá»™",
-    "server.not.reachable": "KhÃ´ng tÃ¬m tháº¥y mÃ¡y chá»§",
-    "url.not.found": "KhÃ´ng tÃ¬m tháº¥y",
-    "NotNull": "TrÆ°á»�ng {{ fieldName }} khÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng!",
-    "Size": "TrÆ°á»�ng {{ fieldName }} khÃ´ng náº±m trong giá»›i háº¡n tá»‘i thiá»ƒu/tá»‘i Ä‘a!",
-    "userexists": "TÃªn Ä‘Äƒng nháº­p Ä‘Ã£ Ä‘Æ°á»£c sá»­ dá»¥ng!",
-    "emailexists": "Email Ä‘Ã£ Ä‘Æ°á»£c sá»­ dá»¥ng!",
-    "idexists": "ThÃªm má»›i {{ entityName }} khÃ´ng Ä‘Æ°á»£c trÃ¹ng vá»›i Ä‘á»‹nh danh Ä‘Ã£ tá»“n táº¡i",
+    "internalServerError": "Lỗi máy chủ nội bộ",
+    "server.not.reachable": "Không tìm thấy máy chủ",
+    "url.not.found": "Không tìm thấy",
+    "NotNull": "Trường {{ fieldName }} không được để trống!",
+    "Size": "Trường {{ fieldName }} không nằm trong giới hạn tối thiểu/tối đa!",
+    "userexists": "Tên đăng nhập đã được sử dụng!",
+    "emailexists": "Email đã được sử dụng!",
+    "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",
     "idnull": "Invalid ID",
     "file": {
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Ä�Ã¢y lÃ  chÃ¢n trang cá»§a báº¡n"
+  "footer": "Đây là chân trang của bạn"
 }

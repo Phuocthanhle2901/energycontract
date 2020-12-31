@@ -1,5 +1,5 @@
 {
-  "managedAccessoriesSystemApp": {
+  "masApp": {
     "employee": {
       "home": {
         "title": "Employees",
@@ -19,7 +19,8 @@
       "phoneNumber": "Phone Number",
       "user": "User",
       "area": "Area",
-      "area": "Area"
+      "area": "Area",
+	  "title": "EMPLOYEE DETAILS"
     }
   }
 }

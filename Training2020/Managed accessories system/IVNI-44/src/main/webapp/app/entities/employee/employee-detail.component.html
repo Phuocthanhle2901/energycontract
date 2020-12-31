@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-8" id="no-print">
         <div *ngIf="employee">
             <h2><span jhiTranslate="managedAccessoriesSystemApp.employee.detail.title">Employee</span> {{ employee.id }}</h2>
 
@@ -41,8 +41,64 @@
                     class="btn btn-primary">
                 &nbsp;<span jhiTranslate="entity.action.export">Export</span>
             </button>
+            
+            <button type="button"
+                    onclick="window.print()"
+                    class="btn btn-primary">
+                &nbsp;<span jhiTranslate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-8">
+        <div *ngIf="employee" id="print">
+        	<img class="logo-info" alt="" src="../../../content/images/logo-info.png">
+            <div class="w-100 text-center">
+        		<h2 class="mt-5 mb-4"><b><span jhiTranslate="managedAccessoriesSystemApp.employee.title">EQUIPMENT DETAILS</span></b></h2>
+			</div>
+
+            <div class="row">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.detail.title">Employee</span><span>:</span></b>
+            		<span>{{ employee.id }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.login">Login</span><span>:</span></b>
+            		<span>{{ employee.user?.login }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.firstName">First name</span><span>:</span></b>
+            		<span>{{ employee.user?.firstName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.lastName">Last name</span><span>:</span></b>
+            		<span>{{ employee.user?.lastName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.email">Email</span><span>:</span></b>
+            		<span>{{ employee.user?.email }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.langKey">Language</span><span>:</span></b>
+            		<span>{{ employee.user?.langKey }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.phoneNumber">Phone Number</span><span>:</span></b>
+            		<span>{{ employee.phoneNumber }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.area">Area</span><span>:</span></b>
+            		<span>{{ employee.area?.areaName }}</span>
+            	</div>
+            	<hr class="col-12">
+            </div>
         </div>
     </div>
 </div>
+
+
 
 
