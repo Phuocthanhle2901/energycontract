@@ -1,14 +1,16 @@
 <div class="mod-createUser my-5">
-    <div class="d-flex justify-content-center align-self-center ">
-        <div class="mod-createUser-avatar  ">
-            <img src="../../../../../assets/Images/logo.png" alt="logo">
-            <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
-            <label class="file form-control text-center" for="img">Avatar</label>
-        </div>
-    </div>
+
     <div class="mod-createUser-form mt-5">
         <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitEditUser(dataform.value)">
-            <div class="form-group">
+          <div class="d-flex justify-content-center align-self-center ">
+            <div class="mod-createUser-avatar  ">
+                <img src="https://localhost:44328/{{dataform.controls['avatar'].value}}" alt="logo">
+                <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
+                <label class="file form-control text-center" for="img">Avatar</label>
+            </div>
+        </div>
+
+          <div class="form-group">
             <label for="exampleInputName1">Name</label>
             <input type="text" class="form-control"
                 [ngClass]="{'is-invalid':dataform.get('fullname').touched && dataform.get('fullname').invalid}"
@@ -19,14 +21,14 @@
 
             </div>
             <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="text" class="form-control"
-                ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
-                formControlName="email" placeholder="Email..." />
-            <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+              <label  >Email</label>
+              <input type="text" class="form-control"
+              [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+              formControlName="email" placeholder="Email..." />
+              <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
                 <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
                 <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
-            </div>
+              </div>
 
             </div>
             <div class="form-group">

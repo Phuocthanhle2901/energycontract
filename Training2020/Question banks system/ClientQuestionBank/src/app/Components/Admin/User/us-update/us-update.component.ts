@@ -36,6 +36,7 @@ export class UsUpdateComponent implements OnInit {
       email: new FormControl('', EmailValidation),
       password: new FormControl('', PasswordValidation),
       status: new FormControl(Boolean),
+      avatar: new FormControl(""),
       confirmpassword: ['', [Validators.required, this.passwordMatcher.bind(this)]],
       role: new FormControl('')
     });
@@ -75,6 +76,7 @@ export class UsUpdateComponent implements OnInit {
       this.dataform.controls['password'].setValue(data.password);
       this.dataform.controls['role'].setValue(data.role);
       this.dataform.controls['status'].setValue(data.status);
+      this.dataform.controls['avatar'].setValue(data.avatar);
       this.dataform.controls['confirmpassword'].setValue(data.password);
   }
   submitEditUser(data: any){

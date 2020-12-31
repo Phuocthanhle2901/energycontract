@@ -99,11 +99,12 @@ namespace QuestionBankDB.Services
         public UserInfo Get(string id) =>
             _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
 
-        public Boolean Create(UserInfo userInfo)
+        public Boolean Create([FromForm] UserInfo userInfo )
         {
             var user = _userInfo.Find(res => res.Email == userInfo.Email).FirstOrDefault();
-            if(user==null)
-            {
+
+            if(user==null)  
+            { 
                 userInfo.Password = _supper.GetMD5(userInfo.Password);
                 _userInfo.InsertOne(userInfo);
                 return true;

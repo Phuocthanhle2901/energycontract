@@ -56,7 +56,10 @@
           <td>{{item.fullname}}</td>
           <td>{{item.email}}</td>
           <td>{{item.status?"enable":"disable"}}</td>
-          <td>{{item.avatar}}</td>
+          <td>
+                <img  *ngIf="item.avatar!=null" src="https://localhost:44328/{{item.avatar}}"  width="40px" height="40px" alt="logo">
+                <img *ngIf="item.avatar==null" src="../../../../../assets/Images/logo.png" width="40px" height="40px">
+
           <td>
             <button (click)="removeUser(item.id)" type="button" class="btn btn-delete"><i
               class="eva eva-trash-2-outline"></i> </button>
