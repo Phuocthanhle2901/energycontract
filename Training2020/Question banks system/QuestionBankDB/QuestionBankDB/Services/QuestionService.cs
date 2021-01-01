@@ -105,12 +105,12 @@ namespace QuestionBankDB.Services
                 if (count > range) count = (byte)(range);
                 for (int i = 0; i < count; i++)
                 {
-                    index = random.Next(0, range--);  //take random index in list and reduce range
-                    Question question = list[index];
-                    list.RemoveAt(index);           //remove chosen question from list
-                    Shuffle(question.Answer);       //shuffle up options
-                    question.TrueAnswer = null;     //nullify true answer to avoid cheating
-                    questions.Add(question);
+                    index = random.Next(0, range--);    //take random index in list and reduce range
+                    Question question = list[index];    //choose question by index
+                    list.RemoveAt(index);               //remove chosen question from list
+                    Shuffle(question.Answer);           //shuffle up options
+                    question.TrueAnswer = null;         //nullify true answer to avoid cheating
+                    questions.Add(question);            //add question to test
                 }
                 return questions;
             }

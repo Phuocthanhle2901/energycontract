@@ -29,6 +29,7 @@ export class QuetstionBodyComponent implements OnInit {
   result:string;
   submitted:boolean = false;  //flag for submitting test
   configured:boolean = false; //flag for setting number of questions and level
+  confirm:boolean = false; //flag for checking if user really wants to submit
   userAnswer:UserAnswer;
   email:string
   pageQuestions:Question[] = [];
@@ -72,11 +73,13 @@ export class QuetstionBodyComponent implements OnInit {
     this.questions.forEach(question=>{this.time += question.timeallow*60;})
     this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
     this.loadPage(this.pageCount, 0); //load first page
-    while(this.time>0){
-      await this.testService.countDown(this.time);
+    while(this.time>0){ //countdown time
+      await this.testService.delay();
       this.time -= 1;
       this.clock.calculate(this.time);
+      if(this.submitted) break; //stop countdown on submit
     }
+    this.getResult(); //submit after countdown
   }
 
   loadPage(pageCount:number ,page:number){
@@ -88,12 +91,12 @@ export class QuetstionBodyComponent implements OnInit {
     this.currentPage = page;
   }
 
-  savePage(answersheet:string[]){
-    console.log(answersheet); //check form value
+  savePage(){
+    console.log(this.answerSheet.value); //check form value
   }
 
-  async getResult(answersheet:string[]){
-    if(confirm("Are you ready to submit?")){
+  async getResult(){
+    if(!this.submitted){
       let correctAnswer:string;
       this.userAnswer = new UserAnswer(); //init user answer
       this.userAnswer.listquestion = []; //init question list
@@ -114,27 +117,27 @@ export class QuetstionBodyComponent implements OnInit {
           this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
           this.userAnswer.listquestion[i].point = 0;
           this.userAnswer.listquestion[i].trueAnswer = correctAnswer; //get true answer
-          if(correctAnswer===answersheet[i]){
+          if(correctAnswer=== this.answerSheet.value[i]){
             this.userAnswer.listquestion[i].point = this.questions[i].point;
             this.userAnswer.summary += this.questions[i].point;
           }
           else this.userAnswer.listquestion[i].point = 0;
-          this.userAnswer.listquestion[i].userAnswer = answersheet[i];
-          if(i == this.questions.length-1){
-            this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
-            this.userAnswer.total = this.maxScore; //set total score
-            console.log(answersheet); //check form value
-            console.log(this.userAnswer.listquestion); //check answer sheet before posting
-            this.saveResult(this.userAnswer);
-          }
+          this.userAnswer.listquestion[i].userAnswer = this.answerSheet.value[i];
       }
+      this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
+      this.userAnswer.total = this.maxScore; //set total score
+      console.log(this.answerSheet.value); //check form value
+      console.log(this.userAnswer.listquestion); //check answer sheet before posting
+      this.saveResult(this.userAnswer);
       this.submitted = true;
     }
   }
 
-  saveResult(sheet:UserAnswer){
-    if(this.email!=null) this.testService.saveResult(sheet).subscribe(); //post result
+  async saveResult(sheet:UserAnswer){
+    if(this.email!=null) await this.testService.saveResult(sheet); //post result
   }
+
+  Confirm(){this.confirm = true;}
 
   async checkLogin(){
     if(this.cookie.token!=undefined) //get user email

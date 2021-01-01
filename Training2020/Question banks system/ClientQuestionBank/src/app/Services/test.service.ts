@@ -17,9 +17,9 @@ export class TestService {
     return this.httpClient.post<Question[]>(testUrl, null).pipe().toPromise();
   }
 
-  saveResult(userAnswer:UserAnswer){
+  async saveResult(userAnswer:UserAnswer){
     let resultUrl = 'https://localhost:44328/api/AnswerUser';
-    return this.httpClient.post<UserAnswer>(resultUrl, userAnswer);
+    return this.httpClient.post<UserAnswer>(resultUrl, userAnswer).toPromise();
   }
 
   getResults(email:string, page:number){
@@ -49,7 +49,7 @@ export class TestService {
     return this.httpClient.post<number>(testCountUrl, null).toPromise();
   }
 
-  countDown(time:number){
+  delay(){
     return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }
