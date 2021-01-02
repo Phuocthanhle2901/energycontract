@@ -14,12 +14,12 @@ export class TestService {
   async generateTest(theme:string, level:number, count:number){
     let testUrl = 'https://localhost:44328/api/Question/randomQuestions?'
                     + 'theme='+ encodeURIComponent(theme) + '&level=' + level +'&count=' + count;
-    return this.httpClient.post<Question[]>(testUrl, null).pipe().toPromise();
+    return await this.httpClient.post<Question[]>(testUrl, null).pipe().toPromise();
   }
 
   async saveResult(userAnswer:UserAnswer){
     let resultUrl = 'https://localhost:44328/api/AnswerUser';
-    return this.httpClient.post<UserAnswer>(resultUrl, userAnswer).toPromise();
+    return await this.httpClient.post<number>(resultUrl, userAnswer).toPromise();
   }
 
   getResults(email:string, page:number){
@@ -39,17 +39,13 @@ export class TestService {
 
   async getLevels(theme:string){
     let levelsUrl = 'https://localhost:44328/api/Question/getLevels?theme=' + encodeURIComponent(theme);
-    console.log(levelsUrl);
     return this.httpClient.post<number[]>(levelsUrl, null).pipe().toPromise();
   }
 
   async getTestCount(theme:string, level:number){
     let testCountUrl = 'https://localhost:44328/api/Question/levelCount?theme=' + encodeURIComponent(theme) + '&level=' + level;
-    console.log(testCountUrl);
     return this.httpClient.post<number>(testCountUrl, null).toPromise();
   }
 
-  delay(){
-    return new Promise(resolve => setTimeout(resolve, 1000));
-  }
+  delay(){return new Promise(resolve => setTimeout(resolve, 1000));}
 }

@@ -32,9 +32,17 @@ namespace QuestionBankDB.Models
 
         [BsonElement("date")]
         public DateTime Date { get; set; }
+
+        public static implicit operator AnswerUser(BsonValue v)
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class Listquestion
     {
+        [BsonElement("id")]
+        public string Id { get; set; }
+
         [BsonElement("question")]
         public string Question { get; set; }
 

@@ -36,7 +36,6 @@ export class QuetstionBodyComponent implements OnInit {
   questionsPerPage:number=2;
   pageCount:number;
   currentPage:number;
-  maxScore:number=0;
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
 
@@ -97,47 +96,30 @@ export class QuetstionBodyComponent implements OnInit {
 
   async getResult(){
     if(!this.submitted){
+      //create test content
       let correctAnswer:string;
       this.userAnswer = new UserAnswer(); //init user answer
       this.userAnswer.listquestion = []; //init question list
-      this.userAnswer.email = this.email; //get email
-      this.userAnswer.level = this.level; //get level
-      this.userAnswer.summary = 0; //init summary
-      this.userAnswer.theme = this.theme; //get theme
-      this.userAnswer.date = new Date(); //get date
-      this.maxScore = 0;
-      //create new result sheet
+      this.userAnswer.email = this.email; //set email
+      this.userAnswer.level = this.level; //set level
+      this.userAnswer.theme = this.theme; //set theme
+      this.userAnswer.date = new Date(); //set date
+      let maxScore = 0;
       for (let i = 0; i < this.questions.length; i++) {
-        //get true answer for current question
-          correctAnswer = await this.questionService.getAnswer(this.questions[i].id);
-          console.log(correctAnswer);
-          this.maxScore += this.questions[i].point; //get total point of the test
+          maxScore += this.questions[i].point; //calculate total point of the test
           this.userAnswer.listquestion[i] = new ListQuestion(); //init question
-          this.userAnswer.listquestion[i].question = this.questions[i].question; //get question content
-          this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
-          this.userAnswer.listquestion[i].point = 0;
-          this.userAnswer.listquestion[i].trueAnswer = correctAnswer; //get true answer
-          if(correctAnswer=== this.answerSheet.value[i]){
-            this.userAnswer.listquestion[i].point = this.questions[i].point;
-            this.userAnswer.summary += this.questions[i].point;
-          }
-          else this.userAnswer.listquestion[i].point = 0;
-          this.userAnswer.listquestion[i].userAnswer = this.answerSheet.value[i];
+          this.userAnswer.listquestion[i].id = this.questions[i].id; //set question id
+          this.userAnswer.listquestion[i].answer = this.questions[i].answer; //set options
+          this.userAnswer.listquestion[i].userAnswer = this.answerSheet.value[i]; //set chosen option
       }
-      this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
-      this.userAnswer.total = this.maxScore; //set total score
-      console.log(this.answerSheet.value); //check form value
-      console.log(this.userAnswer.listquestion); //check answer sheet before posting
-      this.saveResult(this.userAnswer);
+      //send test content to server
+      let sum = await this.testService.saveResult(this.userAnswer); //server will calculate and send back result
+      this.result = "Your score: " + sum + "/" + maxScore; //show result 
       this.submitted = true;
     }
   }
 
-  async saveResult(sheet:UserAnswer){
-    if(this.email!=null) await this.testService.saveResult(sheet); //post result
-  }
-
-  Confirm(){this.confirm = true;}
+  Confirm(){this.confirm = true;} //trigger submit confirm buttons without halting clock by using a flag
 
   async checkLogin(){
     if(this.cookie.token!=undefined) //get user email

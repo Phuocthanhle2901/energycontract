@@ -10,13 +10,14 @@ namespace QuestionBankDB.Services
     public class AnswerUserService
     {
         private readonly IMongoCollection<AnswerUser> _aswerUser;
-
+        private readonly QuestionService _question;
         public AnswerUserService(IQuestionBankSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
             _aswerUser = database.GetCollection<AnswerUser>(settings.UserAnswerCollectionName);
+            _question = new QuestionService(settings);
         }
 
         public List<AnswerUser> Get() =>
@@ -25,10 +26,25 @@ namespace QuestionBankDB.Services
         public AnswerUser Get(string id) =>
             _aswerUser.Find<AnswerUser>(AnswerUser => AnswerUser.Id == id).FirstOrDefault();
 
-        public AnswerUser Create(AnswerUser answerUser)
+        public int Create(AnswerUser answerUser)
         {
+            Question question = new Question();
+            for (int i=0; i<answerUser.Listquestion.Length; i++)
+            {
+                question = _question.Get(answerUser.Listquestion[i].Id); //fetch question from QuestionService
+                //Set question and correct answer
+                answerUser.Listquestion[i].TrueAnswer = question.TrueAnswer;
+                answerUser.Listquestion[i].Question = question.question;
+                //check if answer is correct
+                if (answerUser.Listquestion[i].UserAnswer.Equals(answerUser.Listquestion[i].TrueAnswer))
+                {
+                    answerUser.Summary += question.Point;
+                    answerUser.Listquestion[i].Point = question.Point;
+                }
+                answerUser.Total += question.Point; //calculate total point
+            }
             _aswerUser.InsertOne(answerUser);
-            return answerUser;
+            return answerUser.Summary;
         }
 
         public void Update(string id, AnswerUser answerUserId) =>

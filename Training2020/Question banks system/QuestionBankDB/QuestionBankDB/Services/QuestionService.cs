@@ -137,13 +137,6 @@ namespace QuestionBankDB.Services
             }
         }
 
-        public string GetAnswer(string id)
-        {
-            var project = Builders<Question>.Projection.Include("trueAnswer"); //get true answer only
-            return _question.Find(question => question.Id == id) //find question, project to answer
-                                         .FirstOrDefault().TrueAnswer.ToJson(); //convert result to json string
-        }
-
         //get level list of a theme
         public List<byte> GetLevels(string theme)
         {
