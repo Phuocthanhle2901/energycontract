@@ -188,7 +188,11 @@ namespace QuestionBankDB.Controllers
         public ActionResult<List<UserInfo>> GetUserByRole(int role) => _userInfoService.getUserbyRole(role);
 
         [HttpPost]
-        [Route("resetPassword")]
-        public ActionResult<sbyte> SendLink(string email) => _userInfoService.SendLink(email);
+        [Route("resetPasswordMail")] //send an email for forget password feature
+        public ActionResult<byte> SendLink(string email) => _userInfoService.SendLink(email);
+
+        [HttpPut]
+        [Route("resetPassword")] //update password for forget password feature
+        public byte ResetPassword(string email, string newPassword) => _userInfoService.ResetPassword(email, newPassword);
     }
 }

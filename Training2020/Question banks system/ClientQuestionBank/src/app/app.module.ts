@@ -35,6 +35,8 @@ import { CommonModule } from '@angular/common';
 import { AchievementsComponent } from './Components/achievements/achievements.component';
 import { DetailAchievementComponent } from './Components/detail-achievement/detail-achievement.component';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { ForgetComponent } from './Components/login/forget/forget.component';
+import { ResetPasswordComponent } from './Components/login/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
     UsUpdateComponent,
     AchievementsComponent,
     DetailAchievementComponent,
+    ForgetComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

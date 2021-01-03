@@ -78,12 +78,21 @@ export class UserService {
   {
     return this.httpClient.get<JSON>("https://localhost:44328/api/UserInfo/getuserById?id="+id);
   }
+
   updateUser(id:any,data:any)
   {
     return this.httpClient.put<JSON>("https://localhost:44328/api/UserInfo/"+id,data);
 
   }
 
+  async sendLink(email:string){
+    let linkUrl = "https://localhost:44328/api/UserInfo/resetPasswordMail?email="+encodeURIComponent(email);
+    return await this.httpClient.post<number>(linkUrl,null).toPromise();
+  }
 
-
+  async resetPassword(email:string, password:string){
+    let resetUrl = 'https://localhost:44328/api/UserInfo/resetPassword?email='+ encodeURIComponent(email)
+                    +'&newPassword=' + encodeURIComponent(password);
+    return await this.httpClient.put<number>(resetUrl,null).toPromise();
+  }
 }
