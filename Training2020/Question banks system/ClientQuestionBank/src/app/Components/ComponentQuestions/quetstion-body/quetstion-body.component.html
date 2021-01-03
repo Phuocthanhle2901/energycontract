@@ -26,17 +26,16 @@
         </h4>
         <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
           <h2>Number of questions:</h2>
-            <input class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="1" required=1>
+            <input *ngIf='levelCount>=2' class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="2" required=1>
+            <h4 *ngIf='2>count' class="text-danger">Please enter at least 2</h4>
+            <h4 *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</h4>
             <h2>Level:</h2>
             <select class="form-control col-md-4" name="level" required=1>
               <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
             </select>
             <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
-        <h2 *ngIf='2>count' class="text-center text-danger">
-          This test is not available<hr/>
-          This might be due to number of questions less than 2
-        </h2>
+        <h2 *ngIf='2>count||2>levelCount' class="text-center text-danger">This test is not available</h2>
         <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>

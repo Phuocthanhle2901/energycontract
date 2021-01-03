@@ -58,13 +58,15 @@ export class QuetstionBodyComponent implements OnInit {
   }
 
   getOptions(config:any){
-    this.answerSheet = new FormGroup({});
-    this.level = config.target.level.value;
-    this.count = config.target.count.value;
-    for (let i = 0; i < config.target.count.value; i++) this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
-    if(this.count>1){ //only start test when there are at least 2 questions
-      this.configured = true;
-      this.generateTest(this.theme, this.level, this.count);
+    if(this.levelCount>=2){
+      this.answerSheet = new FormGroup({});
+      this.level = config.target.level.value;
+      this.count = config.target.count.value;
+      for (let i = 0; i < config.target.count.value; i++) this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
+      if(this.count>1){ //only start test when there are at least 2 questions
+        this.configured = true;
+        this.generateTest(this.theme, this.level, this.count);
+      }
     }
   }
 
