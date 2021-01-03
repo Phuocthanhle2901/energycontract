@@ -22,19 +22,21 @@
       <div class="col-md-8  m-0 col-sm-12">
         <h1 class="text-center">{{theme}} Test</h1>
         <h4 *ngIf='configured==true' class="text-center">
-          Time: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
+          Time remaining: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
         </h4>
         <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
           <h2>Number of questions:</h2>
-            <select class="form-control col-md-4" name="count">
-              <option *ngFor="let count of ' '.repeat(levelCount-1).split(''); index as c" value="{{c+2}}">{{c+2}}</option>
-            </select>
+            <input class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="1" required=1>
             <h2>Level:</h2>
-            <select class="form-control col-md-4" name="level">
+            <select class="form-control col-md-4" name="level" required=1>
               <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
             </select>
             <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
+        <h2 *ngIf='2>count' class="text-center text-danger">
+          This test is not available<hr/>
+          This might be due to number of questions less than 2
+        </h2>
         <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
@@ -48,19 +50,19 @@
             <nav aria-label=" navigation"class=" pagination-page">
               <ul class="pagination">
                 <li class="page-item" *ngIf="currentPage>0">
-                  <a class="page-link" (click)="savePage(); loadPage(pageCount, 0)"><i class="eva eva-arrowhead-left-outline"></i></a>
+                  <a class="page-link" (click)="loadPage(pageCount, 0)"><i class="eva eva-arrowhead-left-outline"></i></a>
                 </li>
                 <li class="page-item" *ngIf="currentPage>0">
-                  <a class="page-link" (click)="savePage(); loadPage(pageCount, currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
+                  <a class="page-link" (click)="loadPage(pageCount, currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
                 </li>
                 <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">
-                  <a class="page-link" (click)="savePage(); loadPage(pageCount, i)">{{i+1}}</a>
+                  <a class="page-link" (click)="loadPage(pageCount, i)">{{i+1}}</a>
                 </li>
                 <li class="page-item" *ngIf="currentPage<pageCount-1">
-                  <a class="page-link" (click)="savePage(); loadPage(pageCount, currentPage+1)"><i class="eva eva-arrow-ios-forward-outline"></i></a>
+                  <a class="page-link" (click)="loadPage(pageCount, currentPage+1)"><i class="eva eva-arrow-ios-forward-outline"></i></a>
                 </li>
                 <li class="page-item" *ngIf="currentPage<pageCount-1">
-                  <a class="page-link" (click)="savePage(); loadPage(pageCount, pageCount-1)"><i class="eva eva-arrowhead-right-outline"></i></a>
+                  <a class="page-link" (click)="loadPage(pageCount, pageCount-1)"><i class="eva eva-arrowhead-right-outline"></i></a>
                 </li>
               </ul>
             </nav>

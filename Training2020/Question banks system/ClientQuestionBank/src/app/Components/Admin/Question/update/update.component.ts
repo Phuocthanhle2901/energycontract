@@ -48,17 +48,14 @@ idQuestion:string="";
     });
   }
 
-  ngOnInit(): void {
- // get themes
-  this.themesService.getThemes().subscribe((data:any)=>{
-    this.themes=data;
-  })
-  // get question for update
-  this.questionSevice.question$.subscribe(data=>{
-    this.idQuestion=data.id;
-    this.patchQuestionValues(data);
-  })
-
+  async ngOnInit(){
+    // get themes
+    this.themes = await this.themesService.getThemes();
+    // get question for update
+    this.questionSevice.question$.subscribe(data=>{
+      this.idQuestion=data.id;
+      this.patchQuestionValues(data);
+    })
   }
   modelChangeFn(e) {
     this.newTheme = e.target.value;

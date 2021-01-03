@@ -67,14 +67,9 @@ export class CreateComponent implements OnInit {
 		let fg = this.formBuilder.group({name:as});
 		control.push(fg);
 	}
-  ngOnInit(): void {
-
+  async ngOnInit(){
     // get themes
-    this.themesService.getThemes().subscribe((data:any)=>{
-      this.themes=data;
-
-    })
-
+    this.themes = await this.themesService.getThemes();
   }
 
   modelChangeFn(e) {

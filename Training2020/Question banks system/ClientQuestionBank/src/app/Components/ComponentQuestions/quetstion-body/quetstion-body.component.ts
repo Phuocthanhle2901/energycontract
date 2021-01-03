@@ -62,8 +62,10 @@ export class QuetstionBodyComponent implements OnInit {
     this.level = config.target.level.value;
     this.count = config.target.count.value;
     for (let i = 0; i < config.target.count.value; i++) this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
-    this.configured = true;
-    this.generateTest(this.theme, this.level, this.count);
+    if(this.count>1){ //only start test when there are at least 2 questions
+      this.configured = true;
+      this.generateTest(this.theme, this.level, this.count);
+    }
   }
 
   async generateTest(theme:string, level:number, count:number){
@@ -88,10 +90,6 @@ export class QuetstionBodyComponent implements OnInit {
         this.pageQuestions[i] = this.questions[i + this.questionsPerPage * page];
     }
     this.currentPage = page;
-  }
-
-  savePage(){
-    console.log(this.answerSheet.value); //check form value
   }
 
   async getResult(){
