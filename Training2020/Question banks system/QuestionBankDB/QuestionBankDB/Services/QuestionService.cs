@@ -145,18 +145,18 @@ namespace QuestionBankDB.Services
             return _question.Distinct(new StringFieldDefinition<Question, byte>("level"), FilterDefinition<Question>.Empty).ToList();
         }
 
-<<<<<<< HEAD
+
         public List<Question> searchQuesionByName(string name)
         {
             return _question.Find(question=>question.question.Contains(name)).ToList();
      }
-=======
+
         //get question count of a theme based on level
         public int GetLevelCount(string theme, byte level) => (int)_question.Find(question => question.ThemeName == theme && question.Level == level)
                                                                             .CountDocuments();
 
         public long GetTotalCount() => _question.Find(question => true).CountDocuments();
->>>>>>> 191df49ac5057b1e5f6173acaeb2bfbbcc488311
+
     }
 
 }
