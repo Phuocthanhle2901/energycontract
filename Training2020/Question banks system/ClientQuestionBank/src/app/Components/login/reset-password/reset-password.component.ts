@@ -26,7 +26,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   checkCookie(){
-    if($cookie.get(this.email)==this.email){
+    if($cookie.get(this.email)!=undefined){
       this.available = true;
       this.dataform = new FormGroup({password: new FormControl('', PasswordValidation)});
     }
