@@ -25,7 +25,8 @@
           Time remaining: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
         </h4>
         <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
-          <h2>Number of questions:</h2>
+          <div>
+            <h2>Number of questions:</h2>
             <input *ngIf='levelCount>=2' class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="2" required=1>
             <small *ngIf='2>count' class="text-danger">Please enter at least 2</small>
             <small *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</small>
@@ -33,7 +34,8 @@
             <select class="form-control col-md-4" name="level" required=1>
               <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
             </select>
-            <button type="submit" class="btn btn-primary mt-2">Start test</button>
+          </div>
+          <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
         <h2 *ngIf='2>count||2>levelCount' class="text-center text-danger">This test is not available</h2>
         <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">

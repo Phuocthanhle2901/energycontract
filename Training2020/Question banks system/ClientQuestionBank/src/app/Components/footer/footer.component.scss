@@ -1,12 +1,13 @@
 .mod-footer{
    background-image: url("../../../assets/Images/footer.jpg");
    width: 100%;
-   color: #fff;
+   color: #000000;
    z-index: 1;
-
+  h3{color: #ffffff;}
   ul{
     list-style: none;
     li{
+      color: #ffffff;
       cursor: pointer;
        &:hover{
          color: rgb(105, 58, 58);
