@@ -68,8 +68,8 @@
             <!-- submitt -->
             <h4 *ngIf='confirm==true && submitted==false' class="text-danger">Are you ready to submit?</h4>
             <button class="btn btn-primary mt-2" *ngIf='confirm==false && submitted==false' (click)='Confirm()'>Submit</button>
-            <button type="submit" class="btn btn-primary mt-2" *ngIf='confirm==true && submitted==false'>Yes</button>
-            <button class="btn btn-danger mt-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
+            <button type="submit" class="btn btn-primary m-2" *ngIf='confirm==true && submitted==false'>Yes</button>
+            <button class="btn btn-danger m-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
         </form>
         <p class="text-center">{{result}}</p>
       </div>
