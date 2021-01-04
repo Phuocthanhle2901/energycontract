@@ -23,9 +23,9 @@ namespace QuestionBankDB.Models
         public string Avatar { get; set; }
 
         [BsonElement("password")]
-       
         public string Password { get; set; }
-        public string resetPasswordlink { get; set; }// sử dụng để for function forget password
+
+        public string resetPasswordlink { get; set; }//used for forget password feature
 
         [BsonElement("role")]
         public long Role { get; set; }
