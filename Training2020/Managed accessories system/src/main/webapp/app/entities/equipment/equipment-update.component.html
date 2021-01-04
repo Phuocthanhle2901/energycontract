@@ -23,15 +23,22 @@
                     <input type="text" class="form-control" name="equipmentName" id="field_equipmentName"
                            formControlName="equipmentName"/>
                     <div *ngIf="editForm.get('equipmentName')!.invalid && (editForm.get('equipmentName')!.dirty || editForm.get('equipmentName')!.touched)">
-                    
+
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('equipmentName')?.errors?.maxLength" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('equipmentName')?.errors?.maxlength"
+                               jhiTranslate="entity.validation.maxlength"
+                               [translateValues]="{ max: 100 }">
                         This field is required.
                         </small>
-                        
+
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('equipmentName')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('equipmentName')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
                         </small>
                     </div>
                 </div>

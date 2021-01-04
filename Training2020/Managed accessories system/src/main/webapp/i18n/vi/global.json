@@ -136,7 +136,9 @@
       "maxbytes": "Dung lượng trường này phải nhỏ hơn {{ max }} bytes.",
       "pattern": "Trường này phải theo định dạng {{ pattern }}.",
       "number": "Trường này phải là một số.",
-      "datetimelocal": "Trường này phải là định dạng thời gian."
+      "datetimelocal": "Trường này phải là định dạng thời gian.",
+      "patternLogin": "Trường này chỉ được phép nhập ký tự thường, ký tự số hoặc địa chỉ email.",
+      "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng"
     }
   },
   "error": {

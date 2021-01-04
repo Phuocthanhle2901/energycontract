@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { CustomValidators } from 'app/shared/custom-validators/validators';
 
 import { IEquipment, Equipment } from 'app/shared/model/equipment.model';
 import { EquipmentService } from './equipment.service';
@@ -34,7 +35,11 @@ export class EquipmentUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     purchaseDate: [],
-    equipmentName: [null, [Validators.required, Validators.maxLength(255)]],
+    equipmentName: [null, [
+        Validators.required,
+        Validators.maxLength(100),
+        CustomValidators.cannotContainsFirstWhiteSpace
+      ]],
     technicalFeatures: [null, [Validators.required]],
     serialNumber: [null, [Validators.required]],
     note: [null, [Validators.required]],
