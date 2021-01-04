@@ -24,20 +24,32 @@
         <h4 *ngIf='configured==true' class="text-center">
           Time remaining: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
         </h4>
-        <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
+        <!-- config form -->
+        <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions(config.value)">
+          <div>
+            <h2>Level:</h2>
+            <select formControlName='level' class="form-control col-md-4">
+              <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
+            </select><span>(*)</span>
+          </div>
           <div>
             <h2>Number of questions:</h2>
-            <input *ngIf='levelCount>=2' class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="2" required=1>
-            <small *ngIf='2>count' class="text-danger">Please enter at least 2</small>
-            <small *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</small>
-            <h2>Level:</h2>
-            <select class="form-control col-md-4" name="level" required=1>
-              <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
-            </select>
+            <input formControlName='count' *ngIf='levelCount>=2' class="form-control col-md-4" type="number" max="{{levelCount}}"
+            [ngClass]="{'is-invalid':config.get('count').touched && config.get('count').invalid}" placeholder="Number"><span>(*)</span>
+            <!-- validator check -->
+            <div class="invalid-feedback" *ngIf="config.get('count').touched && config.get('count').invalid">
+              <small *ngIf="config.get('count').errors.required" class="text-danger showError">Please enter a number</small>
+              <small *ngIf="config.get('count').errors.min" class="text-danger showError">Please enter at least 2</small>
+              <small *ngIf="config.get('count').errors.max" class="text-danger showError">Please enter no more than 30</small>
+            </div>
+            <!-- custom check -->
+            <div>
+              <small *ngIf='count>levelCount' class="text-danger showError">There are only {{levelCount}} available questions</small>
+              <small *ngIf='2>levelCount' class="text-danger showError">There is no available test for this level yet</small>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
-        <h2 *ngIf='2>count||2>levelCount' class="text-center text-danger">This test is not available</h2>
         <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>

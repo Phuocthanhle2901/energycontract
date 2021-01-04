@@ -28,7 +28,7 @@ export class ForgetComponent implements OnInit {
   async sendLink(data:FormGroup)
   {
     this.status = await this.userService.sendLink(data['email']);
-    if(this.status==1){
+    if(this.status==0){ //if no error
       let expire = new Date();
       expire.setMinutes(expire.getMinutes() + 10); //set expire time
       $cookie.set(data['email'], data['email'], {expires: expire}); //set cookie expiring in set time

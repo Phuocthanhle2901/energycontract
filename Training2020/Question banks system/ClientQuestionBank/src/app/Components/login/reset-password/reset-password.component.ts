@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import $cookie from 'js-cookie';
 import { PasswordValidation } from 'src/app/Validators/validator';
 import {UserService} from '../../../Services/user.service'
@@ -15,7 +15,8 @@ export class ResetPasswordComponent implements OnInit {
   status: number = -1;
   email:string;
   dataform:FormGroup;
-
+  passwordNotMatch: boolean;
+  
   constructor(private userService:UserService) { }
   
   ngOnInit(): void {
@@ -28,9 +29,21 @@ export class ResetPasswordComponent implements OnInit {
   checkCookie(){
     if($cookie.get(this.email)!=undefined){
       this.available = true;
-      this.dataform = new FormGroup({password: new FormControl('', PasswordValidation)});
+      this.dataform = new FormGroup({
+        password: new FormControl('', PasswordValidation),
+        confirmpassword: new FormControl('',[Validators.required, this.passwordMatcher.bind(this)])
+      });
     }
     else this.available = false;
+  }
+  private passwordMatcher(control: FormControl): { [s: string]: boolean } {
+    if (
+      this.dataform &&
+      control.value !== this.dataform.get('password').value
+    ) {
+      return { passwordNotMatch: true };
+    }
+    return null;
   }
 
   async updatePassword(data:FormGroup){

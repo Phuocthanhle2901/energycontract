@@ -22,9 +22,7 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpGet]
- 
-        public ActionResult<List<Question>> Get() =>
-            _questionService.Get();
+        public ActionResult<List<Question>> Get(int page) => _questionService.Get(page);
  
        // public ActionResult<List<Question>> Get(int page) =>
          //   _questionService.Get(page);

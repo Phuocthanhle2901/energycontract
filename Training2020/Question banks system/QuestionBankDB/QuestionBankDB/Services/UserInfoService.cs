@@ -233,7 +233,13 @@ namespace QuestionBankDB.Services
                 msg.From = new MailAddress("tranhuythinh97@gmail.com");
                 msg.To.Add(email);
                 msg.Subject = "Password reset link";
-                msg.Body = "Follow this link to reset your password:" + '\n' + "http://localhost:4200/login/passwordReset/" + user.Email;
+                msg.Body = "Dear ";
+                if (user.Fullname != null) msg.Body += user.Fullname;
+                else msg.Body += user.Email;
+                msg.Body += "Please follow this link to reset your password:" + '\n'
+                            + "http://localhost:4200/login/passwordReset/"
+                            + user.Email + '\n'
+                            + "QuestionBank";
                 SmtpClient smt = new SmtpClient();
                 smt.Host = "smtp.gmail.com";
                 System.Net.NetworkCredential credential = new NetworkCredential
@@ -241,10 +247,10 @@ namespace QuestionBankDB.Services
                     UserName = "tranhuythinh97@gmail.com",
                     Password = "14061997"
                 };
-                smt.UseDefaultCredentials = true;
+                smt.UseDefaultCredentials = false;
                 smt.Credentials = credential;
                 smt.Port = 587;
-                smt.EnableSsl = false;
+                smt.EnableSsl = true;
                 try
                 {
                     smt.Send(msg);
@@ -265,10 +271,10 @@ namespace QuestionBankDB.Services
                 if (user.Password.Equals(newPassword)) return 2; //return 2 if new password matches old password
                 user.Password = _supper.GetMD5(newPassword); //set new password
                 var response = _userInfo.ReplaceOne(u => u.Email == email, user).IsAcknowledged; //update password
-                if(response) return 1; //return 1 if user is updated
+                if(response) return 0; //return 1 if user is updated
                 return 3; //return 3 if update failed
             }
-            return 0; //return 0 if couldn't find user
+            return 1; //return 0 if couldn't find user
         }
     }
 }
