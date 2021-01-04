@@ -23,10 +23,8 @@ export class QuestionComponent implements OnInit {
     this.getThemes();
   }
 
-  getThemes() {
-    this.themesService.getThemes().subscribe((res:any)=>{
-      this.themes = res;
-    })
+  async getThemes() {
+    this.themes = await this.themesService.getThemes()
   }
 
   getThemeQuestions(theme:string, page:number) {

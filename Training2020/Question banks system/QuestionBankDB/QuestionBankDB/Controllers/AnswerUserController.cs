@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuestionBankDB.Models;
 using QuestionBankDB.Services;
+using MongoDB.Bson;
 
 namespace QuestionBankDB.Controllers
 {
@@ -38,11 +39,9 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AnswerUser> Create(AnswerUser answerUser)
+        public ActionResult<int> Create(AnswerUser answerUser)
         {
-            _answerUserService.Create(answerUser);
-
-            return CreatedAtRoute("GetAnswerUser", new { id = answerUser.Id.ToString() }, answerUser);
+            return _answerUserService.Create(answerUser);
         }
 
         [HttpPut("{id:length(24)}")]

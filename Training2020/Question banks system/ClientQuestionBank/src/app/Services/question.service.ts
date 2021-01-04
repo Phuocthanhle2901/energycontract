@@ -19,10 +19,7 @@ export class QuestionService {
     // set new data for subcribed
     this.question.next(question);
   }
-  getAnswer(id:string){
-    let answer = "https://localhost:44328/api/Question/GetAnswer?id=" + id;
-    return this.httpClient.post<JSON>(answer, null); //get answer of a question
-  }
+
   getThemeQuestions(theme: string, page: number): Observable<JSON> {
     this.questionUrl =
       'https://localhost:44328/api/Question/themeQuestions?theme=' +
@@ -36,7 +33,7 @@ export class QuestionService {
     this.count =
       'https://localhost:44328/api/Question/countQuestions?theme=' +
       encodeURIComponent(theme);
-    return this.httpClient.post<JSON>(this.count, null); //get question count of a theme
+    return this.httpClient.post<number>(this.count, null); //get question count of a theme
   }
   createQuestion(question: any) {
     return this.httpClient.post<JSON>(
@@ -61,12 +58,12 @@ export class QuestionService {
   {
     return this.httpClient.delete<JSON>('https://localhost:44328/api/Question/'+id);
   }
-  getAllQuestion(){
-    return this.httpClient.get<JSON>("https://localhost:44328/api/Question");
+  getAllQuestion(page:any){
+    return this.httpClient.get<JSON>("https://localhost:44328/api/Question?page=" + page).pipe();
   }
 
-  SearchQuestionByName(name:any){
-    return this.httpClient.get<JSON>("https://localhost:44328/api/Question/search?name="+name);
+  async getTotalCount(){
+    return await this.httpClient.post<number>("https://localhost:44328/api/Question/totalCount",null).toPromise();
   }
 }
 

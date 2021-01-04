@@ -26,13 +26,13 @@ namespace QuestionBankDB.Models
         public string ThemeName { get; set; }
 
         [BsonElement("level")]
-        public long Level { get; set; }
+        public byte Level { get; set; }
 
         [BsonElement("point")]
-        public long Point { get; set; }
+        public byte Point { get; set; }
 
         [BsonElement("timeallow")]
-        public long Timeallow { get; set; }
+        public byte Timeallow { get; set; }
 
         [BsonElement("status")]
         public bool Status { get; set; }

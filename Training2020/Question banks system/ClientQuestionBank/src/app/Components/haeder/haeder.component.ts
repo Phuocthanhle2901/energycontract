@@ -22,7 +22,6 @@ export class HaederComponent implements OnInit {
   use=faUser;
   ngOnInit(): void {
     this.getThemes();
-    console.log(this.themes);
     var cookie=getCookie();
     if(cookie.token!=undefined)
     {
@@ -31,7 +30,6 @@ export class HaederComponent implements OnInit {
 
           if(res.data!=null)
           {
-            console.log(res.data);
             this.role =res.data.result.role;
             this.email=res.data.result.email;
             this.ten = res.data.result.fullname
@@ -52,20 +50,11 @@ export class HaederComponent implements OnInit {
      window.location.reload();
   }
 
-  getThemes() {
-    this.themesService.getThemes().subscribe((res:any)=>{
-      this.themes = res;
-    })
+  async getThemes() {
+    this.themes = await this.themesService.getThemes();
     this.themes.forEach(theme => {
       theme = encodeURIComponent(theme);
     });
   }
-
-
-
-
-
-
-
 
 }

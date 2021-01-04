@@ -30,6 +30,7 @@ export class ListComponent implements OnInit {
   listQuestion$: Observable<any> = this.listQuestion.asObservable(); // new data
 
 
+  themed:boolean;
   constructor(
     private questionService:QuestionService,private fb:FormBuilder,
     private themesService:ThemesService,private router:Router
@@ -41,27 +42,28 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getThemes();
-    this.getAllQuestion();
-    this.listQuestion$.subscribe((data:any)=>{
-      this.questions=data;
-    });
+    this.getAllQuestion(0);
   }
 
-  getThemes() {
-    this.themesService.getThemes().subscribe((res:any)=>{
-       this.themes = res;
-    })
+  async getThemes() {
+    this.themes = await this.themesService.getThemes();
   }
 
-  getAllQuestion():any
+  async getAllQuestion(page:any)
   {
-    this.questionService.getAllQuestion().subscribe((data:any)=>{
-      this.listQuestion.next(data);
+    this.themed = false;
+    let count = await this.questionService.getTotalCount();
+    this.currentPage = page;
+    this.questionService.getAllQuestion(page).subscribe((data:any)=>{
+      this.questions=data;
     })
+    console.log(this.currentPage);
+    this.pageCount = Math.ceil(count/5);
   }
 
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
+    this.themed = true;
     this.questionService.getThemeQuestions(theme, page).subscribe((res:any)=>{
       this.questions = res;
     })
@@ -88,7 +90,7 @@ getIdForEditQuestion(value:any)
         this.router.navigate(["/admin/updateQuestion"]);
       }
       else{
-        alert("Choose agin");
+        alert("Choose again");
       }
    })
 }
@@ -114,7 +116,7 @@ SearchByName(data:any)
       this.questionService.deleteQuestion(id).subscribe((res:any)=>{
         if(res.deletedCount==1)
         {
-          this.getAllQuestion();//
+          this.getAllQuestion(0);//
           this.listQuestion$.subscribe((data:any)=>{ // chuyển vào bộ nhớ tạm
             this.questions=data;// đưa vào danh sách hiện thị lên client
           });

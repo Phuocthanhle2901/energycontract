@@ -70,8 +70,6 @@ namespace QuestionBankDB.Services
         public object Remove(string id)
         {
            var res= _question.DeleteOne(question => question.Id == id);
-            
-
             return res;
             
         }
@@ -87,33 +85,34 @@ namespace QuestionBankDB.Services
         public List<Question> GetThemeQuestions(string theme, int page) => _question.Find(question => question.ThemeName.Equals(theme))
                                                                                      .Limit(5).Skip(5 * page).ToList(); //5 results per page
 
-        
+
 
         //get count of questions of a specific theme
-        public int GetQuestionsCount(string theme) => (int)_question.Find(question => question.ThemeName.Equals(theme)).CountDocuments();
+        public int GetQuestionsCount(string theme)
+        {
+            return (int)_question.Find(question => question.ThemeName.Equals(theme) && question.Status).CountDocuments();
+        }
 
         //get random question of a theme based on count
-        public List<Question> GetRandomQuestions(string theme, byte count)
+        public List<Question> GetRandomQuestions(string theme, byte level, byte count)
         {
-            int range = GetQuestionsCount(theme);
+            //find available question of a theme based on level
+            List<Question> list = _question.Find(question => question.ThemeName.Equals(theme) && question.Level == level && question.Status).ToList();
+            int range = list.Count;
             if (range > 0)
             {
+                List<Question> questions = new List<Question>();
                 Random random = new Random();
                 int index;
                 if (count > range) count = (byte)(range);
-                List<int> indexList = new List<int>();
-                List<Question> questions = new List<Question>(range); //init index list with size of range
-                for (int i = 0; i < range; i++) indexList.Add(i); //fill list of indexes
                 for (int i = 0; i < count; i++)
                 {
-                    index = indexList[random.Next(0, indexList.Count - 1)]; //take random index in list
-                    indexList.Remove(index); //remove index in list to avoid duplicates
-                    Question question = _question.Find(question => question.ThemeName.Equals(theme) && question.Status)//find available question of a theme
-                                                          .Skip(index) //skip index
-                                                          .FirstOrDefault();
-                    Shuffle(question.Answer); //shuffle up options
-                    question.TrueAnswer = null; //nullify true answer to avoid cheating
-                    questions.Add(question);
+                    index = random.Next(0, range--);    //take random index in list and reduce range
+                    Question question = list[index];    //choose question by index
+                    list.RemoveAt(index);               //remove chosen question from list
+                    Shuffle(question.Answer);           //shuffle up options
+                    question.TrueAnswer = null;         //nullify true answer to avoid cheating
+                    questions.Add(question);            //add question to test
                 }
                 return questions;
             }
@@ -140,17 +139,24 @@ namespace QuestionBankDB.Services
             }
         }
 
-        public string GetAnswer(string id)
+        //get level list of a theme
+        public List<byte> GetLevels(string theme)
         {
-            var project = Builders<Question>.Projection.Include("trueAnswer"); //get true answer only
-            return _question.Find(question => question.Id == id) //find question, project to answer
-                                         .FirstOrDefault().TrueAnswer.ToJson(); //convert result to json string
+            return _question.Distinct(new StringFieldDefinition<Question, byte>("level"), FilterDefinition<Question>.Empty).ToList();
         }
 
+<<<<<<< HEAD
         public List<Question> searchQuesionByName(string name)
         {
             return _question.Find(question=>question.question.Contains(name)).ToList();
      }
+=======
+        //get question count of a theme based on level
+        public int GetLevelCount(string theme, byte level) => (int)_question.Find(question => question.ThemeName == theme && question.Level == level)
+                                                                            .CountDocuments();
+
+        public long GetTotalCount() => _question.Find(question => true).CountDocuments();
+>>>>>>> 191df49ac5057b1e5f6173acaeb2bfbbcc488311
     }
 
 }

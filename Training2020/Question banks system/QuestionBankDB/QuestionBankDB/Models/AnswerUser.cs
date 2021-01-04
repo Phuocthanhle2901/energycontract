@@ -18,6 +18,9 @@ namespace QuestionBankDB.Models
         [BsonElement("theme")]
         public string Theme { get; set; }
 
+        [BsonElement("level")]
+        public byte Level { get; set; }
+
         [BsonElement("listquestion")]
         public Listquestion[] Listquestion { get; set; }
 
@@ -29,9 +32,17 @@ namespace QuestionBankDB.Models
 
         [BsonElement("date")]
         public DateTime Date { get; set; }
+
+        public static implicit operator AnswerUser(BsonValue v)
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class Listquestion
     {
+        [BsonElement("id")]
+        public string Id { get; set; }
+
         [BsonElement("question")]
         public string Question { get; set; }
 
@@ -45,6 +56,6 @@ namespace QuestionBankDB.Models
         public string TrueAnswer { get; set; }
 
         [BsonElement("point")]
-        public long Point { get; set; }
+        public byte Point { get; set; }
     }
 }

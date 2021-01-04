@@ -121,9 +121,9 @@ namespace QuestionBankDB.Controllers
         //get random questions
         [HttpPost]
         [Route("randomQuestions")]
-        public ActionResult<List<Question>> GetRandomQuestions(string theme, byte count=3)
+        public ActionResult<List<Question>> GetRandomQuestions(string theme, byte level=1, byte count=3)
         {
-            var questions = _questionService.GetRandomQuestions(theme, count);
+            var questions = _questionService.GetRandomQuestions(theme, level, count);
 
             if (questions == null)
             {
@@ -133,11 +133,17 @@ namespace QuestionBankDB.Controllers
         }
         
 
-        //get answer of a test
         [HttpPost]
-        [Route("GetAnswer")]
-        public ActionResult<string> GetAnswer(string id) => _questionService.GetAnswer(id);
- 
+        [Route("getLevels")]
+        public ActionResult<List<byte>> GetLevels(string theme) => _questionService.GetLevels(theme);
+
+        [HttpPost]
+        [Route("levelCount")]
+        public ActionResult<int> GetLevelCount(string theme, byte level) => _questionService.GetLevelCount(theme, level);
+
+        [HttpPost]
+        [Route("totalCount")]
+        public ActionResult<long> GetTotalCount() => _questionService.GetTotalCount();
     }
     
 }

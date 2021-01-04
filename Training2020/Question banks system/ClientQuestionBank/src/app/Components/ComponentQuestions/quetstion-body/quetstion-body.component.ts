@@ -8,6 +8,7 @@ import {getCookie} from '../../../../assets/js/auth.js';
 import axios from 'axios';
 import { Router } from '@angular/router';
 import { ListQuestion } from 'src/app/Models/listQuestion.model';
+import { Timer } from 'src/app/Models/timer.mode';
 
 @Component({
   selector: 'app-quetstion-body',
@@ -17,98 +18,108 @@ import { ListQuestion } from 'src/app/Models/listQuestion.model';
 export class QuetstionBodyComponent implements OnInit {
 
   cookie:any;
-  theme:string;
-  count:number=4;
+  location:string;
+  theme:string; //current test theme
   questions:Question[] = [];
   answerSheet:FormGroup;
+  levelList:number[]; //available levels of test theme
+  level:number; //test level
+  levelCount:number; //question count of a level
+  count:number; //number of questions
   result:string;
-  submitted:boolean;
+  submitted:boolean = false;  //flag for submitting test
+  configured:boolean = false; //flag for setting number of questions and level
+  confirm:boolean = false; //flag for checking if user really wants to submit
   userAnswer:UserAnswer;
   email:string
   pageQuestions:Question[] = [];
   questionsPerPage:number=2;
   pageCount:number;
   currentPage:number;
-  maxScore:number=0;
+  time:number; //time in seconds
+  clock:Timer; //time in format HH:mm:ss
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
-    let cutPost = window.location.href.indexOf('Test/');
-    this.theme =  window.location.href.substring(cutPost+5);
-    this.submitted = false;
-    this.answerSheet = new FormGroup({});
-    for (let i = 0; i < this.count; i++) {
-      this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
+    this.location = window.location.href;
+    let cutPost = this.location.indexOf('Test/');
+    this.theme =  decodeURIComponent(this.location.substring(cutPost+5));
+  }
+
+  async ngOnInit(){
+    this.cookie = getCookie();
+    this.checkLogin();
+    this.levelList = await this.testService.getLevels(this.theme);
+    this.loadSize(this.levelList[0]);
+    this.clock = new Timer();
+  }
+
+  async loadSize(level:number){
+    this.levelCount = await this.testService.getTestCount(this.theme, level);
+  }
+
+  getOptions(config:any){
+    if(this.levelCount>=2){
+      this.answerSheet = new FormGroup({});
+      this.level = config.target.level.value;
+      this.count = config.target.count.value;
+      for (let i = 0; i < config.target.count.value; i++) this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
+      if(this.count>1){ //only start test when there are at least 2 questions
+        this.configured = true;
+        this.generateTest(this.theme, this.level, this.count);
+      }
     }
   }
 
-  ngOnInit(): void {
-    this.cookie = getCookie();
-    this.checkLogin();
-    console.log(this.email);
-    this.generateTest(this.theme, this.count);
+  async generateTest(theme:string, level:number, count:number){
+    this.questions = await this.testService.generateTest(theme, level, count);
+    this.time = 0;
+    this.questions.forEach(question=>{this.time += question.timeallow*60;})
+    this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
+    this.loadPage(this.pageCount, 0); //load first page
+    while(this.time>0){ //countdown time
+      await this.testService.delay();
+      this.time -= 1;
+      this.clock.calculate(this.time);
+      if(this.submitted) break; //stop countdown on submit
+    }
+    this.getResult(); //submit after countdown
   }
 
-  generateTest(theme:string, count:number ){
-    this.testService.generateTest(theme, count).subscribe((res:any)=>{
-      this.questions = res;
-      this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
-      this.loadPage(this.pageCount, 0, this.questions); //load first page
-    })
-  }
-
-  loadPage(pageCount:number ,page:number, questions:Question[]=[]){
-    if(questions.length==0) questions = this.questions;
+  loadPage(pageCount:number ,page:number){
+    this.pageQuestions = [];
     for (let i = 0; i < this.questionsPerPage; i++) {
-      if(questions[i + this.questionsPerPage * page]!=undefined) this.pageQuestions[i] = questions[i + this.questionsPerPage * page];
+      if(this.questions[i + this.questionsPerPage * page]!=undefined)
+        this.pageQuestions[i] = this.questions[i + this.questionsPerPage * page];
     }
     this.currentPage = page;
   }
 
-  savePage(answersheet:string[]){
-    console.log(answersheet); //check form value
-  }
-
-  getResult(answersheet:string[]){
-    if(confirm("Are you ready to submit?")){
+  async getResult(){
+    if(!this.submitted){
+      //create test content
+      let correctAnswer:string;
       this.userAnswer = new UserAnswer(); //init user answer
       this.userAnswer.listquestion = []; //init question list
-      this.userAnswer.email = this.email; //get email
-      this.userAnswer.summary = 0; //init summary
-      this.userAnswer.theme = decodeURIComponent(this.theme); //get theme
-      this.userAnswer.date = new Date(); //get date
-      this.maxScore = 0;
-      //create new result sheet
+      this.userAnswer.email = this.email; //set email
+      this.userAnswer.level = this.level; //set level
+      this.userAnswer.theme = this.theme; //set theme
+      this.userAnswer.date = new Date(); //set date
+      let maxScore = 0;
       for (let i = 0; i < this.questions.length; i++) {
-        //get true answer for current question
-        this.questionService.getAnswer(this.questions[i].id).subscribe((res:any)=>{
-          this.maxScore += this.questions[i].point; //get total point of the test
+          maxScore += this.questions[i].point; //calculate total point of the test
           this.userAnswer.listquestion[i] = new ListQuestion(); //init question
-          this.userAnswer.listquestion[i].question = this.questions[i].question; //get question content
-          this.userAnswer.listquestion[i].answer = this.questions[i].answer; //get options
-          this.userAnswer.listquestion[i].point = 0;
-          this.userAnswer.listquestion[i].trueAnswer = res; //get true answer
-          if(res===answersheet[i]){
-            this.userAnswer.listquestion[i].point = this.questions[i].point;
-            this.userAnswer.summary += this.questions[i].point;
-          }
-          else this.userAnswer.listquestion[i].point = 0;
-          this.userAnswer.listquestion[i].userAnswer = answersheet[i];
-          if(i == this.questions.length-1){
-            this.result = "Your score: " + this.userAnswer.summary + "/" + this.maxScore; //show result
-            this.userAnswer.total = this.maxScore; //set total score
-            console.log(answersheet); //check form value
-            console.log(this.userAnswer.listquestion); //check answer sheet before posting
-            this.saveResult(this.userAnswer);
-          }
-        });
+          this.userAnswer.listquestion[i].id = this.questions[i].id; //set question id
+          this.userAnswer.listquestion[i].answer = this.questions[i].answer; //set options
+          this.userAnswer.listquestion[i].userAnswer = this.answerSheet.value[i]; //set chosen option
       }
+      //send test content to server
+      let sum = await this.testService.saveResult(this.userAnswer); //server will calculate and send back result
+      this.result = "Your score: " + sum + "/" + maxScore; //show result 
       this.submitted = true;
     }
   }
 
-  saveResult(sheet:UserAnswer){
-    if(this.email!=null) this.testService.saveResult(sheet).subscribe(); //post result
-  }
+  Confirm(){this.confirm = true;} //trigger submit confirm buttons without halting clock by using a flag
 
   async checkLogin(){
     if(this.cookie.token!=undefined) //get user email
