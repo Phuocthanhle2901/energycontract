@@ -1,0 +1,93 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.actionLog.home.title">Action Logs</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-action-log" [routerLink]="['/action-log/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.actionLog.home.createLabel">
+            Create a new Action Log
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="actionLogs?.length === 0">
+        <span jhiTranslate="managedAccessoriesSystemApp.actionLog.home.notFound">No actionLogs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="actionLogs && actionLogs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.startDate">Start Date</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.expectedEndDate">Expected End Date</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.actualEndDate">Actual End Date</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.price">Price</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.note">Note</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.user">User</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.actionType">Action Type</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.placeToPerform">Place To Perform</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionLog.equipment">Equipment</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let actionLog of actionLogs ;trackBy: trackId">
+                    <td><a [routerLink]="['/action-log', actionLog.id, 'view']">{{ actionLog.id }}</a></td>
+                    <td>{{ actionLog.startDate | date:'medium' }}</td>
+                    <td>{{ actionLog.expectedEndDate | date:'medium' }}</td>
+                    <td>{{ actionLog.actualEndDate | date:'medium' }}</td>
+                    <td>{{ actionLog.price }}</td>
+                    <td>{{ actionLog.note }}</td>
+                    <td>
+                        <div *ngIf="actionLog.user">
+                            <a [routerLink]="['/employee', actionLog.user?.id, 'view']" >{{ actionLog.user?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="actionLog.actionType">
+                            <a [routerLink]="['/action-type', actionLog.actionType?.id, 'view']" >{{ actionLog.actionType?.actionTitle }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="actionLog.placeToPerform">
+                            <a [routerLink]="['/place-to-perform', actionLog.placeToPerform?.id, 'view']" >{{ actionLog.placeToPerform?.placeName }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="actionLog.equipment">
+                            <a [routerLink]="['/equipment', actionLog.equipment?.id, 'view']" >{{ actionLog.equipment?.equipmentName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/action-log', actionLog.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/action-log', actionLog.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(actionLog)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

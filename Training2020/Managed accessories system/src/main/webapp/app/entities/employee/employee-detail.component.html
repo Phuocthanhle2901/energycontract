@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8" id="no-print">
+        <div *ngIf="employee">
+            <h2><span jhiTranslate="managedAccessoriesSystemApp.employee.detail.title">Employee</span> {{ employee.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.employee.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{ employee.phoneNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.employee.user">User</span></dt>
+                <dd>
+                    {{ employee.user?.login }}
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.employee.area">Area</span></dt>
+                <dd>
+                    <div *ngIf="employee.area">
+                        <a [routerLink]="['/area', employee.area?.id, 'view']">{{ employee.area?.areaName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/employee', employee.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            
+            <button type="button"
+                    (click)="exportEmployee(employee)"
+                    class="btn btn-primary">
+                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
+            </button>
+            
+            <button type="button"
+                    onclick="window.print()"
+                    class="btn btn-primary">
+                &nbsp;<span jhiTranslate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-8">
+        <div *ngIf="employee" id="print">
+        	<img class="logo-info" alt="" src="../../../content/images/logo-info.png">
+            <div class="w-100 text-center">
+        		<h2 class="mt-5 mb-4"><b><span jhiTranslate="managedAccessoriesSystemApp.employee.title">EQUIPMENT DETAILS</span></b></h2>
+			</div>
+
+            <div class="row">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.detail.title">Employee</span><span>:</span></b>
+            		<span>{{ employee.id }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.login">Login</span><span>:</span></b>
+            		<span>{{ employee.user?.login }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.firstName">First name</span><span>:</span></b>
+            		<span>{{ employee.user?.firstName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.lastName">Last name</span><span>:</span></b>
+            		<span>{{ employee.user?.lastName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.email">Email</span><span>:</span></b>
+            		<span>{{ employee.user?.email }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="userManagement.langKey">Language</span><span>:</span></b>
+            		<span>{{ employee.user?.langKey }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.phoneNumber">Phone Number</span><span>:</span></b>
+            		<span>{{ employee.phoneNumber }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.employee.area">Area</span><span>:</span></b>
+            		<span>{{ employee.area?.areaName }}</span>
+            	</div>
+            	<hr class="col-12">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

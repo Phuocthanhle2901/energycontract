@@ -1,0 +1,110 @@
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+<div class="alert alert-warning" id="no-result" *ngIf="employees?.length === 0">
+       <span jhiTranslate="managedAccessoriesSystemApp.employee.home.notFound">No employees found</span>
+</div>
+</div>
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'" >
+	<div *ngIf="currentFile" class="progress">
+	  <div
+	    class="progress-bar progress-bar-info progress-bar-striped"
+	    role="progressbar"
+	    attr.aria-valuenow="{{ progress }}"
+	    aria-valuemin="0"
+	    aria-valuemax="100"
+	    [ngStyle]="{ width: progress + '%' }"
+	  >
+	    {{ progress }}%
+	  </div>
+	</div>
+</div>
+
+<label *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-default">
+  <input type="file" (change)="selectFile($event)" />
+</label>
+
+<button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+  Upload
+</button>
+
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="alert alert-light" role="alert">{{ message }}</div>
+
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.employee.home.title">Employees</span>
+		
+		<button type="button"
+				(click)="exportAllEmployees()"
+				class="btn btn-success float-right ml-1">
+				&nbsp;<span jhiTranslate="entity.action.export">Export</span>
+		</button>
+		
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.employee.home.createLabel">
+            Create a new Employee
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    
+    <div class="table-responsive" id="entities" *ngIf="employees && employees.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.employee.phoneNumber">Phone Number</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.employee.user">User</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.employee.area">Area</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees ;trackBy: trackId">
+                    <td><a [routerLink]="['/employee', employee.id, 'view']">{{ employee.id }}</a></td>
+                    <td>{{ employee.phoneNumber }}</td>
+                    <td>
+                        {{ employee.user?.login }}
+                    </td>
+                    <td>
+                        <div *ngIf="employee.area">
+                            <a [routerLink]="['/area', employee.area?.id, 'view']" >{{ employee.area?.areaName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/employee', employee.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/employee', employee.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(employee)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                            
+                            <button type="button"
+				                    (click)="exportEmployee(employee)"
+				                    class="btn btn-success ml-1">
+				                &nbsp;<span jhiTranslate="entity.action.export">Export</span>
+				            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.statusLog.home.title">Status Logs</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-status-log" [routerLink]="['/status-log/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.statusLog.home.createLabel">
+            Create a new Status Log
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="statusLogs?.length === 0">
+        <span jhiTranslate="managedAccessoriesSystemApp.statusLog.home.notFound">No statusLogs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="statusLogs && statusLogs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.statusLog.statusDateTime">Status Date Time</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.statusLog.note">Note</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.statusLog.statusType">Status Type</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.statusLog.equipment">Equipment</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let statusLog of statusLogs ;trackBy: trackId">
+                    <td><a [routerLink]="['/status-log', statusLog.id, 'view']">{{ statusLog.id }}</a></td>
+                    <td>{{ statusLog.statusDateTime | date:'medium' }}</td>
+                    <td>{{ statusLog.note }}</td>
+                    <td>
+                        <div *ngIf="statusLog.statusType">
+                            <a [routerLink]="['/status-type', statusLog.statusType?.id, 'view']" >{{ statusLog.statusType?.statusTitle }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="statusLog.equipment">
+                            <a [routerLink]="['/equipment', statusLog.equipment?.id, 'view']" >{{ statusLog.equipment?.equipmentName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/status-log', statusLog.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/status-log', statusLog.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(statusLog)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

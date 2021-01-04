@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="actionLog">
+            <h2><span jhiTranslate="managedAccessoriesSystemApp.actionLog.detail.title">Action Log</span> {{ actionLog.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{ actionLog.startDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.expectedEndDate">Expected End Date</span></dt>
+                <dd>
+                    <span>{{ actionLog.expectedEndDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.actualEndDate">Actual End Date</span></dt>
+                <dd>
+                    <span>{{ actionLog.actualEndDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.price">Price</span></dt>
+                <dd>
+                    <span>{{ actionLog.price }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.note">Note</span></dt>
+                <dd>
+                    <span>{{ actionLog.note }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.user">User</span></dt>
+                <dd>
+                    <div *ngIf="actionLog.user">
+                        <a [routerLink]="['/employee', actionLog.user?.id, 'view']">{{ actionLog.user?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.actionType">Action Type</span></dt>
+                <dd>
+                    <div *ngIf="actionLog.actionType">
+                        <a [routerLink]="['/action-type', actionLog.actionType?.id, 'view']">{{ actionLog.actionType?.actionTitle }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.placeToPerform">Place To Perform</span></dt>
+                <dd>
+                    <div *ngIf="actionLog.placeToPerform">
+                        <a [routerLink]="['/place-to-perform', actionLog.placeToPerform?.id, 'view']">{{ actionLog.placeToPerform?.placeName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.actionLog.equipment">Equipment</span></dt>
+                <dd>
+                    <div *ngIf="actionLog.equipment">
+                        <a [routerLink]="['/equipment', actionLog.equipment?.id, 'view']">{{ actionLog.equipment?.equipmentName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/action-log', actionLog.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

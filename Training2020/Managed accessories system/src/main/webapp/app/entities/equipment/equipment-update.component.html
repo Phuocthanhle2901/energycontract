@@ -1,0 +1,143 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-equipment-heading" jhiTranslate="managedAccessoriesSystemApp.equipment.home.createOrEditLabel">Create or edit a Equipment</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.purchaseDate" for="field_purchaseDate">Purchase Date</label>
+                    <div class="d-flex">
+                        <input id="field_purchaseDate" type="datetime-local" class="form-control" name="purchaseDate" formControlName="purchaseDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName" for="field_equipmentName">Equipment Name</label>
+                    <input type="text" class="form-control" name="equipmentName" id="field_equipmentName"
+                           formControlName="equipmentName"/>
+                    <div *ngIf="editForm.get('equipmentName')!.invalid && (editForm.get('equipmentName')!.dirty || editForm.get('equipmentName')!.touched)">
+                    
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('equipmentName')?.errors?.maxLength" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('equipmentName')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures" for="field_technicalFeatures">Technical Features</label>
+                    <input type="text" class="form-control" name="technicalFeatures" id="field_technicalFeatures"
+                           formControlName="technicalFeatures"/>
+                    <div *ngIf="editForm.get('technicalFeatures')!.invalid && (editForm.get('technicalFeatures')!.dirty || editForm.get('technicalFeatures')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('technicalFeatures')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber" for="field_serialNumber">Serial Number</label>
+                    <input type="text" class="form-control" name="serialNumber" id="field_serialNumber"
+                           formControlName="serialNumber"/>
+                    <div *ngIf="editForm.get('serialNumber')!.invalid && (editForm.get('serialNumber')!.dirty || editForm.get('serialNumber')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('serialNumber')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.note" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                    <div *ngIf="editForm.get('note')!.invalid && (editForm.get('note')!.dirty || editForm.get('note')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('note')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="employeeOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.user?.login }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup" for="field_equipmentGroup">Equipment Group</label>
+                    <select class="form-control" id="field_equipmentGroup" name="equipmentGroup" formControlName="equipmentGroup">
+                        <option *ngIf="!editForm.get('equipmentGroup')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="equipmentGroupOption.id === editForm.get('equipmentGroup')!.value?.id ? editForm.get('equipmentGroup')!.value : equipmentGroupOption" *ngFor="let equipmentGroupOption of equipmentgroups; trackBy: trackById">{{ equipmentGroupOption.equipmentGroupName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('equipmentGroup')!.invalid && (editForm.get('equipmentGroup')!.dirty || editForm.get('equipmentGroup')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('equipmentGroup')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType" for="field_equipmentType">Equipment Type</label>
+                    <select class="form-control" id="field_equipmentType" name="equipmentType" formControlName="equipmentType">
+                        <option *ngIf="!editForm.get('equipmentType')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="equipmentTypeOption.id === editForm.get('equipmentType')!.value?.id ? editForm.get('equipmentType')!.value : equipmentTypeOption" *ngFor="let equipmentTypeOption of equipmenttypes; trackBy: trackById">{{ equipmentTypeOption.equipmentTypeName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('equipmentType')!.invalid && (editForm.get('equipmentType')!.dirty || editForm.get('equipmentType')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('equipmentType')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.equipment.area" for="field_area">Area</label>
+                    <select class="form-control" id="field_area" name="area" formControlName="area">
+                        <option *ngIf="!editForm.get('area')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption" *ngFor="let areaOption of areas; trackBy: trackById">{{ areaOption.areaName }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('area')!.invalid && (editForm.get('area')!.dirty || editForm.get('area')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('area')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

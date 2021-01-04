@@ -1,0 +1,138 @@
+<div class="row justify-content-center">
+    <div class="col-8" id="no-print">
+        <div *ngIf="equipment">
+            <h2><span jhiTranslate="managedAccessoriesSystemApp.equipment.detail.title">Equipment</span> {{ equipment.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.purchaseDate">Purchase Date</span></dt>
+                <dd>
+                    <span>{{ equipment.purchaseDate | date:'medium' }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName">Equipment Name</span></dt>
+                <dd>
+                    <span>{{ equipment.equipmentName }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures">Technical Features</span></dt>
+                <dd>
+                    <span>{{ equipment.technicalFeatures }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber">Serial Number</span></dt>
+                <dd>
+                    <span>{{ equipment.serialNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span></dt>
+                <dd>
+                    <span>{{ equipment.note }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span></dt>
+                <dd>
+                    <div *ngIf="equipment.user">
+                        <a [routerLink]="['/employee', equipment.user?.id, 'view']">{{ equipment.user?.user?.login }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span></dt>
+                <dd>
+                    <div *ngIf="equipment.equipmentGroup">
+                        <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']">{{ equipment.equipmentGroup?.equipmentGroupName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType">Equipment Type</span></dt>
+                <dd>
+                    <div *ngIf="equipment.equipmentType">
+                        <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']">{{ equipment.equipmentType?.equipmentTypeName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.equipment.area">Area</span></dt>
+                <dd>
+                    <div *ngIf="equipment.area">
+                        <a [routerLink]="['/area', equipment.area?.id, 'view']">{{ equipment.area?.areaName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                    [routerLink]="['/equipment', equipment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+
+            <button type="submit"
+                    onclick="window.print()"
+                    class="btn btn-info">
+               <span jhiTranslate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-12" id="print">
+        <div *ngIf="equipment">
+        	<img class="logo-info" alt="" src="../../../content/images/logo-info.png">
+        	<div class="w-100 text-center">
+        		<h2 class="mt-5 mb-4"><b><span jhiTranslate="managedAccessoriesSystemApp.equipment.title">EQUIPMENT DETAILS</span></b></h2>
+			</div>
+            <div class="row">
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.detail.title">Equipment</span><span>:</span></b>
+            		<span>{{ equipment.id }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.purchaseDate">Purchase Date</span><span>:</span></b>
+            		<span>{{ equipment.purchaseDate | date:'medium'}}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span><span>:</span></b>
+            		<span>{{ equipment.user?.user?.firstName }} {{ equipment.user?.user?.lastName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName">Equipment Name</span><span>:</span></b>
+            		<span>{{ equipment.equipmentName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span><span>:</span></b>
+            		<span>{{ equipment.equipmentGroup?.equipmentGroupName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType">Equipment Type</span><span>:</span></b>
+            		<span>{{ equipment.equipmentType?.equipmentTypeName }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.area">Area</span><span>:</span></b>
+            		<span>{{ equipment.area?.areaName }}</span>
+            	</div>
+            	<div class="col-6">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber">Serial Number</span><span>:</span></b>
+            		<span>{{ equipment.serialNumber }}</span>
+            	</div>
+            	<hr class="col-12">
+            	<div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures">Technical Features</span><span>:</span></b>
+            		<br>
+            		<span>{{ equipment.technicalFeatures }}</span>
+            	</div>
+            	<hr class="col-12">
+                <div class="col-12">
+            		<b><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span><span>:</span></b>
+            		<br>
+            		<span>{{ equipment.note }}</span>
+            	</div>
+                <hr class="col-12">
+                 	
+            </div>
+        </div>
+    </div>
+</div>

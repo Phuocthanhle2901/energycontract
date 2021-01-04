@@ -1,0 +1,34 @@
+{
+  "managedAccessoriesSystemApp": {
+    "equipment": {
+      "home": {
+        "title": "Equipment",
+        "createLabel": "Create a new Equipment",
+        "createOrEditLabel": "Create or edit a Equipment",
+        "notFound": "No Equipment found"
+      },
+      "created": "A new Equipment is created with identifier {{ param }}",
+      "updated": "A Equipment is updated with identifier {{ param }}",
+      "deleted": "A Equipment is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Equipment {{ id }}?"
+      },
+      "detail": {
+        "title": "Equipment"
+      },
+      "purchaseDate": "Purchase Date",
+      "equipmentName": "Equipment Name",
+      "technicalFeatures": "Technical Features",
+      "serialNumber": "Serial Number",
+      "note": "Note",
+      "actionLog": "Action Log",
+      "statusLog": "Status Log",
+      "userEquipmentActivityLog": "User Equipment Activity Log",
+      "user": "User",
+      "equipmentGroup": "Equipment Group",
+      "equipmentType": "Equipment Type",
+      "area": "Area",
+	  "title": "EQUIPMENT DETAILS"
+    }
+  }
+}
