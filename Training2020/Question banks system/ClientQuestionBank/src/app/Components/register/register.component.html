@@ -11,7 +11,7 @@
         <label for="exampleInputName1">Name</label>
         <input type="text" class="form-control"
           [ngClass]="{'is-invalid':dataform.get('fullname').touched && dataform.get('fullname').invalid}"
-          formControlName="fullname" placeholder="Name..." />
+          formControlName="fullname" placeholder="Name..." /> <span>(*)</span>
         <div class="invalid-feedback" *ngIf="dataform.get('fullname').touched && dataform.get('fullname').invalid">
           <small *ngIf="dataform.get('fullname').errors.required" class="form-text  showError">
             Enter your name</small>
@@ -22,7 +22,7 @@
         <label for="exampleInputEmail1">Email</label>
         <input type="text" class="form-control"
           [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
-          formControlName="email" placeholder="Email..." />
+          formControlName="email" placeholder="Email..." /> <span>(*)</span>
         <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
           <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">
             Enter your email</small>
@@ -35,7 +35,7 @@
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" (keydown)="onchange()"
           [ngClass]="{'is-invalid':dataform.get('password').touched && dataform.get('password').invalid}"
-          formControlName="password" placeholder="Password...">
+          formControlName="password" placeholder="Password..."> <span>(*)</span>
         <div class="invalid-feedback" *ngIf="dataform.get('password').touched && dataform.get('password').invalid">
           <small *ngIf="dataform.get('password').errors.required" class="form-text  showError">Enter your password</small>
           <small *ngIf="dataform.get('password').errors.minlength" class="form-text  showError">
@@ -47,7 +47,7 @@
         <label for="exampleInputPassword1">Confirm Password</label>
         <input type="password" class="form-control"
           [ngClass]="{'is-invalid':dataform.get('confirmpassword').touched && dataform.get('confirmpassword').invalid}"
-          formControlName="confirmpassword" placeholder="Confirm Password...">
+          formControlName="confirmpassword" placeholder="Confirm Password..."> <span>(*)</span>
         <div class="invalid-feedback"
           *ngIf="dataform.get('confirmpassword').touched  && dataform.get('password').dirty && dataform.get('confirmpassword').invalid">
           <small *ngIf="dataform.get('confirmpassword').errors.required" class="form-text  showError">Type your password again </small>

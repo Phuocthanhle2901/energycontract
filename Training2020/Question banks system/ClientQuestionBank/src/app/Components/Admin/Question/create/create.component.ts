@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup,FormControl,FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup,FormControl,FormArray,  Validators, RequiredValidator } from '@angular/forms';
 import {ThemesService} from '../../../../Services/themes.service';
 import {QuestionService} from '../../../../Services/question.service';
 @Component({
@@ -33,16 +33,16 @@ export class CreateComponent implements OnInit {
     private themesService: ThemesService ) {
 
     this.dataForm = this.formBuilder.group({// create form group
-      question:new FormControl(),
-      trueAnswer:new FormControl(),// answer correst
-      themeName:new FormControl(),
-      timeallow:new FormControl(),
-      level:new FormControl(),
-      point:new FormControl(),
+      question:new FormControl("",Validators.required),
+      trueAnswer:new FormControl("",Validators.required),// answer correst
+      themeName:new FormControl("",Validators.required),
+      timeallow:new FormControl("",Validators.required),
+      level:new FormControl("",Validators.required),
+      point:new FormControl("",Validators.required),
 
 			answer: this.formBuilder.array([// ceate formArray container one formGroup
 				this.formBuilder.group({
-          name: new FormControl()
+          name: new FormControl("",Validators.required)
         }),
 			])
     });
@@ -64,7 +64,7 @@ export class CreateComponent implements OnInit {
 
   addanswer(as:string) {// add formgroup to formdata
     const control = <FormArray>this.dataForm.controls['answer'];
-		let fg = this.formBuilder.group({name:as});
+		let fg = this.formBuilder.group({name: new FormControl("",Validators.required)});
 		control.push(fg);
 	}
   ngOnInit(): void {
