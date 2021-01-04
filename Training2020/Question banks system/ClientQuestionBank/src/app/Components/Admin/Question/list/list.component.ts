@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
   currentTheme:string;
   pageCount:number;
   currentPage:number;
+  themed:boolean;
   constructor(
     private questionService:QuestionService,
     private themesService:ThemesService,private router:Router
@@ -22,25 +23,29 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getThemes();
-    this.getAllQuestion(1);
+    this.getAllQuestion(0);
   }
 
   async getThemes() {
     this.themes = await this.themesService.getThemes();
   }
 
-  getAllQuestion(page:any)
+  async getAllQuestion(page:any)
   {
+    this.themed = false;
+    let count = await this.questionService.getTotalCount();
+    this.currentPage = page;
     this.questionService.getAllQuestion(page).subscribe((data:any)=>{
-      console.log(data);
       this.questions=data;
     })
-
+    console.log(this.currentPage);
+    this.pageCount = Math.ceil(count/5);
   }
 
 
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
+    this.themed = true;
     this.questionService.getThemeQuestions(theme, page).subscribe((res:any)=>{
       this.questions = res;
     })
@@ -65,7 +70,7 @@ getIdForEditQuestion(value:any)
         this.router.navigate(["/admin/updateQuestion"]);
       }
       else{
-        alert("Choose agin");
+        alert("Choose again");
       }
    })
 }

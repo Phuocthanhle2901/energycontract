@@ -27,8 +27,8 @@
         <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
           <h2>Number of questions:</h2>
             <input *ngIf='levelCount>=2' class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="2" required=1>
-            <h4 *ngIf='2>count' class="text-danger">Please enter at least 2</h4>
-            <h4 *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</h4>
+            <small *ngIf='2>count' class="text-danger">Please enter at least 2</small>
+            <small *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</small>
             <h2>Level:</h2>
             <select class="form-control col-md-4" name="level" required=1>
               <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>

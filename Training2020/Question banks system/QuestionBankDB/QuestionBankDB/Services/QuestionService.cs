@@ -66,8 +66,6 @@ namespace QuestionBankDB.Services
         public object Remove(string id)
         {
            var res= _question.DeleteOne(question => question.Id == id);
-            
-
             return res;
             
         }
@@ -147,6 +145,7 @@ namespace QuestionBankDB.Services
         public int GetLevelCount(string theme, byte level) => (int)_question.Find(question => question.ThemeName == theme && question.Level == level)
                                                                             .CountDocuments();
 
+        public long GetTotalCount() => _question.Find(question => true).CountDocuments();
     }
 
 }

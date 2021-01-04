@@ -120,6 +120,10 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("levelCount")]
         public ActionResult<int> GetLevelCount(string theme, byte level) => _questionService.GetLevelCount(theme, level);
+
+        [HttpPost]
+        [Route("totalCount")]
+        public ActionResult<long> GetTotalCount() => _questionService.GetTotalCount();
     }
     
 }
