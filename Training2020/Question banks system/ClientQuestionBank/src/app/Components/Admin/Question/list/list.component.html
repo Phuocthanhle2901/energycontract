@@ -2,18 +2,19 @@
   <div class="d-flex justify-content-between">
     <div>
       <button routerLink="/admin/createQuestion" type="button" class="btn btn-primary">Create Question +</button>
-      <a for="txtFileUpload" class="btn ml-2 btn-success"><i class="eva eva-cloud-download-outline   "></i> Upload</a>
-      <!-- <input type="file" class="d-none" name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)"
-        accept=".csv" /> -->
+      <!-- <a for="txtFileUpload" class="btn ml-2 btn-success"><i class="eva eva-cloud-download-outline   "></i> Upload</a>
+      <input type="file" class="d-none" name="Upload CSV" id="txtFileUpload"
+        accept=".csv" />
       <button type="button" class=" ml-1 btn btn-primary"><i class="eva eva-cloud-upload-outline    "></i> Export
-      </button>
+      </button> -->
     </div>
-    <div class="d-flex flex-wrap">
-      <input type="text" class=" w-75 form-control small" placeholder="Name question..." />
-      <button class="btn btn-primary" type="button">
-        <i class="eva eva-search-outline"></i>
-      </button>
-    </div>
+    <form   class="d-flex flex-wrap" [formGroup]="dataform" (ngSubmit)="SearchByName(dataform.value)">
+      <input type="text" formControlName="search" class=" w-75 form-control small"  placeholder="Full name..."
+          />
+          <button class="btn btn-primary" type="submit">
+              <i class="eva eva-search-outline"></i>
+          </button>
+        </form>
     <ul class="navbar-nav">
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"

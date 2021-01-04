@@ -61,8 +61,12 @@ export class QuestionService {
   {
     return this.httpClient.delete<JSON>('https://localhost:44328/api/Question/'+id);
   }
-  getAllQuestion(page:any){
-    return this.httpClient.get<JSON>("https://localhost:44328/api/Question",page);
+  getAllQuestion(){
+    return this.httpClient.get<JSON>("https://localhost:44328/api/Question");
+  }
+
+  SearchQuestionByName(name:any){
+    return this.httpClient.get<JSON>("https://localhost:44328/api/Question/search?name="+name);
   }
 }
 

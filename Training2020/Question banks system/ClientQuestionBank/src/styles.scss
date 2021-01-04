@@ -71,6 +71,10 @@ body, *{
 .sticky-bar{
 	background: #010E21;
 }
+.form-control{
+  display: inline !important;
+  width: 89% !important;
+}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

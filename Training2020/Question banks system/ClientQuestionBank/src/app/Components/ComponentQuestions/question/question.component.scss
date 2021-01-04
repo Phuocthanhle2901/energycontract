@@ -16,6 +16,10 @@
       position: relative;
       display: block;
       border-right: 1px solid rgb(36, 35, 35);
+      .navbar{
+        position: fixed;
+        top:100px;
+      }
     }
 
     &-content{
@@ -46,7 +50,7 @@
   &-footer{
     display: block;
     position: absolute;
-    bottom:0;
+    top: 96%;
     left: 0;
     width: 100%;
     transform: translate(-0%,-0%);

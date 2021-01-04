@@ -3,6 +3,14 @@ import { QuestionService } from '../../../../Services/question.service';
 import { ThemesService } from '../../../../Services/themes.service';
 import { Question } from '../../../../Models/question.model'
 import {Router} from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -12,34 +20,45 @@ import {Router} from '@angular/router';
 export class ListComponent implements OnInit {
   themes:string[] = [];
   questions:Question[] = [];
+  questionsSearch:Question[] = [];
+
   currentTheme:string;
   pageCount:number;
   currentPage:number;
+  dataform:FormGroup;
+  private listQuestion: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  listQuestion$: Observable<any> = this.listQuestion.asObservable(); // new data
+
+
   constructor(
-    private questionService:QuestionService,
+    private questionService:QuestionService,private fb:FormBuilder,
     private themesService:ThemesService,private router:Router
-  ) { }
+  ) {
+    this.dataform=this.fb.group({
+      search:new FormControl(""),
+    })
+  }
 
   ngOnInit(): void {
     this.getThemes();
-    this.getAllQuestion(1);
+    this.getAllQuestion();
+    this.listQuestion$.subscribe((data:any)=>{
+      this.questions=data;
+    });
   }
 
   getThemes() {
     this.themesService.getThemes().subscribe((res:any)=>{
-      this.themes = res;
+       this.themes = res;
     })
   }
 
-  getAllQuestion(page:any)
+  getAllQuestion():any
   {
-    this.questionService.getAllQuestion(page).subscribe((data:any)=>{
-      console.log(data);
-      this.questions=data;
+    this.questionService.getAllQuestion().subscribe((data:any)=>{
+      this.listQuestion.next(data);
     })
-
   }
-
 
   getThemeQuestions(theme:string, page:number) {
     this.currentTheme = theme;
@@ -57,6 +76,8 @@ export class ListComponent implements OnInit {
   }
 
 
+
+
 getIdForEditQuestion(value:any)
 {
    this.questionService.getQuestionById(value).subscribe((res:any)=>{
@@ -71,6 +92,21 @@ getIdForEditQuestion(value:any)
       }
    })
 }
+
+SearchByName(data:any)
+{
+  this.listQuestion$.subscribe((data:any)=>{
+    this.questionsSearch=data;
+  });
+  this.questions=[];
+   this.questionsSearch.filter((res)=>{
+     if(res.question.toLowerCase().indexOf(data.search)!=-1)
+     {
+      this.questions.push(res);
+     }
+  })
+
+}
   deleteQuestion(id:any)
   {
     var confirmText = "Are you sure you want to delete this question?";
@@ -78,7 +114,10 @@ getIdForEditQuestion(value:any)
       this.questionService.deleteQuestion(id).subscribe((res:any)=>{
         if(res.deletedCount==1)
         {
-          this.getThemeQuestions(this.currentTheme,this.currentPage);
+          this.getAllQuestion();//
+          this.listQuestion$.subscribe((data:any)=>{ // chuyển vào bộ nhớ tạm
+            this.questions=data;// đưa vào danh sách hiện thị lên client
+          });
           alert("delete question success")
         }
       })
@@ -86,7 +125,5 @@ getIdForEditQuestion(value:any)
       return false;
    }
 
-
-    // thực hiện xóa question tại đây
-  }
+}
 }

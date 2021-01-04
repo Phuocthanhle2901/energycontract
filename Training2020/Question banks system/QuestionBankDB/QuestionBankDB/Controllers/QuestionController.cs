@@ -22,8 +22,13 @@ namespace QuestionBankDB.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Question>> Get(int page) =>
-            _questionService.Get(page);
+ 
+        public ActionResult<List<Question>> Get() =>
+            _questionService.Get();
+ 
+       // public ActionResult<List<Question>> Get(int page) =>
+         //   _questionService.Get(page);
+ 
 
         [HttpGet("{id:length(24)}",Name ="GetQuestion")]
         public ActionResult<Question> Get(string id)
@@ -37,9 +42,23 @@ namespace QuestionBankDB.Controllers
 
             return question;
         }
+        [HttpGet]
+        [Route("search")]
+        public ActionResult<List<Question>> SearchByName(string name)
+        {
+            var question = _questionService.searchQuesionByName(name);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            return question;
+        }
+
 
         [HttpPost]
-         [Route("create")]
+        [Route("create")]
         public ActionResult<Object> Create(Question question)
         { 
  
@@ -112,6 +131,7 @@ namespace QuestionBankDB.Controllers
             }
             return questions;
         }
+        
 
         //get answer of a test
         [HttpPost]

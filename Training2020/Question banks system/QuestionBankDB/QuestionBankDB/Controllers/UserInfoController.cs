@@ -7,6 +7,8 @@ using QuestionBankDB.Models;
 using QuestionBankDB.Services;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace QuestionBankDB.Controllers
 {
@@ -35,18 +37,53 @@ namespace QuestionBankDB.Controllers
 
             return userInfo;
         }
+        [HttpGet]
+        public ActionResult<List<UserInfo>> Get() =>
+           _userInfoService.listUser();
 
         [HttpPost]
         [Route("Create")]
-        public ActionResult<Boolean> Create(UserInfo userInfo)
+        public  ActionResult<bool> CreateAsync( UserInfo userInfo)
         {
-         return   _userInfoService.Create(userInfo);
 
-         //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+            
+           return _userInfoService.Create(userInfo);
+            //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Upload")]
+        public ActionResult<Object> Upload()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return (new { data= dbPath});
+                }
+                else
+                {
+                    return (new { data = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UserInfo userInfoIn)
+        public ActionResult<Object> Update(string id, UserInfo userInfoIn)
         {
             var userInfo = _userInfoService.Get(id);
 
@@ -55,10 +92,10 @@ namespace QuestionBankDB.Controllers
                 return NotFound();
             }
 
-            _userInfoService.Update(id, userInfoIn);
-
-            return NoContent();
+            return _userInfoService.Update(id, userInfoIn);
         }
+
+
 
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
@@ -82,6 +119,12 @@ namespace QuestionBankDB.Controllers
            return _userInfoService.SignIn(user, HttpContext);
         }
 
+        [HttpGet]
+        [Route("getuserById")]
+        public ActionResult<UserInfo> getUserByIdi(string id)
+        {
+            return _userInfoService.getUserByidi(id);
+        }
 
 
         [HttpPost]
@@ -144,5 +187,8 @@ namespace QuestionBankDB.Controllers
         [Route("users")]
         public ActionResult<List<UserInfo>> GetUserByRole(int role) => _userInfoService.getUserbyRole(role);
 
+        [HttpPost]
+        [Route("resetPassword")]
+        public ActionResult<sbyte> SendLink(string email) => _userInfoService.SendLink(email);
     }
 }
