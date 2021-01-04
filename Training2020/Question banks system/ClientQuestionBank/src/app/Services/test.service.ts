@@ -37,14 +37,12 @@ export class TestService {
     return this.httpClient.get<UserAnswer>(detail);
   }
 
-<<<<<<< HEAD
   getEmail(){
     return this.email;
   }
   setEmail(email:string){
     this.email = email;
   }
-=======
   async getLevels(theme:string){
     let levelsUrl = 'https://localhost:44328/api/Question/getLevels?theme=' + encodeURIComponent(theme);
     return this.httpClient.post<number[]>(levelsUrl, null).pipe().toPromise();
@@ -56,5 +54,4 @@ export class TestService {
   }
 
   delay(){return new Promise(resolve => setTimeout(resolve, 1000));}
->>>>>>> 191df49ac5057b1e5f6173acaeb2bfbbcc488311
 }
