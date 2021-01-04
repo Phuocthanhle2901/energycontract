@@ -17,7 +17,7 @@ export const RepeatPasswordValidator = (
     : { identityRevealed: true };
 };
 export const FullNameValidation = [Validators.required, Validators.pattern("^[a-zA-Z]*$")];
-export const EmailValidation = [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z]*$")];
+export const EmailValidation = [Validators.required, Validators.email];
 export const PasswordValidation = [
   Validators.required,
   Validators.minLength(6),
