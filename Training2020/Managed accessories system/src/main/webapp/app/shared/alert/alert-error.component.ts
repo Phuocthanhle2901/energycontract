@@ -109,7 +109,7 @@ export class AlertErrorComponent implements OnDestroy {
       type: 'danger',
       msg: message,
       params: data,
-      timeout: 5000,
+      timeout: 50000,
       toast: this.alertService.isToast(),
       scoped: true,
     };

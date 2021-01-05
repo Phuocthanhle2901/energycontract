@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import vn.infodation.intern.group1.mas.domain.User;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.UserRepository;
 import vn.infodation.intern.group1.mas.service.dto.UserDTO;
+import vn.infodation.intern.group1.mas.web.rest.errors.ErrorCode;
 import vn.infodation.intern.group1.mas.repository.AreaRepository;
 
 import org.springframework.core.io.FileSystemResource;
@@ -28,6 +30,10 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
@@ -35,6 +41,9 @@ public class FileStorageService{
 	private final String FILE_DIRECTORY = "/csv/users/";
 	private final String DEFAULT_PASSWORD = "user";
 	private final Path root = Paths.get(FILE_DIRECTORY);
+	private final Logger log = LoggerFactory.getLogger(FileStorageService.class);
+	private static int defaultCharBufferSize = 8192;
+	private final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
 
 	public FileStorageService(AreaRepository areaRepository, UserRepository userRepository,
 			EmployeeRepository employeeRepository, UserService userService) {
@@ -45,7 +54,6 @@ public class FileStorageService{
 		this.userService = userService;
 
         File directory = new File(FILE_DIRECTORY);
-//        log.info("File directory {}", root);
         if(!directory.exists())
             directory.mkdirs();
 	}
@@ -80,35 +88,40 @@ public class FileStorageService{
 
 	public void handleEmployeeFile(MultipartFile file) {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
+		BufferedReader br = null;
 
 		try {
 	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 			File convFile = filePath.toFile();
 			FileReader  fr = new FileReader(convFile);
-			BufferedReader br = new BufferedReader(fr);
+			br = new BufferedReader(fr, defaultCharBufferSize);
 			String line = br.readLine();
+			List<String[]> errList = new ArrayList<>();
+			int lineNumber = 1;
+			
 			while( (line = br.readLine()) != null) {
 				if(!line.isBlank()) {
 					String[] split = line.split(",");
 					if(split.length == 8) {
 						User user;
 						Employee employee;
-						boolean newEmp = false, newUser = false;
+						boolean newEmp = false;
+						boolean newUser = false;
 
 						if(!split[0].isBlank()) { //User id
 							Long UID = Long.parseLong(split[0]);
 							if(userRepository.existsById(UID)) {
 								user = userRepository.getOne(UID);
-								System.out.println("User existed");
+								log.info("User existed");
 							}
 							else {
-								System.out.println("User not found");
+								log.info("User not found");
 								continue;
 							}
 						}
 						else {
 							user = new User();
-							System.out.println("New user");
+							log.info("New user");
 							newUser = true;
 						}
 
@@ -116,21 +129,29 @@ public class FileStorageService{
 							Long EID = Long.parseLong(split[1]);
 							if(employeeRepository.existsById(EID)) {
 								employee = employeeRepository.getOne(EID);
-								System.out.println("Employee existed");
+								log.info("Employee existed");
 							}
 							else {
-								System.out.println("Employee not found");
+								log.info("Employee not found");
 								continue;
 							}
 						}
 						else {
 							employee = new Employee();
-							System.out.println("New employee");
+							log.info("New employee");
 						}
 
-						if(!split[2].isBlank())	//Employee - User login
-							user.setLogin(split[2]);
-						else if(newUser) continue;
+						
+						if(newUser && split[2].isBlank()){	//Employee - User login
+							errList.add(new String[]{ErrorCode.REQUIRED, Integer.toString(lineNumber), "Login", null});
+						}
+						if(split[2].contains(" ")){
+							errList.add(new String[]{ErrorCode.NOTCONTAINSSPACES, Integer.toString(lineNumber), "Login", null});
+						}
+						if (userRepository.findOneByLogin(split[2]).isEmpty()) {
+							errList.add(new String[]{ErrorCode.USEREXISTED, Integer.toString(lineNumber), "Login", null});
+						}
+						
 
 						if(!split[3].isBlank()) 	//Employee - User's first name
 							user.setFirstName(split[3]);
@@ -168,19 +189,8 @@ public class FileStorageService{
 						if(employee.getUser() == null)
 							employee.setUser(savedUser);
 						else
-							System.out.println("Cannot change user");
+							log.info("Cannot change user");
 						employeeRepository.save(employee);
-
-						System.out.println(
-							"-------------------------------------\n" +
-							"Saved User: \n" +
-							"- ID: " + savedUser.getId() +"\n" +
-							"- Login: " + savedUser.getLogin() +"\n" +
-							"- Name: " + savedUser.getFirstName() + " " + savedUser.getLastName() +"\n" +
-							"- Employee id: " + employee.getId() + "\n" +
-							"- Area: " + employee.getArea().getAreaName() + "\n" +
-							"-------------------------------------\n"
-						);
 					}
 				}
 			}
@@ -189,6 +199,16 @@ public class FileStorageService{
 		}
 		catch(IOException e){
 			e.printStackTrace();
+		}
+		finally{
+			if(br != null){
+				try{
+					br.close();
+				}
+				catch(IOException e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -206,7 +226,7 @@ public class FileStorageService{
     		try {
     			User user = employee.getUser();
     			final String SEPERATOR = ",";
-    			final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+    			
     			final String[] elements = new String[] {
     					user.getId().toString(),
     					employee.getId().toString(),
@@ -227,7 +247,7 @@ public class FileStorageService{
 				}
 
 	    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-	            BufferedWriter bw = new BufferedWriter(fw);
+	            BufferedWriter bw = new BufferedWriter(fw, defaultCharBufferSize);
 	            bw.write(value);
 	            bw.close();
     		}
@@ -258,7 +278,6 @@ public class FileStorageService{
     	if(!file.exists()) {
     		try {
     			final String SEPERATOR = ",";
-    			final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
     			final String[] elements = new String[] {
     					user.getId().toString(),
     					employee.getId().toString(),
@@ -279,7 +298,7 @@ public class FileStorageService{
 				}
 
 	    		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-	            BufferedWriter bw = new BufferedWriter(fw);
+	            BufferedWriter bw = new BufferedWriter(fw, defaultCharBufferSize);
 	            bw.write(value);
 	            bw.close();
     		}
@@ -300,7 +319,6 @@ public class FileStorageService{
     	}
 
     	File file = new File(path + filename);
-		final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
 		final String SEPERATOR = ",";
 		String value = fileHeader + "\n";
 
@@ -328,7 +346,7 @@ public class FileStorageService{
 			}
 
     		FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
+            BufferedWriter bw = new BufferedWriter(fw, defaultCharBufferSize);
             bw.write(value);
             bw.close();
     	}catch (IOException e){

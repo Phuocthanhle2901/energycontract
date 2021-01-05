@@ -1,7 +1,6 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
 import vn.infodation.intern.group1.mas.domain.Employee;
-import vn.infodation.intern.group1.mas.domain.User;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.service.FileStorageService;
@@ -26,10 +25,6 @@ import org.springframework.http.HttpStatus;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

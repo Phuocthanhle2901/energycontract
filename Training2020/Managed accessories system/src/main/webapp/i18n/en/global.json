@@ -165,6 +165,16 @@
     "file": {
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
+    },
+    "field": {
+      "atLine": {
+        "notContainsFirstSpace": "<b>Line {{param0}}:</b> field {{param1}}'s first character must not be a white space.",
+        "notContainsSpace": "<b>Line {{param0}}:</b> field {{param1}} must not contains white spaces.",
+        "max": "<b>Line {{param0}}:</b> field {{param1}} can not be longer than {{param3}}.",
+        "min": "<b>Line {{param0}}:</b> field {{param1}} is required to be at least {{param3}} characters.",
+        "required": "<b>Line {{param0}}:</b> field {{param1}} is required.",
+        "loginExist": "<b>Line {{param0}}:</b> field {{param1}} - User already exist."
+      }
     }
   },
   "footer": "This is your footer"
