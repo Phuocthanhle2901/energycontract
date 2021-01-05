@@ -40,9 +40,22 @@ export class EquipmentUpdateComponent implements OnInit {
         Validators.maxLength(100),
         CustomValidators.cannotContainsFirstWhiteSpace
       ]],
-    technicalFeatures: [null, [Validators.required]],
-    serialNumber: [null, [Validators.required]],
-    note: [null, [Validators.required]],
+    technicalFeatures: [null, [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(255),
+      CustomValidators.cannotContainsFirstWhiteSpace]],
+    serialNumber: [null, [
+        Validators.required,
+        Validators.maxLength(50),
+        CustomValidators.cannotContainsFirstWhiteSpace
+      ]],
+    note: [null, [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(255),
+        CustomValidators.cannotContainsFirstWhiteSpace
+      ]],
     user: [null, Validators.required],
     equipmentGroup: [null, Validators.required],
     equipmentType: [null, Validators.required],

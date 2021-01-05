@@ -28,7 +28,7 @@
                                *ngIf="editForm.get('equipmentName')?.errors?.maxlength"
                                jhiTranslate="entity.validation.maxlength"
                                [translateValues]="{ max: 100 }">
-                        This field is required.
+                        This field cannot be longer than 100 characters.
                         </small>
 
                         <small class="form-text text-danger"
@@ -52,6 +52,25 @@
                                *ngIf="editForm.get('technicalFeatures')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('technicalFeatures')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('technicalFeatures')?.errors?.minlength"
+                               jhiTranslate="entity.validation.minlength"
+                               [translateValues]="{ min: 10 }">
+                            This field is required to be at least 10 characters.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('technicalFeatures')?.errors?.maxlength"
+                               jhiTranslate="entity.validation.maxlength"
+                               [translateValues]="{ max: 255 }">
+                            This field cannot be longer than 255 characters.
+                        </small>
                     </div>
                 </div>
 
@@ -64,6 +83,18 @@
                                *ngIf="editForm.get('serialNumber')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('serialNumber')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('serialNumber')?.errors?.maxlength"
+                               jhiTranslate="entity.validation.maxlength"
+                               [translateValues]="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                        </small>
                     </div>
                 </div>
 
@@ -75,6 +106,25 @@
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('note')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('note')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('note')?.errors?.minlength"
+                               jhiTranslate="entity.validation.minlength"
+                               [translateValues]="{ min: 10 }">
+                            This field is required to be at least 10 characters.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('note')?.errors?.maxlength"
+                               jhiTranslate="entity.validation.maxlength"
+                               [translateValues]="{ max: 255 }">
+                            This field cannot be longer than 255 characters.
                         </small>
                     </div>
                 </div>
