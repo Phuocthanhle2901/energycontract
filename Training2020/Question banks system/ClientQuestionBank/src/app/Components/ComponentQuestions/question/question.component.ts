@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit {
   }
 
   async getThemes() {
-    this.themes = await this.themesService.getThemes()
+    this.themes = await this.themesService.getThemes();
   }
 
   getThemeQuestions(theme:string, page:number) {

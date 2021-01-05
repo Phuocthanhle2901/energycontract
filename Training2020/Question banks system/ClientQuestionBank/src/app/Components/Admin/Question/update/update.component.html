@@ -44,8 +44,7 @@
      <div class="col-lg-6 col-12">
        <div class="form-group" >
          <label >True Answer</label>
-           <select class="form-control " formControlName="trueAnswer" formArrayName="answer"
-           >
+           <select class="form-control " formControlName="trueAnswer" formArrayName="answer">
              <option    class="text-center">-----Choose Answer Correct----- </option>
              <option *ngFor="let list_item of answer.controls;  let i=index"  [formGroupName]="i" [ngValue]="list_item.get('name').value">
                {{list_item.get('name').value}}
@@ -54,28 +53,18 @@
        </div>
 
        <div class="row">
-
            <div class="col-lg-6 d-flex ">
-
             <div class="form-group w-100 ">
               <label >Theme</label>
-              <select  class="form-control "  formControlName="themeName">
-                <option *ngFor="let item of themes"   ng-selected="selected" [value]="item"  >{{item}}</option>
-              </select> <span>(*)</span>
-            </div>
-            <div class="form-group " [ngClass]="hiden1==true?'d-block':'d-none'"  >
-              <label >New Theme</label>
-              <input type="text"  [value]="newTheme" (change)="modelChangeFn($event)" (mouseout)="onMouse()"  class="form-control" >
-            </div>
-
-            <div class="nav-item dropdown">
-              <a  title="new theme" class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown"  >
-                <i class="eva eva-more-vertical-outline    "></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" (click)="openNewTheme()">{{hiden1==true?"close":" other theme"}}</a>
-
-              </div>
+              <input class="form-control" formControlName="themeName" type="text" list="suggestions"
+                  [ngClass]="{'is-invalid':dataForm.get('themeName').touched && dataForm.get('themeName').invalid}"><span>(*)</span>
+                <!-- Theme suggestions -->
+                <datalist id="suggestions">
+                 <option *ngFor="let item of themes" [value]="item" >{{item}}</option>
+                </datalist>
+                <div class="invalid-feedback" *ngIf="dataForm.get('themeName').touched && dataForm.get('themeName').invalid">
+                  <small *ngIf="dataForm.get('themeName').errors.required" class="form-text showError">Enter theme name </small>
+                </div>
             </div>
           </div>
            <div class="col-lg-6">

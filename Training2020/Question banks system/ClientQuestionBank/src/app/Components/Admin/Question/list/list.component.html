@@ -1,7 +1,7 @@
 <div class="mod-questions">
   <div class="d-flex justify-content-between">
     <div>
-      <button routerLink="/admin/createQuestion" type="button" class="btn btn-primary">Create Question +</button>
+      <button routerLink="/admin/createQuestion" type="button" class="btn btn-primary">Create Question</button>
       <!-- <a for="txtFileUpload" class="btn ml-2 btn-success"><i class="eva eva-cloud-download-outline   "></i> Upload</a>
       <input type="file" class="d-none" name="Upload CSV" id="txtFileUpload"
         accept=".csv" />
@@ -43,6 +43,9 @@
         <table *ngIf="item.status">
           <tr>
             <th><b>{{q+1 +  5*currentPage}}. {{item.question}}</b></th>
+          </tr>
+          <tr>
+            <td><b>Theme:</b> {{item.themeName}}</td>
           </tr>
           <tr *ngFor="let a of item.answer; index as i">
             <td>{{i+1}}. {{a}}</td>
