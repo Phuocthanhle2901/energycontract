@@ -48,7 +48,8 @@ export class EquipmentUpdateComponent implements OnInit {
     serialNumber: [null, [
         Validators.required,
         Validators.maxLength(50),
-        CustomValidators.cannotContainsFirstWhiteSpace
+        CustomValidators.cannotContainsFirstWhiteSpace,
+        CustomValidators.cannotContainsWhiteSpace
       ]],
     note: [null, [
         Validators.required,

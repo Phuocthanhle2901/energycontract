@@ -138,7 +138,8 @@
       "number": "Trường này phải là một số.",
       "datetimelocal": "Trường này phải là định dạng thời gian.",
       "patternLogin": "Trường này chỉ được phép nhập ký tự thường, ký tự số hoặc địa chỉ email.",
-      "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng"
+      "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng",
+      "whiteSpace": "Trường này không được phép nhập khoảng trắng."
     }
   },
   "error": {

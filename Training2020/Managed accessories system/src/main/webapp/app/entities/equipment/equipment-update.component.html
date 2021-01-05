@@ -90,6 +90,11 @@
                         </small>
 
                         <small class="form-text text-danger"
+                               *ngIf="editForm.get('serialNumber')?.errors?.spaces" jhiTranslate="entity.validation.whiteSpace">
+                            This field must not contains any white space.
+                        </small>
+
+                        <small class="form-text text-danger"
                                *ngIf="editForm.get('serialNumber')?.errors?.maxlength"
                                jhiTranslate="entity.validation.maxlength"
                                [translateValues]="{ max: 50 }">

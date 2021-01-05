@@ -13,4 +13,13 @@ export class CustomValidators{
 
     return (!field.startsWith(" ")) ? null : { 'validateFirstWhiteSpace': true};
   }
+
+  static cannotContainsWhiteSpace(c: AbstractControl) : ValidationErrors | null {
+    const field = c.value as string;
+
+    if(isEmptyInputValue(field))
+          return null;
+
+    return (/\s/.test(field)) ? { 'spaces': true } : null;
+  }
 }
