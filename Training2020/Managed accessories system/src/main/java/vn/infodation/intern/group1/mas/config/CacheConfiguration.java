@@ -73,6 +73,8 @@ public class CacheConfiguration {
             createCache(cm, vn.infodation.intern.group1.mas.domain.Employee.class.getName());
             createCache(cm, vn.infodation.intern.group1.mas.domain.Employee.class.getName() + ".areas");
             createCache(cm, vn.infodation.intern.group1.mas.domain.UserEquipmentActivityLog.class.getName());
+            createCache(cm, vn.infodation.intern.group1.mas.domain.FormType.class.getName());
+            createCache(cm, vn.infodation.intern.group1.mas.domain.Form.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

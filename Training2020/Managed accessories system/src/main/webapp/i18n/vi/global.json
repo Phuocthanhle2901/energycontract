@@ -18,6 +18,8 @@
         "statusType": "Status Type",
         "employee": "Employee",
         "userEquipmentActivityLog": "User Equipment Activity Log",
+        "formType": "Form Type",
+        "form": "Form",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "necessaryforms": {
@@ -114,10 +116,10 @@
       "open": "Mở",
       "save": "Lưu",
       "view": "Xem",
-	  "send": "Gửi",
-	  "export": "Xuất",
-	  "exportAll": "Xuất tất cả",
-	  "print": "In"
+      "send": "Gửi",
+      "export": "Xuất",
+      "exportAll": "Xuất tất cả",
+      "print": "In"
     },
     "detail": {
       "field": "Trường",
