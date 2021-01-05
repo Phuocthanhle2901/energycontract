@@ -1,0 +1,40 @@
+
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="cancel()">&times;</button>
+    </div>
+
+    <div class="modal-body" >
+        <div *ngIf="currentFile" class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progress + '%' }"
+          >
+            {{ progress }}%
+          </div>
+        </div>
+
+        <label class="btn btn-default">
+            <input type="file" (change)="selectFile($event)" />
+        </label>
+        
+        <div class="alert alert-light" role="alert">{{ message }}</div>
+
+        <jhi-alert-error></jhi-alert-error>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="confirmImport()">
+            <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.import">Delete</span>
+        </button>
+    </div>

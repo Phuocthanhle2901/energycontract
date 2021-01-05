@@ -9,6 +9,7 @@ import { EmployeeService } from './employee.service';
 import { EmployeeDeleteDialogComponent } from './employee-delete-dialog.component';
 
 import * as fileSaver from 'file-saver';
+import { EmployeeImportDialogComponent } from './employee-import-dialog.component';
 
 @Component({
   selector: 'jhi-employee',
@@ -52,6 +53,10 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(EmployeeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.employee = employee;
   }
+
+  import(): void {
+    this.modalService.open(EmployeeImportDialogComponent, { size: 'lg', backdrop: 'static' });
+  }
   
   exportEmployee(employee: IEmployee): void{
   	this.employeeService.export(employee.id!).subscribe(response => {
@@ -90,7 +95,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 	        this.message = event.body.message;
 	      }
 	    },
-	    err => {
+	    () => {
 	      this.progress = 0;
 	      this.message = 'Could not upload the file!';
 	      this.currentFile = undefined;

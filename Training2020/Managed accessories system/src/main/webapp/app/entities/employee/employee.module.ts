@@ -6,6 +6,7 @@ import { EmployeeComponent } from './employee.component';
 import { EmployeeDetailComponent } from './employee-detail.component';
 import { EmployeeUpdateComponent } from './employee-update.component';
 import { EmployeeDeleteDialogComponent } from './employee-delete-dialog.component';
+import { EmployeeImportDialogComponent } from './employee-import-dialog.component';
 import { employeeRoute } from './employee.route';
 
 @NgModule({
@@ -13,7 +14,7 @@ import { employeeRoute } from './employee.route';
   	ManagedAccessoriesSystemSharedModule, 
   	RouterModule.forChild(employeeRoute)
   ],
-  declarations: [EmployeeComponent, EmployeeDetailComponent, EmployeeUpdateComponent, EmployeeDeleteDialogComponent],
-  entryComponents: [EmployeeDeleteDialogComponent],
+  declarations: [EmployeeComponent, EmployeeDetailComponent, EmployeeUpdateComponent, EmployeeDeleteDialogComponent, EmployeeImportDialogComponent],
+  entryComponents: [EmployeeDeleteDialogComponent, EmployeeImportDialogComponent],
 })
 export class ManagedAccessoriesSystemEmployeeModule {}
