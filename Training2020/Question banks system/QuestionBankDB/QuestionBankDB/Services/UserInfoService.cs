@@ -18,7 +18,7 @@ namespace QuestionBankDB.Services
     public class UserInfoService
     {
         private readonly IMongoCollection<UserInfo> _userInfo;
-        private readonly supperService _supper=new supperService();
+        private readonly supperService _supper = new supperService();
         public UserInfoService(IQuestionBankSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -263,13 +263,14 @@ namespace QuestionBankDB.Services
             return 2; //return 2 if email isn't registered
         }
 
-        public byte ResetPassword(string email, string newPassword)
+        public ActionResult<byte> ResetPassword(string email, string newPassword)
         {
             UserInfo user = _userInfo.Find(u => u.Email == email && u.Status).FirstOrDefault();
             if (user != null)
             {
-                if (user.Password.Equals(newPassword)) return 2; //return 2 if new password matches old password
-                user.Password = _supper.GetMD5(newPassword); //set new password
+                newPassword = _supper.GetMD5(newPassword); //convert to md5
+                if (user.Password .Equals(newPassword)) return 2; //return 2 if new password matches old password
+                user.Password = newPassword; //set new password
                 var response = _userInfo.ReplaceOne(u => u.Email == email, user).IsAcknowledged; //update password
                 if(response) return 0; //return 1 if user is updated
                 return 3; //return 3 if update failed
