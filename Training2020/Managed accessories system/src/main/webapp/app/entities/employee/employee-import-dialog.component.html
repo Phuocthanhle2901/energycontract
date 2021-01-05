@@ -7,7 +7,7 @@
     </div>
 
     <div class="modal-body" >
-        <div *ngIf="currentFile" class="progress">
+        <div *ngIf="file" class="progress">
           <div
             class="progress-bar progress-bar-info progress-bar-striped"
             role="progressbar"
@@ -19,6 +19,11 @@
             {{ progress }}%
           </div>
         </div>
+
+        <ngx-dropzone (change)="dropFile($event)">
+            <ngx-dropzone-label>Drop a single file</ngx-dropzone-label>
+            <ngx-dropzone-label>{{ file?.name }} ({{ file?.type }})</ngx-dropzone-label>
+          </ngx-dropzone>
 
         <label class="btn btn-default">
             <input type="file" (change)="selectFile($event)" />
@@ -34,7 +39,7 @@
             <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="confirmImport()">
+        <button class="btn btn-success" [disabled]="!file" (click)="confirmImport()">
             <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.import">Delete</span>
         </button>
     </div>

@@ -9,12 +9,21 @@ import { EmployeeDeleteDialogComponent } from './employee-delete-dialog.componen
 import { EmployeeImportDialogComponent } from './employee-import-dialog.component';
 import { employeeRoute } from './employee.route';
 
+import { NgxDropzoneModule } from "ngx-dropzone";
+
 @NgModule({
   imports: [
   	ManagedAccessoriesSystemSharedModule, 
-  	RouterModule.forChild(employeeRoute)
+    RouterModule.forChild(employeeRoute),
+    NgxDropzoneModule
   ],
-  declarations: [EmployeeComponent, EmployeeDetailComponent, EmployeeUpdateComponent, EmployeeDeleteDialogComponent, EmployeeImportDialogComponent],
+  declarations: [
+    EmployeeComponent, 
+    EmployeeDetailComponent, 
+    EmployeeUpdateComponent, 
+    EmployeeDeleteDialogComponent, 
+    EmployeeImportDialogComponent
+  ],
   entryComponents: [EmployeeDeleteDialogComponent, EmployeeImportDialogComponent],
 })
 export class ManagedAccessoriesSystemEmployeeModule {}

@@ -7,14 +7,14 @@ import { IEmployee } from "app/shared/model/employee.model";
 import { EmployeeService } from './employee.service';
 
 import * as fileSaver from 'file-saver';
+import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 
 @Component({
     templateUrl: './employee-import-dialog.component.html',
 })
 export class EmployeeImportDialogComponent {
     employee?: IEmployee;
-    selectedFiles: FileList | undefined | null;
-    currentFile: File | undefined | null;
+    file: File | undefined | null;
     progress = 0;
     message = '';
 
@@ -30,14 +30,17 @@ export class EmployeeImportDialogComponent {
     }
      
     selectFile(event: Event ): void {
-        this.selectedFiles = (event.target as HTMLInputElement)!.files!;
+        this.file = (event.target as HTMLInputElement)!.files!.item(0);
+    }
+
+    dropFile(event: NgxDropzoneChangeEvent ): void {
+        this.file = event.addedFiles[0];
     }
 
     confirmImport(): void {
         this.progress = 0;
 	
-        this.currentFile = this.selectedFiles!.item(0);
-        this.employeeService.upload(this.currentFile!).subscribe(
+        this.employeeService.upload(this.file!).subscribe(
             event => {
                 if (event.type === HttpEventType.UploadProgress) {
                     this.progress = Math.round(100 * event.loaded / event.total!);
@@ -50,8 +53,8 @@ export class EmployeeImportDialogComponent {
             () => {
                 this.progress = 0;
                 this.message = 'Could not upload the file!';
-                this.currentFile = undefined;
+                this.file = undefined;
             });
-        this.selectedFiles = undefined;
+        this.file = undefined;
     }
 }
