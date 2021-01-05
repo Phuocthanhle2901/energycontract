@@ -120,7 +120,8 @@
 	  "send": "Send",
 	  "export": "Export",
 	  "exportAll": "Export all",
-	  "print": "Print"
+    "print": "Print",
+    "import": "Import"
     },
     "detail": {
       "field": "Field",
@@ -128,6 +129,12 @@
     },
     "delete": {
       "title": "Confirm delete operation"
+    },
+    "import": {
+      "title": "Import operation",
+      "dragndrop": {
+        "CSV": "Drag a single *.CSV file here<br/>If you drop multiple files, only the first file will be selected."
+      }
     },
     "validation": {
       "required": "This field is required.",

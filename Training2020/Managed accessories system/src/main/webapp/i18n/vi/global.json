@@ -115,9 +115,10 @@
       "save": "Lưu",
       "view": "Xem",
 	  "send": "Gửi",
-	  "export": "Xuất",
+	  "export": "Xuất tệp",
 	  "exportAll": "Xuất tất cả",
-	  "print": "In"
+    "print": "In",
+    "import": "Nhập tệp"
     },
     "detail": {
       "field": "Trường",
@@ -125,6 +126,12 @@
     },
     "delete": {
       "title": "Xác nhận hành động xóa"
+    },
+    "import": {
+      "title": "Nhập từ tệp",
+      "dragndrop": {
+        "CSV": "Kéo một tệp *.CSV duy nhất vào đây<br/>Nếu bạn thả nhiều tệp thì chỉ tệp đầu tiên sẽ được chọn."
+      }
     },
     "validation": {
       "required": "Trường này bắt buộc phải nhập.",

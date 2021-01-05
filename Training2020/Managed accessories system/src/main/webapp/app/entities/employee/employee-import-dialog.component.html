@@ -1,6 +1,6 @@
 
     <div class="modal-header">
-        <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+        <h4 class="modal-title" jhiTranslate="entity.import.title">Import operation</h4>
 
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="cancel()">&times;</button>
@@ -21,8 +21,8 @@
         </div>
 
         <ngx-dropzone (change)="dropFile($event)">
-            <ngx-dropzone-label>Drop a single file</ngx-dropzone-label>
-            <ngx-dropzone-label>{{ file?.name }} ({{ file?.type }})</ngx-dropzone-label>
+            <ngx-dropzone-label jhiTranslate="entity.import.dragndrop.CSV"><h2>Drop a single file</h2></ngx-dropzone-label>
+            <ngx-dropzone-label>{{ file?.name }}.{{ file?.type }}</ngx-dropzone-label>
           </ngx-dropzone>
 
         <label class="btn btn-default">
