@@ -47,10 +47,8 @@ export class ListComponent implements OnInit {
     });
   }
 
-  getThemes() {
-    this.themesService.getThemes().subscribe((res:any)=>{
-       this.themes = res;
-    })
+  async getThemes() {
+    this.themes = await this.themesService.getThemes();
   }
 
   getAllQuestion():any

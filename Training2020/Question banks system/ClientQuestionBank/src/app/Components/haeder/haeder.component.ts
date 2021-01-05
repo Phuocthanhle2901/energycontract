@@ -52,10 +52,8 @@ export class HaederComponent implements OnInit {
      window.location.reload();
   }
 
-  getThemes() {
-    this.themesService.getThemes().subscribe((res:any)=>{
-      this.themes = res;
-    })
+  async getThemes() {
+    this.themes = await this.themesService.getThemes();
     this.themes.forEach(theme => {
       theme = encodeURIComponent(theme);
     });

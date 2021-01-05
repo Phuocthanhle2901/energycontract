@@ -49,15 +49,13 @@ export class UpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
- // get themes
-  this.themesService.getThemes().subscribe((data:any)=>{
-    this.themes=data;
-  })
-  // get question for update
-  this.questionSevice.question$.subscribe(data=>{
-    this.idQuestion=data.id;
-    this.patchQuestionValues(data);
-  })
+  // get themes
+    this.getThemes();
+    // get question for update
+    this.questionSevice.question$.subscribe(data=>{
+      this.idQuestion=data.id;
+      this.patchQuestionValues(data);
+    })
 
   }
   modelChangeFn(e) {
@@ -148,5 +146,8 @@ export class UpdateComponent implements OnInit {
 
     // thực hiện đưa dữ liệu lên wep Api tại đây
   }
-
+  
+  async getThemes() {
+    this.themes = await this.themesService.getThemes();
+  }
 }

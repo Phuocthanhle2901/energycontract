@@ -14,7 +14,7 @@ export class ThemesService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getThemes():Observable<JSON>{
-    return this.httpClient.post<JSON>(this.apiUrl, null).pipe() //get themes from api, convert into iterable observable
+  async getThemes(){
+    return await this.httpClient.post<string[]>(this.apiUrl, null).pipe().toPromise() //get themes from api, convert into iterable observable
   }
 }
