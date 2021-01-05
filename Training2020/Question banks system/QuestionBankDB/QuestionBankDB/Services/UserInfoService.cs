@@ -235,10 +235,9 @@ namespace QuestionBankDB.Services
                 msg.Subject = "Password reset link";
                 msg.Body = "Dear ";
                 if (user.Fullname != null) msg.Body += user.Fullname;
-                else msg.Body += user.Email;
+                else msg.Body += user.Email + ',' + '\n';
                 msg.Body += "Please follow this link to reset your password:" + '\n'
-                            + "http://localhost:4200/login/passwordReset/"
-                            + user.Email + '\n'
+                            + "http://localhost:4200/login/passwordReset/" + user.Email + '\n'
                             + "QuestionBank";
                 SmtpClient smt = new SmtpClient();
                 smt.Host = "smtp.gmail.com";

@@ -12,3 +12,7 @@
 [05/01/21 13:38:10] [CRUD User] [Create] [Tried to create account for jn@gmail.com] [Result: True]
 [05/01/21 13:39:13] [Login/Logout] [Register] [an@gmail.com tried to register] [Result: { status = 200, message = register Account success }]
 [05/01/21 13:39:56] [Login/Logout] [Forget Password] [Tried to send reset password link to jn@gmail.com] [Result: Microsoft.AspNetCore.Mvc.ActionResult`1[System.Byte]]
+[05/01/21 18:47:04] [Login/Logout] [Forget Password] [Tried to send reset password link to st1518mc@gmail.com] [Result: Microsoft.AspNetCore.Mvc.ActionResult`1[System.Byte]]
+[05/01/21 18:50:20] [Login/Logout] [Forget Password] [Tried to reset password of st1518mc@gmail.com] [Result: Microsoft.AspNetCore.Mvc.ActionResult`1[System.Byte]]
+[05/01/21 18:51:02] [Login/Logout] [Login] [st1518mc@gmail.com tried to sign in] [Result: { status = 200, data = {"id":"5ff19008a63c88c5d7e23b71","count":0,"lasttime":"2021-01-05T18:51:03.4700926+07:00"} }]
+[05/01/21 18:53:40] [Login/Logout] [Login] [admin@gmail.com tried to sign in] [Result: { status = 200, data = {"id":"5fdb029aff247602e50aeb56","count":0,"lasttime":"2021-01-05T18:53:40.6140807+07:00"} }]

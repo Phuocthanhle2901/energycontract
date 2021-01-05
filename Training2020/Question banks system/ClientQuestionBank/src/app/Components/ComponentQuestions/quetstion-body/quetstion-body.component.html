@@ -27,12 +27,6 @@
         <!-- config form -->
         <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions(config.value)">
           <div>
-            <h2>Level:</h2>
-            <select formControlName='level' class="form-control col-md-4">
-              <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
-            </select><span>(*)</span>
-          </div>
-          <div>
             <h2>Number of questions:</h2>
             <input formControlName='count' *ngIf='levelCount>=2' class="form-control col-md-4" type="number" max="{{levelCount}}"
             [ngClass]="{'is-invalid':config.get('count').touched && config.get('count').invalid}" placeholder="Number"><span>(*)</span>
@@ -41,6 +35,12 @@
               <small *ngIf="config.get('count').errors.required" class="text-danger showError">Please enter a number</small>
               <small *ngIf="config.get('count').errors.min" class="text-danger showError">Please enter at least 2</small>
               <small *ngIf="config.get('count').errors.max" class="text-danger showError">Please enter no more than 30</small>
+            </div>
+            <div>
+              <h2>Level:</h2>
+              <select formControlName='level' class="form-control col-md-4">
+                <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
+              </select><span>(*)</span>
             </div>
             <!-- custom check -->
             <div>
