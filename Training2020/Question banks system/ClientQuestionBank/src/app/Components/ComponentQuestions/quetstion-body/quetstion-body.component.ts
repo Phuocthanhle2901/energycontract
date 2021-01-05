@@ -39,6 +39,7 @@ export class QuetstionBodyComponent implements OnInit {
   currentPage:number;
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
+  filled:boolean = undefined; //flag if all questions are answered
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let location = window.location.href;
@@ -66,7 +67,7 @@ export class QuetstionBodyComponent implements OnInit {
       this.answerSheet = new FormGroup({});
       this.level = config['level'];
       this.count = config['count'];
-      for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl());
+      for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl('', Validators.required));
       //only start test when there are at least 2 questions, and no more than available questions
       if(this.count>1 && this.count<=this.levelCount){
         this.configured = true;
@@ -99,6 +100,17 @@ export class QuetstionBodyComponent implements OnInit {
     this.currentPage = page;
   }
 
+  checkSheet(){
+    if(this.time>0){
+      if(this.answerSheet.valid){
+        this.getResult();
+        this.filled = true;
+      }
+      else this.filled = false;
+      console.log(this.filled);
+    }
+  }
+  
   async getResult(){
     if(!this.submitted){
       //create test content
