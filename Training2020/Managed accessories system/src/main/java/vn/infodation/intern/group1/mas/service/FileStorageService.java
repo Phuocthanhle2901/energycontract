@@ -22,6 +22,7 @@ import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.UserRepository;
 import vn.infodation.intern.group1.mas.service.dto.UserDTO;
 import vn.infodation.intern.group1.mas.web.rest.errors.ErrorCode;
+import vn.infodation.intern.group1.mas.web.rest.errors.PhoneValidate;
 import vn.infodation.intern.group1.mas.repository.AreaRepository;
 
 import org.springframework.core.io.FileSystemResource;
@@ -30,8 +31,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
+import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +44,14 @@ public class FileStorageService{
 	private final Logger log = LoggerFactory.getLogger(FileStorageService.class);
 	private static int defaultCharBufferSize = 8192;
 	private final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+
+	private final String LOGIN = "Login";
+	private final String FIRST_NAME = "First name";
+	private final String LAST_NAME = "Last name";
+	private final String EMAIL = "Email";
+	private final String AREA_ID = "Area id";
+	private final String PHONE = "Phone number";
+
 
 	public FileStorageService(AreaRepository areaRepository, UserRepository userRepository,
 			EmployeeRepository employeeRepository, UserService userService) {
@@ -86,18 +94,22 @@ public class FileStorageService{
 		return new FileSystemResource(FILE_DIRECTORY + filename);
 	}
 
-	public void handleEmployeeFile(MultipartFile file) {
+	public List<String[]> handleEmployeeFile(MultipartFile file) {
 		Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
 		BufferedReader br = null;
+		ErrorListBuilder errListBuilder = new ErrorListBuilder();
+		List<Employee> employees = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 
 		try {
 	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 			File convFile = filePath.toFile();
 			FileReader  fr = new FileReader(convFile);
-			br = new BufferedReader(fr, defaultCharBufferSize);
-			String line = br.readLine();
-			List<String[]> errList = new ArrayList<>();
+			String line;
 			int lineNumber = 1;
+			
+			br = new BufferedReader(fr, defaultCharBufferSize);
+			line = br.readLine();
 			
 			while( (line = br.readLine()) != null) {
 				if(!line.isBlank()) {
@@ -141,41 +153,89 @@ public class FileStorageService{
 							log.info("New employee");
 						}
 
+						//Validating possible error of Login field and adding those error (if exist) to the error list
+						errListBuilder.add(newUser && split[2].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.LOGIN, null
+						})
+						.add(split[2].contains(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_SPACES, Integer.toString(lineNumber), this.LOGIN, null
+						})
+						.add(!userRepository.findOneByLogin(split[2]).isEmpty(), new String[]{
+							ErrorCode.USER_EXISTED, Integer.toString(lineNumber), this.LOGIN, null
+						});
 						
-						if(newUser && split[2].isBlank()){	//Employee - User login
-							errList.add(new String[]{ErrorCode.REQUIRED, Integer.toString(lineNumber), "Login", null});
+						//Validating possible error of First name field and adding those error (if exist) to the error list
+						errListBuilder.add(newUser && split[3].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.FIRST_NAME, null
+						})
+						.add(split[3].startsWith(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.FIRST_NAME, null
+						})
+						.add(split[3].matches(".*\\d.*"), new String[]{
+							ErrorCode.NOT_CONTAINS_NUMBER, Integer.toString(lineNumber), this.FIRST_NAME, null
+						});
+
+						//Validating possible error of Last name field and adding those error (if exist) to the error list
+						errListBuilder.add(newUser && split[4].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.LAST_NAME, null
+						})
+						.add(split[4].startsWith(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.LAST_NAME, null
+						})
+						.add(split[4].matches(".*\\d.*"), new String[]{
+							ErrorCode.NOT_CONTAINS_NUMBER, Integer.toString(lineNumber), this.LAST_NAME, null
+						});
+
+						//Validating possible error of Email field and adding those error (if exist) to the error list
+						errListBuilder.add(newUser && split[5].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.EMAIL, null
+						})
+						.add(split[5].startsWith(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.EMAIL, null
+						})
+						.add(split[5].contains(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_SPACES, Integer.toString(lineNumber), this.EMAIL, null
+						})
+						.add(new EmailValidator().isValid(split[5], null), new String[]{
+							ErrorCode.EMAIL, Integer.toString(lineNumber), this.EMAIL, null
+						});
+
+						//Validating possible error of Area id field and adding those error (if exist) to the error list
+						errListBuilder.add(newEmp && split[6].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.AREA_ID, null
+						})
+						.add(split[6].startsWith(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.AREA_ID, null
+						})
+						.add(split[6].contains(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_SPACES, Integer.toString(lineNumber), this.AREA_ID, null
+						});
+						if(!split[6].matches("[0-9]+")){
+							errListBuilder.add(!split[6].matches("[0-9]+"), new String[]{
+								ErrorCode.NUMBER, Integer.toString(lineNumber), this.AREA_ID, null
+							});
 						}
-						if(split[2].contains(" ")){
-							errList.add(new String[]{ErrorCode.NOTCONTAINSSPACES, Integer.toString(lineNumber), "Login", null});
+						else if(!newEmp && !split[6].isBlank()){
+							Long aId = Long.parseLong(split[6]);
+							errListBuilder.add(!areaRepository.existsById(aId), new String[]{
+								ErrorCode.NUMBER, Integer.toString(lineNumber), this.AREA_ID, null
+							});
 						}
-						if (userRepository.findOneByLogin(split[2]).isEmpty()) {
-							errList.add(new String[]{ErrorCode.USEREXISTED, Integer.toString(lineNumber), "Login", null});
-						}
-						
 
-						if(!split[3].isBlank()) 	//Employee - User's first name
-							user.setFirstName(split[3]);
-						else if(newUser) continue;
+						//Validating possible error of Phone number field and adding those error (if exist) to the error list
+						errListBuilder.add(newEmp && split[7].isBlank(), new String[]{
+							ErrorCode.REQUIRED, Integer.toString(lineNumber), this.PHONE, null
+						})
+						.add(split[7].startsWith(" "), new String[]{
+							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.PHONE, null
+						}).
+						add(!(new PhoneValidate().isValid(split[7])), new String[]{
+							ErrorCode.INVALID_PHONE, Integer.toString(lineNumber), this.PHONE, null
+						});
 
-						if(!split[4].isBlank())	//Employee - User's last name
-							user.setLastName(split[4]);
-						else if(newUser) continue;
-
-						if(!split[5].isBlank())	//Employee - User's email
-							user.setEmail(split[5]);
-						else if(newUser) continue;
-
-						if(!split[6].isBlank()) {	//Employee's area
-							Long AID = Long.parseLong(split[6]);
-							if(areaRepository.existsById(AID))
-								employee.setArea(areaRepository.getOne(AID));
-							else if(newEmp) continue;
-						}
-						else continue;
-
-						if(!split[7].isBlank())	//Employee's phone number
-							employee.setPhoneNumber(split[7]);
-						else if(newEmp) continue;
+						lineNumber += 1;
+						employees.add(employee);
+						users.add(user);
 
 						User savedUser;
 						if(newUser) {
@@ -194,6 +254,29 @@ public class FileStorageService{
 					}
 				}
 			}
+			List<String[]> errList = errListBuilder.build();
+
+			if(errList.isEmpty()){
+				for(int i = 0; i < users.size(); i++){
+					User savedUser;
+					User user = users.get(i);
+					Employee employee = employees.get(i);
+
+					if(userRepository.findOneByLogin(user.getLogin()).isPresent()) {
+						UserDTO userDTO = new UserDTO(user);
+						savedUser = userService.registerUser(userDTO, DEFAULT_PASSWORD);
+					}
+					else {
+						savedUser = userRepository.save(user);
+					}
+
+					if(employee.getUser() == null)
+						employee.setUser(savedUser);
+					else
+						log.info("Cannot change user");
+					employeeRepository.save(employee);
+				}
+			}
 
 			br.close();
 		}
@@ -210,6 +293,8 @@ public class FileStorageService{
 				}
 			}
 		}
+
+		return errListBuilder.build();
 	}
 
 	public void writeFile(Employee employee) {
@@ -352,5 +437,21 @@ public class FileStorageService{
     	}catch (IOException e){
 			e.printStackTrace();
 		}
-    }
+	}
+	
+	private class ErrorListBuilder{
+		private List<String[]> errorList;
+
+		public ErrorListBuilder(){ errorList = new ArrayList<>(); }
+
+		public ErrorListBuilder add(boolean condition, String[] error){
+			if(condition)
+				this.errorList.add(error);
+			return this;
+		}
+
+		public List<String[]> build(){
+			return this.errorList;
+		}
+	}
 }

@@ -170,10 +170,16 @@
       "atLine": {
         "notContainsFirstSpace": "<b>Line {{param0}}:</b> field {{param1}}'s first character must not be a white space.",
         "notContainsSpace": "<b>Line {{param0}}:</b> field {{param1}} must not contains white spaces.",
-        "max": "<b>Line {{param0}}:</b> field {{param1}} can not be longer than {{param3}}.",
-        "min": "<b>Line {{param0}}:</b> field {{param1}} is required to be at least {{param3}} characters.",
+        "max": "<b>Line {{param0}}:</b> field {{param1}} can not be longer than {{param2}}.",
+        "min": "<b>Line {{param0}}:</b> field {{param1}} is required to be at least {{param2}} characters.",
         "required": "<b>Line {{param0}}:</b> field {{param1}} is required.",
-        "loginExist": "<b>Line {{param0}}:</b> field {{param1}} - User already exist."
+        "loginExist": "<b>Line {{param0}}:</b> field {{param1}} - User already exist.",
+        "numberFalse": "<b>Line {{param0}}:</b> field {{param1}} must not contains any number.",
+        "number": "<b>Line {{param0}}:</b> field {{param1}} should be a number.",
+        "email": "<b>Line {{param0}}:</b> field {{param1}} is not a valid email address.",
+        "idFasle": "<b>Line {{param0}}:</b> field {{param1}} has an unknown {{param2}} id.",
+        "characterFalse": "<b>Line {{param0}}:</b> field {{param1}} must not contains any characters.",
+        "phone": "<b>Line {{param0}}:</b> field {{param1}} is not a valid phone number."
       }
     }
   },
