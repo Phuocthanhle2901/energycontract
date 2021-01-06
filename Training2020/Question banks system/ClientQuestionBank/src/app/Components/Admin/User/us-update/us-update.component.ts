@@ -90,10 +90,10 @@ export class UsUpdateComponent implements OnInit {
     this.serviceuser.updateUser(this.idUser,this.aUser).subscribe((res:any)=>{
       if(res.status==200)
       {
-        alert("update question success");
+        alert("update user success");
       }
       else{
-        alert("update question No success");
+        alert("update user unsuccess");
       }
     })
 
