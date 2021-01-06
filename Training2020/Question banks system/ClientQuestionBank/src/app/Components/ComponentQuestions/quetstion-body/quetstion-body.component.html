@@ -50,7 +50,7 @@
           </div>
           <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
-        <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="checkSheet()">
+        <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
@@ -59,7 +59,7 @@
                 [ngClass]="{'is-invalid':answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid}">
                 <label for="op">{{option}}</label>
               </div>
-              <div *ngIf="filled==false && answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid">
+              <div *ngIf="confirm==false && answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid">
                 <small class="form-text showError">Answer is required</small>
               </div>
             </div>
@@ -84,13 +84,15 @@
               </ul>
             </nav>
             <!-- submitt -->
-            <div *ngIf="filled==false">
+            <div *ngIf="confirm==false && submitted==false && answerSheet.invalid">
               <small class="form-text showError">Please answer all questions</small>
             </div>
             <h4 *ngIf='confirm==true && submitted==false' class="text-danger">Are you ready to submit?</h4>
-            <button class="btn btn-primary mt-2" *ngIf='confirm==false && submitted==false' (click)='Confirm()'>Submit</button>
+            <button type="button" class="btn btn-primary mt-2" *ngIf='confirm!=true && submitted==false' (click)='Confirm()'>
+              Submit
+            </button>
             <button type="submit" class="btn btn-primary m-2" *ngIf='confirm==true && submitted==false'>Yes</button>
-            <button class="btn btn-danger m-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
+            <button type="button" class="btn btn-danger m-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
         </form>
         <p class="text-center">{{result}}</p>
       </div>

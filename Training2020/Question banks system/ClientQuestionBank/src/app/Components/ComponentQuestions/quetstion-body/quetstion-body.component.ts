@@ -30,7 +30,7 @@ export class QuetstionBodyComponent implements OnInit {
   result:string;
   submitted:boolean = false;  //flag for submitting test
   configured:boolean = false; //flag for setting number of questions and level
-  confirm:boolean = false; //flag for checking if user really wants to submit
+  confirm:boolean = undefined; //flag for checking if user really wants to submit
   userAnswer:UserAnswer;
   email:string
   pageQuestions:Question[] = [];
@@ -39,7 +39,6 @@ export class QuetstionBodyComponent implements OnInit {
   currentPage:number;
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
-  filled:boolean = undefined; //flag if all questions are answered
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let location = window.location.href;
@@ -99,17 +98,6 @@ export class QuetstionBodyComponent implements OnInit {
     }
     this.currentPage = page;
   }
-
-  checkSheet(){
-    if(this.time>0){
-      if(this.answerSheet.valid){
-        this.getResult();
-        this.filled = true;
-      }
-      else this.filled = false;
-      console.log(this.filled);
-    }
-  }
   
   async getResult(){
     if(!this.submitted){
@@ -136,8 +124,14 @@ export class QuetstionBodyComponent implements OnInit {
     }
   }
 
-  Confirm(){this.confirm = true;} //trigger submit confirm buttons without halting clock by using a flag
-
+  Confirm(){ //confirm if answerSheet is valid
+    if(this.time>0){
+      if(this.answerSheet.valid){
+        this.confirm = true;
+      }
+      else this.confirm = false;
+    }
+  }
   async checkLogin(){
     if(this.cookie.token!=undefined) //get user email
     {
