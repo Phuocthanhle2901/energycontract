@@ -23,3 +23,8 @@ export const PasswordValidation = [
   Validators.minLength(6),
   Validators.pattern("^[a-zA-Z0-9]*$"),
 ];
+export const TestNumberValidation = [
+  Validators.required,
+  Validators.min(2),
+  Validators.max(30)
+]

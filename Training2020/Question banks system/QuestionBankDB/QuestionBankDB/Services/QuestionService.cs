@@ -20,12 +20,12 @@ namespace QuestionBankDB.Services
             _question = database.GetCollection<Question>(settings.QuestionCollectionName);
         }
  
-        public List<Question> Get() =>
+/*        public List<Question> Get() =>
             _question.Find(question => true).ToList();
- 
-       // public List<Question> Get(int page) =>
-         //   _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
- 
+*/
+        public List<Question> Get(int page) =>
+           _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
+
 
         public Question Get(string id) =>
             _question.Find<Question>(question => question.Id == id).FirstOrDefault();

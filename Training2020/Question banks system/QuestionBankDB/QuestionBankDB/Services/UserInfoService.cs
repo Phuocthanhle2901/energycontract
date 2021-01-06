@@ -18,7 +18,7 @@ namespace QuestionBankDB.Services
     public class UserInfoService
     {
         private readonly IMongoCollection<UserInfo> _userInfo;
-        private readonly supperService _supper=new supperService();
+        private readonly supperService _supper = new supperService();
         public UserInfoService(IQuestionBankSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -233,7 +233,12 @@ namespace QuestionBankDB.Services
                 msg.From = new MailAddress("tranhuythinh97@gmail.com");
                 msg.To.Add(email);
                 msg.Subject = "Password reset link";
-                msg.Body = "Follow this link to reset your password:" + '\n' + "http://localhost:4200/login/passwordReset/" + user.Email;
+                msg.Body = "Dear ";
+                if (user.Fullname != null) msg.Body += user.Fullname;
+                else msg.Body += user.Email + ',' + '\n';
+                msg.Body += "Please follow this link to reset your password:" + '\n'
+                            + "http://localhost:4200/login/passwordReset/" + user.Email + '\n'
+                            + "QuestionBank";
                 SmtpClient smt = new SmtpClient();
                 smt.Host = "smtp.gmail.com";
                 System.Net.NetworkCredential credential = new NetworkCredential
@@ -241,10 +246,10 @@ namespace QuestionBankDB.Services
                     UserName = "tranhuythinh97@gmail.com",
                     Password = "14061997"
                 };
-                smt.UseDefaultCredentials = true;
+                smt.UseDefaultCredentials = false;
                 smt.Credentials = credential;
                 smt.Port = 587;
-                smt.EnableSsl = false;
+                smt.EnableSsl = true;
                 try
                 {
                     smt.Send(msg);
@@ -257,18 +262,19 @@ namespace QuestionBankDB.Services
             return 2; //return 2 if email isn't registered
         }
 
-        public byte ResetPassword(string email, string newPassword)
+        public ActionResult<byte> ResetPassword(string email, string newPassword)
         {
             UserInfo user = _userInfo.Find(u => u.Email == email && u.Status).FirstOrDefault();
             if (user != null)
             {
-                if (user.Password.Equals(newPassword)) return 2; //return 2 if new password matches old password
-                user.Password = _supper.GetMD5(newPassword); //set new password
+                newPassword = _supper.GetMD5(newPassword); //convert to md5
+                if (user.Password .Equals(newPassword)) return 2; //return 2 if new password matches old password
+                user.Password = newPassword; //set new password
                 var response = _userInfo.ReplaceOne(u => u.Email == email, user).IsAcknowledged; //update password
-                if(response) return 1; //return 1 if user is updated
+                if(response) return 0; //return 1 if user is updated
                 return 3; //return 3 if update failed
             }
-            return 0; //return 0 if couldn't find user
+            return 1; //return 0 if couldn't find user
         }
     }
 }

@@ -17,7 +17,7 @@ namespace QuestionBankDB.Controllers
     public class UserInfoController : ControllerBase
     {
         private readonly UserInfoService _userInfoService;
-
+        private LogService logger = new LogService();
         public UserInfoController(UserInfoService userInfoService)
         {
             _userInfoService = userInfoService;
@@ -45,9 +45,9 @@ namespace QuestionBankDB.Controllers
         [Route("Create")]
         public  ActionResult<bool> CreateAsync( UserInfo userInfo)
         {
-
-            
-           return _userInfoService.Create(userInfo);
+            var res = _userInfoService.Create(userInfo);
+            logger.Log("CRUD User", "Create", "Tried to create account for " + userInfo.Email, res.ToString()); //log
+            return res;
             //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
         }
 
@@ -91,8 +91,9 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
-
-            return _userInfoService.Update(id, userInfoIn);
+            var res = _userInfoService.Update(id, userInfoIn);
+            logger.Log("CRUD User", "Update", "Tried to update account for " + userInfo.Email, res.ToString()); //log
+            return res;
         }
 
 
@@ -108,7 +109,7 @@ namespace QuestionBankDB.Controllers
             }
 
             _userInfoService.Remove(userInfo.Id);
-
+            logger.Log("CRUD User", "Delete", "Removed account of " + userInfo.Email, null); //log
             return NoContent();
         }
         
@@ -116,7 +117,9 @@ namespace QuestionBankDB.Controllers
         [Route("login")]
         public object PostLogin( [FromBody]UserInfo user)
         {
-           return _userInfoService.SignIn(user, HttpContext);
+            var res = _userInfoService.SignIn(user, HttpContext);
+            logger.Log("Login/Logout", "Login", user.Email + " tried to sign in", res.ToString()); //log
+            return res;
         }
 
         [HttpGet]
@@ -131,7 +134,9 @@ namespace QuestionBankDB.Controllers
         [Route("register")]
         public object PostRegister([FromBody] UserInfo user)
         {
-            return _userInfoService.register(user);
+            var res = _userInfoService.register(user);
+            logger.Log("Login/Logout", "Register", user.Email + " tried to register", res.ToString()); //log
+            return res;
         }
 
         [HttpPost]
@@ -177,8 +182,9 @@ namespace QuestionBankDB.Controllers
         [Route("user/disable_user")]
         public ActionResult<Boolean> disableUser(string email)
         {
-            _userInfoService.DisableUser(email);
-            return true;
+            var res = _userInfoService.DisableUser(email);
+            logger.Log("CRUD User", "Update", "Tried to disable " + email, res.ToString());
+            return res;
         }
         [HttpPost]
         [Route("role")]
@@ -189,10 +195,20 @@ namespace QuestionBankDB.Controllers
 
         [HttpPost]
         [Route("resetPasswordMail")] //send an email for forget password feature
-        public ActionResult<byte> SendLink(string email) => _userInfoService.SendLink(email);
+        public ActionResult<byte> SendLink(string email)
+        {
+            var res = _userInfoService.SendLink(email);
+            logger.Log("Login/Logout", "Forget Password", "Tried to send reset password link to " + email, res.ToString()); //log
+            return res;
+        }
 
         [HttpPut]
         [Route("resetPassword")] //update password for forget password feature
-        public byte ResetPassword(string email, string newPassword) => _userInfoService.ResetPassword(email, newPassword);
+        public ActionResult<byte> ResetPassword(string email, string newPassword)
+        {
+            var res = _userInfoService.ResetPassword(email, newPassword);
+            logger.Log("Login/Logout", "Forget Password", "Tried to reset password of " + email, res.ToString()); //log
+            return res;
+        }
     }
 }

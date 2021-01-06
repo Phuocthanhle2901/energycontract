@@ -24,8 +24,9 @@
           <label  >Password</label>
           <input type="password" [ngClass]="{'is-invalid':dataform.get('password').touched && dataform.get('password').invalid}" class="form-control" formControlName="password"   placeholder="Password..."  >
           <div class="invalid-feedback" *ngIf="dataform.get('password').touched && dataform.get('password').invalid">
-            <small *ngIf="dataform.get('password').errors.required" class="form-text showError">Enter your password </small>
-            <small *ngIf="dataform.get('password').errors.minlength" class="form-text showError">Passwords must be at least 6 characters. </small>
+            <small *ngIf="dataform.get('password').errors.required" class="form-text showError">Password id required </small>
+            <small *ngIf="dataform.get('password').errors.minlength" class="form-text showError">Password must be at least 6
+              characters</small>
           </div>
 
         </div>

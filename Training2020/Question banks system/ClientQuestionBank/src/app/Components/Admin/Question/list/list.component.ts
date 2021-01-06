@@ -40,25 +40,25 @@ export class ListComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     this.getThemes();
     this.getAllQuestion(0);
+    let count = await this.questionService.getTotalCount();
+    this.pageCount = Math.ceil(count/5);
   }
 
   async getThemes() {
     this.themes = await this.themesService.getThemes();
   }
 
-  async getAllQuestion(page:any)
+  getAllQuestion(page:any)
   {
     this.themed = false;
-    let count = await this.questionService.getTotalCount();
     this.currentPage = page;
     this.questionService.getAllQuestion(page).subscribe((data:any)=>{
       this.questions=data;
+      console.log(this.questions.length);
     })
-    console.log(this.currentPage);
-    this.pageCount = Math.ceil(count/5);
   }
 
   getThemeQuestions(theme:string, page:number) {

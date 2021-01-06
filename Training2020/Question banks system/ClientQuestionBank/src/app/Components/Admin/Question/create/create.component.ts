@@ -26,7 +26,6 @@ export class CreateComponent implements OnInit {
   dataForm:FormGroup;
   message:any;
   themes:string[]=[];
-  newTheme:string="";
   hiden:boolean=false;
   constructor(private formBuilder:FormBuilder,
     private questionService: QuestionService,
@@ -52,16 +51,6 @@ export class CreateComponent implements OnInit {
 		return this.dataForm.get('answer') as FormArray;// get list answer
   }
 
-  openNewTheme()// open and close new theme
-  {
-    this.hiden=!this.hiden;
-    if(this.hiden==false)
-    {
-      this.newTheme="";
-    }
-  }
-
-
   addanswer(as:string) {// add formgroup to formdata
     const control = <FormArray>this.dataForm.controls['answer'];
 		let fg = this.formBuilder.group({name: new FormControl("",Validators.required)});
@@ -71,13 +60,6 @@ export class CreateComponent implements OnInit {
     // get themes
     this.themes = await this.themesService.getThemes();
   }
-
-  modelChangeFn(e) {
-    this.newTheme = e.target.value;
-    this.themes.push(this.newTheme);
-  }
-
-
 
   addAnswer(choose:boolean)// create item answer
   {
@@ -93,7 +75,6 @@ export class CreateComponent implements OnInit {
       control.removeAt(this.index);
     }
   }
-
 
   onSubmit(data:any)
   {
@@ -124,8 +105,6 @@ export class CreateComponent implements OnInit {
         this.message="have some error. plaese try agin !";
       }
     });
-
-
     console.log(data.question)
     this.question.question=data.question;
     this.question.level=data.level;
@@ -136,15 +115,12 @@ export class CreateComponent implements OnInit {
     this.question.trueAnswer=data.trueAnswer;
     data.answer.forEach(element => {
       this.question.answer.push(element.name);
-
     });
     console.log(this.question);
-
     // thực hiện đưa dữ liệu lên wep Api tại đây
-   var result= this.questionService.createQuestion(this.question);
-
-     console.log(result);
-
+    var result= this.questionService.createQuestion(this.question);
+    console.log(result);
+    
   }
 
 }
