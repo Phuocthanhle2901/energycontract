@@ -31,6 +31,24 @@
         
         <div class="alert alert-light" role="alert">{{ message }}</div>
 
+        <div *ngIf="errorList" class="alerts" role="alert">
+          <div *ngFor="let error of errorList">
+            <ngb-alert *ngIf="error" type="danger">
+              <div 
+                *ngIf="error.param2; else block"
+                jhiTranslate="{ error.locale }"
+                [translateValues] = "{ param0: error.line, param1: error.param1, param2: error.param2 }"
+              ></div>
+              <ng-template #block>
+                <div 
+                jhiTranslate="{{ error.locale }}"
+                [translateValues] = "{ param0: error.line, param1: error.param1 }"
+              ></div>
+              </ng-template>
+            </ngb-alert>
+          </div>
+        </div>
+
         <jhi-alert-error></jhi-alert-error>
     </div>
 

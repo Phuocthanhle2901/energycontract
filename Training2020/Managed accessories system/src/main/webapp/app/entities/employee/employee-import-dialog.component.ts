@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiAlert, JhiEventManager } from 'ng-jhipster';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 import { IEmployee } from "app/shared/model/employee.model";
 import { EmployeeService } from './employee.service';
+import { EmployeeImportValidator, ErrorListBuilder } from './employee-import-validate';
 
 import * as fileSaver from 'file-saver';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
@@ -17,6 +18,20 @@ export class EmployeeImportDialogComponent {
     file: File | undefined | null;
     progress = 0;
     message = '';
+    errorList : {locale: string, line: number, param1: string, param2 : null | undefined | string}[] = [];
+
+    NOT_CONTAINS_FIRST_SPACE = "error.field.atLine.notContainsFirstSpace";
+    NOT_CONTAINS_SPACES = "error.field.atLine.notContainsSpace";
+    MAX_LENGTH = "error.field.atLine.max";
+    MIN_LENGTH = "error.field.atLine.min";
+    REQUIRED = "error.field.atLine.required";
+    USER_EXISTED = "error.field.atLine.loginExist";
+    NUMBER = "error.field.atLine.number";
+    NOT_CONTAINS_NUMBER = "error.field.atLine.numberFalse";
+    EMAIL = "error.field.atLine.email";
+    ID_NOT_EXIST = "error.field.atLine.idFalse";
+    NOT_CONTAINS_CHARACTERS = "error.field.atLine.characterFalse";
+    INVALID_PHONE = "error.field.atLine.phone";
 
     constructor(protected employeeService: EmployeeService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
@@ -34,7 +49,106 @@ export class EmployeeImportDialogComponent {
     }
 
     dropFile(event: NgxDropzoneChangeEvent ): void {
+        this.errorList.length = 0;
         this.file = event.addedFiles[0];
+
+        const reader : FileReader = new FileReader();
+        reader.readAsText(this.file);
+        reader.onload = (e) => {
+            const csv : any = reader.result;
+            let allTextLines: string[] = [];
+            allTextLines = csv.split(/\r|\n|\r/);
+
+            const headers = allTextLines[0].split(',');
+            const validator = new EmployeeImportValidator();
+            const errorBuilder = new ErrorListBuilder();
+            for(let i = 1; i < allTextLines.length; i++){
+                const line: string[] = allTextLines[i].split(",");
+                if(allTextLines[i].length === 8){
+                    const newUser = validator.isEmpty(line[0]);
+                    const newEmpl = validator.isEmpty(line[1]);
+
+                    errorBuilder.add(!validator.isNumber(line[0]), {
+                        "locale": this.NUMBER, "line": i, "param1": "User id", "param2": null
+                    })
+                    .add(validator.containsSpaces(line[0]), {
+                        "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "User id", "param2": null
+                    })
+
+                    .add(validator.isNumber(line[1]), {
+                        "locale": this.NUMBER, "line": i, "param1": "Employee id", "param2": null
+                    })
+                    .add(validator.containsSpaces(line[1]), {
+                        "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "Employee id", "param2": null
+                    })
+
+                    .add(validator.containsSpaces(line[2]), {
+                        "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "Login", "param2": null
+                    })
+                    .add(validator.isEmpty(line[2]) && newUser, {
+                        "locale": this.REQUIRED, "line": i, "param1": "Login", "param2": null
+                    })
+
+                    .add(validator.containsNumber(line[3]), {
+                        "locale": this.NOT_CONTAINS_NUMBER, "line": i, "param1": "First name", "param2": null
+                    })
+                    .add(validator.firstCharacterIsASpace(line[3]), {
+                        "locale": this.NOT_CONTAINS_FIRST_SPACE, "line": i, "param1": "First name", "param2": null
+                    })
+                    .add(validator.isEmpty(line[3]) && newUser, {
+                        "locale": this.REQUIRED, "line": i, "param1": "First name", "param2": null
+                    })
+
+                    .add(validator.containsNumber(line[4]), {
+                        "locale": this.NOT_CONTAINS_NUMBER, "line": i, "param1": "Last name", "param2": null
+                    })
+                    .add(validator.firstCharacterIsASpace(line[4]), {
+                        "locale": this.NOT_CONTAINS_FIRST_SPACE, "line": i, "param1": "Last name", "param2": null
+                    })
+                    .add(validator.isEmpty(line[4]) && newUser, {
+                        "locale": this.REQUIRED, "line": i, "param1": "Last name", "param2": null
+                    })
+
+                    .add(!validator.isEmailAddress(line[5]), {
+                        "locale": this.EMAIL, "line": i, "param1": "Email", "param2": null
+                    })
+                    .add(validator.firstCharacterIsASpace(line[5]), {
+                        "locale": this.NOT_CONTAINS_FIRST_SPACE, "line": i, "param1": "Email", "param2": null
+                    })
+                    .add(validator.containsNumber(line[5]), {
+                        "locale": this.NOT_CONTAINS_NUMBER, "line": i, "param1": "Email", "param2": null
+                    })
+                    .add(validator.isEmpty(line[5]) && newUser, {
+                        "locale": this.REQUIRED, "line": i, "param1": "Email", "param2": null
+                    })
+
+                    .add(!validator.isNumber(line[6]), {
+                        "locale": this.NUMBER, "line": i, "param1": "Area id", "param2": null
+                    })
+                    .add(validator.containsSpaces(line[6]), {
+                        "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "Area id", "param2": null
+                    })
+                    .add(validator.isEmpty(line[6]) && newEmpl, {
+                        "locale": this.REQUIRED, "line": i, "param1": "Area id", "param2": null
+                    })
+
+                    .add(!validator.isPhoneNumber(line[7]), {
+                        "locale": this.INVALID_PHONE, "line": i, "param1": "Phone number", "param2": null
+                    })
+                    .add(validator.firstCharacterIsASpace(line[7]), {
+                        "locale": this.NOT_CONTAINS_FIRST_SPACE, "line": i, "param1": "Phone number", "param2": null
+                    })
+                    .add(validator.isEmpty(line[7]) && newEmpl, {
+                        "locale": this.REQUIRED, "line": i, "param1": "Phone number", "param2": null
+                    });
+                }
+                else{
+                    errorBuilder.add(true, {"locale": "", "line": i, "param1": "", "param2": null});
+                }
+            }
+
+            this.errorList = errorBuilder.build();
+        }
     }
 
     confirmImport(): void {
@@ -57,4 +171,12 @@ export class EmployeeImportDialogComponent {
             });
         this.file = undefined;
     }
+
+    setClasses(alert: JhiAlert): { [key: string]: boolean } {
+        const classes = { 'jhi-toast': Boolean(alert.toast) };
+        if (alert.position) {
+          return { ...classes, [alert.position]: true };
+        }
+        return classes;
+      }
 }

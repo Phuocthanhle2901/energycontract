@@ -236,21 +236,6 @@ public class FileStorageService{
 						lineNumber += 1;
 						employees.add(employee);
 						users.add(user);
-
-						User savedUser;
-						if(newUser) {
-							UserDTO userDTO = new UserDTO(user);
-							savedUser = userService.registerUser(userDTO, DEFAULT_PASSWORD);
-						}
-						else {
-							savedUser = userRepository.save(user);
-						}
-
-						if(employee.getUser() == null)
-							employee.setUser(savedUser);
-						else
-							log.info("Cannot change user");
-						employeeRepository.save(employee);
 					}
 				}
 			}
