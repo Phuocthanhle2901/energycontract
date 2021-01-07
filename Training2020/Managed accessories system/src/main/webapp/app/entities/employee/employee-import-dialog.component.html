@@ -22,14 +22,14 @@
 
         <ngx-dropzone (change)="dropFile($event)">
           <ngx-dropzone-label jhiTranslate="entity.import.dragndrop.CSV"><h2>Drop a single file</h2></ngx-dropzone-label>
-          <ngx-dropzone-label>{{ file?.name }}.{{ file?.type }}</ngx-dropzone-label>
+          <ngx-dropzone-label>{{ file?.name }}<br/>{{ file?.type }}</ngx-dropzone-label>
         </ngx-dropzone>
         
         <div class="alert alert-light" role="alert">{{ message }}</div>
 
-        <div *ngIf="errorList" class="alerts" role="alert">
+        <div *ngIf="errorList" role="alert">
           <div *ngFor="let error of errorList">
-            <ngb-alert *ngIf="error" type="danger">
+            <ngb-alert *ngIf="error" type="danger" (close)="close(error)">
               <div 
                 *ngIf="error.param2; else block"
                 jhiTranslate="{ error.locale }"

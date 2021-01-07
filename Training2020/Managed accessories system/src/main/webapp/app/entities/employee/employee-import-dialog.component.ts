@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlert, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 import { IEmployee } from "app/shared/model/employee.model";
@@ -9,7 +9,6 @@ import { EmployeeImportValidator, ErrorListBuilder } from './employee-import-val
 
 import * as fileSaver from 'file-saver';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
-import { stringify } from '@angular/compiler/src/util';
 
 @Component({
     templateUrl: './employee-import-dialog.component.html',
@@ -52,10 +51,20 @@ export class EmployeeImportDialogComponent {
         this.validate(this.file);
     }
 
+    validateType(filename: string): boolean {
+        const arr = filename.split('.');
+        return arr[arr.length - 1] === "csv";
+    }
+
     validate(importedFile: File): void {
         this.errorList.length = 0;
         this.errorList = [];
-        
+
+        if(!this.validateType(importedFile.name)){
+            this.errorList.push({"locale": "error.file.not.csv", "line": 0, "param1": "", "param2": null});
+            return;
+        }
+
         const reader : FileReader = new FileReader();
         reader.readAsText(importedFile);
         reader.onload = () => {
@@ -80,7 +89,7 @@ export class EmployeeImportDialogComponent {
                             "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "User id", "param2": null
                         })
 
-                        .add(validator.isNumber(line[1]), {
+                        .add(!validator.isNumber(line[1]), {
                             "locale": this.NUMBER, "line": i, "param1": "Employee id", "param2": null
                         })
                         .add(validator.containsSpaces(line[1]), {
@@ -181,5 +190,13 @@ export class EmployeeImportDialogComponent {
                 });
             this.file = undefined;
         }
+    }
+
+    close(error: {locale: string, line: number, param1: string, param2 : null | undefined | string}): void {
+        const index = this.errorList.indexOf(error, 0);
+        if (index > -1) {
+            this.errorList.splice(index, 1);
+        }
+        this.errorList.length = 1;
     }
 }
