@@ -57,7 +57,7 @@
             <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button class="btn btn-success" [disabled]="!file" (click)="confirmImport()">
+        <button class="btn btn-success" [disabled]="!file || errorList.length > 0" (click)="confirmImport()">
             <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.import">Delete</span>
         </button>
     </div>

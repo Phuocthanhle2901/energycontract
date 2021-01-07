@@ -179,7 +179,9 @@
         "email": "<b>Line {{param0}}:</b> field {{param1}} is not a valid email address.",
         "idFasle": "<b>Line {{param0}}:</b> field {{param1}} has an unknown {{param2}} id.",
         "characterFalse": "<b>Line {{param0}}:</b> field {{param1}} must not contains any characters.",
-        "phone": "<b>Line {{param0}}:</b> field {{param1}} is not a valid phone number."
+        "phone": "<b>Line {{param0}}:</b> field {{param1}} is not a valid phone number.",
+        "emptyLine": "<b>Line {{param0}}:</b> empty line.",
+        "notEnoughFields": "<b>Line {{param0}}:</b> must have 8 fields instead of {{ param1 }}."
       }
     }
   },
