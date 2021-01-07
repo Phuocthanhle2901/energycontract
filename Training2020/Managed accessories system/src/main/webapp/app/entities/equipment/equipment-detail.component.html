@@ -1,7 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8" id="no-print">
         <div *ngIf="equipment">
-            <h2><span jhiTranslate="managedAccessoriesSystemApp.equipment.detail.title">Equipment</span> {{ equipment.id }}</h2>
+            <h2>
+                <span jhiTranslate="managedAccessoriesSystemApp.equipment.title">EQUIPMENT DETAIL</span> 
+                <span *jhiHasAnyAuthority="'ROLE_ADMIN'"> - ID: {{ equipment.id }}</span>
+            </h2>
 
             <hr>
 

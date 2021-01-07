@@ -197,6 +197,7 @@ export class EmployeeImportDialogComponent {
         if (index > -1) {
             this.errorList.splice(index, 1);
         }
-        this.errorList.length = 1;
+        if(this.errorList.length === 0)
+            this.errorList.length = 1;
     }
 }

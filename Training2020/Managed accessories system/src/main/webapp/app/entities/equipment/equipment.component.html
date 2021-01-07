@@ -56,42 +56,18 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.purchaseDate">Purchase Date</span></th>
+                    <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentName">Equipment Name</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.technicalFeatures">Technical Features</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.serialNumber">Serial Number</span></th>
-                    <!-- <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.note">Note</span></th> -->
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.user">User</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentGroup">Equipment Group</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.equipmentType">Equipment Type</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipment.area">Area</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let equipment of equipment ;trackBy: trackId">
-                    <td><a [routerLink]="['/equipment', equipment.id, 'view']">{{ equipment.id }}</a></td>
-                    <td>{{ equipment.purchaseDate | date:'medium' }}</td>
+                    <td *jhiHasAnyAuthority="'ROLE_ADMIN'"><a [routerLink]="['/equipment', equipment.id, 'view']">{{ equipment.id }}</a></td>
                     <td>{{ equipment.equipmentName }}</td>
-                    <td>{{ equipment.technicalFeatures }}</td>
                     <td>{{ equipment.serialNumber }}</td>
-                    <!-- <td>{{ equipment.note }}</td> -->
-                    <td>
-                        <div *ngIf="equipment.user">
-                            <a [routerLink]="['/employee', equipment.user?.id, 'view']" >{{ equipment.user?.user?.login }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="equipment.equipmentGroup">
-                            <a [routerLink]="['/equipment-group', equipment.equipmentGroup?.id, 'view']" >{{ equipment.equipmentGroup?.equipmentGroupName }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="equipment.equipmentType">
-                            <a [routerLink]="['/equipment-type', equipment.equipmentType?.id, 'view']" >{{ equipment.equipmentType?.equipmentTypeName }}</a>
-                        </div>
-                    </td>
                     <td>
                         <div *ngIf="equipment.area">
                             <a [routerLink]="['/area', equipment.area?.id, 'view']" >{{ equipment.area?.areaName }}</a>
