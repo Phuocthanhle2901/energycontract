@@ -26,8 +26,18 @@
         </h4>
         <!-- config form -->
         <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions(config.value)">
+          <div *ngIf='email==null' class="form-group">
+            <h4>Email</h4>
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':config.get('email').touched && config.get('email').invalid}"
+            formControlName="email" placeholder="Email..." /><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="config.get('email').touched && config.get('email').invalid">
+              <small *ngIf="config.get('email').errors.required" class="form-text  showError">Email is required</small>
+              <small *ngIf="config.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+            </div>
+          </div>
           <div>
-            <h2>Number of questions:</h2>
+            <h4>Number of questions:</h4>
             <input formControlName='count' *ngIf='levelCount>=2' class="form-control col-md-4" type="number" max="{{levelCount}}"
             [ngClass]="{'is-invalid':config.get('count').touched && config.get('count').invalid}" placeholder="Number"><span>(*)</span>
             <!-- validator check -->
@@ -37,7 +47,7 @@
               <small *ngIf="config.get('count').errors.max" class="text-danger showError">Please enter no more than 30</small>
             </div>
             <div>
-              <h2>Level:</h2>
+              <h4>Level:</h4>
               <select formControlName='level' class="form-control col-md-4">
                 <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
               </select><span>(*)</span>

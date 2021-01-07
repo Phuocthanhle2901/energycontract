@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Router } from '@angular/router';
 import { ListQuestion } from 'src/app/Models/listQuestion.model';
 import { Timer } from 'src/app/Models/timer.mode';
-import { TestNumberValidation } from 'src/app/Validators/validator';
+import { EmailValidation, TestNumberValidation } from 'src/app/Validators/validator';
 
 @Component({
   selector: 'app-quetstion-body',
@@ -44,7 +44,11 @@ export class QuetstionBodyComponent implements OnInit {
     let location = window.location.href;
     let cutPost = location.indexOf('Test/');
     this.theme =  decodeURIComponent(location.substring(cutPost+5));
-    this.config = new FormGroup({count: new FormControl('',TestNumberValidation), level: new FormControl(1)});
+    this.config = new FormGroup({
+      email: new FormControl('', EmailValidation),
+      count: new FormControl('',TestNumberValidation),
+      level: new FormControl(1)
+    });
   }
 
   async ngOnInit(){
@@ -64,6 +68,7 @@ export class QuetstionBodyComponent implements OnInit {
   getOptions(config:FormGroup){
     if(this.levelCount>=2){
       this.answerSheet = new FormGroup({});
+      this.email = config['email'];
       this.level = config['level'];
       this.count = config['count'];
       for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl('', Validators.required));
@@ -78,7 +83,7 @@ export class QuetstionBodyComponent implements OnInit {
   async generateTest(theme:string, level:number, count:number){
     this.questions = await this.testService.generateTest(theme, level, count);
     this.time = 0;
-    this.questions.forEach(question=>{this.time += question.timeallow*60;})
+    this.questions.forEach(question=>{this.time += question.timeallow})
     this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
     this.loadPage(this.pageCount, 0); //load first page
     while(this.time>0){ //countdown time
@@ -141,6 +146,5 @@ export class QuetstionBodyComponent implements OnInit {
       })
       .catch(err=>console.log(err));
     }
-    else this.router.navigate(["/login"]);
   }
 }
