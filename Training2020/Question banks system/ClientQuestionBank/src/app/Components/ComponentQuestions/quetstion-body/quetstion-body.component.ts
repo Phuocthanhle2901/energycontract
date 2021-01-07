@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ListQuestion } from 'src/app/Models/listQuestion.model';
 import { Timer } from 'src/app/Models/timer.mode';
 import { EmailValidation, TestNumberValidation } from 'src/app/Validators/validator';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-quetstion-body',
@@ -65,12 +66,12 @@ export class QuetstionBodyComponent implements OnInit {
     if(this.levelCount>30) this.levelCount = 30;//max number of questions is 30
   }
 
-  getOptions(config:FormGroup){
-    if(config.valid){
+  getOptions(){
+    if((this.config.valid) || (this.email!=undefined && this.config.get('count').value>1)){
       this.answerSheet = new FormGroup({});
-      if(this.email==undefined) this.email = config['email'];
-      this.level = config['level'];
-      this.count = config['count'];
+      if(this.email==undefined) this.email = this.config.get('email').value;
+      this.level = this.config.get('level').value;
+      this.count = this.config.get('count').value;
       for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl('', Validators.required));
       //only start test when there are at least 2 questions, and no more than available questions
       if(this.count>1 && this.count<=this.levelCount){

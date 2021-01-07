@@ -25,7 +25,7 @@
           Time remaining: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
         </h4>
         <!-- config form -->
-        <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions(config.value)">
+        <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions()">
           <div *ngIf='email==null' class="form-group">
             <h4>Email</h4>
             <input type="text" class="form-control col-md-4"
