@@ -39,7 +39,7 @@ export const employeeRoute: Routes = [
     path: '',
     component: EmployeeComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.employee.home.title',
     },
     canActivate: [UserRouteAccessService],

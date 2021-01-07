@@ -1701,3 +1701,267 @@ liquibase.exception.LockException: Could not acquire change log lock.  Currently
 2021-01-07 16:00:33,904 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
 2021-01-07 16:00:33,908 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get all Employees
 2021-01-07 16:00:33,998 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 16:36:12,701 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 16:36:12,718 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 16:36:20,962 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 16:36:21,618 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 16:36:21,672 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 16:36:21,674 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 16:36:22,321 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 16:36:22,381 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 16:36:22,388 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 16:36:22,393 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 16:36:22,398 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 16:36:22,402 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 16:36:22,407 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 16:36:22,411 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:36:22,417 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 16:36:22,420 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:36:22,423 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 16:36:22,431 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 16:36:22,435 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:36:22,439 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:36:22,444 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 16:36:22,464 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 16:36:22,467 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:36:22,469 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 16:36:22,473 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:36:22,477 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 16:36:22,480 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:36:22,483 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 16:36:22,484 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 16:36:22,486 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:36:22,489 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 16:36:22,493 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 16:36:22,495 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 16:36:22,516 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 16:36:22,534 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 16:36:23,145 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 16:36:26,416 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 16:36:31,452 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 16:36:31,464 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 11 ms
+2021-01-07 16:36:32,276 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 16:36:34,313 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 16:36:34,932 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 31.265 seconds (JVM running for 33.979)
+2021-01-07 16:36:35,121 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 16:39:11,909 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 16:39:11,921 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 16:39:15,235 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 16:39:15,558 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 16:39:15,592 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 16:39:15,594 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 16:39:15,839 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 16:39:15,860 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 16:39:15,865 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 16:39:15,868 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 16:39:15,872 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 16:39:15,874 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 16:39:15,877 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 16:39:15,882 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:39:15,884 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 16:39:15,888 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:39:15,891 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 16:39:15,893 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 16:39:15,898 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:39:15,904 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:39:15,907 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 16:39:15,911 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 16:39:15,917 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:39:15,920 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 16:39:15,923 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:39:15,926 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 16:39:15,931 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:39:15,934 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 16:39:15,938 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 16:39:15,942 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:39:15,945 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 16:39:15,949 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 16:39:15,953 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 16:39:15,981 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 16:39:16,001 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 16:39:16,147 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 16:39:17,733 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 16:39:20,216 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 16:39:20,223 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 6 ms
+2021-01-07 16:39:20,956 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 16:39:21,641 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 16:39:22,118 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 14.822 seconds (JVM running for 15.678)
+2021-01-07 16:39:22,124 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 16:41:06,556 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getEmployee() with argument[s] = [1]
+2021-01-07 16:41:06,560 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get Employee : 1
+2021-01-07 16:41:06,806 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getEmployee() with result = <200 OK OK,Employee{id=1, phoneNumber='59131178'},[]>
+2021-01-07 16:41:34,241 DEBUG [XNIO-1 task-1] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-07 16:41:34,244 DEBUG [XNIO-1 task-1] EquipmentResource: REST request to get all Equipment
+2021-01-07 16:41:34,552 DEBUG [XNIO-1 task-1] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-07 16:41:35,647 DEBUG [XNIO-1 task-1] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:41:35,648 DEBUG [XNIO-1 task-1] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:41:35,650 DEBUG [XNIO-1 task-1] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:41:57,524 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 16:41:57,525 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get all Employees
+2021-01-07 16:41:57,567 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 16:41:58,743 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getEmployee() with argument[s] = [1]
+2021-01-07 16:41:58,744 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get Employee : 1
+2021-01-07 16:41:58,745 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getEmployee() with result = <200 OK OK,Employee{id=1, phoneNumber='59131178'},[]>
+2021-01-07 16:45:24,482 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 16:45:24,495 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 16:45:28,503 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 16:45:29,265 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 16:45:29,314 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 16:45:29,315 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 16:45:29,723 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 16:45:29,740 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 16:45:29,745 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 16:45:29,748 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 16:45:29,751 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 16:45:29,754 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 16:45:29,758 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 16:45:29,761 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:45:29,764 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 16:45:29,766 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:45:29,769 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 16:45:29,771 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 16:45:29,775 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:45:29,777 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:45:29,780 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 16:45:29,783 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 16:45:29,785 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:45:29,788 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 16:45:29,791 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 16:45:29,794 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 16:45:29,797 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 16:45:29,799 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 16:45:29,802 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 16:45:29,804 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 16:45:29,807 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 16:45:29,810 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 16:45:29,813 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 16:45:29,833 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 16:45:29,853 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 16:45:30,027 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 16:45:31,766 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 16:45:34,217 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 16:45:34,227 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 9 ms
+2021-01-07 16:45:34,973 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 16:45:35,728 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 16:45:36,218 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 17.624 seconds (JVM running for 18.878)
+2021-01-07 16:45:36,225 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 16:45:50,318 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:45:50,357 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:45:50,718 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:45:50,722 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:45:50,743 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:45:50,746 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:45:50,747 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:45:50,749 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:45:50,768 DEBUG [XNIO-1 task-4] EmployeeResource: Enter: getEmployee() with argument[s] = [1]
+2021-01-07 16:45:50,771 DEBUG [XNIO-1 task-4] EmployeeResource: REST request to get Employee : 1
+2021-01-07 16:45:50,790 DEBUG [XNIO-1 task-4] EmployeeResource: Exit: getEmployee() with result = <200 OK OK,Employee{id=1, phoneNumber='59131178'},[]>
+2021-01-07 16:48:26,063 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T08:48:26.029237400Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@957e: RemoteIpAddress: 127.0.0.1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2021-01-07 16:48:26,068 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 16:48:26,108 WARN  [XNIO-1 task-4] AdviceTraits: Unauthorized: Full authentication is required to access this resource
+2021-01-07 16:48:26,276 WARN  [XNIO-1 task-4] ExceptionHandlerExceptionResolver: Resolved [org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource]
+2021-01-07 16:48:42,396 DEBUG [XNIO-1 task-4] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-07 16:48:42,503 DEBUG [XNIO-1 task-4] DomainUserDetailsService: Authenticating admin
+2021-01-07 16:48:42,601 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T08:48:42.600601900Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-07 16:48:43,069 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 16:48:43,312 DEBUG [XNIO-1 task-4] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@222b7473,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDA5NTcyM30.8aaiHIPDcPO8ib6xhnsQH4btPmVZyfdhaGMeAs_y6aDiQHCGbD0GrLumOXx7KAyQnfiCvVmAUe_LXEUrVnJ8nw"]>
+2021-01-07 16:48:43,381 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:48:43,383 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:48:43,410 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:48:43,412 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:48:49,396 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-07 16:48:49,427 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get all Equipment
+2021-01-07 16:48:49,711 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-07 16:48:51,272 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:48:51,274 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:48:51,284 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:49:28,775 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:49:28,780 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:49:28,782 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:49:28,785 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:49:28,819 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:49:28,827 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:49:28,828 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:49:28,830 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:49:31,658 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:49:31,672 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:49:31,673 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:49:31,675 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:49:32,052 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:49:32,053 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:49:32,055 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:49:42,429 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:49:42,431 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:49:42,433 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:49:42,434 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:49:42,692 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:49:42,693 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:49:42,696 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:50:25,390 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:50:25,415 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:50:25,416 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:50:25,451 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:50:25,762 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:50:25,767 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:50:25,773 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:50:31,396 ERROR [managed-accessories-system-task-1] AsyncSpringLiquibase: Liquibase could not start correctly, your database is NOT ready: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+liquibase.exception.LockException: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+	at liquibase.lockservice.StandardLockService.waitForLock(StandardLockService.java:236)
+	at liquibase.Liquibase.update(Liquibase.java:184)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase.afterPropertiesSet(DataSourceClosingSpringLiquibase.java:46)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.initDb(AsyncSpringLiquibase.java:118)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.lambda$afterPropertiesSet$0(AsyncSpringLiquibase.java:93)
+	at io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor.lambda$createWrappedRunnable$1(ExceptionHandlingAsyncTaskExecutor.java:78)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-01-07 16:51:41,810 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:51:41,812 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:51:41,813 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:51:41,815 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:51:41,964 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:51:41,966 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:51:41,967 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:51:41,969 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:51:44,123 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:51:44,126 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:51:44,127 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:51:44,140 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:51:44,716 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:51:44,728 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:51:44,739 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:52:06,418 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:52:06,420 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:52:06,421 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:52:06,424 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:52:06,773 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:52:06,774 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:52:06,779 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 16:52:13,633 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 16:52:13,637 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 16:52:13,638 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 16:52:13,640 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 16:52:13,940 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
+2021-01-07 16:52:13,942 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
+2021-01-07 16:52:13,944 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
