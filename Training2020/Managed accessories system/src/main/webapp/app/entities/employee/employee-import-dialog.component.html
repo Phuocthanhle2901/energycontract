@@ -21,13 +21,9 @@
         </div>
 
         <ngx-dropzone (change)="dropFile($event)">
-            <ngx-dropzone-label jhiTranslate="entity.import.dragndrop.CSV"><h2>Drop a single file</h2></ngx-dropzone-label>
-            <ngx-dropzone-label>{{ file?.name }}.{{ file?.type }}</ngx-dropzone-label>
-          </ngx-dropzone>
-
-        <label class="btn btn-default">
-            <input type="file" (change)="selectFile($event)" />
-        </label>
+          <ngx-dropzone-label jhiTranslate="entity.import.dragndrop.CSV"><h2>Drop a single file</h2></ngx-dropzone-label>
+          <ngx-dropzone-label>{{ file?.name }}.{{ file?.type }}</ngx-dropzone-label>
+        </ngx-dropzone>
         
         <div class="alert alert-light" role="alert">{{ message }}</div>
 

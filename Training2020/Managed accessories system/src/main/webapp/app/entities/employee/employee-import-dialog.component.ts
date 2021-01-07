@@ -46,11 +46,6 @@ export class EmployeeImportDialogComponent {
         const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
         fileSaver.saveAs(blob, filename);
     }
-     
-    selectFile(event: Event ): void {
-        this.file = (event.target as HTMLInputElement)!.files!.item(0);
-        this.validate(this.file!);
-    }
 
     dropFile(event: NgxDropzoneChangeEvent ): void {
         this.file = event.addedFiles[0];
