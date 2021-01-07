@@ -49,18 +49,18 @@ public class UserEquipmentActivityLogResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userEquipmentActivityLog, or with status {@code 400 (Bad Request)} if the userEquipmentActivityLog has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/user-equipment-activity-logs")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<UserEquipmentActivityLog> createUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
-        log.debug("REST request to save UserEquipmentActivityLog : {}", userEquipmentActivityLog);
-        if (userEquipmentActivityLog.getId() != null) {
-            throw new BadRequestAlertException("A new userEquipmentActivityLog cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        UserEquipmentActivityLog result = userEquipmentActivityLogRepository.save(userEquipmentActivityLog);
-        return ResponseEntity.created(new URI("/api/user-equipment-activity-logs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
+//    @PostMapping("/user-equipment-activity-logs")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<UserEquipmentActivityLog> createUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
+//        log.debug("REST request to save UserEquipmentActivityLog : {}", userEquipmentActivityLog);
+//        if (userEquipmentActivityLog.getId() != null) {
+//            throw new BadRequestAlertException("A new userEquipmentActivityLog cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        UserEquipmentActivityLog result = userEquipmentActivityLogRepository.save(userEquipmentActivityLog);
+//        return ResponseEntity.created(new URI("/api/user-equipment-activity-logs/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+//    }
 
     /**
      * {@code PUT  /user-equipment-activity-logs} : Updates an existing userEquipmentActivityLog.
@@ -71,18 +71,18 @@ public class UserEquipmentActivityLogResource {
      * or with status {@code 500 (Internal Server Error)} if the userEquipmentActivityLog couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/user-equipment-activity-logs")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<UserEquipmentActivityLog> updateUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
-        log.debug("REST request to update UserEquipmentActivityLog : {}", userEquipmentActivityLog);
-        if (userEquipmentActivityLog.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        UserEquipmentActivityLog result = userEquipmentActivityLogRepository.save(userEquipmentActivityLog);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userEquipmentActivityLog.getId().toString()))
-            .body(result);
-    }
+//    @PutMapping("/user-equipment-activity-logs")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<UserEquipmentActivityLog> updateUserEquipmentActivityLog(@Valid @RequestBody UserEquipmentActivityLog userEquipmentActivityLog) throws URISyntaxException {
+//        log.debug("REST request to update UserEquipmentActivityLog : {}", userEquipmentActivityLog);
+//        if (userEquipmentActivityLog.getId() == null) {
+//            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+//        }
+//        UserEquipmentActivityLog result = userEquipmentActivityLogRepository.save(userEquipmentActivityLog);
+//        return ResponseEntity.ok()
+//            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userEquipmentActivityLog.getId().toString()))
+//            .body(result);
+//    }
 
     /**
      * {@code GET  /user-equipment-activity-logs} : get all the userEquipmentActivityLogs.
@@ -90,6 +90,7 @@ public class UserEquipmentActivityLogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userEquipmentActivityLogs in body.
      */
     @GetMapping("/user-equipment-activity-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public List<UserEquipmentActivityLog> getAllUserEquipmentActivityLogs() {
         log.debug("REST request to get all UserEquipmentActivityLogs");
         return userEquipmentActivityLogRepository.findAll();
@@ -102,6 +103,7 @@ public class UserEquipmentActivityLogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userEquipmentActivityLog, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/user-equipment-activity-logs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<UserEquipmentActivityLog> getUserEquipmentActivityLog(@PathVariable Long id) {
         log.debug("REST request to get UserEquipmentActivityLog : {}", id);
         Optional<UserEquipmentActivityLog> userEquipmentActivityLog = userEquipmentActivityLogRepository.findById(id);
@@ -114,11 +116,11 @@ public class UserEquipmentActivityLogResource {
      * @param id the id of the userEquipmentActivityLog to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/user-equipment-activity-logs/{id}")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Void> deleteUserEquipmentActivityLog(@PathVariable Long id) {
-        log.debug("REST request to delete UserEquipmentActivityLog : {}", id);
-        userEquipmentActivityLogRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
+//    @DeleteMapping("/user-equipment-activity-logs/{id}")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<Void> deleteUserEquipmentActivityLog(@PathVariable Long id) {
+//        log.debug("REST request to delete UserEquipmentActivityLog : {}", id);
+//        userEquipmentActivityLogRepository.deleteById(id);
+//        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+//    }
 }

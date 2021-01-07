@@ -10,7 +10,7 @@ import { IUserEquipmentActivityLog, UserEquipmentActivityLog } from 'app/shared/
 import { UserEquipmentActivityLogService } from './user-equipment-activity-log.service';
 import { UserEquipmentActivityLogComponent } from './user-equipment-activity-log.component';
 import { UserEquipmentActivityLogDetailComponent } from './user-equipment-activity-log-detail.component';
-import { UserEquipmentActivityLogUpdateComponent } from './user-equipment-activity-log-update.component';
+// import { UserEquipmentActivityLogUpdateComponent } from './user-equipment-activity-log-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserEquipmentActivityLogResolve implements Resolve<IUserEquipmentActivityLog> {
@@ -56,28 +56,28 @@ export const userEquipmentActivityLogRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
   },
-  {
-    path: 'new',
-    component: UserEquipmentActivityLogUpdateComponent,
-    resolve: {
-      userEquipmentActivityLog: UserEquipmentActivityLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/edit',
-    component: UserEquipmentActivityLogUpdateComponent,
-    resolve: {
-      userEquipmentActivityLog: UserEquipmentActivityLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
+  // {
+  //   path: 'new',
+  //   component: UserEquipmentActivityLogUpdateComponent,
+  //   resolve: {
+  //     userEquipmentActivityLog: UserEquipmentActivityLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
+  // {
+  //   path: ':id/edit',
+  //   component: UserEquipmentActivityLogUpdateComponent,
+  //   resolve: {
+  //     userEquipmentActivityLog: UserEquipmentActivityLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
 ];

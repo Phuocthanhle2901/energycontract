@@ -2,12 +2,12 @@
     <h2 id="page-heading">
         <span jhiTranslate="managedAccessoriesSystemApp.statusLog.home.title">Status Logs</span>
 
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-status-log" [routerLink]="['/status-log/new']">
-            <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="managedAccessoriesSystemApp.statusLog.home.createLabel">
-            Create a new Status Log
-            </span>
-        </button>
+<!--        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-status-log" [routerLink]="['/status-log/new']">-->
+<!--            <fa-icon icon="plus"></fa-icon>-->
+<!--            <span  jhiTranslate="managedAccessoriesSystemApp.statusLog.home.createLabel">-->
+<!--            Create a new Status Log-->
+<!--            </span>-->
+<!--        </button>-->
     </h2>
 
     <jhi-alert-error></jhi-alert-error>
@@ -47,25 +47,25 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <button type="submit"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
                                     [routerLink]="['/status-log', statusLog.id, 'view']"
                                     class="btn btn-info btn-sm">
                                 <fa-icon icon="eye"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
-                                    [routerLink]="['/status-log', statusLog.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
+<!--                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"-->
+<!--                                    [routerLink]="['/status-log', statusLog.id, 'edit']"-->
+<!--                                    class="btn btn-primary btn-sm">-->
+<!--                                <fa-icon icon="pencil-alt"></fa-icon>-->
+<!--                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+<!--                            </button>-->
 
-                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(statusLog)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
+<!--                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(statusLog)"-->
+<!--                                    class="btn btn-danger btn-sm">-->
+<!--                                <fa-icon icon="times"></fa-icon>-->
+<!--                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+<!--                            </button>-->
                         </div>
                     </td>
                 </tr>

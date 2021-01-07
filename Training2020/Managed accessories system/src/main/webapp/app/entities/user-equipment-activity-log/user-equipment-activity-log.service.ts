@@ -17,19 +17,19 @@ export class UserEquipmentActivityLogService {
 
   constructor(protected http: HttpClient) {}
 
-  create(userEquipmentActivityLog: IUserEquipmentActivityLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(userEquipmentActivityLog);
-    return this.http
-      .post<IUserEquipmentActivityLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
-
-  update(userEquipmentActivityLog: IUserEquipmentActivityLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(userEquipmentActivityLog);
-    return this.http
-      .put<IUserEquipmentActivityLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
+  // create(userEquipmentActivityLog: IUserEquipmentActivityLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(userEquipmentActivityLog);
+  //   return this.http
+  //     .post<IUserEquipmentActivityLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
+  //
+  // update(userEquipmentActivityLog: IUserEquipmentActivityLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(userEquipmentActivityLog);
+  //   return this.http
+  //     .put<IUserEquipmentActivityLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
@@ -44,9 +44,9 @@ export class UserEquipmentActivityLogService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
+  // delete(id: number): Observable<HttpResponse<{}>> {
+  //   return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  // }
 
   protected convertDateFromClient(userEquipmentActivityLog: IUserEquipmentActivityLog): IUserEquipmentActivityLog {
     const copy: IUserEquipmentActivityLog = Object.assign({}, userEquipmentActivityLog, {

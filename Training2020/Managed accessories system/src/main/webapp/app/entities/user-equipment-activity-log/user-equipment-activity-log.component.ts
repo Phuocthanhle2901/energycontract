@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IUserEquipmentActivityLog } from 'app/shared/model/user-equipment-activity-log.model';
 import { UserEquipmentActivityLogService } from './user-equipment-activity-log.service';
-import { UserEquipmentActivityLogDeleteDialogComponent } from './user-equipment-activity-log-delete-dialog.component';
+// import { UserEquipmentActivityLogDeleteDialogComponent } from './user-equipment-activity-log-delete-dialog.component';
 
 @Component({
   selector: 'jhi-user-equipment-activity-log',
@@ -48,8 +48,8 @@ export class UserEquipmentActivityLogComponent implements OnInit, OnDestroy {
     this.eventSubscriber = this.eventManager.subscribe('userEquipmentActivityLogListModification', () => this.loadAll());
   }
 
-  delete(userEquipmentActivityLog: IUserEquipmentActivityLog): void {
-    const modalRef = this.modalService.open(UserEquipmentActivityLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.userEquipmentActivityLog = userEquipmentActivityLog;
-  }
+  // delete(userEquipmentActivityLog: IUserEquipmentActivityLog): void {
+  //   const modalRef = this.modalService.open(UserEquipmentActivityLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+  //   modalRef.componentInstance.userEquipmentActivityLog = userEquipmentActivityLog;
+  // }
 }

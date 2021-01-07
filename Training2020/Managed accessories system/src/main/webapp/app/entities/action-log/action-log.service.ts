@@ -17,19 +17,19 @@ export class ActionLogService {
 
   constructor(protected http: HttpClient) {}
 
-  create(actionLog: IActionLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(actionLog);
-    return this.http
-      .post<IActionLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
+  // create(actionLog: IActionLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(actionLog);
+  //   return this.http
+  //     .post<IActionLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
 
-  update(actionLog: IActionLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(actionLog);
-    return this.http
-      .put<IActionLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
+  // update(actionLog: IActionLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(actionLog);
+  //   return this.http
+  //     .put<IActionLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
@@ -44,9 +44,9 @@ export class ActionLogService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
+  // delete(id: number): Observable<HttpResponse<{}>> {
+  //   return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  // }
 
   protected convertDateFromClient(actionLog: IActionLog): IActionLog {
     const copy: IActionLog = Object.assign({}, actionLog, {
