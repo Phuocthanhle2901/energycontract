@@ -66,9 +66,9 @@ export class QuetstionBodyComponent implements OnInit {
   }
 
   getOptions(config:FormGroup){
-    if(this.levelCount>=2){
+    if(config.valid){
       this.answerSheet = new FormGroup({});
-      this.email = config['email'];
+      if(this.email==undefined) this.email = config['email'];
       this.level = config['level'];
       this.count = config['count'];
       for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl('', Validators.required));
