@@ -28,7 +28,7 @@
         <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions(config.value)">
           <div *ngIf='email==null' class="form-group">
             <h4>Email</h4>
-            <input type="text" class="form-control"
+            <input type="text" class="form-control col-md-4"
             [ngClass]="{'is-invalid':config.get('email').touched && config.get('email').invalid}"
             formControlName="email" placeholder="Email..." /><span>(*)</span>
             <div class="invalid-feedback" *ngIf="config.get('email').touched && config.get('email').invalid">
