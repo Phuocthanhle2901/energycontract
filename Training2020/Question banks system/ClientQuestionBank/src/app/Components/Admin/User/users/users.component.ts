@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
   status :any[]=[];
   role:any[]=[];
   dataform:FormGroup;
-
+  id:any;
   private listUser: BehaviorSubject<any> = new BehaviorSubject<any>({});
   listUser$: Observable<any> = this.listUser.asObservable(); // new data
 
@@ -65,7 +65,9 @@ export class UsersComponent implements OnInit {
     this.getRole();
   }
 
-
+clickDelete(value:any)
+{this.id=value;
+}
 
   SearchByName(value:any)
   {
@@ -82,17 +84,16 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  removeUser(id:any){
-      this.userservice.removeUser(id).subscribe((data:any) =>
-       {this.userservice.removeUser(id)});
-
-          this.getListUser();
-          window.location.reload();
+  removeUser(){
+      this.userservice.removeUser(this.id).subscribe((data:any) =>
+       {
+        this.listUser.next(data)
+       });
+          this.getListUser();    window.location.reload();
   }
   getListUser()
   {
     this.userservice.getAlluser().subscribe((data:any)=>{
-      this.listUser.next(data)
       this.list=data;
     })
   }

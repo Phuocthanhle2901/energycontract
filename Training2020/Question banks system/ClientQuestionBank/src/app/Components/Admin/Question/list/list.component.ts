@@ -22,12 +22,13 @@ export class ListComponent implements OnInit {
   questions:Question[] = [];
   questionsSearch:Question[] = [];
 
-  textdelete:any='';
+
   currentTheme:string;
   pageCount:number;
   currentPage:number;
   biodelete:boolean=false;
   dataform:FormGroup;
+  id:any;
   private listQuestion: BehaviorSubject<any> = new BehaviorSubject<any>({});
   listQuestion$: Observable<any> = this.listQuestion.asObservable(); // new data
 
@@ -52,10 +53,11 @@ export class ListComponent implements OnInit {
   async getThemes() {
     this.themes = await this.themesService.getThemes();
   }
-clickDelete()
-{
-  this.biodelete=true;
-}
+  clickDelete(value:any)
+  {
+    this.id=value;
+    console.log(this.id);
+  }
   getAllQuestion(page:any)
   {
     this.themed = false;
@@ -114,11 +116,10 @@ SearchByName(data:any)
   })
 
 }
-  deleteQuestion(id:any)
+  deleteQuestion()
   {
-    this.textdelete="Are you sure you want to delete this question?";
-
-      this.questionService.deleteQuestion(id).subscribe((res:any)=>{
+    console.log(this.id);
+      this.questionService.deleteQuestion(this.id).subscribe((res:any)=>{
         if(res.deletedCount==1)
         {
           this.getAllQuestion(0);//
