@@ -64,9 +64,16 @@
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
-                <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
-                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}" *ngIf='submitted==false'
+              <!-- checkbox -->
+              <input type="checkbox" class="form-check-input" formControlName="{{i+currentPage*questionsPerPage}}"
+                (change)="check(i+currentPage*questionsPerPage, option)"
+                *ngIf='submitted==false && question.trueAnswer.length>1'
+                [ngClass]="{'is-invalid': checkBoxValidator(i+currentPage*questionsPerPage)==false}">
+              <!-- radio -->
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}"
+                *ngIf='submitted==false && question.trueAnswer.length==1'
                 [ngClass]="{'is-invalid':answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid}">
+              <!-- label -->
                 <label for="op">{{option}}</label>
               </div>
               <div *ngIf="confirm==false && answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid">
@@ -94,7 +101,7 @@
               </ul>
             </nav>
             <!-- submitt -->
-            <div *ngIf="confirm==false && submitted==false && answerSheet.invalid">
+            <div *ngIf="confirm==false && submitted==false">
               <small class="form-text showError">Please answer all questions</small>
             </div>
             <h4 *ngIf='confirm==true && submitted==false' class="text-danger">Are you ready to submit?</h4>

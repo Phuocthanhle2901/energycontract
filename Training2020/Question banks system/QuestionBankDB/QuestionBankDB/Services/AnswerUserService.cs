@@ -36,10 +36,19 @@ namespace QuestionBankDB.Services
                 answerUser.Listquestion[i].TrueAnswer = question.TrueAnswer;
                 answerUser.Listquestion[i].Question = question.question;
                 //check if answer is correct
-                if (answerUser.Listquestion[i].UserAnswer.Equals(answerUser.Listquestion[i].TrueAnswer))
+                if(answerUser.Listquestion[i].UserAnswer.Length == question.TrueAnswer.Length)
                 {
-                    answerUser.Summary += question.Point;
-                    answerUser.Listquestion[i].Point = question.Point;
+                    int j = 0;
+                    while (j < answerUser.Listquestion[i].UserAnswer.Length)
+                    {
+                        if (question.TrueAnswer.Contains(answerUser.Listquestion[i].UserAnswer[j])) j++;
+                        else break;
+                    }
+                    if (j == answerUser.Listquestion[i].UserAnswer.Length)
+                    {
+                        answerUser.Summary += question.Point;
+                        answerUser.Listquestion[i].Point = question.Point;
+                    }
                 }
                 answerUser.Total += question.Point; //calculate total point
             }

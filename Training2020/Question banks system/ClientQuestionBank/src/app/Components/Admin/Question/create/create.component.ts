@@ -33,17 +33,18 @@ export class CreateComponent implements OnInit {
 
     this.dataForm = this.formBuilder.group({// create form group
       question:new FormControl("",Validators.required),
-      trueAnswer:new FormControl("",Validators.required),// answer correst
       themeName:new FormControl("",Validators.required),
       timeallow:new FormControl("",Validators.required),
       level:new FormControl("",Validators.required),
       point:new FormControl("",Validators.required),
 
-			answer: this.formBuilder.array([// ceate formArray container one formGroup
-				this.formBuilder.group({
-          name: new FormControl("",Validators.required)
-        }),
-			])
+			answer: this.formBuilder.array([// create formArray container one formGroup
+				this.formBuilder.group({name: new FormControl("",Validators.required)})
+      ]),
+      
+      correct: this.formBuilder.array([// create formArray container one formGroup
+				this.formBuilder.group({cname: new FormControl("",Validators.required)})
+      ])
     });
   }
 
@@ -51,10 +52,17 @@ export class CreateComponent implements OnInit {
 		return this.dataForm.get('answer') as FormArray;// get list answer
   }
 
+  get correct(): FormArray {
+		return this.dataForm.get('correct') as FormArray;// get list correct
+  }
+
   addanswer(as:string) {// add formgroup to formdata
     const control = <FormArray>this.dataForm.controls['answer'];
-		let fg = this.formBuilder.group({name: new FormControl("",Validators.required)});
-		control.push(fg);
+    const correct = <FormArray>this.dataForm.controls['correct'];
+    let fg = this.formBuilder.group({name: new FormControl("",Validators.required)});
+    let cr = this.formBuilder.group({cname: new FormControl("",Validators.required)});
+    control.push(fg);
+    correct.push(cr);
 	}
   async ngOnInit(){
     // get themes
@@ -64,6 +72,7 @@ export class CreateComponent implements OnInit {
   addAnswer(choose:boolean)// create item answer
   {
    const control = <FormArray>this.dataForm.controls['answer'];
+   const correct = <FormArray>this.dataForm.controls['correct'];
     if(choose)
     {
       this.index+=1;
@@ -71,8 +80,11 @@ export class CreateComponent implements OnInit {
       this.addanswer(``);
     }
     else{
-      this.index>0?this.index-=1:this.index=0;
-      control.removeAt(this.index);
+      if(this.index>0){
+        this.index-=1;
+        control.removeAt(this.index);
+        correct.removeAt(this.index);
+      }
     }
   }
 
@@ -121,6 +133,10 @@ export class CreateComponent implements OnInit {
     var result= this.questionService.createQuestion(this.question);
     console.log(result);
     
+  }
+
+  showOptions(){
+    console.log(this.dataForm.get('correct').value);
   }
 
 }
