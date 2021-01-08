@@ -13,7 +13,7 @@ export class CreateComponent implements OnInit {
 
     question:"",
     answer:[],
-    trueAnswer:"",
+    trueAnswer:[],
     themeName:"",
     level:1,
     point:1,
@@ -60,7 +60,7 @@ export class CreateComponent implements OnInit {
     const control = <FormArray>this.dataForm.controls['answer'];
     const correct = <FormArray>this.dataForm.controls['correct'];
     let fg = this.formBuilder.group({name: new FormControl("",Validators.required)});
-    let cr = this.formBuilder.group({cname: new FormControl("",Validators.required)});
+    let cr = this.formBuilder.group({cname: new FormControl(false,Validators.required)});
     control.push(fg);
     correct.push(cr);
 	}
@@ -79,64 +79,41 @@ export class CreateComponent implements OnInit {
       // control.push(this.formBuilder.control([`answer${this.index}`]));
       this.addanswer(``);
     }
-    else{
-      if(this.index>0){
-        this.index-=1;
-        control.removeAt(this.index);
-        correct.removeAt(this.index);
-      }
+    else if(this.index>0){
+      this.index-=1;
+      control.removeAt(this.index);
+      correct.removeAt(this.index);
     }
   }
 
-  onSubmit(data:any)
+  onSubmit()
   {
-    // const control = <FormArray>this.dataForm.controls['answer'];
-    this.question.question=data.question;
-    this.question.trueAnswer=data.trueAnswer;
-    this.question.themeName=data.themeName;
-    this.question.timeallow=data.timeallow;
-    this.question.level=data.level;
-    this.question.point=data.point;
-    this.question.answer=[];
-    data.answer.forEach(data=>{
-      this.question.answer.push(data.name);
-    })
-
-    this.questionService.createQuestion(this.question).subscribe((data:any)=>{
-
-      if(data!=null)
-      {
-         if(data.status==200)
-         {
-           alert(data.message)
-         }
-         else{
-          alert(data.message)
-         }
-      }else{
-        this.message="have some error. plaese try agin !";
-      }
-    });
-    console.log(data.question)
-    this.question.question=data.question;
-    this.question.level=data.level;
-    this.question.point=data.point;
+    this.question.question=this.dataForm.get('question').value;
+    this.question.level=this.dataForm.get('level').value;
+    this.question.point=this.dataForm.get('point').value;
     this.question.status=true;
-    this.question.themeName=data.themeName;
-    this.question.timeallow=data.timeallow;
-    this.question.trueAnswer=data.trueAnswer;
-    data.answer.forEach(element => {
-      this.question.answer.push(element.name);
+    this.question.themeName=this.dataForm.get('themeName').value;
+    this.question.timeallow=this.dataForm.get('timeallow').value;
+    this.dataForm.get('answer').value.forEach(element => {
+      this.question.answer.push(element['name']);
     });
+    for (let i = 0; i < this.dataForm.get('correct').value.length; i++) {
+      if(this.dataForm.get('correct').value[i]['cname']==true){
+        this.question.trueAnswer.push(this.dataForm.get('answer').value[i]['name']);
+      }
+    }
     console.log(this.question);
     // thực hiện đưa dữ liệu lên wep Api tại đây
-    var result= this.questionService.createQuestion(this.question);
-    console.log(result);
+    this.questionService.createQuestion(this.question).subscribe((res:any)=>{
+      if(res.status==200)
+      {
+        alert("update question success");
+      }
+      else{
+        alert("update question No success");
+      }
+    })
     
-  }
-
-  showOptions(){
-    console.log(this.dataForm.get('correct').value);
   }
 
 }

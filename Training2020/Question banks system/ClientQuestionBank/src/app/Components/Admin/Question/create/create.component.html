@@ -2,7 +2,7 @@
    <h2 class="text-center"> Create Question </h2>
    <hr/>
   <div class="mod-createQuestion-content px-4">
-    <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit(dataForm.value)">
+    <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
       <div class="col-lg-6 col-12">
         <div class="form-group">
           <label >Question</label><br/>
@@ -28,9 +28,7 @@
           <div class="form-group" formArrayName="correct">
             <label>Correct</label><span>(*)</span>
             <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
-              <input class="form-control" type="checkbox" formControlName='cname'
-                (change)='showOptions()'
-              />
+              <input class="form-control" type="checkbox" formControlName='cname'/>
             </div>
           </div>
         </div>
