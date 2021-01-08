@@ -83,24 +83,17 @@ export class UsersComponent implements OnInit {
   }
 
   removeUser(id:any){
+      this.userservice.removeUser(id).subscribe((data:any) =>
+       {this.userservice.removeUser(id)});
 
-    var confirmText = "Are you sure you want to delete this Account?";
-    if(confirm(confirmText)) {
-      this.userservice.removeUser(id).subscribe((data:any) => {this.userservice.removeUser(id)});
-          alert("delete question success")
           this.getListUser();
-   }else{
-      return false;
-   }
-
-
-
-
+          window.location.reload();
   }
   getListUser()
   {
     this.userservice.getAlluser().subscribe((data:any)=>{
       this.listUser.next(data)
+      this.list=data;
     })
   }
 

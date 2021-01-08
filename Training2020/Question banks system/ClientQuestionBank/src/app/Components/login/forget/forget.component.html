@@ -16,7 +16,7 @@
             formControlName="email" placeholder="Email..." /><span>(*)</span>
             <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
               <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">Email is required</small>
-              <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+              <small *ngIf="dataform.get('email').errors.email" class="form-text  showError">Enter a valid email address</small>
             </div>
           </div>
           <div class="form-group">
@@ -32,4 +32,3 @@
     </div>
 </div>
 <router-outlet></router-outlet>
-  

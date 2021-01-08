@@ -29,7 +29,7 @@
           <small class="form-text  showError">{{message}}</small>
         <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
           <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
-          <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+          <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Enter a valid email address</small>
           <small [hiden]="dataform.get('email').errors.pattern" class="form-text  showError">First character can't have space</small>
         </div>
 
