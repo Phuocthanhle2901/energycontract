@@ -15,7 +15,7 @@ namespace QuestionBankDB.Controllers
     public class AnswerUserController : ControllerBase
     {
         private readonly AnswerUserService _answerUserService;
-
+        private LogService logger = new LogService();
         public AnswerUserController(AnswerUserService answerUserService)
         {
             _answerUserService = answerUserService;
@@ -41,7 +41,9 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         public ActionResult<int> Create(AnswerUser answerUser)
         {
-            return _answerUserService.Create(answerUser);
+            int res =  _answerUserService.Create(answerUser);
+            logger.Log("Random question", "Test", "Test submitted by " + answerUser.Email, res.ToString()); //log
+            return res;
         }
 
         [HttpPut("{id:length(24)}")]

@@ -15,15 +15,18 @@ namespace QuestionBankDB.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly QuestionService _questionService;
-
+        private LogService logger = new LogService();
         public QuestionController(QuestionService questionService)
         {
             _questionService = questionService;
         }
 
         [HttpGet]
-        public ActionResult<List<Question>> Get(int page) =>
-            _questionService.Get(page);
+        public ActionResult<List<Question>> Get(int page) => _questionService.Get(page);
+ 
+       // public ActionResult<List<Question>> Get(int page) =>
+         //   _questionService.Get(page);
+ 
 
         [HttpGet("{id:length(24)}",Name ="GetQuestion")]
         public ActionResult<Question> Get(string id)
@@ -37,13 +40,28 @@ namespace QuestionBankDB.Controllers
 
             return question;
         }
+        [HttpGet]
+        [Route("search")]
+        public ActionResult<List<Question>> SearchByName(string name)
+        {
+            var question = _questionService.searchQuesionByName(name);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            return question;
+        }
+
 
         [HttpPost]
-         [Route("create")]
+        [Route("create")]
         public ActionResult<Object> Create(Question question)
         { 
- 
-            return _questionService.Create(question);  
+            var res = _questionService.Create(question);
+            logger.Log("CRUD Question", "Create", $"Tried to add new {question.ThemeName} question", res.ToString()); //log
+            return res;
         }
 
         [HttpPut("{id:length(24)}")]
@@ -55,9 +73,10 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
-             
-
-            return _questionService.Update(id, questionIn);
+            
+            var res =  _questionService.Update(id, questionIn);
+            logger.Log("CRUD Question", "Update", "Tried to update question " + id, res.ToString()); //log
+            return res;
         }
 
         [HttpDelete("{id:length(24)}")]
@@ -70,9 +89,9 @@ namespace QuestionBankDB.Controllers
                 return NotFound();
             }
 
-            return _questionService.Remove(question.Id);
-
-            
+            var res = _questionService.Remove(question.Id);
+            logger.Log("CRUD Question", "Delete", "Tried to delete question " + id, res.ToString()); //log
+            return res;
         }
         //get theme names
         [HttpPost]
@@ -112,6 +131,7 @@ namespace QuestionBankDB.Controllers
             }
             return questions;
         }
+        
 
         [HttpPost]
         [Route("getLevels")]

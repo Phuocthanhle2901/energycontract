@@ -14,16 +14,27 @@
    <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit(dataForm.value)">
      <div class="col-lg-6 col-12">
        <div class="form-group">
-         <label >Question ?</label><br/>
-           <textarea class="p-1" type="text" formControlName="question" cols="60" rows="4"></textarea>
+         <label >Question</label><br/>
+         <textarea type="text" formControlName="question" cols="60" rows="4"
+            [ngClass]="{'is-invalid':dataForm.get('question').touched && dataForm.get('question').invalid}"
+            ></textarea><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="dataForm.get('question').touched && dataForm.get('question').invalid">
+              <small *ngIf="dataForm.get('question').errors.required" class="form-text  showError">Enter your Question</small>
+            </div>
        </div>
 
        <div class="form-group" formArrayName="answer">
-         <label  >Answer</label>
-         <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
-           {{i + 1}}.) <input type="text" formControlName='name'    class="form-control">
-         </div>
-       </div>
+        <label  >Answer</label>
+        <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+          {{i + 1}}.) <input type="text" formControlName='name'  class="form-control w-75"
+          [ngClass]="{'is-invalid':dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid}"
+          /><span>(*)</span>
+          <div class="invalid-feedback" *ngIf="dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid">
+            <small [hidden]="dataForm.get('answer')['controls'][i].errors?.required" class="form-text  showError">Enter your Answer</small>
+          </div>
+
+          </div>
+      </div>
        <div class="form-group d-flex">
          <a class="form-control btn btn-primary" (click)="addAnswer(true)">+</a>
          <a class="form-control btn btn-danger" (click)="addAnswer(false)">-</a>
@@ -34,57 +45,60 @@
        <div class="form-group" >
          <label >True Answer</label>
            <select class="form-control " formControlName="trueAnswer" formArrayName="answer">
-
              <option    class="text-center">-----Choose Answer Correct----- </option>
              <option *ngFor="let list_item of answer.controls;  let i=index"  [formGroupName]="i" [ngValue]="list_item.get('name').value">
                {{list_item.get('name').value}}
              </option>
-           </select>
+           </select><span>(*)</span>
        </div>
 
        <div class="row">
-
            <div class="col-lg-6 d-flex ">
-
             <div class="form-group w-100 ">
               <label >Theme</label>
-              <select  class="form-control "  formControlName="themeName">
-                <option *ngFor="let item of themes"   ng-selected="selected" [value]="item"  >{{item}}</option>
-              </select>
-            </div>
-            <div class="form-group " [ngClass]="hiden1==true?'d-block':'d-none'"  >
-              <label >New Theme</label>
-              <input type="text"  [value]="newTheme" (change)="modelChangeFn($event)" (mouseout)="onMouse()"  class="form-control" >
-            </div>
-
-            <div class="nav-item dropdown">
-              <a  title="new theme" class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown"  >
-                <i class="eva eva-more-vertical-outline    "></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" (click)="openNewTheme()">{{hiden1==true?"close":" other theme"}}</a>
-
-              </div>
+              <input class="form-control" formControlName="themeName" type="text" list="suggestions"
+                  [ngClass]="{'is-invalid':dataForm.get('themeName').touched && dataForm.get('themeName').invalid}"><span>(*)</span>
+                <!-- Theme suggestions -->
+                <datalist id="suggestions">
+                 <option *ngFor="let item of themes" [value]="item" >{{item}}</option>
+                </datalist>
+                <div class="invalid-feedback" *ngIf="dataForm.get('themeName').touched && dataForm.get('themeName').invalid">
+                  <small *ngIf="dataForm.get('themeName').errors.required" class="form-text showError">Enter theme name </small>
+                </div>
             </div>
           </div>
            <div class="col-lg-6">
              <div class="form-group ">
                <label >Point</label>
-               <input type="text" formControlName="point"  class="form-control" >
+               <input type="text" formControlName="point"  class="form-control"
+               [ngClass]="{'is-invalid':dataForm.get('point').touched && dataForm.get('point').invalid}" ><span>(*)</span>
+               <div class="invalid-feedback" *ngIf="dataForm.get('point').touched && dataForm.get('point').invalid"> <span>(*)</span>
+                <small *ngIf="dataForm.get('point').errors.required" class="form-text showError">Enter your point </small>
+              </div>
              </div>
            </div>
        </div>
        <div class="row">
          <div class="col-lg-6">
            <div class="form-group ">
-             <label >level</label>
-             <input type="text" formControlName="level"  class="form-control" >
+             <label >Level</label>
+             <input type="text" formControlName="level"  class="form-control"
+             [ngClass]="{'is-invalid':dataForm.get('level').touched && dataForm.get('level').invalid}"
+             ><span>(*)</span>
+             <div class="invalid-feedback" *ngIf="dataForm.get('level').touched && dataForm.get('level').invalid">
+              <small *ngIf="dataForm.get('level').errors.required" class="form-text showError">Enter your level </small>
+            </div>
            </div>
          </div>
          <div class="col-lg-6">
            <div class="form-group ">
-             <label >Time</label>
-             <input type="text" formControlName="timeallow"  class="form-control" >
+             <label >Time(s)</label>
+             <input type="text" formControlName="timeallow"  class="form-control"
+             [ngClass]="{'is-invalid':dataForm.get('timeallow').touched && dataForm.get('timeallow').invalid}"
+             ><span>(*)</span>
+             <div class="invalid-feedback" *ngIf="dataForm.get('timeallow').touched && dataForm.get('timeallow').invalid">
+              <small *ngIf="dataForm.get('timeallow').errors.required" class="form-text showError">Enter your timeallow </small>
+            </div>
            </div>
          </div>
      </div>
@@ -97,8 +111,6 @@
  </div>
 </div>
 
-
-             <app-bodys></app-bodys>
           </div>
       </div>
       <footer class="sticky-footer bg-white">

@@ -1,14 +1,15 @@
 <div class="mod-createUser my-5">
-  <div class="d-flex justify-content-center align-self-center ">
-    <div class="mod-createUser-avatar  ">
-      <img src="../../../../../assets/Images/logo.png" alt="logo">
-      <input type="file" id="img" style="display:none;" (change)="handleFileInput($event.target.files)">
-      <label class="file form-control text-center" for="img">Avatar</label>
-    </div>
-  </div>
-  <div class="mod-createUser-form mt-5">
-    <form [formGroup]="dataform" name="dataform" (ngSubmit)="submitAddUser(dataform.value)">
 
+  <div class="mod-createUser-form mt-5">
+    <form [formGroup]="dataform" name="dataform" enctype="multipart/form-data" (ngSubmit)="submitAddUser(dataform.value)">
+      <div class="d-flex justify-content-center align-self-center ">
+        <div class="mod-createUser-avatar  ">
+          <img  *ngIf="!url==true" src="../../../../../assets/Images/logo.png" alt="logo">
+          <img [src]="url">
+          <input id="img" type="file" style="display:none;" #file (change)="readUrl(file.files)" />
+          <label   class="file  form-control text-center" for="img"  >Avatar</label>
+        </div>
+      </div>
       <div class="form-group">
         <label for="exampleInputName1">Name</label>
         <input type="text" class="form-control"
@@ -16,18 +17,20 @@
           formControlName="fullname" placeholder="Name..." />
         <div class="invalid-feedback" *ngIf="dataform.get('fullname').touched && dataform.get('fullname').invalid">
           <small *ngIf="dataform.get('fullname').errors.required" class="form-text  showError">Name is required</small>
+          <small *ngIf="dataform.get('fullname').errors.pattern" class="form-text  showError">Name can't contains number</small>
         </div>
 
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
+        <label  >Email</label>
         <input type="text" class="form-control"
-          ngClass="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+          [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
           formControlName="email" placeholder="Email..." />
           <small class="form-text  showError">{{message}}</small>
         <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
           <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">email is required</small>
           <small *ngIf="dataform.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+          <small [hiden]="dataform.get('email').errors.pattern" class="form-text  showError">First character can't have space</small>
         </div>
 
       </div>
@@ -42,6 +45,7 @@
             required</small>
           <small *ngIf="dataform.get('password').errors.minlength" class="form-text  showError"> password min is 6
             character</small>
+            <small [hiden]="dataform.get('email').errors.pattern" class="form-text  showError">First character can't have space</small>
         </div>
       </div>
 
@@ -52,14 +56,14 @@
           formControlName="confirmpassword" placeholder="Confirm Password...">
         <div class="invalid-feedback"
           *ngIf="dataform.get('confirmpassword').touched  && dataform.get('password').dirty && dataform.get('confirmpassword').invalid">
-          <small *ngIf="dataform.get('confirmpassword').errors.required" class="form-text  showError">password is
-            required</small>
+          <small *ngIf="dataform.get('confirmpassword').errors.required" class="form-text  showError">Type your password again </small>
           <small *ngIf="dataform.controls['confirmpassword'].errors.passwordNotMatch"
-            class="form-text showError">Confirm password does not match</small>
+            class="form-text showError">Passwords must match</small>
         </div>
       </div>
+      <label for="role">Role</label>
       <div class="form-group">
-        <label for="role">Role</label>
+
         <select class="form-control"  formControlName="role" id="role">
           <option selected value="2">Admin</option>
           <option value="1">User</option>

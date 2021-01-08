@@ -7,7 +7,8 @@
   <div class=" mod-detailAchievement mt-5">
     <div class="row my-4">
       <div class="col-md-8">
-        <h2>Details of your previous attempt</h2>
+        <h2>Details of attempt</h2>
+        <h4>Email: {{result.email}}</h4>
         <h4>Date: {{result.date|date:'dd/MM/yyyy'}}</h4>
         <h4>Time submitted: {{result.date|date:'HH:mm:ss'}}</h4>
         <h4>Score: {{result.summary}}/{{result.total}}</h4>
@@ -31,11 +32,11 @@
       </div>
       <div class="col-md-4 box-link">
         <h2>Navigation</h2>
-        <div class="justify-content-center  box-link-item">
+        <div class="justify-content-center box-link-item w-25">
           <ul class="d-flex flex-wrap">
             <li *ngFor="let link of ' '.repeat(result.listquestion.length).split(''); index as i"><a pageScroll  href="#index{{i}}" class="btn btn-item">{{i+1}}</a></li>
           </ul>
-          <a routerLink="/achievements"> Finish review </a>
+          <a type="button" class="text-primary" (click)='viewAchievements(result.email)'> Finish review </a>
         </div>
       </div>
     </div>

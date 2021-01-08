@@ -8,7 +8,7 @@ import { UserAnswer } from '../Models/UserAnswer.model';
   providedIn: 'root'
 })
 export class TestService {
-
+  email:string;
   constructor(private httpClient:HttpClient) { }
 
   async generateTest(theme:string, level:number, count:number){
@@ -37,6 +37,12 @@ export class TestService {
     return this.httpClient.get<UserAnswer>(detail);
   }
 
+  getEmail(){
+    return this.email;
+  }
+  setEmail(email:string){
+    this.email = email;
+  }
   async getLevels(theme:string){
     let levelsUrl = 'https://localhost:44328/api/Question/getLevels?theme=' + encodeURIComponent(theme);
     return this.httpClient.post<number[]>(levelsUrl, null).pipe().toPromise();

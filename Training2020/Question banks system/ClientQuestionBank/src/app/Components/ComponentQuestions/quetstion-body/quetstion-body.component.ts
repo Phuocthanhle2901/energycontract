@@ -9,6 +9,8 @@ import axios from 'axios';
 import { Router } from '@angular/router';
 import { ListQuestion } from 'src/app/Models/listQuestion.model';
 import { Timer } from 'src/app/Models/timer.mode';
+import { EmailValidation, TestNumberValidation } from 'src/app/Validators/validator';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-quetstion-body',
@@ -18,10 +20,10 @@ import { Timer } from 'src/app/Models/timer.mode';
 export class QuetstionBodyComponent implements OnInit {
 
   cookie:any;
-  location:string;
   theme:string; //current test theme
   questions:Question[] = [];
   answerSheet:FormGroup;
+  config:FormGroup;
   levelList:number[]; //available levels of test theme
   level:number; //test level
   levelCount:number; //question count of a level
@@ -29,25 +31,31 @@ export class QuetstionBodyComponent implements OnInit {
   result:string;
   submitted:boolean = false;  //flag for submitting test
   configured:boolean = false; //flag for setting number of questions and level
-  confirm:boolean = false; //flag for checking if user really wants to submit
+  confirm:boolean = undefined; //flag for checking if user really wants to submit
   userAnswer:UserAnswer;
   email:string
   pageQuestions:Question[] = [];
-  questionsPerPage:number=2;
+  questionsPerPage:number=5; //questions per page (default 5)
   pageCount:number;
   currentPage:number;
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
-    this.location = window.location.href;
-    let cutPost = this.location.indexOf('Test/');
-    this.theme =  decodeURIComponent(this.location.substring(cutPost+5));
+    let location = window.location.href;
+    let cutPost = location.indexOf('Test/');
+    this.theme =  decodeURIComponent(location.substring(cutPost+5));
+    this.config = new FormGroup({
+      email: new FormControl('', EmailValidation),
+      count: new FormControl('',TestNumberValidation),
+      level: new FormControl(1)
+    });
   }
 
   async ngOnInit(){
     this.cookie = getCookie();
     this.checkLogin();
+    this.levelCount = await this.testService.getTestCount(this.theme, 1);
     this.levelList = await this.testService.getLevels(this.theme);
     this.loadSize(this.levelList[0]);
     this.clock = new Timer();
@@ -55,15 +63,18 @@ export class QuetstionBodyComponent implements OnInit {
 
   async loadSize(level:number){
     this.levelCount = await this.testService.getTestCount(this.theme, level);
+    if(this.levelCount>30) this.levelCount = 30;//max number of questions is 30
   }
 
-  getOptions(config:any){
-    if(this.levelCount>=2){
+  getOptions(){
+    if((this.config.valid) || (this.email!=undefined && this.config.get('count').value>1)){
       this.answerSheet = new FormGroup({});
-      this.level = config.target.level.value;
-      this.count = config.target.count.value;
-      for (let i = 0; i < config.target.count.value; i++) this.answerSheet.addControl(i.toString(), new FormControl('',Validators.required));
-      if(this.count>1){ //only start test when there are at least 2 questions
+      if(this.email==undefined) this.email = this.config.get('email').value;
+      this.level = this.config.get('level').value;
+      this.count = this.config.get('count').value;
+      for (let i = 0; i < this.count; i++) this.answerSheet.addControl(i.toString(), new FormControl('', Validators.required));
+      //only start test when there are at least 2 questions, and no more than available questions
+      if(this.count>1 && this.count<=this.levelCount){
         this.configured = true;
         this.generateTest(this.theme, this.level, this.count);
       }
@@ -73,7 +84,7 @@ export class QuetstionBodyComponent implements OnInit {
   async generateTest(theme:string, level:number, count:number){
     this.questions = await this.testService.generateTest(theme, level, count);
     this.time = 0;
-    this.questions.forEach(question=>{this.time += question.timeallow*60;})
+    this.questions.forEach(question=>{this.time += question.timeallow})
     this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
     this.loadPage(this.pageCount, 0); //load first page
     while(this.time>0){ //countdown time
@@ -93,7 +104,7 @@ export class QuetstionBodyComponent implements OnInit {
     }
     this.currentPage = page;
   }
-
+  
   async getResult(){
     if(!this.submitted){
       //create test content
@@ -119,8 +130,14 @@ export class QuetstionBodyComponent implements OnInit {
     }
   }
 
-  Confirm(){this.confirm = true;} //trigger submit confirm buttons without halting clock by using a flag
-
+  Confirm(){ //confirm if answerSheet is valid
+    if(this.time>0){
+      if(this.answerSheet.valid){
+        this.confirm = true;
+      }
+      else this.confirm = false;
+    }
+  }
   async checkLogin(){
     if(this.cookie.token!=undefined) //get user email
     {
@@ -130,6 +147,5 @@ export class QuetstionBodyComponent implements OnInit {
       })
       .catch(err=>console.log(err));
     }
-    else this.router.navigate(["/login"]);
   }
 }

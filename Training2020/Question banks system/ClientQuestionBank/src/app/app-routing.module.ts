@@ -13,9 +13,13 @@ import {UpdateComponent} from './Components/Admin/Question/update/update.compone
 import {AchievementsComponent} from './Components/achievements/achievements.component';
 import {DetailAchievementComponent} from './Components/detail-achievement/detail-achievement.component';
 import{UsUpdateComponent}from './Components/Admin/User/us-update/us-update.component';
+import {ForgetComponent} from './Components/login/forget/forget.component';
+import { ResetPasswordComponent } from './Components/login/reset-password/reset-password.component'
 const routes: Routes = [
   {path:"",component:HomeComponent},
   {path:"login",component:LoginComponent},
+  {path:"login/forget", component:ForgetComponent},
+  {path:"login/passwordReset/:email", component:ResetPasswordComponent},
   {path:"register",component:RegisterComponent},
   {path:"questions",component:QuestionComponent},
   {path:"questionTest/:name",component:QuetstionBodyComponent},// thực hiện test
@@ -26,7 +30,6 @@ const routes: Routes = [
   {path:"admin/updateQuestion",component:IndexComponent},// list question
   {path:"admin/users",component:IndexComponent},
   {path:"admin/createUsers",component:IndexComponent},// list question
-
   {path:"achievements",component:AchievementsComponent},// AchievementsComponent user
   {path:"detail/achievements/:id",component:DetailAchievementComponent},// AchievementsComponent user
   {path:"admin/editUser",component:IndexComponent},

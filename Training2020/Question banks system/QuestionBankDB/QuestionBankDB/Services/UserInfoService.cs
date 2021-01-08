@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-  
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -16,7 +18,7 @@ namespace QuestionBankDB.Services
     public class UserInfoService
     {
         private readonly IMongoCollection<UserInfo> _userInfo;
-        private readonly supperService _supper=new supperService();
+        private readonly supperService _supper = new supperService();
         public UserInfoService(IQuestionBankSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
@@ -53,6 +55,14 @@ namespace QuestionBankDB.Services
             }
             return null;
         }
+        // get User by id
+        public UserInfo getUserByidi(string id)=>
+            _userInfo.Find(us => us.Id == id).FirstOrDefault();
+        
+        public List<UserInfo>listUser()
+        {
+            return _userInfo.Find(s => true).ToList();
+        }
 
         public Boolean DisableUser(string email)
         {
@@ -68,8 +78,16 @@ namespace QuestionBankDB.Services
             return false;
         }
 
-        public void Update(string id, UserInfo userInfoId) =>
-           _userInfo.ReplaceOne(UserInfo => userInfoId.Id == id, userInfoId);
+        public Object Update(string id, UserInfo user)
+        {
+            var res = _userInfo.ReplaceOne(us => us.Id == id, user).IsAcknowledged;
+            if (res)
+            {
+                return (new { data = Get(id), status = 200 });
+            }
+            return (new { stauts = 400 });
+        }
+          
 
         public void Remove(UserInfo userInfo) =>
             _userInfo.DeleteOne(UserInfo => UserInfo.Id == userInfo.Id);
@@ -80,11 +98,13 @@ namespace QuestionBankDB.Services
         public UserInfo Get(string id) =>
             _userInfo.Find<UserInfo>(UserInfo => UserInfo.Id == id ).FirstOrDefault();
 
-        public Boolean Create(UserInfo userInfo)
+        public Boolean Create([FromForm] UserInfo userInfo )
         {
             var user = _userInfo.Find(res => res.Email == userInfo.Email).FirstOrDefault();
-            if(user==null)
-            {
+
+            if(user==null)  
+            { 
+                userInfo.Password = _supper.GetMD5(userInfo.Password);
                 _userInfo.InsertOne(userInfo);
                 return true;
             }
@@ -116,6 +136,7 @@ namespace QuestionBankDB.Services
             }
              
         }
+
         public object SignIn(UserInfo fuser, HttpContext context)
         {
             try {
@@ -182,7 +203,7 @@ namespace QuestionBankDB.Services
         }
         public   Object getInfoUserLogin(string id)
         {
-            Console.WriteLine(id);
+            
             try
             {
                 //c1
@@ -202,5 +223,58 @@ namespace QuestionBankDB.Services
             }  
         }
 
+        public ActionResult<byte> SendLink(string email)
+        {
+            UserInfo user = _userInfo.Find(u => u.Email == email).FirstOrDefault();
+            if (user != null)
+            {
+                if (!user.Status) return 3; //return 3 if account is disabled
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("tranhuythinh97@gmail.com");
+                msg.To.Add(email);
+                msg.Subject = "Password reset link";
+                msg.Body = "Dear ";
+                if (user.Fullname != null) msg.Body += user.Fullname;
+                else msg.Body += user.Email + ',' + '\n';
+                msg.Body += "Please follow this link to reset your password:" + '\n'
+                            + "http://localhost:4200/login/passwordReset/" + user.Email + '\n'
+                            + "QuestionBank";
+                SmtpClient smt = new SmtpClient();
+                smt.Host = "smtp.gmail.com";
+                System.Net.NetworkCredential credential = new NetworkCredential
+                {
+                    UserName = "tranhuythinh97@gmail.com",
+                    Password = "14061997"
+                };
+                smt.UseDefaultCredentials = false;
+                smt.Credentials = credential;
+                smt.Port = 587;
+                smt.EnableSsl = true;
+                try
+                {
+                    smt.Send(msg);
+                    return 0; //return 0 if mail sent successfully
+                }
+                catch (Exception) {
+                    return 1; //return 1 if could not send mail
+                };
+            }
+            return 2; //return 2 if email isn't registered
+        }
+
+        public ActionResult<byte> ResetPassword(string email, string newPassword)
+        {
+            UserInfo user = _userInfo.Find(u => u.Email == email && u.Status).FirstOrDefault();
+            if (user != null)
+            {
+                newPassword = _supper.GetMD5(newPassword); //convert to md5
+                if (user.Password .Equals(newPassword)) return 2; //return 2 if new password matches old password
+                user.Password = newPassword; //set new password
+                var response = _userInfo.ReplaceOne(u => u.Email == email, user).IsAcknowledged; //update password
+                if(response) return 0; //return 1 if user is updated
+                return 3; //return 3 if update failed
+            }
+            return 1; //return 0 if couldn't find user
+        }
     }
 }

@@ -7,6 +7,8 @@ using QuestionBankDB.Models;
 using QuestionBankDB.Services;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace QuestionBankDB.Controllers
 {
@@ -15,7 +17,7 @@ namespace QuestionBankDB.Controllers
     public class UserInfoController : ControllerBase
     {
         private readonly UserInfoService _userInfoService;
-
+        private LogService logger = new LogService();
         public UserInfoController(UserInfoService userInfoService)
         {
             _userInfoService = userInfoService;
@@ -35,18 +37,53 @@ namespace QuestionBankDB.Controllers
 
             return userInfo;
         }
+        [HttpGet]
+        public ActionResult<List<UserInfo>> Get() =>
+           _userInfoService.listUser();
 
         [HttpPost]
         [Route("Create")]
-        public ActionResult<Boolean> Create(UserInfo userInfo)
+        public  ActionResult<bool> CreateAsync( UserInfo userInfo)
         {
-         return   _userInfoService.Create(userInfo);
+            var res = _userInfoService.Create(userInfo);
+            logger.Log("CRUD User", "Create", "Tried to create account for " + userInfo.Email, res.ToString()); //log
+            return res;
+            //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+        }
 
-         //  return CreatedAtRoute("GetUserInfo", new { id = userInfo.Id.ToString() }, userInfo);
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Upload")]
+        public ActionResult<Object> Upload()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return (new { data= dbPath});
+                }
+                else
+                {
+                    return (new { data = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UserInfo userInfoIn)
+        public ActionResult<Object> Update(string id, UserInfo userInfoIn)
         {
             var userInfo = _userInfoService.Get(id);
 
@@ -54,11 +91,12 @@ namespace QuestionBankDB.Controllers
             {
                 return NotFound();
             }
-
-            _userInfoService.Update(id, userInfoIn);
-
-            return NoContent();
+            var res = _userInfoService.Update(id, userInfoIn);
+            logger.Log("CRUD User", "Update", "Tried to update account for " + userInfo.Email, res.ToString()); //log
+            return res;
         }
+
+
 
         [HttpDelete("{id:length(24)}")]
         public IActionResult Delete(string id)
@@ -71,7 +109,7 @@ namespace QuestionBankDB.Controllers
             }
 
             _userInfoService.Remove(userInfo.Id);
-
+            logger.Log("CRUD User", "Delete", "Removed account of " + userInfo.Email, null); //log
             return NoContent();
         }
         
@@ -79,16 +117,26 @@ namespace QuestionBankDB.Controllers
         [Route("login")]
         public object PostLogin( [FromBody]UserInfo user)
         {
-           return _userInfoService.SignIn(user, HttpContext);
+            var res = _userInfoService.SignIn(user, HttpContext);
+            logger.Log("Login/Logout", "Login", user.Email + " tried to sign in", res.ToString()); //log
+            return res;
         }
 
+        [HttpGet]
+        [Route("getuserById")]
+        public ActionResult<UserInfo> getUserByIdi(string id)
+        {
+            return _userInfoService.getUserByidi(id);
+        }
 
 
         [HttpPost]
         [Route("register")]
         public object PostRegister([FromBody] UserInfo user)
         {
-            return _userInfoService.register(user);
+            var res = _userInfoService.register(user);
+            logger.Log("Login/Logout", "Register", user.Email + " tried to register", res.ToString()); //log
+            return res;
         }
 
         [HttpPost]
@@ -134,8 +182,9 @@ namespace QuestionBankDB.Controllers
         [Route("user/disable_user")]
         public ActionResult<Boolean> disableUser(string email)
         {
-            _userInfoService.DisableUser(email);
-            return true;
+            var res = _userInfoService.DisableUser(email);
+            logger.Log("CRUD User", "Update", "Tried to disable " + email, res.ToString());
+            return res;
         }
         [HttpPost]
         [Route("role")]
@@ -144,5 +193,22 @@ namespace QuestionBankDB.Controllers
         [Route("users")]
         public ActionResult<List<UserInfo>> GetUserByRole(int role) => _userInfoService.getUserbyRole(role);
 
+        [HttpPost]
+        [Route("resetPasswordMail")] //send an email for forget password feature
+        public ActionResult<byte> SendLink(string email)
+        {
+            var res = _userInfoService.SendLink(email);
+            logger.Log("Login/Logout", "Forget Password", "Tried to send reset password link to " + email, res.ToString()); //log
+            return res;
+        }
+
+        [HttpPut]
+        [Route("resetPassword")] //update password for forget password feature
+        public ActionResult<byte> ResetPassword(string email, string newPassword)
+        {
+            var res = _userInfoService.ResetPassword(email, newPassword);
+            logger.Log("Login/Logout", "Forget Password", "Tried to reset password of " + email, res.ToString()); //log
+            return res;
+        }
     }
 }

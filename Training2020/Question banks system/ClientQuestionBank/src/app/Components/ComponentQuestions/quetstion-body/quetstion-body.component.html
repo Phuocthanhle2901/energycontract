@@ -10,9 +10,9 @@
         <nav class="navbar  navbar-expand-md  navbar-light d-flex flex-md-column ">
           <h3>Navigation</h3>
           <div class="collapse navbar-collapse justify-content-center"  id="collapsibleNavbar">
-            <ul class="navbar-nav d-flex flex-wrap w-50" *ngFor="let link of ' '.repeat(pageQuestions.length).split(''); index as i">
-              <li>
-                <a href="{{location}}#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a>
+            <ul class="navbar-nav d-flex flex-wrap w-50">
+              <li *ngFor="let link of ' '.repeat(pageQuestions.length).split(''); index as i">
+                <a pageScroll href="#q{{i}}" class="btn btn-item">{{i + currentPage*questionsPerPage + 1}}</a>
               </li>
             </ul>
           </div>
@@ -24,25 +24,53 @@
         <h4 *ngIf='configured==true' class="text-center">
           Time remaining: {{clock.hours|number:'2.0'}}:{{clock.minutes|number:'2.0'}}:{{clock.seconds|number:'2.0'}}
         </h4>
-        <form *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions($event)">
-          <h2>Number of questions:</h2>
-            <input *ngIf='levelCount>=2' class="form-control col-md-4" name="count" type="number" max="{{levelCount}}" value="2" required=1>
-            <small *ngIf='2>count' class="text-danger">Please enter at least 2</small>
-            <small *ngIf='2>levelCount' class="text-danger">There are no available test for this level at the moment</small>
-            <h2>Level:</h2>
-            <select class="form-control col-md-4" name="level" required=1>
-              <option *ngFor="let l of levelList" value="{{l}}" (click)='loadSize(l)'>{{l}}</option>
-            </select>
-            <button type="submit" class="btn btn-primary mt-2">Start test</button>
+        <!-- config form -->
+        <form [formGroup]="config" *ngIf='configured==false' class="mod-question-body-content" (ngSubmit)="getOptions()">
+          <div *ngIf='email==null' class="form-group">
+            <h4>Email</h4>
+            <input type="text" class="form-control col-md-4"
+            [ngClass]="{'is-invalid':config.get('email').touched && config.get('email').invalid}"
+            formControlName="email" placeholder="Email..." /><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="config.get('email').touched && config.get('email').invalid">
+              <small *ngIf="config.get('email').errors.required" class="form-text  showError">Email is required</small>
+              <small *ngIf="config.get('email').errors.email" class="form-text  showError"> Wrong email format</small>
+            </div>
+          </div>
+          <div>
+            <h4>Number of questions:</h4>
+            <input formControlName='count' *ngIf='levelCount>=2' class="form-control col-md-4" type="number" max="{{levelCount}}"
+            [ngClass]="{'is-invalid':config.get('count').touched && config.get('count').invalid}" placeholder="Number"><span>(*)</span>
+            <!-- validator check -->
+            <div class="invalid-feedback" *ngIf="config.get('count').touched && config.get('count').invalid">
+              <small *ngIf="config.get('count').errors.required" class="text-danger showError">Please enter a number</small>
+              <small *ngIf="config.get('count').errors.min" class="text-danger showError">Please enter at least 2</small>
+              <small *ngIf="config.get('count').errors.max" class="text-danger showError">Please enter no more than 30</small>
+            </div>
+            <div>
+              <h4>Level:</h4>
+              <select formControlName='level' class="form-control col-md-4">
+                <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
+              </select><span>(*)</span>
+            </div>
+            <!-- custom check -->
+            <div>
+              <small *ngIf='count>levelCount' class="text-danger showError">There are only {{levelCount}} available questions</small>
+              <small *ngIf='2>levelCount' class="text-danger showError">There is no available test for this level yet</small>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-2">Start test</button>
         </form>
-        <h2 *ngIf='2>count||2>levelCount' class="text-center text-danger">This test is not available</h2>
         <form *ngIf='configured==true' class="mod-question-body-content" [formGroup]='answerSheet' (ngSubmit)="getResult()">
             <div class="boxItem my-2" *ngFor='let question of pageQuestions; index as i'>
               <h5 id='q{{i}}'>{{question.question}}</h5>
               <div class="  pl-5 form-check" *ngFor='let option of question.answer; index as o'>
                 <!-- <input *ngIf='question.trueAnswer.length>1' type="checkbox" class="form-check-input" formControlName='q{{o}}' id='op'> -->
-                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}" *ngIf='submitted==false'>
-                <label class="form-check-label" for="op">{{option}}</label>
+                <input type="radio" class="form-check-input" value="{{option}}" formControlName="{{i+currentPage*questionsPerPage}}" *ngIf='submitted==false'
+                [ngClass]="{'is-invalid':answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid}">
+                <label for="op">{{option}}</label>
+              </div>
+              <div *ngIf="confirm==false && answerSheet.get((i+currentPage*questionsPerPage).toString()).invalid">
+                <small class="form-text showError">Answer is required</small>
               </div>
             </div>
             <!-- pagination -->
@@ -66,10 +94,15 @@
               </ul>
             </nav>
             <!-- submitt -->
+            <div *ngIf="confirm==false && submitted==false && answerSheet.invalid">
+              <small class="form-text showError">Please answer all questions</small>
+            </div>
             <h4 *ngIf='confirm==true && submitted==false' class="text-danger">Are you ready to submit?</h4>
-            <button class="btn btn-primary mt-2" *ngIf='confirm==false && submitted==false' (click)='Confirm()'>Submit</button>
+            <button type="button" class="btn btn-primary mt-2" *ngIf='confirm!=true && submitted==false' (click)='Confirm()'>
+              Submit
+            </button>
             <button type="submit" class="btn btn-primary m-2" *ngIf='confirm==true && submitted==false'>Yes</button>
-            <button class="btn btn-danger m-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
+            <button type="button" class="btn btn-danger m-2" *ngIf='confirm==true && submitted==false' (click)='confirm=false'>No</button>
         </form>
         <p class="text-center">{{result}}</p>
       </div>

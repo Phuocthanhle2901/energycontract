@@ -4,7 +4,7 @@ import cookie from "js-cookie";
 export const setCookies=(key,val)=>{
     if(window!=='undefiend')
     {
-        cookie.set(key,val,{expires: 0.2})
+        cookie.set(key,val,{expires: 0.2}) //4.8 hours
     }
 }
 //remove cookied
