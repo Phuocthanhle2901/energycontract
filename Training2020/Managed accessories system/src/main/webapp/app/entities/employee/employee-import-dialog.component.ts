@@ -200,4 +200,9 @@ export class EmployeeImportDialogComponent {
         if(this.errorList.length === 0)
             this.errorList.length = 1;
     }
+
+    closeSuccess(): void{
+        const alert = document.getElementById("successAlert");
+        alert?.remove();
+    }
 }

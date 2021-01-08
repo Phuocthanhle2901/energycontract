@@ -1965,3 +1965,267 @@ liquibase.exception.LockException: Could not acquire change log lock.  Currently
 2021-01-07 16:52:13,940 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getEquipment() with argument[s] = [1]
 2021-01-07 16:52:13,942 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get Equipment : 1
 2021-01-07 16:52:13,944 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getEquipment() with result = <200 OK OK,Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'},[]>
+2021-01-07 17:07:38,023 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 17:07:38,030 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 17:07:41,707 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 17:07:42,117 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 17:07:42,153 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 17:07:42,154 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 17:07:42,582 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 17:07:42,718 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 17:07:42,723 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 17:07:42,727 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 17:07:42,732 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 17:07:42,735 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 17:07:42,740 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 17:07:42,744 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 17:07:42,748 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 17:07:42,751 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 17:07:42,753 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 17:07:42,756 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 17:07:42,759 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 17:07:42,762 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 17:07:42,765 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 17:07:42,768 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 17:07:42,771 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 17:07:42,774 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 17:07:42,776 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 17:07:42,780 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 17:07:42,783 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 17:07:42,785 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 17:07:42,805 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 17:07:42,809 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 17:07:42,813 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 17:07:42,815 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 17:07:42,818 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 17:07:42,842 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 17:07:42,858 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 17:07:43,134 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 17:07:45,553 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 17:07:48,408 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 17:07:48,420 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 11 ms
+2021-01-07 17:07:49,222 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 17:07:50,227 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 17:07:50,674 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 18.287 seconds (JVM running for 19.398)
+2021-01-07 17:07:50,681 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 17:08:00,818 DEBUG [XNIO-1 task-3] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T09:08:00.802646800Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2021-01-07 17:08:00,821 DEBUG [XNIO-1 task-3] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 17:08:00,834 WARN  [XNIO-1 task-3] AdviceTraits: Unauthorized: Full authentication is required to access this resource
+2021-01-07 17:08:00,951 WARN  [XNIO-1 task-3] ExceptionHandlerExceptionResolver: Resolved [org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource]
+2021-01-07 17:08:06,576 DEBUG [XNIO-1 task-3] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-07 17:08:06,720 DEBUG [XNIO-1 task-3] DomainUserDetailsService: Authenticating admin
+2021-01-07 17:08:06,997 DEBUG [XNIO-1 task-3] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T09:08:06.996633900Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-07 17:08:07,072 DEBUG [XNIO-1 task-3] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 17:08:07,278 DEBUG [XNIO-1 task-3] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@270ca9c4,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDA5Njg4N30.1u9s2NzkenM1yXOgPCMU2XsB8kVn0XrcH4_y6RXLK4AKFO9MF--D2_5-a8Tl3jc2F4fY6pwvyUy89CUojOV0yw"]>
+2021-01-07 17:08:07,310 DEBUG [XNIO-1 task-3] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 17:08:07,317 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 17:08:07,322 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 17:08:07,324 DEBUG [XNIO-1 task-3] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 17:08:14,070 DEBUG [XNIO-1 task-4] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 17:08:14,076 DEBUG [XNIO-1 task-4] EmployeeResource: REST request to get all Employees
+2021-01-07 17:08:14,156 DEBUG [XNIO-1 task-4] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 17:12:44,718 ERROR [managed-accessories-system-task-1] AsyncSpringLiquibase: Liquibase could not start correctly, your database is NOT ready: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+liquibase.exception.LockException: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+	at liquibase.lockservice.StandardLockService.waitForLock(StandardLockService.java:236)
+	at liquibase.Liquibase.update(Liquibase.java:184)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase.afterPropertiesSet(DataSourceClosingSpringLiquibase.java:46)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.initDb(AsyncSpringLiquibase.java:118)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.lambda$afterPropertiesSet$0(AsyncSpringLiquibase.java:93)
+	at io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor.lambda$createWrappedRunnable$1(ExceptionHandlingAsyncTaskExecutor.java:78)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-01-07 17:14:39,615 DEBUG [XNIO-1 task-4] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-07 17:14:39,615 DEBUG [XNIO-1 task-4] DomainUserDetailsService: Authenticating admin
+2021-01-07 17:14:39,717 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T09:14:39.717826600Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-07 17:14:39,736 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 17:14:39,805 DEBUG [XNIO-1 task-4] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@3a9b3a63,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDA5NzI3OX0.Rn7Yvsnv23KzpmPMBBjPZJ3R7uSX6Bb_VG1_MSkqLRBXVlw5h8DQAzmXODjJKsNjTmiC18Y7uU99Wyx2nXH1gA"]>
+2021-01-07 17:14:39,835 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 17:14:39,837 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 17:14:39,838 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 17:14:39,841 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 17:14:48,000 DEBUG [XNIO-1 task-4] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='user', rememberMe=false}]
+2021-01-07 17:14:48,001 DEBUG [XNIO-1 task-4] DomainUserDetailsService: Authenticating user
+2021-01-07 17:14:48,117 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T09:14:48.117942600Z, principal=user, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-07 17:14:48,121 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 17:14:48,162 DEBUG [XNIO-1 task-4] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@69280d05,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxMDA5NzI4OH0.x4Ju-CpU2Fbmb3KkK8QOvXn7RLyb1QN134pKAbvqbSdBEqA55YOnfd4RY2kEolYd6FrsOZovHiEW3WosoaWreg"]>
+2021-01-07 17:14:48,177 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 17:14:48,179 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 17:14:48,180 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='user', firstName='Hoang', lastName='Lan', email='user@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 17:14:48,195 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='user', firstName='Hoang', lastName='Lan', email='user@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='admin', lastModifiedDate=2020-12-31T09:14:46Z, authorities=[ROLE_USER]}
+2021-01-07 17:15:26,948 DEBUG [XNIO-1 task-4] StatusLogResource: Enter: getAllStatusLogs() with argument[s] = []
+2021-01-07 17:15:26,951 DEBUG [XNIO-1 task-4] StatusLogResource: REST request to get all StatusLogs
+2021-01-07 17:15:27,349 DEBUG [XNIO-1 task-4] StatusLogResource: Exit: getAllStatusLogs() with result = [StatusLog{id=1, statusDateTime='2020-11-29T22:13:21Z', note='purple EXE'}, StatusLog{id=2, statusDateTime='2020-11-30T04:27:30Z', note='protocol Beauty B2C'}, StatusLog{id=3, statusDateTime='2020-11-29T08:39:16Z', note='e-business Direct'}, StatusLog{id=4, statusDateTime='2020-11-29T22:43:37Z', note='Illinois pixel Neck'}, StatusLog{id=5, statusDateTime='2020-11-29T10:26:47Z', note='online'}, StatusLog{id=6, statusDateTime='2020-11-29T23:07:17Z', note='Branding Tasty'}, StatusLog{id=7, statusDateTime='2020-11-30T01:41:26Z', note='secondary Panama'}, StatusLog{id=8, statusDateTime='2020-11-30T00:53:11Z', note='Highway'}, StatusLog{id=9, statusDateTime='2020-11-29T22:38:11Z', note='USB'}, StatusLog{id=10, statusDateTime='2020-11-29T16:14:00Z', note='Central'}]
+2021-01-07 17:15:28,598 DEBUG [XNIO-1 task-4] ActionLogResource: Enter: getAllActionLogs() with argument[s] = []
+2021-01-07 17:15:28,601 DEBUG [XNIO-1 task-4] ActionLogResource: REST request to get all ActionLogs
+2021-01-07 17:15:28,702 DEBUG [XNIO-1 task-4] ActionLogResource: Exit: getAllActionLogs() with result = [ActionLog{id=1, startDate='2020-11-29T12:06:58Z', expectedEndDate='2020-11-29T22:48:28Z', actualEndDate='2020-11-29T20:14:30Z', price=82555, note='Pennsylvania virtual'}, ActionLog{id=2, startDate='2020-11-29T17:07:58Z', expectedEndDate='2020-11-29T19:13:25Z', actualEndDate='2020-11-29T11:17:11Z', price=12910, note='Technician multi-byte Gloves'}, ActionLog{id=3, startDate='2020-11-29T09:17:04Z', expectedEndDate='2020-11-30T07:13:59Z', actualEndDate='2020-11-30T01:27:43Z', price=41861, note='Groves Soft Corporate'}, ActionLog{id=4, startDate='2020-11-30T05:37:21Z', expectedEndDate='2020-11-29T10:50:47Z', actualEndDate='2020-11-29T11:18:50Z', price=5456, note='benchmark New Hampshire artificial intelligence'}, ActionLog{id=5, startDate='2020-11-29T09:04:54Z', expectedEndDate='2020-11-30T01:44:12Z', actualEndDate='2020-11-29T11:44:53Z', price=46855, note='Expanded Glens'}, ActionLog{id=6, startDate='2020-11-29T20:55:46Z', expectedEndDate='2020-11-30T02:50:02Z', actualEndDate='2020-11-29T10:18:17Z', price=84237, note='deposit'}, ActionLog{id=7, startDate='2020-11-29T13:49:32Z', expectedEndDate='2020-11-29T14:38:06Z', actualEndDate='2020-11-30T06:28:01Z', price=31058, note='withdrawal THX'}, ActionLog{id=8, startDate='2020-11-29T22:05:31Z', expectedEndDate='2020-11-29T11:22:41Z', actualEndDate='2020-11-29T21:09:48Z', price=1765, note='Tasty array'}, ActionLog{id=9, startDate='2020-11-29T22:45:37Z', expectedEndDate='2020-11-29T23:09:40Z', actualEndDate='2020-11-30T06:57:02Z', price=17815, note='primary ivory tan'}, ActionLog{id=10, startDate='2020-11-30T03:52:00Z', expectedEndDate='2020-11-29T20:14:00Z', actualEndDate='2020-11-29T13:34:00Z', price=74692, note='cross-platform mindshare'}]
+2021-01-07 17:15:36,152 DEBUG [XNIO-1 task-4] ActionLogResource: Enter: getActionLog() with argument[s] = [1]
+2021-01-07 17:15:36,153 DEBUG [XNIO-1 task-4] ActionLogResource: REST request to get ActionLog : 1
+2021-01-07 17:15:36,156 DEBUG [XNIO-1 task-4] ActionLogResource: Exit: getActionLog() with result = <200 OK OK,ActionLog{id=1, startDate='2020-11-29T12:06:58Z', expectedEndDate='2020-11-29T22:48:28Z', actualEndDate='2020-11-29T20:14:30Z', price=82555, note='Pennsylvania virtual'},[]>
+2021-01-07 17:15:38,024 DEBUG [XNIO-1 task-4] ActionLogResource: Enter: getAllActionLogs() with argument[s] = []
+2021-01-07 17:15:38,025 DEBUG [XNIO-1 task-4] ActionLogResource: REST request to get all ActionLogs
+2021-01-07 17:15:38,040 DEBUG [XNIO-1 task-4] ActionLogResource: Exit: getAllActionLogs() with result = [ActionLog{id=1, startDate='2020-11-29T12:06:58Z', expectedEndDate='2020-11-29T22:48:28Z', actualEndDate='2020-11-29T20:14:30Z', price=82555, note='Pennsylvania virtual'}, ActionLog{id=2, startDate='2020-11-29T17:07:58Z', expectedEndDate='2020-11-29T19:13:25Z', actualEndDate='2020-11-29T11:17:11Z', price=12910, note='Technician multi-byte Gloves'}, ActionLog{id=3, startDate='2020-11-29T09:17:04Z', expectedEndDate='2020-11-30T07:13:59Z', actualEndDate='2020-11-30T01:27:43Z', price=41861, note='Groves Soft Corporate'}, ActionLog{id=4, startDate='2020-11-30T05:37:21Z', expectedEndDate='2020-11-29T10:50:47Z', actualEndDate='2020-11-29T11:18:50Z', price=5456, note='benchmark New Hampshire artificial intelligence'}, ActionLog{id=5, startDate='2020-11-29T09:04:54Z', expectedEndDate='2020-11-30T01:44:12Z', actualEndDate='2020-11-29T11:44:53Z', price=46855, note='Expanded Glens'}, ActionLog{id=6, startDate='2020-11-29T20:55:46Z', expectedEndDate='2020-11-30T02:50:02Z', actualEndDate='2020-11-29T10:18:17Z', price=84237, note='deposit'}, ActionLog{id=7, startDate='2020-11-29T13:49:32Z', expectedEndDate='2020-11-29T14:38:06Z', actualEndDate='2020-11-30T06:28:01Z', price=31058, note='withdrawal THX'}, ActionLog{id=8, startDate='2020-11-29T22:05:31Z', expectedEndDate='2020-11-29T11:22:41Z', actualEndDate='2020-11-29T21:09:48Z', price=1765, note='Tasty array'}, ActionLog{id=9, startDate='2020-11-29T22:45:37Z', expectedEndDate='2020-11-29T23:09:40Z', actualEndDate='2020-11-30T06:57:02Z', price=17815, note='primary ivory tan'}, ActionLog{id=10, startDate='2020-11-30T03:52:00Z', expectedEndDate='2020-11-29T20:14:00Z', actualEndDate='2020-11-29T13:34:00Z', price=74692, note='cross-platform mindshare'}]
+2021-01-07 17:15:48,602 DEBUG [XNIO-1 task-4] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-07 17:15:48,603 DEBUG [XNIO-1 task-4] DomainUserDetailsService: Authenticating admin
+2021-01-07 17:15:48,700 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-07T09:15:48.700716800Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-07 17:15:48,703 DEBUG [XNIO-1 task-4] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-07 17:15:48,753 DEBUG [XNIO-1 task-4] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@441b52d4,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDA5NzM0OH0.cEYmE5d1w-ah4sK82mLIbiCtPvSacKYtp6HNXxame1xyuXeX3nohMfZAr15FSUlTmlvFagFUeyJDNZvNezjz2w"]>
+2021-01-07 17:15:48,766 DEBUG [XNIO-1 task-4] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 17:15:48,768 DEBUG [XNIO-1 task-4] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 17:15:48,768 DEBUG [XNIO-1 task-4] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 17:15:48,769 DEBUG [XNIO-1 task-4] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 17:18:44,936 DEBUG [XNIO-1 task-4] StatusTypeResource: Enter: getAllStatusTypes() with argument[s] = []
+2021-01-07 17:18:44,940 DEBUG [XNIO-1 task-4] StatusTypeResource: REST request to get all StatusTypes
+2021-01-07 17:18:44,945 DEBUG [XNIO-1 task-4] StatusTypeResource: Exit: getAllStatusTypes() with result = [StatusType{id=1, statusTitle='attitude structure', description='Utah whiteboard'}, StatusType{id=2, statusTitle='Agent', description='Buckinghamshire Unbranded'}, StatusType{id=3, statusTitle='Games Sudan', description='solid state'}, StatusType{id=4, statusTitle='Common', description='Interactions'}, StatusType{id=5, statusTitle='Iraq', description='ivory Concrete'}, StatusType{id=6, statusTitle='SQL Fish Money Market Account', description='COM Shoes'}, StatusType{id=7, statusTitle='Supervisor HDD', description='auxiliary blue'}, StatusType{id=8, statusTitle='Handmade Fresh Salad', description='Function-based Administrator Isle'}, StatusType{id=9, statusTitle='niches', description='Venezuela withdrawal'}, StatusType{id=10, statusTitle='virtual', description='Buckinghamshire'}]
+2021-01-07 17:18:46,727 DEBUG [XNIO-1 task-4] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 17:18:46,728 DEBUG [XNIO-1 task-4] EmployeeResource: REST request to get all Employees
+2021-01-07 17:18:46,737 DEBUG [XNIO-1 task-4] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 17:18:47,983 DEBUG [XNIO-1 task-4] ActionLogResource: Enter: getAllActionLogs() with argument[s] = []
+2021-01-07 17:18:47,984 DEBUG [XNIO-1 task-4] ActionLogResource: REST request to get all ActionLogs
+2021-01-07 17:18:47,995 DEBUG [XNIO-1 task-4] ActionLogResource: Exit: getAllActionLogs() with result = [ActionLog{id=1, startDate='2020-11-29T12:06:58Z', expectedEndDate='2020-11-29T22:48:28Z', actualEndDate='2020-11-29T20:14:30Z', price=82555, note='Pennsylvania virtual'}, ActionLog{id=2, startDate='2020-11-29T17:07:58Z', expectedEndDate='2020-11-29T19:13:25Z', actualEndDate='2020-11-29T11:17:11Z', price=12910, note='Technician multi-byte Gloves'}, ActionLog{id=3, startDate='2020-11-29T09:17:04Z', expectedEndDate='2020-11-30T07:13:59Z', actualEndDate='2020-11-30T01:27:43Z', price=41861, note='Groves Soft Corporate'}, ActionLog{id=4, startDate='2020-11-30T05:37:21Z', expectedEndDate='2020-11-29T10:50:47Z', actualEndDate='2020-11-29T11:18:50Z', price=5456, note='benchmark New Hampshire artificial intelligence'}, ActionLog{id=5, startDate='2020-11-29T09:04:54Z', expectedEndDate='2020-11-30T01:44:12Z', actualEndDate='2020-11-29T11:44:53Z', price=46855, note='Expanded Glens'}, ActionLog{id=6, startDate='2020-11-29T20:55:46Z', expectedEndDate='2020-11-30T02:50:02Z', actualEndDate='2020-11-29T10:18:17Z', price=84237, note='deposit'}, ActionLog{id=7, startDate='2020-11-29T13:49:32Z', expectedEndDate='2020-11-29T14:38:06Z', actualEndDate='2020-11-30T06:28:01Z', price=31058, note='withdrawal THX'}, ActionLog{id=8, startDate='2020-11-29T22:05:31Z', expectedEndDate='2020-11-29T11:22:41Z', actualEndDate='2020-11-29T21:09:48Z', price=1765, note='Tasty array'}, ActionLog{id=9, startDate='2020-11-29T22:45:37Z', expectedEndDate='2020-11-29T23:09:40Z', actualEndDate='2020-11-30T06:57:02Z', price=17815, note='primary ivory tan'}, ActionLog{id=10, startDate='2020-11-30T03:52:00Z', expectedEndDate='2020-11-29T20:14:00Z', actualEndDate='2020-11-29T13:34:00Z', price=74692, note='cross-platform mindshare'}]
+2021-01-07 18:08:55,991 DEBUG [XNIO-1 task-4] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 18:08:55,992 DEBUG [XNIO-1 task-4] EmployeeResource: REST request to get all Employees
+2021-01-07 18:08:56,172 DEBUG [XNIO-1 task-4] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 18:28:42,859 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 18:28:42,864 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 18:28:47,047 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 18:28:47,493 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 18:28:47,530 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 18:28:47,532 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 18:28:48,013 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 18:28:48,043 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 18:28:48,046 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 18:28:48,049 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 18:28:48,053 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 18:28:48,056 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 18:28:48,059 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 18:28:48,063 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:28:48,067 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 18:28:48,071 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:28:48,074 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 18:28:48,077 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 18:28:48,079 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:28:48,082 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 18:28:48,085 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 18:28:48,089 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 18:28:48,092 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:28:48,094 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 18:28:48,096 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:28:48,099 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 18:28:48,103 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:28:48,106 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 18:28:48,109 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 18:28:48,111 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 18:28:48,114 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 18:28:48,116 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 18:28:48,119 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 18:28:48,139 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 18:28:48,155 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 18:28:48,434 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 18:28:50,746 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 18:28:53,654 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 18:28:53,664 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 9 ms
+2021-01-07 18:28:54,382 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 18:28:55,795 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 18:28:56,265 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 21.852 seconds (JVM running for 24.642)
+2021-01-07 18:28:56,271 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 18:29:15,721 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 18:29:15,765 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 18:29:16,642 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 18:29:16,647 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 18:29:16,673 DEBUG [XNIO-1 task-3] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 18:29:16,675 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 18:29:16,677 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 18:29:16,679 DEBUG [XNIO-1 task-3] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 18:29:16,806 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 18:29:16,810 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get all Employees
+2021-01-07 18:29:16,925 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]
+2021-01-07 18:33:50,202 ERROR [managed-accessories-system-task-1] AsyncSpringLiquibase: Liquibase could not start correctly, your database is NOT ready: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+liquibase.exception.LockException: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+	at liquibase.lockservice.StandardLockService.waitForLock(StandardLockService.java:236)
+	at liquibase.Liquibase.update(Liquibase.java:184)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase.afterPropertiesSet(DataSourceClosingSpringLiquibase.java:46)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.initDb(AsyncSpringLiquibase.java:118)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.lambda$afterPropertiesSet$0(AsyncSpringLiquibase.java:93)
+	at io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor.lambda$createWrappedRunnable$1(ExceptionHandlingAsyncTaskExecutor.java:78)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-01-07 18:55:06,883 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-07 18:55:06,901 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-07 18:55:11,858 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-07 18:55:12,324 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-07 18:55:12,362 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-07 18:55:12,367 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-07 18:55:12,790 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-07 18:55:12,809 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-07 18:55:12,811 DEBUG [restartedMain] User: Initialize successful.
+2021-01-07 18:55:12,816 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-07 18:55:12,820 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-07 18:55:12,823 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-07 18:55:12,826 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-07 18:55:12,828 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:55:12,834 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-07 18:55:12,835 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:55:12,839 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-07 18:55:12,841 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-07 18:55:12,843 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:55:12,846 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 18:55:12,851 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-07 18:55:12,852 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-07 18:55:12,858 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:55:12,860 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-07 18:55:12,863 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-07 18:55:12,865 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-07 18:55:12,869 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-07 18:55:12,871 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-07 18:55:12,874 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-07 18:55:12,891 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-07 18:55:12,903 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-07 18:55:12,906 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-07 18:55:12,909 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-07 18:55:12,930 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-07 18:55:12,945 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-07 18:55:13,165 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-07 18:55:16,462 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-07 18:55:19,622 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-07 18:55:19,628 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 7 ms
+2021-01-07 18:55:20,307 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-07 18:55:21,180 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-07 18:55:21,690 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 21.062 seconds (JVM running for 22.685)
+2021-01-07 18:55:21,695 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-07 18:55:31,174 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 18:55:31,201 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 18:55:31,646 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 18:55:31,652 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 18:55:31,687 DEBUG [XNIO-1 task-1] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-07 18:55:31,689 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-07 18:55:31,692 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-07 18:55:31,695 DEBUG [XNIO-1 task-1] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-07 18:55:31,917 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-07 18:55:31,922 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get all Employees
+2021-01-07 18:55:32,068 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=31, phoneNumber='012345678'}]

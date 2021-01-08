@@ -45,6 +45,14 @@
           </div>
         </div>
 
+        <div *ngIf="file && !(errorList.length > 0)" role="alert" id="successAlert">
+          <ngb-alert type="success" (close)="closeSuccess()">
+            <div 
+              jhiTranslate="{ alert.ready }"
+            >Ready for importation</div>
+          </ngb-alert>
+        </div>
+
         <jhi-alert-error></jhi-alert-error>
     </div>
 
