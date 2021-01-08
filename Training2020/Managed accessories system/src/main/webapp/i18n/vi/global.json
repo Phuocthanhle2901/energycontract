@@ -149,6 +149,7 @@
       "whiteSpace": "Trường này không được phép nhập khoảng trắng."
     }
   },
+  "alertReady": "Sẵn sàng nhập tệp",
   "error": {
     "internalServerError": "Lỗi máy chủ nội bộ",
     "server.not.reachable": "Không tìm thấy máy chủ",
@@ -160,8 +161,27 @@
     "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",
     "idnull": "Invalid ID",
     "file": {
+      "not.csv": "Định dạng tệp không phải .CSV",
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
+    },
+    "field": {
+      "atLine": {
+        "notContainsFirstSpace": "<b>Dòng {{param0}}:</b> Trường {{param1}} không được có ký tự đầu tiên là khoảng trắng.",
+        "notContainsSpace": "<b>Dòng {{param0}}:</b> Trường {{param1}} không được chứa khoảng trắng.",
+        "max": "<b>Dòng {{param0}}:</b> Trường {{param1}} không được có nhiều hơn {{param2}} ký tự.",
+        "min": "<b>Dòng {{param0}}:</b> Trường {{param1}} phải có ít nhất {{param2}} ký tự.",
+        "required": "<b>Dòng {{param0}}:</b> Trường {{param1}} bắt buộc pahir nhập.",
+        "loginExist": "<b>Dòng {{param0}}:</b> Trường {{param1}} - Người dùng đã tồn tại.",
+        "numberFalse": "<b>Dòng {{param0}}:</b> Trường {{param1}} không được chứa số.",
+        "number": "<b>Dòng {{param0}}:</b> Trường {{param1}} phải là số.",
+        "email": "<b>Dòng {{param0}}:</b> Trường {{param1}} không phỉa là một địa chỉ email hợp lệ.",
+        "idFasle": "<b>Dòng {{param0}}:</b> Trường {{param1}} có id {{param2}} không tồn tại.",
+        "characterFalse": "<b>Dòng {{param0}}:</b> Trường {{param1}} không được chứa ký tự chữ cái.",
+        "phone": "<b>Dòng {{param0}}:</b> Trường {{param1}} không phải là số điện thoại hợp lệ.",
+        "emptyLine": "<b>Dòng {{param0}}:</b> bị rỗng.",
+        "notEnoughFields": "<b>Dòng {{param0}}:</b> phải có 8 giá trị thay vì {{ param1 }}."
+      }
     }
   },
   "footer": "Đây là chân trang của bạn"

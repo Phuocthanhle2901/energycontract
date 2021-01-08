@@ -152,6 +152,7 @@
       "whiteSpace": "This field must not contains any white space."
     }
   },
+  "alertReady": "Ready for importation",
   "error": {
     "internalServerError": "Internal server error",
     "server.not.reachable": "Server not reachable",

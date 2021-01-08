@@ -32,7 +32,7 @@
             <ngb-alert *ngIf="error" type="danger" (close)="close(error)">
               <div 
                 *ngIf="error.param2; else block"
-                jhiTranslate="{ error.locale }"
+                jhiTranslate="{{ error.locale }}"
                 [translateValues] = "{ param0: error.line, param1: error.param1, param2: error.param2 }"
               ></div>
               <ng-template #block>
@@ -48,7 +48,7 @@
         <div *ngIf="file && !(errorList.length > 0)" role="alert" id="successAlert">
           <ngb-alert type="success" (close)="closeSuccess()">
             <div 
-              jhiTranslate="{ alert.ready }"
+              jhiTranslate="alertReady"
             >Ready for importation</div>
           </ngb-alert>
         </div>
