@@ -20,6 +20,11 @@
                                *ngIf="editForm.get('phoneNumber')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
+
+                        <small class="form-text text-danger"
+                           *ngIf="editForm.get('phoneNumber')?.errors?.phone" jhiTranslate="entity.validation.phone">
+                        This field must have a valid phone number
+                        </small>
                     </div>
                 </div>
 

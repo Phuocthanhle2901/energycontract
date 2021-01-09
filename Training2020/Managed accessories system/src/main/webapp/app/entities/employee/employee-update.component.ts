@@ -11,7 +11,7 @@ import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { IArea } from 'app/shared/model/area.model';
 import { AreaService } from 'app/entities/area/area.service';
-
+import { CustomValidators } from "app/shared/custom-validators/validators";
 type SelectableEntity = IUser | IArea;
 
 @Component({
@@ -25,7 +25,10 @@ export class EmployeeUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    phoneNumber: [null, [Validators.required]],
+    phoneNumber: [null, [
+      Validators.required,
+      CustomValidators.phoneNumber
+    ]],
     user: [null, Validators.required],
     area: [null, Validators.required],
   });

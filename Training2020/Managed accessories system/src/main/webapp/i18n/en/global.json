@@ -149,7 +149,9 @@
       "datetimelocal": "This field should be a date and time.",
       "patternLogin": "This field can only contain letters, digits and e-mail addresses.",
       "firstSpace": "First character should not be a white space.",
-      "whiteSpace": "This field must not contains any white space."
+      "whiteSpace": "This field must not contains any white space.",
+      "phone": "This field must have a valid phone number",
+      "email": "This field must have a valid e-mail address"
     }
   },
   "alertReady": "Ready for importation",

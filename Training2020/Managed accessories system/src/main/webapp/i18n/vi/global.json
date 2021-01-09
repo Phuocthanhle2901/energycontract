@@ -146,7 +146,9 @@
       "datetimelocal": "Trường này phải là định dạng thời gian.",
       "patternLogin": "Trường này chỉ được phép nhập ký tự thường, ký tự số hoặc địa chỉ email.",
       "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng",
-      "whiteSpace": "Trường này không được phép nhập khoảng trắng."
+      "whiteSpace": "Trường này không được phép nhập khoảng trắng.",
+      "phone": "Trường này phải có số điện thoại hợp lệ",
+      "email": "Trường này phải có địa chỉ e-mail hợp lệ"
     }
   },
   "alertReady": "Sẵn sàng nhập tệp",
