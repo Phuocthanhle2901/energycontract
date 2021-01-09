@@ -90,6 +90,7 @@ export class UpdateComponent implements OnInit {
         this.dataForm.controls['trueAnswer'].value[i]['cname'] = true;
       else this.dataForm.controls['trueAnswer'].value[i]['cname'] = false;
     }
+    this.index = data.answer.length - 1;
   }
 
   // get info formArray
@@ -110,6 +111,7 @@ export class UpdateComponent implements OnInit {
   addAnswer(choose:boolean)// create item answer
   {
    const control = <FormArray>this.dataForm.controls['answer'];
+   const correct = <FormArray>this.dataForm.controls['trueAnswer'];
     if(choose)
     {
       this.index+=1;
@@ -119,6 +121,7 @@ export class UpdateComponent implements OnInit {
     else if(this.index>0){
       this.index-=1;
       control.removeAt(this.index);// delete formGroup at index
+      correct.removeAt(this.index);
     }
   }
 

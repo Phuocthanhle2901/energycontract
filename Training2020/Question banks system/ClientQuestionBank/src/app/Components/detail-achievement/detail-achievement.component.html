@@ -14,18 +14,24 @@
         <h4>Score: {{result.summary}}/{{result.total}}</h4>
         <div class="boxs my-3" *ngFor='let question of result.listquestion; index as i'>
           <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
-            <h5>{{question.question}}</h5>
+            <h5><b>{{i+1}}. {{question.question}}</b></h5>
             <ul>
               <li *ngFor="let option of question.answer; index as i">&ensp;{{i+1}}. {{option}}</li>
-              <li>Answer: {{question.userAnswer}} <i *ngIf='question.point>0' class="eva eva-checkmark-outline text-success"></i> 
-                <i *ngIf='question.point==0' class="eva eva-close-outline text-danger"></i>
+              <li>
+                <b>Answer:</b><br/>
+                <span *ngFor='let answer of question.userAnswer'>
+                   {{answer}}
+                  <i *ngIf='question.trueAnswer.includes(answer)' class="eva eva-checkmark-outline text-success"></i>
+                  <i *ngIf='!question.trueAnswer.includes(answer)' class="eva eva-close-outline text-danger"></i><br/>
+                </span>
               </li>
-              <li>Point: {{question.point}}</li>
+              <li><b>Point:</b> {{question.point}}</li>
             </ul>
           </div>
           <div class="mod-detailAchievement-boxa" *ngIf='question.point==0'>
+            The correct answer is:
             <ul>
-              <li>The correct answer is: {{question.trueAnswer}}</li>
+              <li *ngFor='let correct of question.trueAnswer'>{{correct}}</li>
             </ul>
           </div>
         </div>
