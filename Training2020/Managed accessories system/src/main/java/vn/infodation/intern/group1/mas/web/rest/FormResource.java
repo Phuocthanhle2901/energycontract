@@ -1,5 +1,6 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import vn.infodation.intern.group1.mas.domain.Authority;
 import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.domain.Form;
 import vn.infodation.intern.group1.mas.domain.User;
@@ -8,21 +9,26 @@ import vn.infodation.intern.group1.mas.repository.FormRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.service.UserService;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link vn.infodation.intern.group1.mas.domain.Form}.
@@ -99,8 +105,10 @@ public class FormResource {
     @GetMapping("/forms")
     public List<Form> getAllForms() {
         log.debug("REST request to get all Forms");
-        List<String> au = userService.getAuthorities();
-        if(au.contains(AuthoritiesConstants.ADMIN)){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        boolean hasAuthorityAdmin = authorities.contains(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
+        if(hasAuthorityAdmin){
             return formRepository.findAll();
         }
         else{
