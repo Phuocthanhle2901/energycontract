@@ -27,7 +27,7 @@ export class UpdateComponent implements OnInit {
   index:number=0;
   Answers:string[]=[];// list answer
   themes:string[]=[];
-
+  checkInvalid = false;
   hiden1:boolean=false;
   dataForm:FormGroup;
   newTheme:string='';
@@ -125,32 +125,46 @@ export class UpdateComponent implements OnInit {
 
   onSubmit()
   {
-    this.question.id = this.idQuestion;
-    this.question.question=this.dataForm.get('question').value;
-    this.question.level=this.dataForm.get('level').value;
-    this.question.point=this.dataForm.get('point').value;
-    this.question.status=true;
-    this.question.themeName=this.dataForm.get('themeName').value;
-    this.question.timeallow=this.dataForm.get('timeallow').value;
-    this.dataForm.get('answer').value.forEach(element => {
-      this.question.answer.push(element['name']);
-    });
+    if(this.check()==true){
+      this.question.id = this.idQuestion;
+      this.question.question=this.dataForm.get('question').value;
+      this.question.level=this.dataForm.get('level').value;
+      this.question.point=this.dataForm.get('point').value;
+      this.question.status=true;
+      this.question.themeName=this.dataForm.get('themeName').value;
+      this.question.timeallow=this.dataForm.get('timeallow').value;
+      this.dataForm.get('answer').value.forEach(element => {
+        this.question.answer.push(element['name']);
+      });
+      for (let i = 0; i < this.dataForm.get('trueAnswer').value.length; i++) {
+        if(this.dataForm.get('trueAnswer').value[i]['cname']==true){
+          this.question.trueAnswer.push(this.dataForm.get('answer').value[i]['name']);
+        }
+      }
+      console.log(this.idQuestion);
+      // thực hiện đưa dữ liệu lên wep Api tại đây
+      this.questionService.editQuestion(this.idQuestion ,this.question).subscribe((res:any)=>{
+        if(res.status==200)
+        {
+          alert("update question success");
+        }
+        else{
+          alert("update question No success");
+        }
+      })
+    }
+    
+  }
+
+  check(){
     for (let i = 0; i < this.dataForm.get('trueAnswer').value.length; i++) {
       if(this.dataForm.get('trueAnswer').value[i]['cname']==true){
-        this.question.trueAnswer.push(this.dataForm.get('answer').value[i]['name']);
+        this.checkInvalid = false;
+        return true;
       }
     }
-    console.log(this.idQuestion);
-    // thực hiện đưa dữ liệu lên wep Api tại đây
-    this.questionService.editQuestion(this.idQuestion ,this.question).subscribe((res:any)=>{
-      if(res.status==200)
-      {
-        alert("update question success");
-      }
-      else{
-        alert("update question No success");
-      }
-    })
+    this.checkInvalid = true;
+    return false;
   }
 
 }

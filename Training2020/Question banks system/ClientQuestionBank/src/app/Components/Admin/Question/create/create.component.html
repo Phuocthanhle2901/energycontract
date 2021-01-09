@@ -27,14 +27,15 @@
           </div>
           <div class="form-group" formArrayName="correct">
             <label>Correct</label><span>(*)</span>
-            <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+            <div *ngFor="let list_item of correct.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
               <input class="form-control" type="checkbox" formControlName='cname'/>
             </div>
+            <small *ngIf='checkInvalid==true' class="showError">Choose a correct answer</small>
           </div>
         </div>
         <div class="form-group d-flex">
-          <a class="form-control btn btn-primary" (click)="addAnswer(true)">+</a>
-          <a class="form-control btn btn-danger" (click)="addAnswer(false)">-</a>
+          <a class="btn btn-primary mr-3" (click)="addAnswer(true)">Add answer field</a>
+          <a class="btn btn-danger" (click)="addAnswer(false)">Remove answer field</a>
         </div>
 
       </div>

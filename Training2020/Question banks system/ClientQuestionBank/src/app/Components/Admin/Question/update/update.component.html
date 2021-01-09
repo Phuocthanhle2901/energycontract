@@ -40,6 +40,7 @@
           <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
             <input class="form-control" type="checkbox" ng-checked="dataForm.get('trueAnswer').value[i]['cname']==true" formControlName='cname'/>
           </div>
+          <small *ngIf='checkInvalid==true' class="showError">Choose a correct answer</small>
         </div>
       </div>
        <div class="form-group d-flex">
