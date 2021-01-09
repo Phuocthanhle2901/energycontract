@@ -43,7 +43,7 @@ public class FileStorageService{
 	private final Path root = Paths.get(FILE_DIRECTORY);
 	private final Logger log = LoggerFactory.getLogger(FileStorageService.class);
 	private static int defaultCharBufferSize = 8192;
-	private final String fileHeader = "u_id,e_id,login,first_name,last_name,email,area_id,phone_number";
+	private final String fileHeader = "user_id,employee_id,login,first_name,last_name,email,area_id,phone_number";
 
 	private final String LOGIN = "Login";
 	private final String FIRST_NAME = "First name";
@@ -241,13 +241,15 @@ public class FileStorageService{
 			}
 			List<String[]> errList = errListBuilder.build();
 
+			//Save all imported data if and only if there's nothing in the error list
 			if(errList.isEmpty()){
 				for(int i = 0; i < users.size(); i++){
 					User savedUser;
 					User user = users.get(i);
 					Employee employee = employees.get(i);
 
-					if(userRepository.findOneByLogin(user.getLogin()).isPresent()) {
+					//Create new user if there's no user with the current Login
+					if( !userRepository.findOneByLogin( user.getLogin() ).isPresent() ) {
 						UserDTO userDTO = new UserDTO(user);
 						savedUser = userService.registerUser(userDTO, DEFAULT_PASSWORD);
 					}
@@ -284,14 +286,13 @@ public class FileStorageService{
 
 	public void writeFile(Employee employee) {
     	String filename = employee.getUser().getLogin() + ".csv";
-    	String path = "/csv/users/";
 
-    	File directory = new File(path);
+    	File directory = new File(FILE_DIRECTORY);
     	if(!directory.exists()) {
     		directory.mkdirs();
     	}
 
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
     	if(!file.exists()) {
     		try {
     			User user = employee.getUser();
@@ -337,14 +338,13 @@ public class FileStorageService{
 		}
 		if(employee == null) return;
     	String filename = employee.getUser().getLogin() + ".csv";
-    	String path = "/csv/users/";
 
-    	File directory = new File(path);
+    	File directory = new File(FILE_DIRECTORY);
     	if(!directory.exists()) {
     		directory.mkdirs();
     	}
 
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
     	if(!file.exists()) {
     		try {
     			final String SEPERATOR = ",";
@@ -380,15 +380,14 @@ public class FileStorageService{
 
     public void writeFile() {
     	String filename = "users.csv";
-    	String path = "/csv/users/";
     	List<Employee> x = employeeRepository.findAll();
 
-    	File directory = new File(path);
+    	File directory = new File(FILE_DIRECTORY);
     	if(!directory.exists()) {
     		directory.mkdirs();
     	}
 
-    	File file = new File(path + filename);
+    	File file = new File(FILE_DIRECTORY + filename);
 		final String SEPERATOR = ",";
 		String value = fileHeader + "\n";
 
