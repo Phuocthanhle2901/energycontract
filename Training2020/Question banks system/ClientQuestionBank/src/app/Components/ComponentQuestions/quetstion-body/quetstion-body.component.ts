@@ -92,11 +92,10 @@ export class QuetstionBodyComponent implements OnInit {
     this.questions.forEach(question=>{this.time += question.timeallow})
     this.pageCount = Math.ceil(this.questions.length/this.questionsPerPage)
     this.loadPage(this.pageCount, 0); //load first page
-    while(this.time>0){ //countdown time
+    while(this.time>0 && !this.submitted){ //countdown time, stop on submit
       await this.testService.delay();
       this.time -= 1;
       this.clock.calculate(this.time);
-      if(this.submitted) break; //stop countdown on submit
     }
     this.getResult(); //submit after countdown
   }
@@ -111,7 +110,7 @@ export class QuetstionBodyComponent implements OnInit {
   }
   
   async getResult(){
-    if(!this.submitted && this.Confirm()){
+    if(!this.submitted && (this.Confirm() || this.time==0)){
       //create test content
       let correctAnswer:string;
       this.userAnswer = new UserAnswer(); //init user answer
