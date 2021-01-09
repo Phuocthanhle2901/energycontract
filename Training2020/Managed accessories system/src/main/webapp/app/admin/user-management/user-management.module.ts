@@ -7,15 +7,22 @@ import { UserManagementDetailComponent } from './user-management-detail.componen
 import { UserManagementUpdateComponent } from './user-management-update.component';
 import { UserManagementDeleteDialogComponent } from './user-management-delete-dialog.component';
 import { userManagementRoute } from './user-management.route';
+import { UserImportDialogComponent } from './user-import-dialog.component';
 
-@NgModule({
-  imports: [ManagedAccessoriesSystemSharedModule, RouterModule.forChild(userManagementRoute)],
+import { NgxDropzoneModule } from "ngx-dropzone";
+
+@NgModule({ 
+  imports: [
+    ManagedAccessoriesSystemSharedModule,
+    RouterModule.forChild(userManagementRoute),
+    NgxDropzoneModule],
   declarations: [
     UserManagementComponent,
     UserManagementDetailComponent,
     UserManagementUpdateComponent,
     UserManagementDeleteDialogComponent,
+    UserImportDialogComponent
   ],
-  entryComponents: [UserManagementDeleteDialogComponent],
+  entryComponents: [UserManagementDeleteDialogComponent,UserImportDialogComponent],
 })
 export class UserManagementModule {}

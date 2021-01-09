@@ -295,3 +295,83 @@ liquibase.exception.LockException: Could not acquire change log lock.  Currently
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-01-08 18:36:54,416 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-08 18:36:54,517 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-08 18:37:01,912 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-08 18:37:02,944 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-08 18:37:03,004 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-08 18:37:03,007 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-08 18:37:04,705 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-08 18:37:04,750 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-08 18:37:04,759 DEBUG [restartedMain] User: Initialize successful.
+2021-01-08 18:37:04,766 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-08 18:37:04,777 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-08 18:37:04,783 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-08 18:37:04,789 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-08 18:37:04,798 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-08 18:37:04,809 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-08 18:37:04,813 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-08 18:37:04,818 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-08 18:37:04,823 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-08 18:37:04,828 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-08 18:37:04,832 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-08 18:37:04,836 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-08 18:37:04,841 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-08 18:37:04,845 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-08 18:37:04,849 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-08 18:37:04,852 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-08 18:37:04,855 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-08 18:37:04,861 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-08 18:37:04,864 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-08 18:37:04,869 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-08 18:37:04,874 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-08 18:37:04,879 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-08 18:37:04,882 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-08 18:37:04,886 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-08 18:37:04,912 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-08 18:37:04,932 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-08 18:37:05,464 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-08 18:37:08,980 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-08 18:37:13,170 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-08 18:37:13,181 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 11 ms
+2021-01-08 18:37:15,361 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-08 18:37:16,762 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-08 18:37:18,259 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 35.875 seconds (JVM running for 39.092)
+2021-01-08 18:37:18,415 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-08 18:37:50,348 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-08T10:37:50.334859100Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2021-01-08 18:37:50,352 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-08 18:37:50,369 WARN  [XNIO-1 task-2] AdviceTraits: Unauthorized: Full authentication is required to access this resource
+2021-01-08 18:37:50,470 WARN  [XNIO-1 task-2] ExceptionHandlerExceptionResolver: Resolved [org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource]
+2021-01-08 18:37:57,569 DEBUG [XNIO-1 task-2] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-08 18:37:57,716 DEBUG [XNIO-1 task-2] DomainUserDetailsService: Authenticating admin
+2021-01-08 18:37:58,528 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-08T10:37:58.528735300Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-08 18:37:58,649 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-08 18:37:59,149 DEBUG [XNIO-1 task-2] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@76bb422a,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDE4ODY3OH0.uAwiQ9LZzC3nu_sQT_WqMypH7MeHgNiETVzsbFy0FGkyj1c0S_Iy_oUUt7WyXBGnisgXTKGOZCX5kRObWrjD6A"]>
+2021-01-08 18:37:59,190 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-08 18:37:59,202 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-08 18:37:59,210 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-08 18:37:59,213 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-08 18:38:05,289 DEBUG [XNIO-1 task-1] UserResource: Enter: getAllUsers() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2021-01-08 18:38:05,297 DEBUG [XNIO-1 task-1] UserService: Enter: getAllManagedUsers() with argument[s] = [Page request [number: 0, size 20, sort: id: ASC]]
+2021-01-08 18:38:05,549 DEBUG [XNIO-1 task-1] UserService: Exit: getAllManagedUsers() with result = Page 1 of 2 containing vn.infodation.intern.group1.mas.service.dto.UserDTO instances
+2021-01-08 18:38:05,554 DEBUG [XNIO-1 task-1] UserResource: Exit: getAllUsers() with result = <200 OK OK,[UserDTO{login='system', firstName='System', lastName='System', email='system@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}, UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}, UserDTO{login='user', firstName='Hoang', lastName='Lan', email='user@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='admin', lastModifiedDate=2020-12-31T09:14:46Z, authorities=[ROLE_USER]}, UserDTO{login='lanhoang0129', firstName='Hoang', lastName='Lan', email='lanhoang0129@gmail.com', imageUrl='null', activated=true, langKey='vi', createdBy=admin, createdDate=2020-12-07T13:12:46Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T08:09:08Z, authorities=[ROLE_USER, ROLE_ADMIN]}, UserDTO{login='nghingo', firstName='Ngo', lastName='Nghi', email='nghingo@gmail.com', imageUrl='null', activated=true, langKey='en', createdBy=admin, createdDate=2020-12-10T05:15:07Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T08:09:08Z, authorities=[ROLE_USER, ROLE_ADMIN]}, UserDTO{login='lanhoangntu', firstName='Hoang', lastName='Lan', email='lanhoangntu@gmail.com', imageUrl='null', activated=true, langKey='null', createdBy=admin, createdDate=2020-12-10T09:13:37Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T09:13:58Z, authorities=[ROLE_ADMIN]}, UserDTO{login='datle', firstName='Le', lastName='Dat', email='datle@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T09:13:37Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T09:13:37Z, authorities=[ROLE_USER]}, UserDTO{login='helloworld', firstName='User', lastName='1', email='user01@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:28Z, lastModifiedBy='admin', lastModifiedDate=2020-12-14T02:49:42Z, authorities=[ROLE_USER]}, UserDTO{login='user02', firstName='User', lastName='2', email='user02@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:29Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:29Z, authorities=[ROLE_USER]}, UserDTO{login='user03', firstName='User', lastName='3', email='user03@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:29Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:29Z, authorities=[ROLE_USER]}, UserDTO{login='user04', firstName='User', lastName='4', email='user04@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:29Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:29Z, authorities=[ROLE_USER]}, UserDTO{login='user05', firstName='User', lastName='5', email='user05@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:30Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:30Z, authorities=[ROLE_USER]}, UserDTO{login='user06', firstName='User', lastName='6', email='user06@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:30Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:30Z, authorities=[ROLE_USER]}, UserDTO{login='user07', firstName='User', lastName='7', email='user07@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:30Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:30Z, authorities=[ROLE_USER]}, UserDTO{login='user08', firstName='User', lastName='8', email='user08@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:30Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:30Z, authorities=[ROLE_USER]}, UserDTO{login='user09', firstName='User', lastName='9', email='user09@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:31Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:31Z, authorities=[ROLE_USER]}, UserDTO{login='user10', firstName='User', lastName='10', email='user10@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:31Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:31Z, authorities=[ROLE_USER]}, UserDTO{login='user11', firstName='User', lastName='11', email='user11@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-10T11:59:31Z, lastModifiedBy='admin', lastModifiedDate=2020-12-10T11:59:31Z, authorities=[ROLE_USER]}, UserDTO{login='userrr', firstName='Userrrr', lastName='userrrr', email='userrrr@gmail.com', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-11T15:13:58Z, lastModifiedBy='admin', lastModifiedDate=2020-12-11T15:13:58Z, authorities=[ROLE_USER]}, UserDTO{login='usernew', firstName='ABC', lastName='System', email='abc@localhost', imageUrl='null', activated=false, langKey='null', createdBy=admin, createdDate=2020-12-31T09:14:46Z, lastModifiedBy='admin', lastModifiedDate=2020-12-31T09:14:46Z, authorities=[ROLE_USER]}],[X-Total-Count:"21", Link:"<http://localhost:8080/api/users?sort=id%2Casc&page=1&size=20>; rel="next",<http://localhost:8080/api/users?sort=id%2Casc&page=1&size=20>; rel="last",<http://localhost:8080/api/users?sort=id%2Casc&page=0&size=20>; rel="first""]>
+2021-01-08 18:42:07,924 ERROR [managed-accessories-system-task-1] AsyncSpringLiquibase: Liquibase could not start correctly, your database is NOT ready: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+liquibase.exception.LockException: Could not acquire change log lock.  Currently locked by DELL (192.168.191.2) since 12/7/20, 5:50 PM
+	at liquibase.lockservice.StandardLockService.waitForLock(StandardLockService.java:236)
+	at liquibase.Liquibase.update(Liquibase.java:184)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:366)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:314)
+	at org.springframework.boot.autoconfigure.liquibase.DataSourceClosingSpringLiquibase.afterPropertiesSet(DataSourceClosingSpringLiquibase.java:46)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.initDb(AsyncSpringLiquibase.java:118)
+	at io.github.jhipster.config.liquibase.AsyncSpringLiquibase.lambda$afterPropertiesSet$0(AsyncSpringLiquibase.java:93)
+	at io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor.lambda$createWrappedRunnable$1(ExceptionHandlingAsyncTaskExecutor.java:78)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)

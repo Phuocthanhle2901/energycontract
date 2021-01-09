@@ -13,6 +13,7 @@ import { User } from 'app/core/user/user.model';
 import { UserManagementDeleteDialogComponent } from './user-management-delete-dialog.component';
 
 import * as fileSaver from 'file-saver';
+import { UserImportDialogComponent } from './user-import-dialog.component';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -108,6 +109,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   private onSuccess(users: User[] | null, headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
+  }
+
+  import(): void {
+    this.modalService.open(UserImportDialogComponent, { size: 'lg', backdrop: 'static' });
   }
   
   exportUser(user: User): void{

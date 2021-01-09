@@ -8,7 +8,8 @@
 				&nbsp;<span jhiTranslate="entity.action.export">Export</span>
         </button>
         
-        <button type="button"
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                type="button"
                 (click)="import()"
                 class="btn btn-success float-right ml-1">
                 &nbsp;<span jhiTranslate="entity.action.import">Import</span>
