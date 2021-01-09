@@ -111,7 +111,8 @@ namespace QuestionBankDB.Services
                     Question question = list[index];    //choose question by index
                     list.RemoveAt(index);               //remove chosen question from list
                     Shuffle(question.Answer);           //shuffle up options
-                    question.TrueAnswer = null;         //nullify true answer to avoid cheating
+                    //nullify correct answers
+                    for (int j = 0; j < question.TrueAnswer.Length; j++) question.TrueAnswer[j] = "";
                     questions.Add(question);            //add question to test
                 }
                 return questions;

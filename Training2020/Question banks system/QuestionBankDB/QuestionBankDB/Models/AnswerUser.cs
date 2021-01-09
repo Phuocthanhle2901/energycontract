@@ -50,10 +50,10 @@ namespace QuestionBankDB.Models
         public string[] Answer { get; set; }
 
         [BsonElement("userAnswer")]
-        public string UserAnswer { get; set; }
+        public string[] UserAnswer { get; set; }
 
         [BsonElement("trueAnswer")]
-        public string TrueAnswer { get; set; }
+        public string[] TrueAnswer { get; set; }
 
         [BsonElement("point")]
         public byte Point { get; set; }

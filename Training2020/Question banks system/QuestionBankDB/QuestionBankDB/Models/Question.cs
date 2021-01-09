@@ -20,7 +20,7 @@ namespace QuestionBankDB.Models
         public string[] Answer { get; set; }
 
         [BsonElement("trueAnswer")]
-        public string TrueAnswer { get; set; }
+        public string[] TrueAnswer { get; set; }
 
         [BsonElement("themeName")]
         public string ThemeName { get; set; }

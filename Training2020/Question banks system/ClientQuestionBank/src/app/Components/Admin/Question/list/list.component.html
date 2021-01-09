@@ -70,10 +70,10 @@
             <td><b>Theme:</b> {{item.themeName}}</td>
           </tr>
           <tr *ngFor="let a of item.answer; index as i">
-            <td>{{i+1}}. {{a}}</td>
-          </tr>
-          <tr>
-            <td><b>Answer:</b> {{item.trueAnswer}}</td>
+            <td>
+              {{i+1}}. {{a}} 
+              <i *ngIf='item.trueAnswer.includes(a)' class="eva eva-checkmark-outline text-success"></i>
+            </td>
           </tr>
           <tr>
             <td><b>Level:</b> {{item.level}}</td>

@@ -40,6 +40,7 @@ export class QuetstionBodyComponent implements OnInit {
   currentPage:number;
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
+  checkBoxes:string[][]=[];
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let location = window.location.href;
@@ -106,7 +107,7 @@ export class QuetstionBodyComponent implements OnInit {
   }
   
   async getResult(){
-    if(!this.submitted){
+    if(!this.submitted && this.Confirm()){
       //create test content
       let correctAnswer:string;
       this.userAnswer = new UserAnswer(); //init user answer
@@ -119,9 +120,12 @@ export class QuetstionBodyComponent implements OnInit {
       for (let i = 0; i < this.questions.length; i++) {
           maxScore += this.questions[i].point; //calculate total point of the test
           this.userAnswer.listquestion[i] = new ListQuestion(); //init question
+          this.userAnswer.listquestion[i].userAnswer = []; //init userAnswer
           this.userAnswer.listquestion[i].id = this.questions[i].id; //set question id
           this.userAnswer.listquestion[i].answer = this.questions[i].answer; //set options
-          this.userAnswer.listquestion[i].userAnswer = this.answerSheet.value[i]; //set chosen option
+          //set chosen options
+          if(this.checkBoxes[i]!=null) this.userAnswer.listquestion[i].userAnswer = this.checkBoxes[i];
+          else this.userAnswer.listquestion[i].userAnswer.push(this.answerSheet.value[i]);
       }
       //send test content to server
       let sum = await this.testService.saveResult(this.userAnswer); //server will calculate and send back result
@@ -132,10 +136,12 @@ export class QuetstionBodyComponent implements OnInit {
 
   Confirm(){ //confirm if answerSheet is valid
     if(this.time>0){
-      if(this.answerSheet.valid){
+      if(this.answerSheet.valid && this.checkBoxValidator()==true){
         this.confirm = true;
+        return true;
       }
-      else this.confirm = false;
+      this.confirm = false;
+      return false
     }
   }
   async checkLogin(){
@@ -148,4 +154,27 @@ export class QuetstionBodyComponent implements OnInit {
       .catch(err=>console.log(err));
     }
   }
+
+  check(q:number, value:string){ //save checkboxes value
+    if(this.checkBoxes[q]==null) this.checkBoxes[q] = [];
+    if(this.answerSheet.value[q] && !this.checkBoxes[q].includes(value)) {
+      this.checkBoxes[q].push(value);
+    }
+    else if(!this.answerSheet.value[q] && this.checkBoxes[q].includes(value)){
+      this.checkBoxes[q].splice(this.checkBoxes[q].indexOf(value),1)
+    }
+    this.answerSheet.value[q] = "";
+  }
+
+  checkBoxValidator(q?: number){ //validate one or all checkboxes
+    if(q!=undefined){
+      if(this.checkBoxes[q]!=null && this.checkBoxes[q].length>1) return true;
+      return false;
+    }
+    for(let i=0; i< this.checkBoxes.length; i++){
+      if(this.checkBoxes[i]!=null && this.checkBoxes[i].length<1) return false;
+    }
+    return true;
+  }
+
 }

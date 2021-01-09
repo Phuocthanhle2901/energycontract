@@ -11,7 +11,7 @@
   <h2 class="text-center"> Update Question </h2>
   <hr/>
  <div class="mod-createQuestion-content px-4">
-   <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit(dataForm.value)">
+   <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
      <div class="col-lg-6 col-12">
        <div class="form-group">
          <label >Question</label><br/>
@@ -23,17 +23,25 @@
             </div>
        </div>
 
-       <div class="form-group" formArrayName="answer">
-        <label  >Answer</label>
-        <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
-          {{i + 1}}.) <input type="text" formControlName='name'  class="form-control w-75"
-          [ngClass]="{'is-invalid':dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid}"
-          /><span>(*)</span>
-          <div class="invalid-feedback" *ngIf="dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid">
-            <small [hidden]="dataForm.get('answer')['controls'][i].errors?.required" class="form-text  showError">Enter your Answer</small>
+       <div class="d-flex">
+        <div class="form-group w-75" formArrayName="answer">
+          <label>Answer</label>
+          <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+            {{i + 1}}.) <input type="text" formControlName='name'  class="form-control"
+            [ngClass]="{'is-invalid':dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid}"
+            /><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid">
+              <small [hidden]="dataForm.get('answer')['controls'][i].errors?.required" class="form-text  showError">Enter your Answer</small>
+            </div>
+            </div>
+        </div>
+        <div class="form-group" formArrayName="trueAnswer">
+          <label>Correct</label><span>(*)</span>
+          <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+            <input class="form-control" type="checkbox" ng-checked="dataForm.get('trueAnswer').value[i]['cname']==true" formControlName='cname'/>
           </div>
-
-          </div>
+          <small *ngIf='checkInvalid==true' class="showError">Choose a correct answer</small>
+        </div>
       </div>
        <div class="form-group d-flex">
          <a class="form-control btn btn-primary" (click)="addAnswer(true)">+</a>
@@ -42,16 +50,6 @@
 
      </div>
      <div class="col-lg-6 col-12">
-       <div class="form-group" >
-         <label >True Answer</label>
-           <select class="form-control " formControlName="trueAnswer" formArrayName="answer">
-             <option    class="text-center">-----Choose Answer Correct----- </option>
-             <option *ngFor="let list_item of answer.controls;  let i=index"  [formGroupName]="i" [ngValue]="list_item.get('name').value">
-               {{list_item.get('name').value}}
-             </option>
-           </select><span>(*)</span>
-       </div>
-
        <div class="row">
            <div class="col-lg-6 d-flex ">
             <div class="form-group w-100 ">
