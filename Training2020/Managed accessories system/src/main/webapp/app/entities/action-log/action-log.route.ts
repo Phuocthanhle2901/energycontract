@@ -39,7 +39,7 @@ export const actionLogRoute: Routes = [
     path: '',
     component: ActionLogComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const actionLogRoute: Routes = [
       actionLog: ActionLogResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
     },
     canActivate: [UserRouteAccessService],

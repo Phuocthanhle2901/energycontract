@@ -39,7 +39,7 @@ export const formRoute: Routes = [
     path: '',
     component: FormComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER,Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.form.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const formRoute: Routes = [
       form: FormResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER,Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.form.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const formRoute: Routes = [
       form: FormResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.form.home.title',
     },
     canActivate: [UserRouteAccessService],

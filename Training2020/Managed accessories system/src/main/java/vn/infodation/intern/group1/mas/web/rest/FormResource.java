@@ -1,7 +1,12 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
+import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.domain.Form;
+import vn.infodation.intern.group1.mas.domain.User;
+import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.FormRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
+import vn.infodation.intern.group1.mas.service.UserService;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -36,8 +41,14 @@ public class FormResource {
 
     private final FormRepository formRepository;
 
-    public FormResource(FormRepository formRepository) {
+    private final UserService userService;
+
+    private final EmployeeRepository employeeRepository;
+
+    public FormResource(FormRepository formRepository, UserService userService, EmployeeRepository employeeRepository) {
         this.formRepository = formRepository;
+        this.userService = userService;
+        this.employeeRepository = employeeRepository;
     }
 
     /**
@@ -88,7 +99,15 @@ public class FormResource {
     @GetMapping("/forms")
     public List<Form> getAllForms() {
         log.debug("REST request to get all Forms");
-        return formRepository.findAll();
+        List<String> au = userService.getAuthorities();
+        if(au.contains(AuthoritiesConstants.ADMIN)){
+            return formRepository.findAll();
+        }
+        else{
+            User currentUser = userService.getUserWithAuthorities().get();
+            Long id = employeeRepository.findOneByUser(currentUser).get().getId();
+            return formRepository.findAllByEmployeeId(id);
+        }
     }
 
     /**

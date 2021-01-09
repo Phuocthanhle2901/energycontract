@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, Router, Routes} from '@angular/router';
+import {EMPTY, Observable, of} from 'rxjs';
+import {flatMap} from 'rxjs/operators';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { IActionType, ActionType } from 'app/shared/model/action-type.model';
-import { ActionTypeService } from './action-type.service';
-import { ActionTypeComponent } from './action-type.component';
-import { ActionTypeDetailComponent } from './action-type-detail.component';
-import { ActionTypeUpdateComponent } from './action-type-update.component';
+import {Authority} from 'app/shared/constants/authority.constants';
+import {UserRouteAccessService} from 'app/core/auth/user-route-access-service';
+import {ActionType, IActionType} from 'app/shared/model/action-type.model';
+import {ActionTypeService} from './action-type.service';
+import {ActionTypeComponent} from './action-type.component';
+import {ActionTypeDetailComponent} from './action-type-detail.component';
+import {ActionTypeUpdateComponent} from './action-type-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class ActionTypeResolve implements Resolve<IActionType> {
@@ -39,7 +39,7 @@ export const actionTypeRoute: Routes = [
     path: '',
     component: ActionTypeComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const actionTypeRoute: Routes = [
       actionType: ActionTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const actionTypeRoute: Routes = [
       actionType: ActionTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const actionTypeRoute: Routes = [
       actionType: ActionTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionType.home.title',
     },
     canActivate: [UserRouteAccessService],

@@ -39,7 +39,7 @@ export const userEquipmentActivityLogRoute: Routes = [
     path: '',
     component: UserEquipmentActivityLogComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const userEquipmentActivityLogRoute: Routes = [
       userEquipmentActivityLog: UserEquipmentActivityLogResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.userEquipmentActivityLog.home.title',
     },
     canActivate: [UserRouteAccessService],

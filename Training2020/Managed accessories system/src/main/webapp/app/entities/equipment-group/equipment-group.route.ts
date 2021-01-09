@@ -39,7 +39,7 @@ export const equipmentGroupRoute: Routes = [
     path: '',
     component: EquipmentGroupComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.equipmentGroup.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const equipmentGroupRoute: Routes = [
       equipmentGroup: EquipmentGroupResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.equipmentGroup.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const equipmentGroupRoute: Routes = [
       equipmentGroup: EquipmentGroupResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.equipmentGroup.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const equipmentGroupRoute: Routes = [
       equipmentGroup: EquipmentGroupResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.equipmentGroup.home.title',
     },
     canActivate: [UserRouteAccessService],

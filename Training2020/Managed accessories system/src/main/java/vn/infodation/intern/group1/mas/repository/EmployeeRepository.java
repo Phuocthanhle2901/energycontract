@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import vn.infodation.intern.group1.mas.domain.User;
 
 /**
  * Spring Data  repository for the Employee entity.
@@ -14,4 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	Optional<Employee> findOneById(Long id);
+
+	Optional<Employee> findOneByUser(User user);
 }

@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {ActivatedRouteSnapshot, Resolve, Router, Routes} from '@angular/router';
+import {EMPTY, Observable, of} from 'rxjs';
+import {flatMap} from 'rxjs/operators';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { IArea, Area } from 'app/shared/model/area.model';
-import { AreaService } from './area.service';
-import { AreaComponent } from './area.component';
-import { AreaDetailComponent } from './area-detail.component';
-import { AreaUpdateComponent } from './area-update.component';
+import {Authority} from 'app/shared/constants/authority.constants';
+import {UserRouteAccessService} from 'app/core/auth/user-route-access-service';
+import {Area, IArea} from 'app/shared/model/area.model';
+import {AreaService} from './area.service';
+import {AreaComponent} from './area.component';
+import {AreaDetailComponent} from './area-detail.component';
+import {AreaUpdateComponent} from './area-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class AreaResolve implements Resolve<IArea> {
@@ -39,7 +39,7 @@ export const areaRoute: Routes = [
     path: '',
     component: AreaComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER,Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.area.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const areaRoute: Routes = [
       area: AreaResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER,Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.area.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const areaRoute: Routes = [
       area: AreaResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.area.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const areaRoute: Routes = [
       area: AreaResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.area.home.title',
     },
     canActivate: [UserRouteAccessService],
