@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { TestService } from 'src/app/Services/test.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -28,7 +29,11 @@ export class UsersComponent implements OnInit {
   private listUser: BehaviorSubject<any> = new BehaviorSubject<any>({});
   listUser$: Observable<any> = this.listUser.asObservable(); // new data
 
-  constructor(private router: Router,private userservice:UserService,private fb:FormBuilder) {
+  constructor(
+    private router: Router,
+    private userservice:UserService,
+    private fb:FormBuilder,
+    private testService:TestService) {
     this.dataform=this.fb.group({
       search:new FormControl(""),
     })
@@ -61,6 +66,7 @@ export class UsersComponent implements OnInit {
     this.getListUser();
     this.listUser$.subscribe((data:any)=>{
       this.list=data;
+      
     })
     this.getRole();
   }
@@ -71,13 +77,12 @@ clickDelete(value:any)
 
   SearchByName(value:any)
   {
-
-     this.listUser$.subscribe((data:any)=>{
-         this.searchUser=data;
-     })
+    console.log(value['search']);
+    console.log(this.searchUser);
+    
      this.list=[];
     this.searchUser.filter((res:any)=>{
-      if(res.fullname.toLowerCase().indexOf(value.search)!=-1)
+      if(res.fullname.toLowerCase().indexOf(value['search'].toLowerCase())!=-1)
       {
         this.list.push(res);
       }
@@ -95,6 +100,7 @@ clickDelete(value:any)
   {
     this.userservice.getAlluser().subscribe((data:any)=>{
       this.list=data;
+      this.searchUser=data;
     })
   }
 
@@ -114,9 +120,11 @@ clickDelete(value:any)
    console.log(this.list);
  }
 
- getAchievementById(id:any)
- {
+ viewAchievements(email:string){
+  this.testService.setEmail(email);
+  this.router.navigate(["/achievements"]);
  }
+ 
  getUserById(id:any){
    this.userservice.getUserForUpdate(id).subscribe((data:any)=>{
      this.userservice.setuserObservable(data);

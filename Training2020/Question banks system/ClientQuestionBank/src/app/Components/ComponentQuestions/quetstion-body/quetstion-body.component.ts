@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { Question } from '../../../Models/question.model';
 import {UserAnswer} from '../../../Models/UserAnswer.model'
 import { TestService } from '../../../Services/test.service'
@@ -41,6 +41,7 @@ export class QuetstionBodyComponent implements OnInit {
   time:number; //time in seconds
   clock:Timer; //time in format HH:mm:ss
   checkBoxes:string[][]=[];
+  default:number=1;
 
   constructor(private testService:TestService, private questionService:QuestionService, private router: Router) {
     let location = window.location.href;
@@ -50,6 +51,7 @@ export class QuetstionBodyComponent implements OnInit {
       email: new FormControl('', EmailValidation),
       count: new FormControl('',TestNumberValidation),
       level: new FormControl(1)
+      
     });
   }
 
@@ -58,12 +60,14 @@ export class QuetstionBodyComponent implements OnInit {
     this.checkLogin();
     this.levelCount = await this.testService.getTestCount(this.theme, 1);
     this.levelList = await this.testService.getLevels(this.theme);
-    this.loadSize(this.levelList[0]);
+    this.default = this.levelList[0];
+    this.loadSize(this.default);
     this.clock = new Timer();
   }
 
-  async loadSize(level:number){
-    this.levelCount = await this.testService.getTestCount(this.theme, level);
+  async loadSize(level:any){
+     
+    this.levelCount = await this.testService.getTestCount(this.theme, level); 
     if(this.levelCount>30) this.levelCount = 30;//max number of questions is 30
   }
 

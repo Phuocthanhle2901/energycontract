@@ -64,6 +64,7 @@ export class ListComponent implements OnInit {
     this.currentPage = page;
     this.questionService.getAllQuestion(page).subscribe((data:any)=>{
       this.questions=data;
+      this.questionsSearch=data;
       console.log(this.questions.length);
     })
   }
@@ -104,12 +105,12 @@ getIdForEditQuestion(value:any)
 
 SearchByName(data:any)
 {
-  this.listQuestion$.subscribe((data:any)=>{
-    this.questionsSearch=data;
-  });
+ 
+  console.log("data"+this.questions)
+  let s=data['search'];
   this.questions=[];
    this.questionsSearch.filter((res)=>{
-     if(res.question.toLowerCase().indexOf(data.search)!=-1)
+     if(res.question.toLowerCase().indexOf(data['search'].toLowerCase())!=-1)
      {
       this.questions.push(res);
      }

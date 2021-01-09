@@ -48,8 +48,8 @@
             </div>
             <div>
               <h4>Level:</h4>
-              <select formControlName='level' class="form-control col-md-4">
-                <option *ngFor="let l of levelList; index as i" [value]="l" [selected]='i==0' (click)='loadSize(l)'>{{l}}</option>
+              <select formControlName='level' [ngModel]="default" (ngModelChange)='loadSize($event)' [value]='1' class="form-control col-md-4">
+                <option *ngFor="let l of levelList; index as i" value={{l}} [selected]='i===0'>{{l}}</option>
               </select><span>(*)</span>
             </div>
             <!-- custom check -->

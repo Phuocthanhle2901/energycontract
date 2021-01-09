@@ -16,7 +16,7 @@ namespace QuestionBankDB.Services
         {
             TextWriter log = new StreamWriter(path, true);
             //using interpolation format
-            string record = $"[{time.ToString("dd/MM/yy HH:mm:ss")}] [{Module}] [{Feature}] [{Activity}] [Result: {Result}]";
+            string record = $"[{time.ToString("dd/MM/yyyy HH:mm:ss")}] [{Module}] [{Feature}] [{Activity}] [Result: {Result}]";
             log.WriteLine(record);
             log.Close();
         }

@@ -50,6 +50,7 @@ export class TestService {
 
   async getTestCount(theme:string, level:number){
     let testCountUrl = 'https://localhost:44328/api/Question/levelCount?theme=' + encodeURIComponent(theme) + '&level=' + level;
+    console.log(testCountUrl);
     return this.httpClient.post<number>(testCountUrl, null).toPromise();
   }
 
