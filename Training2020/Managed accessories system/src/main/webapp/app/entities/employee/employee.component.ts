@@ -78,28 +78,4 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
     fileSaver.saveAs(blob, filename);
   }
-  
-  selectFile(event: Event ): void {
-  	this.selectedFiles = (event.target as HTMLInputElement)!.files!;
-  }
-  
-  upload(): void {
-	  this.progress = 0;
-	
-	  this.currentFile = this.selectedFiles!.item(0);
-	  this.employeeService.upload(this.currentFile!).subscribe(
-	    event => {
-	      if (event.type === HttpEventType.UploadProgress) {
-	        this.progress = Math.round(100 * event.loaded / event.total!);
-	      } else if (event instanceof HttpResponse) {
-	        this.message = event.body.message;
-	      }
-	    },
-	    () => {
-	      this.progress = 0;
-	      this.message = 'Could not upload the file!';
-	      this.currentFile = undefined;
-	    });
-	  this.selectedFiles = undefined;
-	}
 }

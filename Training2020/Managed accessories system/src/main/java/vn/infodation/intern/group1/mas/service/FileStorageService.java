@@ -160,7 +160,7 @@ public class FileStorageService{
 						.add(split[2].contains(" "), new String[]{
 							ErrorCode.NOT_CONTAINS_SPACES, Integer.toString(lineNumber), this.LOGIN, null
 						})
-						.add(!userRepository.findOneByLogin(split[2]).isEmpty(), new String[]{
+						.add(!userRepository.findOneByLogin(split[2]).isEmpty() && !newUser, new String[]{
 							ErrorCode.USER_EXISTED, Integer.toString(lineNumber), this.LOGIN, null
 						});
 						
@@ -195,9 +195,6 @@ public class FileStorageService{
 						})
 						.add(split[5].contains(" "), new String[]{
 							ErrorCode.NOT_CONTAINS_SPACES, Integer.toString(lineNumber), this.EMAIL, null
-						})
-						.add(new EmailValidator().isValid(split[5], null), new String[]{
-							ErrorCode.EMAIL, Integer.toString(lineNumber), this.EMAIL, null
 						});
 
 						//Validating possible error of Area id field and adding those error (if exist) to the error list
@@ -228,12 +225,19 @@ public class FileStorageService{
 						})
 						.add(split[7].startsWith(" "), new String[]{
 							ErrorCode.NOT_CONTAINS_FIRST_SPACE, Integer.toString(lineNumber), this.PHONE, null
-						}).
-						add(!(new PhoneValidate().isValid(split[7])), new String[]{
-							ErrorCode.INVALID_PHONE, Integer.toString(lineNumber), this.PHONE, null
 						});
 
 						lineNumber += 1;
+
+						user.setLogin(split[2]);
+						user.setFirstName(split[3]);
+						user.setLastName(split[4]);
+						user.setEmail(split[5]);
+						
+						if(areaRepository.existsById(Long.parseLong(split[6])))
+							employee.setArea(areaRepository.getOne(Long.parseLong(split[6])));
+						employee.setPhoneNumber(split[7]);
+						
 						employees.add(employee);
 						users.add(user);
 					}
@@ -262,6 +266,15 @@ public class FileStorageService{
 					else
 						log.info("Cannot change user");
 					employeeRepository.save(employee);
+				}
+			}
+			else{
+				log.info("\n____________________\nThere is an error import\n____________________\n");
+				for (String[] strings : errList) {
+					log.info(
+						"Line " + strings[1] + ": " +
+						"Code: " + strings[0] + "\n" 
+					);
 				}
 			}
 

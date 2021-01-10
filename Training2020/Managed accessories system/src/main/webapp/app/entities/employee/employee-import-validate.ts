@@ -18,7 +18,8 @@ export class EmployeeImportValidator{
     numberReg = /^\d+$/;
     specialCharactersReg = /[!@#$%^&*(),.?":{}|<>]/g;
     emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    phoneReg = /^[+]?[\s./0-9]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/g;
+    phoneReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+    phoneRegNonVN = /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?/;
     numberFalse = /.*\d.*/
 
     public EmployeeImportValidator(): void{};
@@ -32,7 +33,7 @@ export class EmployeeImportValidator{
     }
 
     public isPhoneNumber(value: string): boolean {
-        return this.phoneReg.test(value);
+        return this.phoneReg.test(value) || this.phoneRegNonVN.test(value);
     }
 
     public firstCharacterIsASpace(value: string): boolean {

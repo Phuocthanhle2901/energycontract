@@ -72,7 +72,7 @@ export class EmployeeImportDialogComponent {
             let allTextLines: string[] = [];
             allTextLines = csv.split(/\r|\n|\r/);
 
-            const headers = allTextLines[0].split(',');
+            // const headers = allTextLines[0].split(',');
             const validator = new EmployeeImportValidator();
             const errorBuilder = new ErrorListBuilder();
             for(let i = 1; i < allTextLines.length; i++){
@@ -82,17 +82,17 @@ export class EmployeeImportDialogComponent {
                         const newUser = validator.isEmpty(line[0]);
                         const newEmpl = validator.isEmpty(line[1]);
 
-                        errorBuilder.add(!validator.isNumber(line[0]), {
+                        errorBuilder.add(!validator.isNumber(line[0]) && !newUser, {
                             "locale": this.NUMBER, "line": i, "param1": "User id", "param2": null
                         })
-                        .add(validator.containsSpaces(line[0]), {
+                        .add(validator.containsSpaces(line[0]) && !newUser, {
                             "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "User id", "param2": null
                         })
 
-                        .add(!validator.isNumber(line[1]), {
+                        .add(!validator.isNumber(line[1]) && !newEmpl, {
                             "locale": this.NUMBER, "line": i, "param1": "Employee id", "param2": null
                         })
-                        .add(validator.containsSpaces(line[1]), {
+                        .add(validator.containsSpaces(line[1]) && !newEmpl, {
                             "locale": this.NOT_CONTAINS_SPACES, "line": i, "param1": "Employee id", "param2": null
                         })
 
@@ -128,9 +128,6 @@ export class EmployeeImportDialogComponent {
                         })
                         .add(validator.firstCharacterIsASpace(line[5]), {
                             "locale": this.NOT_CONTAINS_FIRST_SPACE, "line": i, "param1": "Email", "param2": null
-                        })
-                        .add(validator.containsNumber(line[5]), {
-                            "locale": this.NOT_CONTAINS_NUMBER, "line": i, "param1": "Email", "param2": null
                         })
                         .add(validator.isEmpty(line[5]) && newUser, {
                             "locale": this.REQUIRED, "line": i, "param1": "Email", "param2": null
