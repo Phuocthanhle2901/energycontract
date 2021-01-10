@@ -119,7 +119,9 @@
       "send": "Gửi",
       "export": "Xuất",
       "exportAll": "Xuất tất cả",
-      "print": "In"
+      "print": "In",
+      "accept": "Accept",
+      "refuse": "Refuse"
     },
     "detail": {
       "field": "Trường",

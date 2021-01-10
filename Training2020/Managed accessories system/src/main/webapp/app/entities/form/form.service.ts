@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IForm } from 'app/shared/model/form.model';
+import { formStatus } from 'app/shared/model/enumerations/form-status.model';
 
 type EntityResponseType = HttpResponse<IForm>;
 type EntityArrayResponseType = HttpResponse<IForm[]>;
@@ -34,5 +35,18 @@ export class FormService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  changeStatus(id: number, status: formStatus): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('status', status);
+
+    const req = new HttpRequest('PUT', '/api/forms/' + id, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 }

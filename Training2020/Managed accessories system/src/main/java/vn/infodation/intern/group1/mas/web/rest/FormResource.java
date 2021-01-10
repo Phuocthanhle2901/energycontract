@@ -1,9 +1,8 @@
 package vn.infodation.intern.group1.mas.web.rest;
 
-import vn.infodation.intern.group1.mas.domain.Authority;
-import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.domain.Form;
 import vn.infodation.intern.group1.mas.domain.User;
+import vn.infodation.intern.group1.mas.domain.enumeration.formStatus;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.repository.FormRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +28,6 @@ import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * REST controller for managing {@link vn.infodation.intern.group1.mas.domain.Form}.
@@ -142,5 +141,24 @@ public class FormResource {
         log.debug("REST request to delete Form : {}", id);
         formRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code CHANGE STATUS  /forms/:id} : change the "id" form.
+     *
+     * @param id the id of the form to delete.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)}.
+     */
+    @PutMapping("/forms/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> changeFormStatus(@PathVariable Long id, @RequestParam("status") formStatus status) {
+        log.debug("REST request to update Form status: {}", id);
+        if(!formRepository.findById(id).isPresent())
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+
+        Form form = formRepository.findById(id).get();
+        form.setStatus(status);
+        formRepository.save(form);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

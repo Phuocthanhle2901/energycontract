@@ -122,7 +122,9 @@
       "send": "Send",
       "export": "Export",
       "exportAll": "Export all",
-      "print": "Print"
+      "print": "Print",
+      "accept": "Accept",
+      "refuse": "Refuse"
     },
     "detail": {
       "field": "Field",

@@ -41,7 +41,11 @@
                     <td>{{ form.yourName }}</td>
                     <td>{{ form.area }}</td>
                     <td>{{ form.reason }}</td>
-                    <td jhiTranslate="{{ 'managedAccessoriesSystemApp.formStatus.' + form.status }}">{{ form.status }}</td>
+                    <td jhiTranslate="{{ 'managedAccessoriesSystemApp.formStatus.' + form.status }}"
+                        [ngClass] = "checkStatus(form)"
+                        >
+                        {{ form.status }}
+                    </td>
                     <td>
                         <div *ngIf="form.formType">
                             <a [routerLink]="['/form-type', form.formType?.id, 'view']" >{{ form.formType?.id }}</a>
@@ -66,17 +70,20 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
-                                    [routerLink]="['/form', form.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                                    type="submit" (click)="accept(form.id!)"
+                                    [disabled]="disableAcceprOrRefuse(form)"
+                                    class="btn btn-success btn-sm">
+                                <fa-icon icon="check"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.accept">Accept</span>
                             </button>
 
-                            <button type="submit" (click)="delete(form)"
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                                    type="submit" (click)="refuse(form.id!)"
+                                    [disabled]="disableAcceprOrRefuse(form)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.refuse">Refuse</span>
                             </button>
                         </div>
                     </td>

@@ -2,6 +2,7 @@ package vn.infodation.intern.group1.mas.web.rest;
 
 import vn.infodation.intern.group1.mas.domain.FormType;
 import vn.infodation.intern.group1.mas.repository.FormTypeRepository;
+import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +50,7 @@ public class FormTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/form-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<FormType> createFormType(@Valid @RequestBody FormType formType) throws URISyntaxException {
         log.debug("REST request to save FormType : {}", formType);
         if (formType.getId() != null) {
@@ -69,6 +72,7 @@ public class FormTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/form-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<FormType> updateFormType(@Valid @RequestBody FormType formType) throws URISyntaxException {
         log.debug("REST request to update FormType : {}", formType);
         if (formType.getId() == null) {
@@ -111,6 +115,7 @@ public class FormTypeResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/form-types/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteFormType(@PathVariable Long id) {
         log.debug("REST request to delete FormType : {}", id);
         formTypeRepository.deleteById(id);

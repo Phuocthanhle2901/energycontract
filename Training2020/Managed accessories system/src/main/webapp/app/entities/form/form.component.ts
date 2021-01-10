@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IForm } from 'app/shared/model/form.model';
 import { FormService } from './form.service';
 import { FormDeleteDialogComponent } from './form-delete-dialog.component';
+import { formStatus } from 'app/shared/model/enumerations/form-status.model';
 
 @Component({
   selector: 'jhi-form',
@@ -15,6 +16,7 @@ import { FormDeleteDialogComponent } from './form-delete-dialog.component';
 export class FormComponent implements OnInit, OnDestroy {
   forms?: IForm[];
   eventSubscriber?: Subscription;
+  status?: formStatus;
 
   constructor(protected formService: FormService, protected eventManager: JhiEventManager, protected modalService: NgbModal) {}
 
@@ -45,5 +47,41 @@ export class FormComponent implements OnInit, OnDestroy {
   delete(form: IForm): void {
     const modalRef = this.modalService.open(FormDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.form = form;
+  }
+
+  checkStatus(form: IForm): string {
+    switch(form.status){
+      case formStatus.ACCEPT:
+        return "text-success";
+      case formStatus.REFUSE:
+        return "text-danger";
+      case formStatus.WAITING:
+        return "text-warning"
+
+      default:
+        return "";
+    }
+  }
+
+  disableAcceprOrRefuse(form: IForm): boolean {
+    return form.status === formStatus.ACCEPT || form.status === formStatus.REFUSE;
+  }
+
+  accept(id: number): void {
+    this.formService.changeStatus(id, formStatus.ACCEPT)
+    .subscribe(() => {
+        this.ngOnInit();
+      }),(err: any) => {
+        console.error(err);
+      };
+  }
+
+  refuse(id: number): void {
+    this.formService.changeStatus(id, formStatus.REFUSE)
+    .subscribe(() => {
+        this.ngOnInit();
+      }),(err: any) => {
+        console.error(err);
+      };
   }
 }
