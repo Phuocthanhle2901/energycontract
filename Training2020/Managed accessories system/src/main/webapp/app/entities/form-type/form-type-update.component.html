@@ -24,6 +24,18 @@
                                *ngIf="editForm.get('name')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
                         This field cannot be longer than 200 characters.
                         </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.numberfalse" jhiTranslate="entity.validation.numberfalse">
+                            This field should not contains number.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.special" jhiTranslate="entity.validation.special">
+                            special characters
+                        </small>
                     </div>
                 </div>
             </div>

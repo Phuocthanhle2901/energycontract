@@ -14,6 +14,7 @@ import { EmployeeService } from 'app/entities/employee/employee.service';
 import { IEquipment } from 'app/shared/model/equipment.model';
 import { EquipmentService } from 'app/entities/equipment/equipment.service';
 import { formStatus } from 'app/shared/model/enumerations/form-status.model';
+import { CustomValidators } from 'app/shared/custom-validators/validators';
 
 type SelectableEntity = IFormType | IEmployee | IEquipment;
 
@@ -32,7 +33,14 @@ export class FormUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-    yourName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    yourName: [null, [
+      Validators.required, 
+      Validators.minLength(3), 
+      Validators.maxLength(50),
+      CustomValidators.numberFalse,
+      CustomValidators.cannotContainsFirstWhiteSpace,
+      CustomValidators.specialCharacterFalse
+    ]],
     area: [null, [Validators.required]],
     reason: [null, [Validators.required, Validators.minLength(50), Validators.maxLength(400)]],
     status: [formStatus.WAITING, [Validators.required]],

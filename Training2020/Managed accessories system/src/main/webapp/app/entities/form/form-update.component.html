@@ -48,6 +48,19 @@
                                *ngIf="editForm.get('yourName')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                         This field cannot be longer than 50 characters.
                         </small>
+                        
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('yourName')?.errors?.validateFirstWhiteSpace" jhiTranslate="entity.validation.firstSpace">
+                            First character should not be a white space.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('yourName')?.errors?.numberfalse" jhiTranslate="entity.validation.numberfalse">
+                            This field should not contains number.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('yourName')?.errors?.special" jhiTranslate="entity.validation.special">
+                            special characters
+                        </small>
                     </div>
                 </div>
 
@@ -65,8 +78,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.reason" for="field_reason">Reason</label>
-                    <input type="text" class="form-control" name="reason" id="field_reason"
-                           formControlName="reason"/>
+                    <textarea type="text" class="form-control" name="reason" id="field_reason"
+                           formControlName="reason" rows="4"></textarea>
                     <div *ngIf="editForm.get('reason')!.invalid && (editForm.get('reason')!.dirty || editForm.get('reason')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('reason')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -141,7 +154,7 @@
                 </button>
 
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.send">Send</span>
                 </button>
             </div>
         </form>

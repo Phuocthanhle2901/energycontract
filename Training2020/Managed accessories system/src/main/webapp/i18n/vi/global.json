@@ -140,7 +140,13 @@
       "maxbytes": "Dung lượng trường này phải nhỏ hơn {{ max }} bytes.",
       "pattern": "Trường này phải theo định dạng {{ pattern }}.",
       "number": "Trường này phải là một số.",
-      "datetimelocal": "Trường này phải là định dạng thời gian."
+      "datetimelocal": "Trường này phải là định dạng thời gian.",
+      "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng",
+      "whiteSpace": "Trường này không được phép nhập khoảng trắng.",
+      "phone": "Trường này phải có số điện thoại hợp lệ",
+      "email": "Trường này phải có địa chỉ e-mail hợp lệ",
+      "numberfalse": "Trường này không được chứa số",
+      "special": "Trường này không được chứa ký tự đặc biệt"
     }
   },
   "alertReady": "Sẵn sàng nhập tệp",

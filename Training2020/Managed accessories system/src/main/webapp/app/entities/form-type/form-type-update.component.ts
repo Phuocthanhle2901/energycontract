@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import { IFormType, FormType } from 'app/shared/model/form-type.model';
 import { FormTypeService } from './form-type.service';
+import { CustomValidators } from 'app/shared/custom-validators/validators';
 
 @Component({
   selector: 'jhi-form-type-update',
@@ -17,7 +18,13 @@ export class FormTypeUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    name: [null, [Validators.required, Validators.maxLength(200)]],
+    name: [null, [
+      Validators.required, 
+      Validators.maxLength(200),
+      CustomValidators.cannotContainsFirstWhiteSpace,
+      CustomValidators.numberFalse,
+      CustomValidators.specialCharacterFalse
+    ]],
   });
 
   constructor(protected formTypeService: FormTypeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}

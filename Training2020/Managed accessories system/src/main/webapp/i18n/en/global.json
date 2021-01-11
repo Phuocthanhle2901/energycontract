@@ -144,7 +144,13 @@
       "pattern": "This field should follow pattern for {{ pattern }}.",
       "number": "This field should be a number.",
       "datetimelocal": "This field should be a date and time.",
-      "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+      "patternLogin": "This field can only contain letters, digits and e-mail addresses.",
+      "firstSpace": "First character should not be a white space.",
+      "whiteSpace": "This field must not contains any white space.",
+      "phone": "This field must have a valid phone number",
+      "email": "This field must have a valid e-mail address",
+      "numberfalse": "This field must not contains numbers",
+      "special": "This field must not contains special characters"
     }
   },
   "alertReady": "Ready for importation",
