@@ -147,6 +147,7 @@
       "patternLogin": "This field can only contain letters, digits and e-mail addresses."
     }
   },
+  "alertReady": "Ready for importation",
   "error": {
     "internalServerError": "Internal server error",
     "server.not.reachable": "Server not reachable",

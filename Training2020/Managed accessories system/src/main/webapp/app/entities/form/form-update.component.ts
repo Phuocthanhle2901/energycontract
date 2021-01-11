@@ -25,6 +25,7 @@ export class FormUpdateComponent implements OnInit {
   formtypes: IFormType[] = [];
   employees: IEmployee[] = [];
   equipment: IEquipment[] = [];
+  employee!: IEmployee | null; 
 
   editForm = this.fb.group({
     id: [],
@@ -50,6 +51,8 @@ export class FormUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ form }) => {
       this.updateForm(form);
+
+      this.employeeService.getCurrentUserEmployee().subscribe((res: HttpResponse<IEmployee>) => (this.employee = res.body));
 
       this.formTypeService.query().subscribe((res: HttpResponse<IFormType[]>) => (this.formtypes = res.body || []));
 

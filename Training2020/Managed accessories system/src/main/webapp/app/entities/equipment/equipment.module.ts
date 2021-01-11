@@ -7,10 +7,12 @@ import { EquipmentDetailComponent } from './equipment-detail.component';
 import { EquipmentUpdateComponent } from './equipment-update.component';
 import { EquipmentDeleteDialogComponent } from './equipment-delete-dialog.component';
 import { equipmentRoute } from './equipment.route';
+import { EquipmentImportDialogComponent } from './equipment-import-dialog.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
-  imports: [ManagedAccessoriesSystemSharedModule, RouterModule.forChild(equipmentRoute)],
-  declarations: [EquipmentComponent, EquipmentDetailComponent, EquipmentUpdateComponent, EquipmentDeleteDialogComponent],
-  entryComponents: [EquipmentDeleteDialogComponent],
+  imports: [ManagedAccessoriesSystemSharedModule, RouterModule.forChild(equipmentRoute), NgxDropzoneModule],
+  declarations: [EquipmentComponent, EquipmentDetailComponent, EquipmentUpdateComponent, EquipmentDeleteDialogComponent, EquipmentImportDialogComponent],
+  entryComponents: [EquipmentDeleteDialogComponent, EquipmentImportDialogComponent],
 })
 export class ManagedAccessoriesSystemEquipmentModule {}

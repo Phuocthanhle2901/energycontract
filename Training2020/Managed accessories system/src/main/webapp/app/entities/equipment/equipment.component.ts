@@ -8,8 +8,8 @@ import { IEquipment } from 'app/shared/model/equipment.model';
 import { EquipmentService } from './equipment.service';
 import { EquipmentDeleteDialogComponent } from './equipment-delete-dialog.component';
 
-// @ts-ignore
 import * as fileSaver from 'file-saver';
+import { EquipmentImportDialogComponent } from './equipment-import-dialog.component';
 
 @Component({
   selector: 'jhi-equipment',
@@ -70,32 +70,12 @@ export class EquipmentComponent implements OnInit, OnDestroy {
     });
   }
 
+  import(): void {
+    this.modalService.open(EquipmentImportDialogComponent, { size: 'lg', backdrop: 'static' });
+  }
+
   saveFile(data: any, filename?: string): void{
     const blob = new Blob([data], {type: 'text/csv; charset=utf-8'});
     fileSaver.saveAs(blob, filename);
-  }
-
-  selectFile(event: Event ): void {
-    this.selectedFiles = (event.target as HTMLInputElement)!.files!;
-  }
-
-  upload(): void {
-    this.progress = 0;
-
-    this.currentFile = this.selectedFiles!.item(0);
-    this.equipmentService.upload(this.currentFile!).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total!);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-        }
-      },
-      err => {
-        this.progress = 0;
-        this.message = 'Could not upload the file!';
-        this.currentFile = undefined;
-      });
-    this.selectedFiles = undefined;
   }
 }

@@ -107,10 +107,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.employee" for="field_employee">Employee</label>
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.employee" for="field_employee" aria-disabled="true" aria-readonly="true">Employee</label>
                     <select class="form-control" id="field_employee" name="employee" formControlName="employee">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="employeeOption.id === editForm.get('employee')!.value?.id ? editForm.get('employee')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option>
+                        <option value="{ employee!.id }" selected>{{ employee!.user!.login }}</option>
+                        <!-- <option [ngValue]="employeeOption.id === editForm.get('employee')!.value?.id ? editForm.get('employee')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option> -->
                     </select>
                 </div>
 

@@ -1,0 +1,1440 @@
+2021-01-11 19:20:45,427 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 19:20:45,440 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: swagger,dev
+2021-01-11 19:20:53,193 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 19:20:54,188 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 19:20:54,257 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: swagger
+2021-01-11 19:20:54,258 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 19:20:55,355 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 19:20:55,412 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 19:20:55,420 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 19:20:55,425 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 19:20:55,431 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 19:20:55,438 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 19:20:55,443 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 19:20:55,456 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:20:55,462 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 19:20:55,468 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:20:55,475 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 19:20:55,482 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 19:20:55,489 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:20:55,504 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:20:55,528 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 19:20:55,547 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 19:20:55,560 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:20:55,575 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 19:20:55,592 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:20:55,596 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 19:20:55,602 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:20:55,608 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 19:20:55,612 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 19:20:55,617 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:20:55,621 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 19:20:55,627 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 19:20:55,632 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 19:20:55,639 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 19:20:55,678 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 19:20:55,734 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 19:20:55,788 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 19:20:58,411 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 19:21:02,821 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 19:21:08,894 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 19:21:08,906 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 11 ms
+2021-01-11 19:21:11,367 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 19:21:14,363 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 19:21:16,214 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 45.866 seconds (JVM running for 47.983)
+2021-01-11 19:21:16,225 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[swagger, dev]
+----------------------------------------------------------
+2021-01-11 19:22:14,841 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-11T11:22:14.825121100Z, principal=anonymousUser, type=AUTHORIZATION_FAILURE, data={details=org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null, type=org.springframework.security.access.AccessDeniedException, message=Access is denied}]]
+2021-01-11 19:22:14,857 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-11 19:22:15,118 WARN  [XNIO-1 task-2] AdviceTraits: Unauthorized: Full authentication is required to access this resource
+2021-01-11 19:22:15,268 WARN  [XNIO-1 task-2] ExceptionHandlerExceptionResolver: Resolved [org.springframework.security.authentication.InsufficientAuthenticationException: Full authentication is required to access this resource]
+2021-01-11 19:22:27,332 DEBUG [XNIO-1 task-2] UserJWTController: Enter: authorize() with argument[s] = [LoginVM{username='admin', rememberMe=false}]
+2021-01-11 19:22:27,475 DEBUG [XNIO-1 task-2] DomainUserDetailsService: Authenticating admin
+2021-01-11 19:22:28,982 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Enter: add() with argument[s] = [AuditEvent [timestamp=2021-01-11T11:22:28.981367400Z, principal=admin, type=AUTHENTICATION_SUCCESS, data={}]]
+2021-01-11 19:22:29,242 DEBUG [XNIO-1 task-2] CustomAuditEventRepository: Exit: add() with result = null
+2021-01-11 19:22:29,970 DEBUG [XNIO-1 task-2] UserJWTController: Exit: authorize() with result = <200 OK OK,vn.infodation.intern.group1.mas.web.rest.UserJWTController$JWTToken@173b7425,[Authorization:"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTYxMDQ1MDU0OX0.bxMn_pqF0gTuAE-NYgFGHCSVP-hVZQi1OPBaKVLNmOj6HtNrlqLlFCFBhjEp67eWmIt9HvJVEP8o7iDu1vV-PQ"]>
+2021-01-11 19:22:30,094 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 19:22:30,108 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 19:22:30,113 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 19:22:30,129 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 19:22:35,494 DEBUG [XNIO-1 task-3] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 19:22:35,503 DEBUG [XNIO-1 task-3] EquipmentResource: REST request to get all Equipment
+2021-01-11 19:22:35,802 DEBUG [XNIO-1 task-3] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 19:30:46,046 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 19:30:46,078 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 19:30:56,863 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 19:30:57,841 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 19:30:57,898 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 19:30:57,900 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 19:30:58,832 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 19:30:58,897 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 19:30:58,902 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 19:30:58,908 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 19:30:58,912 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 19:30:58,915 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 19:30:58,918 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 19:30:58,925 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:30:58,932 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 19:30:58,939 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:30:58,944 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 19:30:58,949 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 19:30:58,953 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:30:58,959 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:30:58,964 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 19:30:58,969 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 19:30:58,974 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:30:58,979 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 19:30:58,984 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:30:58,989 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 19:30:58,995 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:30:58,999 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 19:30:59,004 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 19:30:59,011 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:30:59,015 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 19:30:59,019 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 19:30:59,029 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 19:30:59,044 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 19:30:59,061 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 19:30:59,135 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 19:30:59,159 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 19:31:00,314 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 19:31:04,827 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 19:31:10,375 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 19:31:10,391 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 14 ms
+2021-01-11 19:31:12,595 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 19:31:14,317 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 19:31:15,871 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 43.229 seconds (JVM running for 45.382)
+2021-01-11 19:31:15,880 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 19:31:55,921 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 19:31:55,966 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 19:31:56,796 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 19:31:56,826 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 19:31:56,924 DEBUG [XNIO-1 task-3] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 19:31:56,928 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 19:31:56,929 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 19:31:56,932 DEBUG [XNIO-1 task-3] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 19:31:57,091 DEBUG [XNIO-1 task-3] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 19:31:57,095 DEBUG [XNIO-1 task-3] EquipmentResource: REST request to get all Equipment
+2021-01-11 19:31:57,376 DEBUG [XNIO-1 task-3] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 19:38:25,681 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 19:38:25,696 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 19:38:30,392 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 19:38:30,835 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 19:38:30,871 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 19:38:30,872 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 19:38:31,606 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 19:38:31,627 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 19:38:31,631 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 19:38:31,635 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 19:38:31,639 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 19:38:31,643 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 19:38:31,645 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 19:38:31,650 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:38:31,653 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 19:38:31,657 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:38:31,660 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 19:38:31,663 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 19:38:31,667 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:38:31,670 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:38:31,672 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 19:38:31,676 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 19:38:31,679 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:38:31,682 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 19:38:31,686 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 19:38:31,689 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 19:38:31,692 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 19:38:31,695 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 19:38:31,697 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 19:38:31,701 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 19:38:31,704 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 19:38:31,707 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 19:38:31,709 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 19:38:31,712 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 19:38:31,714 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 19:38:31,735 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 19:38:31,751 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 19:38:32,182 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 19:38:35,548 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 19:38:39,907 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 19:38:39,916 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 8 ms
+2021-01-11 19:38:41,745 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 19:38:43,308 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 19:38:44,960 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 28.237 seconds (JVM running for 33.649)
+2021-01-11 19:38:44,969 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 19:39:36,967 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 19:39:36,995 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 19:39:37,375 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 19:39:37,408 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 19:39:37,484 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 19:39:37,489 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 19:39:37,492 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 19:39:37,496 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 19:39:37,675 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 19:39:37,679 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get all Equipment
+2021-01-11 19:39:37,845 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:19:03,074 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:19:03,109 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:19:08,468 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:19:09,032 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:19:09,072 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:19:09,073 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:19:09,593 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:19:09,618 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:19:09,623 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:19:09,627 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:19:09,630 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:19:09,635 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:19:09,639 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:19:09,643 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:19:09,647 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:19:09,651 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:19:09,656 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:19:09,659 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:19:09,662 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:19:09,666 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:19:09,669 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:19:09,674 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:19:09,679 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:19:09,682 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:19:09,689 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:19:09,692 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:19:09,696 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:19:09,700 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:19:09,705 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:19:09,710 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:19:09,715 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:19:09,718 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:19:09,722 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:19:09,729 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:19:09,735 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:19:09,779 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:19:09,810 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:19:10,338 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:19:13,200 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:19:17,089 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:19:17,097 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 6 ms
+2021-01-11 20:19:18,907 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:19:20,099 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:19:21,678 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 28.12 seconds (JVM running for 32.8)
+2021-01-11 20:19:21,687 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:19:40,667 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:19:40,689 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:19:41,297 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:19:41,319 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:19:41,378 DEBUG [XNIO-1 task-3] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:19:41,393 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:19:41,396 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:19:41,401 DEBUG [XNIO-1 task-3] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:19:41,524 DEBUG [XNIO-1 task-3] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:19:41,528 DEBUG [XNIO-1 task-3] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:19:41,845 DEBUG [XNIO-1 task-3] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:19:47,540 DEBUG [XNIO-1 task-3] FormResource: Enter: getAllForms() with argument[s] = []
+2021-01-11 20:19:47,543 DEBUG [XNIO-1 task-3] FormResource: REST request to get all Forms
+2021-01-11 20:19:47,945 ERROR [XNIO-1 task-3] FormResource: Exception in getAllForms() with cause = 'javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31' and exception = 'Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31'
+org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:379)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:178)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy215.findAll(Unknown Source)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource.getAllForms(FormResource.java:111)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$FastClassBySpringCGLIB$$b43d6aca.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
+	at vn.infodation.intern.group1.mas.aop.logging.LoggingAspect.logAround(LoggingAspect.java:103)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$EnhancerBySpringCGLIB$$b8aaf24b.getAllForms(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:503)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:155)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at vn.infodation.intern.group1.mas.security.jwt.JWTFilter.doFilter(JWTFilter.java:38)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:132)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SessionRestoringHandler.handleRequest(SessionRestoringHandler.java:119)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:269)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:133)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:130)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:249)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:99)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:841)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$JpaEntityNotFoundDelegate.handleEntityNotFound(EntityManagerFactoryBuilderImpl.java:163)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:216)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:332)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:108)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:74)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:113)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1176)
+	at org.hibernate.internal.SessionImpl.internalLoad(SessionImpl.java:1041)
+	at org.hibernate.type.EntityType.resolveIdentifier(EntityType.java:687)
+	at org.hibernate.type.EntityType.resolve(EntityType.java:464)
+	at org.hibernate.type.ManyToOneType.resolve(ManyToOneType.java:240)
+	at org.hibernate.engine.internal.TwoPhaseLoad.doInitializeEntity(TwoPhaseLoad.java:231)
+	at org.hibernate.engine.internal.TwoPhaseLoad.initializeEntity(TwoPhaseLoad.java:162)
+	at org.hibernate.loader.Loader.initializeEntitiesAndCollections(Loader.java:1179)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:1028)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:964)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:354)
+	at org.hibernate.loader.Loader.doList(Loader.java:2838)
+	at org.hibernate.loader.Loader.doList(Loader.java:2820)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2652)
+	at org.hibernate.loader.Loader.list(Loader.java:2647)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:396)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1404)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533)
+	at org.hibernate.query.Query.getResultList(Query.java:165)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getResultList(CriteriaQueryTypeQueryAdapter.java:76)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:355)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:371)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:204)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:657)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:621)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:605)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:80)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	... 146 common frames omitted
+2021-01-11 20:19:47,974 ERROR [XNIO-1 task-3] AdviceTraits: Internal Server Error
+org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:379)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:178)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy215.findAll(Unknown Source)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource.getAllForms(FormResource.java:111)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$FastClassBySpringCGLIB$$b43d6aca.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
+	at vn.infodation.intern.group1.mas.aop.logging.LoggingAspect.logAround(LoggingAspect.java:103)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$EnhancerBySpringCGLIB$$b8aaf24b.getAllForms(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:503)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:155)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at vn.infodation.intern.group1.mas.security.jwt.JWTFilter.doFilter(JWTFilter.java:38)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:132)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SessionRestoringHandler.handleRequest(SessionRestoringHandler.java:119)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:269)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:133)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:130)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:249)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:99)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:841)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$JpaEntityNotFoundDelegate.handleEntityNotFound(EntityManagerFactoryBuilderImpl.java:163)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:216)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:332)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:108)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:74)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:113)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1176)
+	at org.hibernate.internal.SessionImpl.internalLoad(SessionImpl.java:1041)
+	at org.hibernate.type.EntityType.resolveIdentifier(EntityType.java:687)
+	at org.hibernate.type.EntityType.resolve(EntityType.java:464)
+	at org.hibernate.type.ManyToOneType.resolve(ManyToOneType.java:240)
+	at org.hibernate.engine.internal.TwoPhaseLoad.doInitializeEntity(TwoPhaseLoad.java:231)
+	at org.hibernate.engine.internal.TwoPhaseLoad.initializeEntity(TwoPhaseLoad.java:162)
+	at org.hibernate.loader.Loader.initializeEntitiesAndCollections(Loader.java:1179)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:1028)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:964)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:354)
+	at org.hibernate.loader.Loader.doList(Loader.java:2838)
+	at org.hibernate.loader.Loader.doList(Loader.java:2820)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2652)
+	at org.hibernate.loader.Loader.list(Loader.java:2647)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:396)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1404)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533)
+	at org.hibernate.query.Query.getResultList(Query.java:165)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getResultList(CriteriaQueryTypeQueryAdapter.java:76)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:355)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:371)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:204)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:657)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:621)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:605)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:80)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	... 146 common frames omitted
+2021-01-11 20:19:48,065 WARN  [XNIO-1 task-3] ExceptionHandlerExceptionResolver: Resolved [org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31]
+2021-01-11 20:20:15,236 DEBUG [XNIO-1 task-4] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:20:15,237 DEBUG [XNIO-1 task-2] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:20:15,237 DEBUG [XNIO-1 task-1] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:20:15,242 DEBUG [XNIO-1 task-1] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:20:15,245 DEBUG [XNIO-1 task-4] EmployeeResource: REST request to get all Employees
+2021-01-11 20:20:15,246 DEBUG [XNIO-1 task-2] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:20:15,266 DEBUG [XNIO-1 task-1] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:20:15,406 DEBUG [XNIO-1 task-2] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:20:15,498 DEBUG [XNIO-1 task-4] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:24:11,010 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:24:11,035 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:24:18,948 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:24:20,209 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:24:20,279 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:24:20,293 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:24:20,960 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:24:20,989 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:24:20,994 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:24:20,999 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:24:21,003 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:24:21,006 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:24:21,010 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:24:21,015 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:24:21,019 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:24:21,022 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:24:21,025 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:24:21,029 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:24:21,033 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:24:21,037 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:24:21,041 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:24:21,045 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:24:21,049 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:24:21,052 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:24:21,055 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:24:21,058 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:24:21,063 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:24:21,068 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:24:21,072 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:24:21,075 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:24:21,080 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:24:21,084 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:24:21,089 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:24:21,092 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:24:21,095 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:24:21,122 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:24:21,139 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:24:21,498 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:24:25,083 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:24:29,830 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:24:29,844 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 13 ms
+2021-01-11 20:24:31,772 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:24:33,056 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:24:34,619 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 33.509 seconds (JVM running for 34.668)
+2021-01-11 20:24:34,634 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:25:13,937 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:25:13,979 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:25:14,324 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:25:14,344 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:25:14,389 DEBUG [XNIO-1 task-1] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:25:14,392 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:25:14,393 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:25:14,396 DEBUG [XNIO-1 task-1] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:25:14,570 DEBUG [XNIO-1 task-2] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:25:14,576 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:25:14,584 DEBUG [XNIO-1 task-2] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:25:14,588 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get all Employees
+2021-01-11 20:25:14,626 DEBUG [XNIO-1 task-2] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:25:14,634 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:25:14,655 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:25:14,803 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:25:15,275 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:30:08,234 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:30:08,239 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:30:12,395 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:30:12,963 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:30:12,999 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:30:13,000 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:30:13,569 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:30:13,599 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:30:13,604 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:30:13,611 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:30:13,616 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:30:13,620 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:30:13,627 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:30:13,633 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:30:13,638 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:30:13,643 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:30:13,648 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:30:13,652 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:30:13,657 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:30:13,661 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:30:13,666 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:30:13,675 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:30:13,680 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:30:13,684 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:30:13,688 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:30:13,692 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:30:13,696 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:30:13,700 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:30:13,704 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:30:13,708 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:30:13,712 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:30:13,716 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:30:13,718 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:30:13,722 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:30:13,726 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:30:13,753 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:30:13,776 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:30:14,126 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:30:17,082 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:30:20,700 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:30:20,731 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 30 ms
+2021-01-11 20:30:22,616 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:30:23,578 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:30:25,080 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 25.695 seconds (JVM running for 27.033)
+2021-01-11 20:30:25,098 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:31:12,961 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:31:13,008 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:31:13,391 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:31:13,412 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:31:13,496 DEBUG [XNIO-1 task-1] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:31:13,499 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:31:13,518 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:31:13,521 DEBUG [XNIO-1 task-1] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:31:13,960 DEBUG [XNIO-1 task-2] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:31:13,967 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:31:13,973 DEBUG [XNIO-1 task-2] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:31:13,976 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get all Employees
+2021-01-11 20:31:13,982 DEBUG [XNIO-1 task-1] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:31:13,995 DEBUG [XNIO-1 task-2] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:31:13,987 DEBUG [XNIO-1 task-1] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:31:14,233 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:31:14,287 DEBUG [XNIO-1 task-1] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:32:15,085 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getCurrentUser() with argument[s] = []
+2021-01-11 20:32:15,087 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get current logged in User
+2021-01-11 20:32:15,091 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:32:15,092 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:32:15,112 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getCurrentUser() with result = <200 OK OK,Employee{id=2, phoneNumber='123'},[]>
+2021-01-11 20:35:30,296 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:35:30,319 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:35:39,030 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:35:39,677 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:35:39,715 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:35:39,733 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:35:40,332 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:35:40,358 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:35:40,363 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:35:40,367 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:35:40,371 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:35:40,375 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:35:40,377 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:35:40,382 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:35:40,386 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:35:40,391 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:35:40,395 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:35:40,402 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:35:40,406 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:35:40,414 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:35:40,421 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:35:40,427 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:35:40,434 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:35:40,438 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:35:40,444 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:35:40,450 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:35:40,456 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:35:40,462 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:35:40,471 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:35:40,475 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:35:40,477 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:35:40,480 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:35:40,483 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:35:40,486 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:35:40,518 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:35:40,543 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:35:40,560 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:35:40,912 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:35:44,030 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:35:49,346 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:35:49,359 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 11 ms
+2021-01-11 20:35:51,357 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:35:52,883 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:35:54,463 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 32.827 seconds (JVM running for 33.924)
+2021-01-11 20:35:54,475 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:36:15,712 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:36:15,776 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:36:16,197 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:36:16,219 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:36:16,281 DEBUG [XNIO-1 task-3] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:36:16,285 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:36:16,286 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:36:16,289 DEBUG [XNIO-1 task-3] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:36:19,165 DEBUG [XNIO-1 task-3] FormResource: Enter: getAllForms() with argument[s] = []
+2021-01-11 20:36:19,191 DEBUG [XNIO-1 task-3] FormResource: REST request to get all Forms
+2021-01-11 20:36:19,403 ERROR [XNIO-1 task-3] FormResource: Exception in getAllForms() with cause = 'javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31' and exception = 'Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31'
+org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:379)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:178)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy215.findAll(Unknown Source)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource.getAllForms(FormResource.java:111)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$FastClassBySpringCGLIB$$b43d6aca.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
+	at vn.infodation.intern.group1.mas.aop.logging.LoggingAspect.logAround(LoggingAspect.java:103)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$EnhancerBySpringCGLIB$$ac20af46.getAllForms(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:503)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:155)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at vn.infodation.intern.group1.mas.security.jwt.JWTFilter.doFilter(JWTFilter.java:38)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:132)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SessionRestoringHandler.handleRequest(SessionRestoringHandler.java:119)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:269)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:133)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:130)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:249)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:99)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:841)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$JpaEntityNotFoundDelegate.handleEntityNotFound(EntityManagerFactoryBuilderImpl.java:163)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:216)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:332)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:108)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:74)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:113)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1176)
+	at org.hibernate.internal.SessionImpl.internalLoad(SessionImpl.java:1041)
+	at org.hibernate.type.EntityType.resolveIdentifier(EntityType.java:687)
+	at org.hibernate.type.EntityType.resolve(EntityType.java:464)
+	at org.hibernate.type.ManyToOneType.resolve(ManyToOneType.java:240)
+	at org.hibernate.engine.internal.TwoPhaseLoad.doInitializeEntity(TwoPhaseLoad.java:231)
+	at org.hibernate.engine.internal.TwoPhaseLoad.initializeEntity(TwoPhaseLoad.java:162)
+	at org.hibernate.loader.Loader.initializeEntitiesAndCollections(Loader.java:1179)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:1028)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:964)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:354)
+	at org.hibernate.loader.Loader.doList(Loader.java:2838)
+	at org.hibernate.loader.Loader.doList(Loader.java:2820)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2652)
+	at org.hibernate.loader.Loader.list(Loader.java:2647)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:396)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1404)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533)
+	at org.hibernate.query.Query.getResultList(Query.java:165)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getResultList(CriteriaQueryTypeQueryAdapter.java:76)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:355)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:371)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:204)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:657)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:621)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:605)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:80)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	... 146 common frames omitted
+2021-01-11 20:36:19,421 ERROR [XNIO-1 task-3] AdviceTraits: Internal Server Error
+org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:379)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:178)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy215.findAll(Unknown Source)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource.getAllForms(FormResource.java:111)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$FastClassBySpringCGLIB$$b43d6aca.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)
+	at vn.infodation.intern.group1.mas.aop.logging.LoggingAspect.logAround(LoggingAspect.java:103)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at vn.infodation.intern.group1.mas.web.rest.FormResource$$EnhancerBySpringCGLIB$$ac20af46.getAllForms(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:879)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:503)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.www.BasicAuthenticationFilter.doFilterInternal(BasicAuthenticationFilter.java:155)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at vn.infodation.intern.group1.mas.security.jwt.JWTFilter.doFilter(JWTFilter.java:38)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:132)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SessionRestoringHandler.handleRequest(SessionRestoringHandler.java:119)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:269)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:133)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:130)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:249)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:99)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:841)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl$JpaEntityNotFoundDelegate.handleEntityNotFound(EntityManagerFactoryBuilderImpl.java:163)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:216)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:332)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:108)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:74)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:113)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1176)
+	at org.hibernate.internal.SessionImpl.internalLoad(SessionImpl.java:1041)
+	at org.hibernate.type.EntityType.resolveIdentifier(EntityType.java:687)
+	at org.hibernate.type.EntityType.resolve(EntityType.java:464)
+	at org.hibernate.type.ManyToOneType.resolve(ManyToOneType.java:240)
+	at org.hibernate.engine.internal.TwoPhaseLoad.doInitializeEntity(TwoPhaseLoad.java:231)
+	at org.hibernate.engine.internal.TwoPhaseLoad.initializeEntity(TwoPhaseLoad.java:162)
+	at org.hibernate.loader.Loader.initializeEntitiesAndCollections(Loader.java:1179)
+	at org.hibernate.loader.Loader.processResultSet(Loader.java:1028)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:964)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:354)
+	at org.hibernate.loader.Loader.doList(Loader.java:2838)
+	at org.hibernate.loader.Loader.doList(Loader.java:2820)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2652)
+	at org.hibernate.loader.Loader.list(Loader.java:2647)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:506)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:396)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:219)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1404)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1565)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1533)
+	at org.hibernate.query.Query.getResultList(Query.java:165)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.getResultList(CriteriaQueryTypeQueryAdapter.java:76)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:355)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:371)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:204)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:657)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:621)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:605)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:80)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	... 146 common frames omitted
+2021-01-11 20:36:19,488 WARN  [XNIO-1 task-3] ExceptionHandlerExceptionResolver: Resolved [org.springframework.orm.jpa.JpaObjectRetrievalFailureException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31; nested exception is javax.persistence.EntityNotFoundException: Unable to find vn.infodation.intern.group1.mas.domain.Employee with id 31]
+2021-01-11 20:36:20,486 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getCurrentUser() with argument[s] = []
+2021-01-11 20:36:20,491 DEBUG [XNIO-1 task-4] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:36:20,505 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:36:20,508 DEBUG [XNIO-1 task-2] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:36:20,541 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get current logged in User
+2021-01-11 20:36:20,561 DEBUG [XNIO-1 task-3] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:36:20,558 DEBUG [XNIO-1 task-4] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:36:20,563 DEBUG [XNIO-1 task-3] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:36:20,565 DEBUG [XNIO-1 task-2] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:36:20,559 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get all Employees
+2021-01-11 20:36:20,587 DEBUG [XNIO-1 task-4] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:36:20,969 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getCurrentUser() with result = <200 OK OK,Employee{id=2, phoneNumber='123'},[]>
+2021-01-11 20:36:21,039 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:36:21,218 DEBUG [XNIO-1 task-2] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:42:12,655 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:42:12,672 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:42:19,932 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:42:20,508 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:42:20,559 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:42:20,574 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:42:21,289 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:42:21,336 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:42:21,341 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:42:21,345 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:42:21,349 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:42:21,352 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:42:21,354 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:42:21,359 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:42:21,362 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:42:21,365 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:42:21,369 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:42:21,371 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:42:21,374 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:42:21,380 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:42:21,383 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:42:21,426 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:42:21,431 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:42:21,433 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:42:21,436 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:42:21,440 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:42:21,444 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:42:21,448 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:42:21,464 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:42:21,467 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:42:21,470 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:42:21,473 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:42:21,477 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:42:21,480 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:42:21,482 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:42:21,502 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:42:21,519 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:42:21,826 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:42:25,526 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:42:30,505 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:42:30,516 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 10 ms
+2021-01-11 20:42:32,521 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:42:34,427 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:42:36,157 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 31.557 seconds (JVM running for 32.807)
+2021-01-11 20:42:36,173 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:42:56,890 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:42:56,952 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:42:57,318 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:42:57,343 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:42:57,402 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:42:57,405 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:42:57,406 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:42:57,411 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:42:57,850 DEBUG [XNIO-1 task-2] EmployeeResource: Enter: getCurrentUser() with argument[s] = []
+2021-01-11 20:42:57,852 DEBUG [XNIO-1 task-1] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:42:57,859 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:42:57,865 DEBUG [XNIO-1 task-2] EmployeeResource: REST request to get current logged in User
+2021-01-11 20:42:57,866 DEBUG [XNIO-1 task-1] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:42:57,866 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get all Employees
+2021-01-11 20:42:57,868 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:42:57,873 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:42:57,894 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:42:57,901 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:42:57,916 DEBUG [XNIO-1 task-1] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:42:58,004 DEBUG [XNIO-1 task-2] EmployeeResource: Exit: getCurrentUser() with result = <200 OK OK,Employee{id=2, phoneNumber='123'},[]>
+2021-01-11 20:42:58,204 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:42:58,252 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
+2021-01-11 20:46:59,534 WARN  [restartedMain] ConfigServicePropertySourceLocator: Could not locate PropertySource: I/O error on GET request for "http://localhost:8761/config/managedAccessoriesSystem/dev/master": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-01-11 20:46:59,554 INFO  [restartedMain] ManagedAccessoriesSystemApp: The following profiles are active: dev,swagger
+2021-01-11 20:47:02,834 DEBUG [restartedMain] InternalLoggerFactory: Using SLF4J as the default logging framework
+2021-01-11 20:47:03,159 DEBUG [restartedMain] WebConfigurer: Registering CORS filter
+2021-01-11 20:47:03,191 INFO  [restartedMain] WebConfigurer: Web application configuration, using profiles: dev
+2021-01-11 20:47:03,192 INFO  [restartedMain] WebConfigurer: Web application fully configured
+2021-01-11 20:47:03,438 DEBUG [restartedMain] Ehcache-usersByLogin: Initialize successful.
+2021-01-11 20:47:03,457 DEBUG [restartedMain] Ehcache-usersByEmail: Initialize successful.
+2021-01-11 20:47:03,460 DEBUG [restartedMain] User: Initialize successful.
+2021-01-11 20:47:03,463 DEBUG [restartedMain] Authority: Initialize successful.
+2021-01-11 20:47:03,467 DEBUG [restartedMain] authorities: Initialize successful.
+2021-01-11 20:47:03,471 DEBUG [restartedMain] ActionLog: Initialize successful.
+2021-01-11 20:47:03,474 DEBUG [restartedMain] ActionType: Initialize successful.
+2021-01-11 20:47:03,478 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:47:03,481 DEBUG [restartedMain] Area: Initialize successful.
+2021-01-11 20:47:03,483 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:47:03,488 DEBUG [restartedMain] employees: Initialize successful.
+2021-01-11 20:47:03,490 DEBUG [restartedMain] Equipment: Initialize successful.
+2021-01-11 20:47:03,492 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:47:03,495 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:47:03,498 DEBUG [restartedMain] userEquipmentActivityLogs: Initialize successful.
+2021-01-11 20:47:03,500 DEBUG [restartedMain] EquipmentGroup: Initialize successful.
+2021-01-11 20:47:03,503 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:47:03,506 DEBUG [restartedMain] EquipmentType: Initialize successful.
+2021-01-11 20:47:03,509 DEBUG [restartedMain] equipment: Initialize successful.
+2021-01-11 20:47:03,511 DEBUG [restartedMain] PlaceToPerform: Initialize successful.
+2021-01-11 20:47:03,514 DEBUG [restartedMain] actionLogs: Initialize successful.
+2021-01-11 20:47:03,614 DEBUG [restartedMain] StatusLog: Initialize successful.
+2021-01-11 20:47:03,623 DEBUG [restartedMain] StatusType: Initialize successful.
+2021-01-11 20:47:03,632 DEBUG [restartedMain] statusLogs: Initialize successful.
+2021-01-11 20:47:03,641 DEBUG [restartedMain] Employee: Initialize successful.
+2021-01-11 20:47:03,645 DEBUG [restartedMain] areas: Initialize successful.
+2021-01-11 20:47:03,648 DEBUG [restartedMain] UserEquipmentActivityLog: Initialize successful.
+2021-01-11 20:47:03,652 DEBUG [restartedMain] FormType: Initialize successful.
+2021-01-11 20:47:03,656 DEBUG [restartedMain] Form: Initialize successful.
+2021-01-11 20:47:03,682 DEBUG [restartedMain] AsyncConfiguration: Creating Async Task Executor
+2021-01-11 20:47:03,699 DEBUG [restartedMain] LiquibaseConfiguration: Configuring Liquibase
+2021-01-11 20:47:03,883 WARN  [managed-accessories-system-task-1] AsyncSpringLiquibase: Starting Liquibase asynchronously, your database might not be ready at startup!
+2021-01-11 20:47:05,708 DEBUG [restartedMain] TokenProvider: Using a Base64-encoded JWT secret key
+2021-01-11 20:47:08,611 DEBUG [restartedMain] SwaggerAutoConfiguration: Starting Swagger
+2021-01-11 20:47:08,617 DEBUG [restartedMain] SwaggerAutoConfiguration: Started Swagger in 6 ms
+2021-01-11 20:47:10,391 WARN  [restartedMain] BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger: You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-01-11 20:47:11,171 INFO  [restartedMain] threads: JBoss Threads version 3.1.0.Final
+2021-01-11 20:47:12,633 INFO  [restartedMain] ManagedAccessoriesSystemApp: Started ManagedAccessoriesSystemApp in 19.872 seconds (JVM running for 20.843)
+2021-01-11 20:47:12,652 INFO  [restartedMain] ManagedAccessoriesSystemApp: 
+----------------------------------------------------------
+	Application 'managedAccessoriesSystem' is running! Access URLs:
+	Local: 		http://localhost:8080/
+	External: 	http://192.168.191.2:8080/
+	Profile(s): 	[dev, swagger]
+----------------------------------------------------------
+2021-01-11 20:47:19,508 DEBUG [XNIO-1 task-2] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:47:19,565 DEBUG [XNIO-1 task-2] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:47:19,921 DEBUG [XNIO-1 task-2] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:47:19,956 DEBUG [XNIO-1 task-2] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:47:20,012 DEBUG [XNIO-1 task-1] AccountResource: Enter: getAccount() with argument[s] = []
+2021-01-11 20:47:20,015 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:47:20,016 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:47:20,018 DEBUG [XNIO-1 task-1] AccountResource: Exit: getAccount() with result = UserDTO{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated=true, langKey='en', createdBy=system, createdDate=null, lastModifiedBy='system', lastModifiedDate=null, authorities=[ROLE_USER, ROLE_ADMIN]}
+2021-01-11 20:47:20,390 DEBUG [XNIO-1 task-1] EmployeeResource: Enter: getCurrentUser() with argument[s] = []
+2021-01-11 20:47:20,396 DEBUG [XNIO-1 task-2] FormTypeResource: Enter: getAllFormTypes() with argument[s] = []
+2021-01-11 20:47:20,404 DEBUG [XNIO-1 task-3] EmployeeResource: Enter: getAllEmployees() with argument[s] = []
+2021-01-11 20:47:20,409 DEBUG [XNIO-1 task-1] EmployeeResource: REST request to get current logged in User
+2021-01-11 20:47:20,409 DEBUG [XNIO-1 task-3] EmployeeResource: REST request to get all Employees
+2021-01-11 20:47:20,410 DEBUG [XNIO-1 task-1] UserService: Enter: getUserWithAuthorities() with argument[s] = []
+2021-01-11 20:47:20,411 DEBUG [XNIO-1 task-2] FormTypeResource: REST request to get all FormTypes
+2021-01-11 20:47:20,422 DEBUG [XNIO-1 task-1] UserService: Exit: getUserWithAuthorities() with result = Optional[User{login='admin', firstName='Administrator', lastName='Administrator', email='admin@localhost', imageUrl='', activated='true', langKey='en', activationKey='null'}]
+2021-01-11 20:47:20,423 DEBUG [XNIO-1 task-4] EquipmentResource: Enter: getAllEquipment() with argument[s] = []
+2021-01-11 20:47:20,440 DEBUG [XNIO-1 task-4] EquipmentResource: REST request to get all Equipment
+2021-01-11 20:47:20,465 DEBUG [XNIO-1 task-2] FormTypeResource: Exit: getAllFormTypes() with result = [FormType{id=1, name='Equipment Liquidation'}]
+2021-01-11 20:47:20,484 DEBUG [XNIO-1 task-1] EmployeeResource: Exit: getCurrentUser() with result = <200 OK OK,Employee{id=2, phoneNumber='123'},[]>
+2021-01-11 20:47:20,631 DEBUG [XNIO-1 task-3] EmployeeResource: Exit: getAllEmployees() with result = [Employee{id=1, phoneNumber='59131178'}, Employee{id=2, phoneNumber='123'}, Employee{id=3, phoneNumber='0963169819'}, Employee{id=4, phoneNumber='0963169819'}, Employee{id=5, phoneNumber='099798997'}, Employee{id=6, phoneNumber='08812352112'}, Employee{id=7, phoneNumber='0987654321'}, Employee{id=8, phoneNumber='0819782018'}, Employee{id=9, phoneNumber='0000000002'}, Employee{id=10, phoneNumber='0000000003'}, Employee{id=11, phoneNumber='0000000004'}, Employee{id=12, phoneNumber='0000000005'}, Employee{id=13, phoneNumber='0000000006'}, Employee{id=14, phoneNumber='0000000007'}, Employee{id=15, phoneNumber='0000000008'}, Employee{id=16, phoneNumber='0000000009'}, Employee{id=17, phoneNumber='0000000011'}, Employee{id=18, phoneNumber='0000000010'}, Employee{id=33, phoneNumber='0963169819'}]
+2021-01-11 20:47:20,647 DEBUG [XNIO-1 task-4] EquipmentResource: Exit: getAllEquipment() with result = [Equipment{id=1, purchaseDate='2020-11-29T19:44:00Z', equipmentName='Swiss Franc monitor', technicalFeatures='None', serialNumber='User-friendly Group', note='Bacon Underpass'}, Equipment{id=2, purchaseDate='2020-11-30T01:46:48Z', equipmentName='Face to face SSL user-centric', technicalFeatures='Group Kansas olive', serialNumber='application Regional', note='Chicken'}, Equipment{id=3, purchaseDate='2020-11-29T22:26:38Z', equipmentName='Light', technicalFeatures='implementation structure', serialNumber='reboot Granite', note='firewall payment'}, Equipment{id=4, purchaseDate='2020-11-30T06:52:00Z', equipmentName='Intuitive Home Loan Account SDD', technicalFeatures='disintermediate', serialNumber='Avon deliver', note='Salad Auto Loan Account EXE'}, Equipment{id=5, purchaseDate='2020-11-29T18:02:02Z', equipmentName='Fantastic Cotton Keyboard', technicalFeatures='Savings Account cyan Metal', serialNumber='protocol', note='Libyan Dinar wireless'}, Equipment{id=6, purchaseDate='2020-11-30T03:28:39Z', equipmentName='Chicken RSS Cambridgeshire', technicalFeatures='ADP Agent', serialNumber='supply-chains invoice magnetic', note='National Communications Incredible Frozen Towels'}, Equipment{id=7, purchaseDate='2020-11-30T03:00:04Z', equipmentName='navigate invoice', technicalFeatures='systems Principal bifurcated', serialNumber='e-business grey', note='throughput morph'}, Equipment{id=8, purchaseDate='2020-11-29T09:18:46Z', equipmentName='Vision-oriented Car New York', technicalFeatures='digital', serialNumber='orchid', note='Outdoors Kwanza Security'}, Equipment{id=9, purchaseDate='2020-11-29T10:30:07Z', equipmentName='panel', technicalFeatures='system engine disintermediate synergies', serialNumber='Investment Account Integration', note='Serbian Dinar conglomeration reboot'}, Equipment{id=16, purchaseDate='2020-12-30T17:00:00Z', equipmentName='a', technicalFeatures='None', serialNumber='aeqw3q232323', note='None'}]
