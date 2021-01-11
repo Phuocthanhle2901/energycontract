@@ -13,6 +13,7 @@ import { IEmployee } from 'app/shared/model/employee.model';
 import { EmployeeService } from 'app/entities/employee/employee.service';
 import { IEquipment } from 'app/shared/model/equipment.model';
 import { EquipmentService } from 'app/entities/equipment/equipment.service';
+import { formStatus } from 'app/shared/model/enumerations/form-status.model';
 
 type SelectableEntity = IFormType | IEmployee | IEquipment;
 
@@ -26,6 +27,7 @@ export class FormUpdateComponent implements OnInit {
   employees: IEmployee[] = [];
   equipment: IEquipment[] = [];
   employee!: IEmployee | null; 
+  defaultStatus = formStatus.WAITING;
 
   editForm = this.fb.group({
     id: [],
@@ -33,10 +35,10 @@ export class FormUpdateComponent implements OnInit {
     yourName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     area: [null, [Validators.required]],
     reason: [null, [Validators.required, Validators.minLength(50), Validators.maxLength(400)]],
-    status: [null, [Validators.required]],
-    formType: [],
-    employee: [],
-    equipment: [],
+    status: [formStatus.WAITING, [Validators.required]],
+    formType: [null, [Validators.required]],
+    employee: [null, [Validators.required]],
+    equipment: [null, [Validators.required]],
   });
 
   constructor(
@@ -59,6 +61,8 @@ export class FormUpdateComponent implements OnInit {
       this.employeeService.query().subscribe((res: HttpResponse<IEmployee[]>) => (this.employees = res.body || []));
 
       this.equipmentService.query().subscribe((res: HttpResponse<IEquipment[]>) => (this.equipment = res.body || []));
+    
+      this.editForm.controls['area'].setValue(this.employee?.area?.areaName);
     });
   }
 

@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.area" for="field_area">Area</label>
                     <input type="text" class="form-control" name="area" id="field_area"
-                           formControlName="area"/>
+                           formControlName="area" [(ngModel)]="employee!.area!.areaName" readonly/>
                     <div *ngIf="editForm.get('area')!.invalid && (editForm.get('area')!.dirty || editForm.get('area')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('area')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -85,7 +85,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.status" for="field_status">Status</label>
-                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                    <select class="form-control" name="status" formControlName="status" id="field_status" [(ngModel)]="defaultStatus" readonly>
                         <option value="WAITING">{{ 'managedAccessoriesSystemApp.formStatus.WAITING' | translate }}</option>
                         <option value="ACCEPT">{{ 'managedAccessoriesSystemApp.formStatus.ACCEPT' | translate }}</option>
                         <option value="REFUSE">{{ 'managedAccessoriesSystemApp.formStatus.REFUSE' | translate }}</option>
@@ -102,14 +102,20 @@
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.formType" for="field_formType">Form Type</label>
                     <select class="form-control" id="field_formType" name="formType" formControlName="formType">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="formTypeOption.id === editForm.get('formType')!.value?.id ? editForm.get('formType')!.value : formTypeOption" *ngFor="let formTypeOption of formtypes; trackBy: trackById">{{ formTypeOption.id }}</option>
+                        <option [ngValue]="formTypeOption.id === editForm.get('formType')!.value?.id ? editForm.get('formType')!.value : formTypeOption" *ngFor="let formTypeOption of formtypes; trackBy: trackById">{{ formTypeOption.name }}</option>
                     </select>
+                </div>
+                <div *ngIf="editForm.get('formType')!.invalid && (editForm.get('formType')!.dirty || editForm.get('formType')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('formType')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.employee" for="field_employee" aria-disabled="true" aria-readonly="true">Employee</label>
-                    <select class="form-control" id="field_employee" name="employee" formControlName="employee">
-                        <option value="{ employee!.id }" selected>{{ employee!.user!.login }}</option>
+                    <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.employee" for="field_employee">Employee</label>
+                    <select class="form-control" id="field_employee" name="employee" formControlName="employee" readonly [(ngModel)]="employee!.id">
+                        <option value="{{ employee!.id }}">{{ employee!.user!.login }}</option>
                         <!-- <option [ngValue]="employeeOption.id === editForm.get('employee')!.value?.id ? editForm.get('employee')!.value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackById">{{ employeeOption.id }}</option> -->
                     </select>
                 </div>
@@ -118,8 +124,14 @@
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.equipment" for="field_equipment">Equipment</label>
                     <select class="form-control" id="field_equipment" name="equipment" formControlName="equipment">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="equipmentOption.id === editForm.get('equipment')!.value?.id ? editForm.get('equipment')!.value : equipmentOption" *ngFor="let equipmentOption of equipment; trackBy: trackById">{{ equipmentOption.id }}</option>
+                        <option [ngValue]="equipmentOption.id === editForm.get('equipment')!.value?.id ? editForm.get('equipment')!.value : equipmentOption" *ngFor="let equipmentOption of equipment; trackBy: trackById">{{ equipmentOption.equipmentName }}</option>
                     </select>
+                </div>
+                <div *ngIf="editForm.get('equipment')!.invalid && (editForm.get('equipment')!.dirty || editForm.get('equipment')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('equipment')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
                 </div>
             </div>
 
