@@ -64,8 +64,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: infodation.vn.mas@gmail.com  #Replace this field with your Gmail username.
-    password: ouundoypugguhskt           #Replace this field with your Gmail password/App password.
+    username: infodation.vn.mas@gmail.com #Replace this field with your Gmail username.
+    password: ouundoypugguhskt #Replace this field with your Gmail password/App password.
     protocol: smtp
     tls: true
     properties.mail.smtp:
@@ -113,8 +113,9 @@ jhipster:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
         base64-secret: YWUyYmQyOWNiNzY4YTFjMGNkNWM4ZmI3MzJlZGFiNWQzNmU3M2NiOThjOTE0NDVjNmIxMWY4NGU5YjNiNWM0OWQ4MGZlYjM5ZGZjMThlZTVjMDYxMzI4Njk0MmE3YTcwNzliNzhmOTdiZDQ2ZmJjZTRmY2RjMmQxMGY0OTI4ODk=
-        # Token is valid 24 hours
-        token-validity-in-seconds: 86400
+        # Token is valid 10 minutes
+        token-validity-in-seconds: 600
+        # Token is valid 30 days
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://192.168.191.2:8080/

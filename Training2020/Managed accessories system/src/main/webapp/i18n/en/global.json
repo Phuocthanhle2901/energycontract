@@ -73,7 +73,7 @@
           "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
         },
         "register": {
-          "noaccount": "You don't have an account yet?",
+          "noaccount": "You don't have an account yet? Please contact to administrator",
           "link": "Register a new account"
         }
       },

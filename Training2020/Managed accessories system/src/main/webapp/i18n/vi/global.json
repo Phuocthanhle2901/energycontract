@@ -70,7 +70,7 @@
           "suffix": ", bạn có thể thử với tài khoản mặc định:<br/>- Quản trị viên (tài khoản=\"admin\" và mật khẩu=\"admin\") <br/>- Người dùng (tài khoản=\"user\" và mật khẩu=\"user\")."
         },
         "register": {
-          "noaccount": "Bạn vẫn chưa có tài khoản?",
+          "noaccount": "Bạn vẫn chưa có tài khoản? Hãy liên lạc với quản trị viên",
           "link": "Đăng ký tài khoản mới"
         }
       },
