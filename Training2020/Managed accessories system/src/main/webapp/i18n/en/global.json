@@ -124,7 +124,8 @@
       "exportAll": "Export all",
       "print": "Print",
       "accept": "Accept",
-      "refuse": "Refuse"
+      "refuse": "Refuse",
+      "import": "Import"
     },
     "detail": {
       "field": "Field",

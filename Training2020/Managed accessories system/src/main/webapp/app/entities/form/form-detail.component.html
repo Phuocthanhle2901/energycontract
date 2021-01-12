@@ -31,19 +31,19 @@
                 <dt><span jhiTranslate="managedAccessoriesSystemApp.form.formType">Form Type</span></dt>
                 <dd>
                     <div *ngIf="form.formType">
-                        <a [routerLink]="['/form-type', form.formType?.id, 'view']">{{ form.formType?.id }}</a>
+                        <a [routerLink]="['/form-type', form.formType?.id, 'view']">{{ form.formType?.name }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="managedAccessoriesSystemApp.form.employee">Employee</span></dt>
                 <dd>
                     <div *ngIf="form.employee">
-                        <a [routerLink]="['/employee', form.employee?.id, 'view']">{{ form.employee?.id }}</a>
+                        <a [routerLink]="['/employee', form.employee?.id, 'view']">{{ form.employee?.user?.login }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="managedAccessoriesSystemApp.form.equipment">Equipment</span></dt>
                 <dd>
                     <div *ngIf="form.equipment">
-                        <a [routerLink]="['/equipment', form.equipment?.id, 'view']">{{ form.equipment?.id }}</a>
+                        <a [routerLink]="['/equipment', form.equipment?.id, 'view']">{{ form.equipment?.equipmentName }}</a>
                     </div>
                 </dd>
             </dl>
