@@ -175,30 +175,31 @@ entity detail page css
   }
 }
 
-#print{
-	display: none;
+#print {
+  display: none;
 }
 
-#no-print{
-	display: block;
+#no-print {
+  display: block;
 }
 
 @media print {
+  #print {
+    display: block;
+  }
 
-	#print{
-		display: block;
-	}
-	
-	footer, 
-	#no-print, #footer, 
-	.footer, .ribbon{
-		display: none;
-	}
+  footer,
+  #no-print,
+  #footer,
+  .footer,
+  .ribbon {
+    display: none;
+  }
 }
 
 .logo-info {
-    width: 300px;
- }
+  width: 300px;
+}
 
 /* ==========================================================================
 ui bootstrap tweaks
