@@ -18,9 +18,11 @@
         "statusType": "Status Type",
         "employee": "Employee",
         "userEquipmentActivityLog": "User Equipment Activity Log",
+        "formType": "Form Type",
+        "form": "Form",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
-	  "necessaryforms": {
+      "necessaryforms": {
         "main": "Forms",
         "proposingBuyEquipment": "Proposing Buy Equipment",
         "equipmentLiquidation": "Equipment Liquidation",
@@ -117,11 +119,12 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
-	  "send": "Send",
-	  "export": "Export",
-	  "exportAll": "Export all",
-    "print": "Print",
-    "import": "Import"
+      "send": "Send",
+      "export": "Export",
+      "exportAll": "Export all",
+      "print": "Print",
+      "accept": "Accept",
+      "refuse": "Refuse"
     },
     "detail": {
       "field": "Field",
@@ -151,7 +154,9 @@
       "firstSpace": "First character should not be a white space.",
       "whiteSpace": "This field must not contains any white space.",
       "phone": "This field must have a valid phone number",
-      "email": "This field must have a valid e-mail address"
+      "email": "This field must have a valid e-mail address",
+      "numberfalse": "This field must not contains numbers",
+      "special": "This field must not contains special characters"
     }
   },
   "alertReady": "Ready for importation",

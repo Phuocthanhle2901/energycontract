@@ -10,7 +10,7 @@ import { IStatusLog, StatusLog } from 'app/shared/model/status-log.model';
 import { StatusLogService } from './status-log.service';
 import { StatusLogComponent } from './status-log.component';
 import { StatusLogDetailComponent } from './status-log-detail.component';
-import { StatusLogUpdateComponent } from './status-log-update.component';
+// import { StatusLogUpdateComponent } from './status-log-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class StatusLogResolve implements Resolve<IStatusLog> {
@@ -39,7 +39,7 @@ export const statusLogRoute: Routes = [
     path: '',
     component: StatusLogComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,33 +51,33 @@ export const statusLogRoute: Routes = [
       statusLog: StatusLogResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
-  {
-    path: 'new',
-    component: StatusLogUpdateComponent,
-    resolve: {
-      statusLog: StatusLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/edit',
-    component: StatusLogUpdateComponent,
-    resolve: {
-      statusLog: StatusLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
+  // {
+  //   path: 'new',
+  //   component: StatusLogUpdateComponent,
+  //   resolve: {
+  //     statusLog: StatusLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
+  // {
+  //   path: ':id/edit',
+  //   component: StatusLogUpdateComponent,
+  //   resolve: {
+  //     statusLog: StatusLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.statusLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
 ];

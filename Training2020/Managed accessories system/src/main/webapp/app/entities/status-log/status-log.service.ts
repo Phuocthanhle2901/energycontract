@@ -17,19 +17,19 @@ export class StatusLogService {
 
   constructor(protected http: HttpClient) {}
 
-  create(statusLog: IStatusLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(statusLog);
-    return this.http
-      .post<IStatusLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
-
-  update(statusLog: IStatusLog): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(statusLog);
-    return this.http
-      .put<IStatusLog>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
+  // create(statusLog: IStatusLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(statusLog);
+  //   return this.http
+  //     .post<IStatusLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
+  //
+  // update(statusLog: IStatusLog): Observable<EntityResponseType> {
+  //   const copy = this.convertDateFromClient(statusLog);
+  //   return this.http
+  //     .put<IStatusLog>(this.resourceUrl, copy, { observe: 'response' })
+  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  // }
 
   find(id: number): Observable<EntityResponseType> {
     return this.http
@@ -44,9 +44,9 @@ export class StatusLogService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
+  // delete(id: number): Observable<HttpResponse<{}>> {
+  //   return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  // }
 
   protected convertDateFromClient(statusLog: IStatusLog): IStatusLog {
     const copy: IStatusLog = Object.assign({}, statusLog, {

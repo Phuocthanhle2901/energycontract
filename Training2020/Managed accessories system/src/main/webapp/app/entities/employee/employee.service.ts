@@ -32,6 +32,10 @@ export class EmployeeService {
     return this.http.get<IEmployee[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  getCurrentUserEmployee(): Observable<EntityResponseType> {
+    return this.http.get<IEmployee>('/api/employees-logged-in', { observe: 'response'});
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

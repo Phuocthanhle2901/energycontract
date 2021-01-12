@@ -30,19 +30,15 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "creationTimestamp": 1606745968202,
-    "testFrameworks": [
-      "protractor"
-    ],
+    "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": [
-      "en",
-      "vi"
-    ],
-    "blueprints": []
+    "languages": ["en", "vi"],
+    "blueprints": [],
+    "lastLiquibaseTimestamp": 1609827839000
   }
 }

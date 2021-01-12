@@ -39,7 +39,7 @@ export const statusTypeRoute: Routes = [
     path: '',
     component: StatusTypeComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const statusTypeRoute: Routes = [
       statusType: StatusTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const statusTypeRoute: Routes = [
       statusType: StatusTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusType.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const statusTypeRoute: Routes = [
       statusType: StatusTypeResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.statusType.home.title',
     },
     canActivate: [UserRouteAccessService],

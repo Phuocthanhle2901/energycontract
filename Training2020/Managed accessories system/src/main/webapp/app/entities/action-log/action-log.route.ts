@@ -10,7 +10,7 @@ import { IActionLog, ActionLog } from 'app/shared/model/action-log.model';
 import { ActionLogService } from './action-log.service';
 import { ActionLogComponent } from './action-log.component';
 import { ActionLogDetailComponent } from './action-log-detail.component';
-import { ActionLogUpdateComponent } from './action-log-update.component';
+// import { ActionLogUpdateComponent } from './action-log-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class ActionLogResolve implements Resolve<IActionLog> {
@@ -39,7 +39,7 @@ export const actionLogRoute: Routes = [
     path: '',
     component: ActionLogComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,33 +51,33 @@ export const actionLogRoute: Routes = [
       actionLog: ActionLogResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
-  {
-    path: 'new',
-    component: ActionLogUpdateComponent,
-    resolve: {
-      actionLog: ActionLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/edit',
-    component: ActionLogUpdateComponent,
-    resolve: {
-      actionLog: ActionLogResolve,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
-    },
-    canActivate: [UserRouteAccessService],
-  },
+  // {
+  //   path: 'new',
+  //   component: ActionLogUpdateComponent,
+  //   resolve: {
+  //     actionLog: ActionLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
+  // {
+  //   path: ':id/edit',
+  //   component: ActionLogUpdateComponent,
+  //   resolve: {
+  //     actionLog: ActionLogResolve,
+  //   },
+  //   data: {
+  //     authorities: [Authority.USER],
+  //     pageTitle: 'managedAccessoriesSystemApp.actionLog.home.title',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
 ];

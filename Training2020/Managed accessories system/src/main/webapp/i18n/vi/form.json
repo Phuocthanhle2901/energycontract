@@ -1,0 +1,29 @@
+{
+  "managedAccessoriesSystemApp": {
+    "form": {
+      "home": {
+        "title": "Forms",
+        "createLabel": "Thêm mới một Form",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Form",
+        "notFound": "No Forms found"
+      },
+      "created": "Một Form mới được tạo với định danh {{ param }}",
+      "updated": "Một Form cập nhật với định danh {{ param }}",
+      "deleted": "Một Form đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Form {{ id }}?"
+      },
+      "detail": {
+        "title": "Form"
+      },
+      "title": "Title",
+      "yourName": "Your Name",
+      "area": "Area",
+      "reason": "Reason",
+      "status": "Status",
+      "formType": "Form Type",
+      "employee": "Employee",
+      "equipment": "Equipment"
+    }
+  }
+}

@@ -18,6 +18,8 @@
         "statusType": "Status Type",
         "employee": "Employee",
         "userEquipmentActivityLog": "User Equipment Activity Log",
+        "formType": "Form Type",
+        "form": "Form",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "necessaryforms": {
@@ -114,11 +116,12 @@
       "open": "Mở",
       "save": "Lưu",
       "view": "Xem",
-	  "send": "Gửi",
-	  "export": "Xuất tệp",
-	  "exportAll": "Xuất tất cả",
-    "print": "In",
-    "import": "Nhập tệp"
+      "send": "Gửi",
+      "export": "Xuất",
+      "exportAll": "Xuất tất cả",
+      "print": "In",
+      "accept": "Accept",
+      "refuse": "Refuse"
     },
     "detail": {
       "field": "Trường",
@@ -148,7 +151,9 @@
       "firstSpace": "Trường này không được phép nhập ký tự đầu tiên là khoảng trắng",
       "whiteSpace": "Trường này không được phép nhập khoảng trắng.",
       "phone": "Trường này phải có số điện thoại hợp lệ",
-      "email": "Trường này phải có địa chỉ e-mail hợp lệ"
+      "email": "Trường này phải có địa chỉ e-mail hợp lệ",
+      "numberfalse": "Trường này không được chứa số",
+      "special": "Trường này không được chứa ký tự đặc biệt"
     }
   },
   "alertReady": "Sẵn sàng nhập tệp",

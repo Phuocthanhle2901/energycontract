@@ -4,6 +4,7 @@ import vn.infodation.intern.group1.mas.domain.Employee;
 import vn.infodation.intern.group1.mas.repository.EmployeeRepository;
 import vn.infodation.intern.group1.mas.security.AuthoritiesConstants;
 import vn.infodation.intern.group1.mas.service.FileStorageService;
+import vn.infodation.intern.group1.mas.service.UserService;
 import vn.infodation.intern.group1.mas.web.rest.errors.BadRequestAlertException;
 import vn.infodation.intern.group1.mas.web.rest.errors.EmployeeNotFoundException;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -52,10 +53,13 @@ public class EmployeeResource {
 
     private EmployeeRepository employeeRepository;
 
+    private UserService userService;
+
     @Autowired
-    public EmployeeResource(EmployeeRepository employeeRepository, FileStorageService filService) {
+    public EmployeeResource(EmployeeRepository employeeRepository, FileStorageService filService, UserService userService) {
         this.employeeRepository = employeeRepository;
         this.fileService = filService;
+        this.userService = userService;
     }
 
     /**
@@ -161,5 +165,11 @@ public class EmployeeResource {
         fileService.handleEmployeeFile(file);
     }
     
-    
+    @GetMapping("/employees-logged-in")
+    public ResponseEntity<Employee> getCurrentUser() {
+        log.debug("REST request to get current logged in User");
+        User user = userService.getUserWithAuthorities().get();
+
+        return ResponseUtil.wrapOrNotFound(employeeRepository.findOneByUser(user));
+    }
 }

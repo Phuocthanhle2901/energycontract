@@ -49,18 +49,18 @@ public class StatusLogResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new statusLog, or with status {@code 400 (Bad Request)} if the statusLog has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/status-logs")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<StatusLog> createStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
-        log.debug("REST request to save StatusLog : {}", statusLog);
-        if (statusLog.getId() != null) {
-            throw new BadRequestAlertException("A new statusLog cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        StatusLog result = statusLogRepository.save(statusLog);
-        return ResponseEntity.created(new URI("/api/status-logs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
+//    @PostMapping("/status-logs")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<StatusLog> createStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
+//        log.debug("REST request to save StatusLog : {}", statusLog);
+//        if (statusLog.getId() != null) {
+//            throw new BadRequestAlertException("A new statusLog cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        StatusLog result = statusLogRepository.save(statusLog);
+//        return ResponseEntity.created(new URI("/api/status-logs/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+//    }
 
     /**
      * {@code PUT  /status-logs} : Updates an existing statusLog.
@@ -71,18 +71,18 @@ public class StatusLogResource {
      * or with status {@code 500 (Internal Server Error)} if the statusLog couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/status-logs")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<StatusLog> updateStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
-        log.debug("REST request to update StatusLog : {}", statusLog);
-        if (statusLog.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        StatusLog result = statusLogRepository.save(statusLog);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, statusLog.getId().toString()))
-            .body(result);
-    }
+//    @PutMapping("/status-logs")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<StatusLog> updateStatusLog(@Valid @RequestBody StatusLog statusLog) throws URISyntaxException {
+//        log.debug("REST request to update StatusLog : {}", statusLog);
+//        if (statusLog.getId() == null) {
+//            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+//        }
+//        StatusLog result = statusLogRepository.save(statusLog);
+//        return ResponseEntity.ok()
+//            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, statusLog.getId().toString()))
+//            .body(result);
+//    }
 
     /**
      * {@code GET  /status-logs} : get all the statusLogs.
@@ -90,6 +90,7 @@ public class StatusLogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of statusLogs in body.
      */
     @GetMapping("/status-logs")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public List<StatusLog> getAllStatusLogs() {
         log.debug("REST request to get all StatusLogs");
         return statusLogRepository.findAll();
@@ -102,6 +103,7 @@ public class StatusLogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the statusLog, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/status-logs/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<StatusLog> getStatusLog(@PathVariable Long id) {
         log.debug("REST request to get StatusLog : {}", id);
         Optional<StatusLog> statusLog = statusLogRepository.findById(id);
@@ -114,11 +116,11 @@ public class StatusLogResource {
      * @param id the id of the statusLog to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/status-logs/{id}")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Void> deleteStatusLog(@PathVariable Long id) {
-        log.debug("REST request to delete StatusLog : {}", id);
-        statusLogRepository.deleteById(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
+//    @DeleteMapping("/status-logs/{id}")
+//    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
+//    public ResponseEntity<Void> deleteStatusLog(@PathVariable Long id) {
+//        log.debug("REST request to delete StatusLog : {}", id);
+//        statusLogRepository.deleteById(id);
+//        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+//    }
 }

@@ -39,7 +39,7 @@ export const placeToPerformRoute: Routes = [
     path: '',
     component: PlaceToPerformComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.placeToPerform.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const placeToPerformRoute: Routes = [
       placeToPerform: PlaceToPerformResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.placeToPerform.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const placeToPerformRoute: Routes = [
       placeToPerform: PlaceToPerformResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.placeToPerform.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const placeToPerformRoute: Routes = [
       placeToPerform: PlaceToPerformResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'managedAccessoriesSystemApp.placeToPerform.home.title',
     },
     canActivate: [UserRouteAccessService],

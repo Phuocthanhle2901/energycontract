@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IStatusLog } from 'app/shared/model/status-log.model';
 import { StatusLogService } from './status-log.service';
-import { StatusLogDeleteDialogComponent } from './status-log-delete-dialog.component';
+// import { StatusLogDeleteDialogComponent } from './status-log-delete-dialog.component';
 
 @Component({
   selector: 'jhi-status-log',
@@ -42,8 +42,8 @@ export class StatusLogComponent implements OnInit, OnDestroy {
     this.eventSubscriber = this.eventManager.subscribe('statusLogListModification', () => this.loadAll());
   }
 
-  delete(statusLog: IStatusLog): void {
-    const modalRef = this.modalService.open(StatusLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.statusLog = statusLog;
-  }
+  // delete(statusLog: IStatusLog): void {
+  //   const modalRef = this.modalService.open(StatusLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+  //   modalRef.componentInstance.statusLog = statusLog;
+  // }
 }

@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IActionLog } from 'app/shared/model/action-log.model';
 import { ActionLogService } from './action-log.service';
-import { ActionLogDeleteDialogComponent } from './action-log-delete-dialog.component';
+// import { ActionLogDeleteDialogComponent } from './action-log-delete-dialog.component';
 
 @Component({
   selector: 'jhi-action-log',
@@ -42,8 +42,8 @@ export class ActionLogComponent implements OnInit, OnDestroy {
     this.eventSubscriber = this.eventManager.subscribe('actionLogListModification', () => this.loadAll());
   }
 
-  delete(actionLog: IActionLog): void {
-    const modalRef = this.modalService.open(ActionLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.actionLog = actionLog;
-  }
+  // delete(actionLog: IActionLog): void {
+  //   const modalRef = this.modalService.open(ActionLogDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+  //   modalRef.componentInstance.actionLog = actionLog;
+  // }
 }

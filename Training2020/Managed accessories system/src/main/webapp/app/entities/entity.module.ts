@@ -51,6 +51,14 @@ import { RouterModule } from '@angular/router';
             m => m.ManagedAccessoriesSystemUserEquipmentActivityLogModule
           ),
       },
+      {
+        path: 'form-type',
+        loadChildren: () => import('./form-type/form-type.module').then(m => m.ManagedAccessoriesSystemFormTypeModule),
+      },
+      {
+        path: 'form',
+        loadChildren: () => import('./form/form.module').then(m => m.ManagedAccessoriesSystemFormModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
