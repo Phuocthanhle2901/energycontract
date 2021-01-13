@@ -24,10 +24,10 @@
   <div class="d-flex justify-content-between">
     <div>
       <button routerLink="/admin/createQuestion" type="button" class="btn btn-primary">Create Question</button>
-      <!-- <a for="txtFileUpload" class="btn ml-2 btn-success"><i class="eva eva-cloud-download-outline   "></i> Upload</a>
-      <input type="file" class="d-none" name="Upload CSV" id="txtFileUpload"
-        accept=".csv" />
-      <button type="button" class=" ml-1 btn btn-primary"><i class="eva eva-cloud-upload-outline    "></i> Export
+      <a for="txtFileUpload" class="btn ml-2 btn-success" (click)='importInput.click()'><i class="eva eva-cloud-upload-outline"></i>Import</a>
+      <input hidden type="file" #importInput id="txtFileUpload" #file (change)="Import(file.files)"
+      accept=".txt"/>
+      <!-- <button type="button" class=" ml-1 btn btn-primary"><i class="eva eva-cloud-download-outline    "></i> Export
       </button> -->
     </div>
     <form   class="d-flex flex-wrap" [formGroup]="dataform" (ngSubmit)="SearchByName(dataform.value)">

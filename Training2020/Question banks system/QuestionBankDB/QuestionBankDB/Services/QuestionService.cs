@@ -5,6 +5,9 @@ using QuestionBankDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace QuestionBankDB.Services
 {
@@ -19,12 +22,12 @@ namespace QuestionBankDB.Services
 
             _question = database.GetCollection<Question>(settings.QuestionCollectionName);
         }
- 
-/*        public List<Question> Get() =>
-            _question.Find(question => true).ToList();
-*/
+
+        /*        public List<Question> Get() =>
+                    _question.Find(question => true).ToList();
+        */
         public List<Question> Get(int page) =>
-           _question.Find(question => true).Limit(5).Skip(5 * page) .ToList();
+           _question.Find(question => true).Limit(5).Skip(5 * page).ToList();
 
 
         public Question Get(string id) =>
@@ -33,8 +36,9 @@ namespace QuestionBankDB.Services
         public Object Create(Question question)
         {
 
-            var res = _question.Find(que => que.question == question.question && que.ThemeName==question.ThemeName).FirstOrDefault();
-            try {
+            var res = _question.Find(que => que.question == question.question && que.ThemeName == question.ThemeName).FirstOrDefault();
+            try
+            {
                 if (res == null)
                 {
                     _question.InsertOne(question);
@@ -45,35 +49,35 @@ namespace QuestionBankDB.Services
                     return (new { status = 400, message = "question exits" });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex;
             }
- 
+
         }
 
         public Object Update(string id, Question questionIn)
         {
-            
-            var res= _question.ReplaceOne(question => question.Id == id, questionIn).IsAcknowledged;
-            if(res)
+
+            var res = _question.ReplaceOne(question => question.Id == id, questionIn).IsAcknowledged;
+            if (res)
             {
                 return (new { data = Get(id), status = 200 });
             }
             return (new { stauts = 400 });
         }
-           
+
 
         public void Remove(Question questionIn) =>
             _question.DeleteOne(question => question.Id == questionIn.Id);
 
         public object Remove(string id)
         {
-           var res= _question.DeleteOne(question => question.Id == id);
+            var res = _question.DeleteOne(question => question.Id == id);
             return res;
-            
+
         }
-            
+
 
         public List<string> GetTheme()
         {
@@ -130,7 +134,7 @@ namespace QuestionBankDB.Services
                 for (int i = 0; i < answer.Length; i++)
                 {
                     index = random.Next(0, answer.Length - 1);
-                    if (i != index && random.Next(0,3)!=0) //swap if index != i with chance 75%
+                    if (i != index && random.Next(0, 3) != 0) //swap if index != i with chance 75%
                     {
                         temp = answer[i];
                         answer[i] = answer[index];
@@ -149,8 +153,8 @@ namespace QuestionBankDB.Services
 
         public List<Question> searchQuesionByName(string name)
         {
-            return _question.Find(question=>question.question.Contains(name)).ToList();
-     }
+            return _question.Find(question => question.question.Contains(name)).ToList();
+        }
 
         //get question count of a theme based on level
         public int GetLevelCount(string theme, byte level) => (int)_question.Find(question => question.ThemeName == theme && question.Level == level)
@@ -158,6 +162,39 @@ namespace QuestionBankDB.Services
 
         public long GetTotalCount() => _question.Find(question => true).CountDocuments();
 
+        public ActionResult<bool> Import(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                try
+                {
+                    List<Question> questions = new List<Question>();
+                    string line = null;
+                    MatchCollection obj;
+                    string pattern = @"\[([^\]]*)]";
+                    StreamReader reader = new StreamReader(file.OpenReadStream());
+                    while (!reader.EndOfStream)
+                    {
+                        line = reader.ReadLine();
+                        obj = Regex.Matches(line, pattern);
+                        Question temp = new Question(); //create question
+                                                        //read attributes
+                        temp.question = obj[0].ToString().TrimStart('[').TrimEnd(']');
+                        temp.Answer = obj[1].ToString().TrimStart('[').TrimEnd(']').Split(',');
+                        temp.TrueAnswer = obj[2].ToString().TrimStart('[').TrimEnd(']').Split(',');
+                        temp.ThemeName = obj[3].ToString().TrimStart('[').TrimEnd(']');
+                        temp.Level = byte.Parse(obj[4].ToString().TrimStart('[').TrimEnd(']'));
+                        temp.Point = byte.Parse(obj[5].ToString().TrimStart('[').TrimEnd(']'));
+                        temp.Timeallow = byte.Parse(obj[6].ToString().TrimStart('[').TrimEnd(']'));
+                        temp.Status = bool.Parse(obj[7].ToString().TrimStart('[').TrimEnd(']'));
+                        Create(temp); //add to database
+                    }
+                    return true;
+                }
+                catch (Exception e) { return false; }
+            }
+            //read file and create question
+            return false;
+        }
     }
-
 }

@@ -31,9 +31,9 @@ export class ListComponent implements OnInit {
   id:any;
   private listQuestion: BehaviorSubject<any> = new BehaviorSubject<any>({});
   listQuestion$: Observable<any> = this.listQuestion.asObservable(); // new data
-
-
   themed:boolean;
+  fileToUpload: File;
+
   constructor(
     private questionService:QuestionService,private fb:FormBuilder,
     private themesService:ThemesService,private router:Router
@@ -85,9 +85,6 @@ export class ListComponent implements OnInit {
     })
   }
 
-
-
-
 getIdForEditQuestion(value:any)
 {
    this.questionService.getQuestionById(value).subscribe((res:any)=>{
@@ -105,7 +102,6 @@ getIdForEditQuestion(value:any)
 
 SearchByName(data:any)
 {
- 
   console.log("data"+this.questions)
   let s=data['search'];
   this.questions=[];
@@ -130,7 +126,18 @@ SearchByName(data:any)
 
         }
       })
+  }
 
+  async Import(files){
+    if (files.length != 0) {
+      this.fileToUpload=<File>files[0];
+      let res = await this.questionService.import(this.fileToUpload);
+      if(res == true){
+        alert("Questions(s) imported");
+        window.location.reload();
+      }
+      else alert("Could not import some data from file! Please check your data format");
+    }
+  }
 
-}
 }

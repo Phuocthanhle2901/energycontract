@@ -65,5 +65,11 @@ export class QuestionService {
   async getTotalCount(){
     return await this.httpClient.post<number>("https://localhost:44328/api/Question/totalCount",null).toPromise();
   }
+
+  async import(files:any){
+    const formData = new FormData();
+    formData.append('file', files, files.name);
+    return await this.httpClient.post<boolean>("https://localhost:44328/api/Question/Import", formData).toPromise();
+  }
 }
 

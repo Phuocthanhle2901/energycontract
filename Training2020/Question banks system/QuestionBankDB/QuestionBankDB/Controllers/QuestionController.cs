@@ -144,6 +144,13 @@ namespace QuestionBankDB.Controllers
         [HttpPost]
         [Route("totalCount")]
         public ActionResult<long> GetTotalCount() => _questionService.GetTotalCount();
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("Import")]
+        public ActionResult<bool> Import()
+        {
+            var file = Request.Form.Files[0];
+            return _questionService.Import(file);
+        }
     }
-    
 }
