@@ -100,8 +100,6 @@
                     <label class="form-control-label" jhiTranslate="managedAccessoriesSystemApp.form.status" for="field_status">Status</label>
                     <select class="form-control" name="status" formControlName="status" id="field_status" [(ngModel)]="defaultStatus" readonly>
                         <option value="WAITING">{{ 'managedAccessoriesSystemApp.formStatus.WAITING' | translate }}</option>
-                        <option value="ACCEPT">{{ 'managedAccessoriesSystemApp.formStatus.ACCEPT' | translate }}</option>
-                        <option value="REFUSE">{{ 'managedAccessoriesSystemApp.formStatus.REFUSE' | translate }}</option>
                     </select>
                     <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
                         <small class="form-text text-danger"

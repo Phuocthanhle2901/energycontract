@@ -22,44 +22,32 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.title">Title</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.yourName">Your Name</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.area">Area</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.reason">Reason</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.status">Status</span></th>
                     <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.formType">Form Type</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.employee">Employee</span></th>
-                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.equipment">Equipment</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.status">Status</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let form of forms ;trackBy: trackId">
-                    <td><a [routerLink]="['/form', form.id, 'view']">{{ form.id }}</a></td>
+                    <td *jhiHasAnyAuthority="'ROLE_ADMIN'"><a [routerLink]="['/form', form.id, 'view']">{{ form.id }}</a></td>
                     <td>{{ form.title }}</td>
                     <td>{{ form.yourName }}</td>
                     <td>{{ form.area }}</td>
                     <td>{{ form.reason }}</td>
+                    <td>
+                        <div *ngIf="form.formType">
+                            <a [routerLink]="['/form-type', form.formType?.id, 'view']" >{{ form.formType?.name }}</a>
+                        </div>
+                    </td>
                     <td jhiTranslate="{{ 'managedAccessoriesSystemApp.formStatus.' + form.status }}"
                         [ngClass] = "checkStatus(form)"
                         >
                         {{ form.status }}
-                    </td>
-                    <td>
-                        <div *ngIf="form.formType">
-                            <a [routerLink]="['/form-type', form.formType?.id, 'view']" >{{ form.formType?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="form.employee">
-                            <a [routerLink]="['/employee', form.employee?.id, 'view']" >{{ form.employee?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="form.equipment">
-                            <a [routerLink]="['/equipment', form.equipment?.id, 'view']" >{{ form.equipment?.id }}</a>
-                        </div>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

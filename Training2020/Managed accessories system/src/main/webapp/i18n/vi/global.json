@@ -121,7 +121,8 @@
       "exportAll": "Xuất tất cả",
       "print": "In",
       "accept": "Accept",
-      "refuse": "Refuse"
+      "refuse": "Refuse",
+      "import": "Xuất file"
     },
     "detail": {
       "field": "Trường",
