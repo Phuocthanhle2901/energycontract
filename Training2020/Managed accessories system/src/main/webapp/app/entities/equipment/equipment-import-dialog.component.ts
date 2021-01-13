@@ -34,9 +34,14 @@ export class EquipmentImportDialogComponent {
         // this.validate(this.file);
     }
 
-    validateType(filename: string): boolean {
-        const arr = filename.split('.');
-        return arr[arr.length - 1] === "csv";
+    validateType(): boolean {
+        if(this.file){
+            const filename = this.file.name;
+            const arr = filename.split('.');
+            return arr[arr.length - 1] === "csv";
+        }
+
+        return false;
     }
 
     confirmImport(): void {
@@ -62,6 +67,11 @@ export class EquipmentImportDialogComponent {
 
     closeSuccess(): void{
         const alert = document.getElementById("successAlert");
+        alert?.remove();
+    }
+
+    close(id: string): void {
+        const alert = document.getElementById(id);
         alert?.remove();
     }
 }

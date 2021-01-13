@@ -14,24 +14,16 @@
     <div class="alert alert-light" role="alert">{{ message }}</div>
 
     <!-- <div *ngIf="errorList" role="alert">
-      <div *ngFor="let error of errorList">
-        <ngb-alert *ngIf="error" type="danger" (close)="close(error)">
+      <div *ngFor="let error of errorList"> -->
+        <ngb-alert id="error" *ngIf="file && !validateType()" type="danger" (close)="close('error')">
           <div 
-            *ngIf="error.param2; else block"
-            jhiTranslate="{{ error.locale }}"
-            [translateValues] = "{ param0: error.line, param1: error.param1, param2: error.param2 }"
+            jhiTranslate="error.file.not.csv"
           ></div>
-          <ng-template #block>
-            <div 
-            jhiTranslate="{{ error.locale }}"
-            [translateValues] = "{ param0: error.line, param1: error.param1 }"
-          ></div>
-          </ng-template>
         </ngb-alert>
-      </div>
+      <!-- /div>
     </div> -->
 
-    <div *ngIf="file" role="alert" id="successAlert">
+    <div *ngIf="file && validateType()" role="alert" id="successAlert">
       <ngb-alert type="success" (close)="closeSuccess()">
         <div 
           jhiTranslate="alertReady"
@@ -47,7 +39,7 @@
         <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
     </button>
 
-    <button class="btn btn-success" [disabled]="!file" (click)="confirmImport()">
+    <button class="btn btn-success" [disabled]="!file || !validateType()" (click)="confirmImport()">
         <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.import">Delete</span>
     </button>
 </div>
