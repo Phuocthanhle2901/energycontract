@@ -7,6 +7,7 @@
     app:cardCornerRadius="1dp"
     app:cardUseCompatPadding="true"
     app:cardElevation="1dp"
+    android:saveEnabled="false"
     app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
@@ -23,6 +24,7 @@
         <com.whygraphics.multilineradiogroup.MultiLineRadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:saveEnabled="false"
             android:id="@+id/multiRadio" />
         <TextView
             android:id="@+id/dapan"

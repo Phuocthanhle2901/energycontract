@@ -7,6 +7,7 @@
 
     </data>
     <androidx.drawerlayout.widget.DrawerLayout
+        android:visibility="gone"
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

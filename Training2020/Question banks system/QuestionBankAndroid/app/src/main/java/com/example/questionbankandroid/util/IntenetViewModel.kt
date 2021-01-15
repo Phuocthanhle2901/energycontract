@@ -3,6 +3,7 @@ package com.example.questionbankandroid.util
 import android.Manifest
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.Network
@@ -14,14 +15,24 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.questionbankandroid.LoginActivity
+import com.example.questionbankandroid.data.DataUtil
+import com.example.questionbankandroid.data.UserInfoModel
+import com.example.questionbankandroid.service.Retrofit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class IntenetViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         private val TAG: String = "CKNInternet"
     }
-    private val connectivityManager: ConnectivityManager = getApplication<Application>().getSystemService(
-        Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    private val connectivityManager: ConnectivityManager =
+        getApplication<Application>().getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
     private val networkReceiver: NetworkReceive = NetworkReceive(this)
 
@@ -30,7 +41,7 @@ class IntenetViewModel(application: Application) : AndroidViewModel(application)
     val obseverLiveInternet: LiveData<Boolean>
         get() = _liveInternet
     private val _livePing: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-   val obseverLivePing: LiveData<Boolean>
+    val obseverLivePing: LiveData<Boolean>
         get() = _livePing
     private val _liveMeter: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val obseverLiveMeter: LiveData<Boolean>
@@ -39,23 +50,14 @@ class IntenetViewModel(application: Application) : AndroidViewModel(application)
     //Dang ki Internet
     fun registerConnectivity() {
         // >=24
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            setNetworkCallBack()
-            connectivityManager.registerDefaultNetworkCallback(networkCallback)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // >=21
-            setNetworkCallBack()
-            connectivityManager.registerNetworkCallback(setNetworkRequest(), networkCallback)
-        }
+        setNetworkCallBack()
+        connectivityManager.registerDefaultNetworkCallback(networkCallback)
 
     }
 
     //Huy dang ki Internet
     fun unRegisterConnectivity() {
-        if (Build.VERSION.SDK_INT >= 23) { //>=21
-            connectivityManager.unregisterNetworkCallback(networkCallback)
-        } else {
-            getApplication<Application>().unregisterReceiver(networkReceiver)
-        }
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
     private fun setNetworkCallBack() {
@@ -79,7 +81,10 @@ class IntenetViewModel(application: Application) : AndroidViewModel(application)
                 checkConnections()
             }
 
-            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
                 if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)) {
                     Log.d(TAG, "Sever High Quality Content")
@@ -143,7 +148,7 @@ class IntenetViewModel(application: Application) : AndroidViewModel(application)
     }
 
     //Xin quyen
-    fun checkPermisstion():Boolean{
+    fun checkPermisstion(): Boolean {
         var value = false
         Log.d(TAG, "checkPermission()")
         if (isInternetPermissionGranted()) {
@@ -161,8 +166,21 @@ class IntenetViewModel(application: Application) : AndroidViewModel(application)
         return value
     }
 
-    private fun isInternetPermissionGranted(): Boolean = ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED
-    private fun isAccessWifiStatePermissionGranted(): Boolean = ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED
-    private fun isAccessNetworkStatePermissionGranted(): Boolean = ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_GRANTED
+    private fun isInternetPermissionGranted(): Boolean = ActivityCompat.checkSelfPermission(
+        getApplication(),
+        Manifest.permission.INTERNET
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun isAccessWifiStatePermissionGranted(): Boolean = ActivityCompat.checkSelfPermission(
+        getApplication(),
+        Manifest.permission.ACCESS_WIFI_STATE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun isAccessNetworkStatePermissionGranted(): Boolean =
+        ActivityCompat.checkSelfPermission(
+            getApplication(),
+            Manifest.permission.ACCESS_NETWORK_STATE
+        ) == PackageManager.PERMISSION_GRANTED
+
 
 }

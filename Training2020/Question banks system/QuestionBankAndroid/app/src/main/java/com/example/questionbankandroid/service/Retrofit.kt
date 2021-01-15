@@ -15,7 +15,7 @@ class Retrofit {
         fun  getRetrofit() :APIService {
              return Retrofit.Builder()
                     .baseUrl("http://192.168.137.1:5000/api/")
-                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .addConverterFactory(MoshiConverterFactory.create(moshi).asLenient())
                     .build()
                     .create(APIService::class.java)
         }

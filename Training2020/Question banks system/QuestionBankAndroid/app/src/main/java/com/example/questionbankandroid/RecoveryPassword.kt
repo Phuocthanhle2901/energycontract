@@ -103,10 +103,15 @@ class RecoveryPassword : AppCompatActivity() {
                 try {
                     val userInfoModel = Retrofit.getRetrofit().saveCodeRecovery(code, email)
                     if(userInfoModel == "no"){
-                        binding.edtEmail.error = "Email is not exist!"
+                        runOnUiThread {
+                            binding.edtEmail.error = "Email is not exist!"
+                        }
                     }else{
-                        binding.layoutCode.isEnabled = true
-                        binding.confirmRecovery.isEnabled = true
+                        runOnUiThread {
+                            binding.layoutCode.isEnabled = true
+                            binding.edtcode.isEnabled = true
+                            binding.confirmRecovery.isEnabled = true
+                        }
                         try {
                             Mailer.sendMail(
                                 email,

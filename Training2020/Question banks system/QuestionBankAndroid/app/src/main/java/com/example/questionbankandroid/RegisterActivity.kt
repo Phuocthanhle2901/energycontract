@@ -60,16 +60,24 @@ class RegisterActivity : AppCompatActivity() {
             if(name == ""){
                 binding.name.error = "Name is not blank!"
             }else{
-                if(email=="" || !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    binding.edtEmail.error = "Email not blank or illegal!"
+                if(email=="" ){
+                    binding.edtEmail.error = "Email not blank!"
                 }else{
-                    if(pass.length <6){
-                        binding.edtPassword.error = "Password at least 6 characters!"
-                    }else{
-                        if(confirmPass == ""){
-                            binding.edtConfirmpassword.error = "Confirm Password is not blank!"
-                        }else{
-                            dangki(name,email,pass,confirmPass)
+                    if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        binding.edtEmail.error = "Invalid email!"
+                    }
+                    else{
+                        if(pass.length <6){
+                            binding.edtPassword.error = "Password at least 6 characters!"
+                        }else if(pass[0] == ' '){
+                            binding.edtPassword.error = "Password cannot space characters!"
+                        }
+                        else{
+                            if(confirmPass == ""){
+                                binding.edtConfirmpassword.error = "Confirm Password is not blank!"
+                            } else{
+                                dangki(name,email,pass,confirmPass)
+                            }
                         }
                     }
                 }
@@ -91,11 +99,13 @@ class RegisterActivity : AppCompatActivity() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val userInfoModel = Retrofit.getRetrofit().register(email,pass,name)
-                        if (userInfoModel == null) {
-                            Toast.makeText(this@RegisterActivity, "Account is already exist!", Toast.LENGTH_SHORT).show()
+                        if (userInfoModel.id.isNullOrEmpty()) {
+                            runOnUiThread {
+                                Toast.makeText(this@RegisterActivity, "Account is already existed!", Toast.LENGTH_SHORT).show()
+                            }
                         }else{
-                            DataUtil.CURRENT_USER = userInfoModel
-                            startActivity(Intent(this@RegisterActivity,MainActivity::class.java))
+                            startActivity(Intent(this@RegisterActivity,LoginActivity::class.java))
+                            finish()
                         }
                     }catch (e: SocketTimeoutException) {
                         runOnUiThread {

@@ -2,14 +2,18 @@ package com.example.questionbankandroid.ui.quiz
 
 import android.os.CountDownTimer
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.questionbankandroid.data.QuestionModel
 import com.example.questionbankandroid.service.Retrofit
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 
 class QuizViewModel(val theme:String,val soluongcauhoi:Int) : ViewModel() {
@@ -38,36 +42,29 @@ class QuizViewModel(val theme:String,val soluongcauhoi:Int) : ViewModel() {
         _statusStop.value = false
     }
     private fun getListQuestionAll(){
-        Retrofit.getRetrofit().getAllQuestion(theme).enqueue(object :
-            Callback<List<QuestionModel>> {
-            override fun onResponse(
-                call: Call<List<QuestionModel>>,
-                response: Response<List<QuestionModel>>
-            ) {
-                if (response.body() != null) {
-                    _listQuestion.value = response.body()//!!.subList(0,4)
+        viewModelScope.launch {
+            try{
+                val listData =  Retrofit.getRetrofit().getAllQuestion(theme)
+                if(listData.size>0){
+                    _listQuestion.value = listData//!!.subList(0,4)
                     val thoigian = _listQuestion.value!!.sumBy { it.timeallow }.toLong()
                     timer.value= object : CountDownTimer(thoigian*1000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {
                             _time.value = SimpleDateFormat("mm:ss").format(millisUntilFinished)
                         }
-
                         override fun onFinish() {
                             stopGame()
                         }
                     }
                     (timer.value as CountDownTimer).start()
-                } else {
-                    Log.d("getListQuestionAll", "Khong co cau hoi")
                 }
+            }catch (e: SocketTimeoutException) {
 
+            } catch (e: Exception) {
+                Log.d("LoginThongBao", e.message!!)
             }
+        }
 
-            override fun onFailure(call: Call<List<QuestionModel>>, t: Throwable) {
-                Log.d("getListQuestionAll", t.message.toString())
-            }
-
-        })
     }
 
     override fun onCleared() {

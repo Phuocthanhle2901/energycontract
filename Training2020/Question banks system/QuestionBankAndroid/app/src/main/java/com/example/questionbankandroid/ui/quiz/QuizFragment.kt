@@ -82,7 +82,7 @@ class QuizFragment : Fragment() {
         binding.submit.setOnClickListener{
             var check = true
             DataUtil.mapDapAn.forEach { t, u ->
-                if(u==""){
+                if(u=="" && check){
                     Toast.makeText(requireContext(), "Please choose answer for question ${t.toInt()+1} ", Toast.LENGTH_SHORT).show()
                     check = false
                     return@forEach
@@ -113,7 +113,7 @@ class QuizFragment : Fragment() {
             dapAnDung =  dapAns,
             dapAnUser = DataUtil.mapDapAn,
             diem = diem,
-            email = DataUtil.CURRENT_USER!!.email,
+            email = DataUtil.CURRENT_USER!!.email!!,
             listCauHoi= listSave,
             ngayLam = ngaylam,
             thoiGianLam = thoigianlam,

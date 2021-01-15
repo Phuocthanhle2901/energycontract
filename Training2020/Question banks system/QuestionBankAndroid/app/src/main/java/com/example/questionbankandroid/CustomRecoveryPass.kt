@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.util.Patterns
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -45,8 +46,13 @@ class CustomRecoveryPass : AppCompatActivity() {
             val password = pass.text.toString().trim()
             val confirmpass = confirmPass.text.toString().trim()
             if (password.length<6) {
-                Toast.makeText(this, "Password at least 6 characters!", Toast.LENGTH_SHORT).show()
-            }else {
+                Toast.makeText(
+                    this,
+                    "Password cannot be less than 6 characters!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
                 if (confirmpass != password || confirmpass.length < 6) {
                     Toast.makeText(
                         this,
@@ -74,10 +80,12 @@ class CustomRecoveryPass : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val userInfoModel = Retrofit.getRetrofit().changePassword(email, password)
-                    if(userInfoModel!=null){
-                        Toast.makeText(this@CustomRecoveryPass, "Update Password Successful!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@CustomRecoveryPass, LoginActivity::class.java))
-                        finish()
+                    if(!userInfoModel.id.isNullOrEmpty()){
+                        runOnUiThread {
+                            Toast.makeText(this@CustomRecoveryPass, "Update Password Successful!", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@CustomRecoveryPass, LoginActivity::class.java))
+                            finish()
+                        }
                     }
                 }catch (e: SocketTimeoutException) {
                     runOnUiThread {

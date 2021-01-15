@@ -7,7 +7,7 @@ data class QuestionModel(
     @Json(name = "answer")
     val answer: List<String>,
     @Json(name = "id")
-    val id: String,
+    val id: String?,
     @Json(name = "level")
     val level: Int,
     @Json(name = "point")

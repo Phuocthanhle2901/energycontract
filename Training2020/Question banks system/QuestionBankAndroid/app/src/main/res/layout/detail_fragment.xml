@@ -16,8 +16,7 @@
             android:id="@+id/tongdiem"
             android:layout_centerHorizontal="true"
             android:textSize="25sp"
-            android:textColor="@android:color/holo_red_light"
-            android:text="100/100"/>
+            android:textColor="@android:color/holo_red_light" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,8 +24,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="15sp"
             android:textStyle="italic"
-            android:layout_below="@id/tongdiem"
-            android:text="20/12/2020"/>
+            android:layout_below="@id/tongdiem" />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,13 +32,12 @@
             android:layout_above="@id/back"
             android:layout_below="@id/ngaylam"
             tools:listitem="@layout/custom_detail"
-            android:saveEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
+            android:text="Back Home"
             android:layout_gravity="bottom"
             android:id="@+id/back"
             android:layout_alignParentBottom="true"

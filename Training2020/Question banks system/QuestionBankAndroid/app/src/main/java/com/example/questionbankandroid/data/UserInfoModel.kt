@@ -7,13 +7,13 @@ data class UserInfoModel(
     @Json(name = "avatar")
     val avatar: String?,
     @Json(name = "email")
-    val email: String,
+    val email: String?,
     @Json(name = "fullname")
     val fullname: String?,
     @Json(name = "id")
-    val id: String,
+    val id: String?,
     @Json(name = "password")
-    val password: String,
+    val password: String?,
     @Json(name = "resetPasswordlink")
     val resetPasswordlink: String?,
     @Json(name = "role")

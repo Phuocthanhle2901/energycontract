@@ -36,7 +36,7 @@ class QuestionAdapter(val listData:List<QuestionModel>): RecyclerView.Adapter<Qu
         mapAnswer.forEach {
             holder.multiRadioGroup.addButtons(it.value)
         }
-        holder.cauhoi.text = HtmlCompat.fromHtml(holder.context.getString(R.string.cauhoi,position+1,"${data.question.trim()}"),0)
+        holder.cauhoi.text = HtmlCompat.fromHtml(holder.context.getString(R.string.cauhoi,position+1,data.point,"${data.question.trim()}"),0)
         DataUtil.mapDapAn[position.toString()] = ""
         holder.multiRadioGroup.setOnCheckedChangeListener(object : MultiLineRadioGroup.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: ViewGroup?, p1: RadioButton?) {
