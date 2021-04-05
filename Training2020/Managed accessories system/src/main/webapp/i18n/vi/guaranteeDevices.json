@@ -1,0 +1,15 @@
+{
+  "managedAccessoriesSystemApp": {
+    "guaranteeDevices": {
+      "home": {
+        "tit": "Bảo Hành Thiết Bị"
+      },
+      "title": "Tiêu đề",
+      "yourname": "Nhân viên đề xuất",
+      "area": "Khu vực",
+      "devicename": "Tên thiết bị cần bảo hành",
+      "quantity": "Số lượng",
+      "reason": "Lý do"
+    }
+ }
+}

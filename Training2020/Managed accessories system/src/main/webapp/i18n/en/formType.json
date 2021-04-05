@@ -1,0 +1,22 @@
+{
+  "managedAccessoriesSystemApp": {
+    "formType": {
+      "home": {
+        "title": "Form Types",
+        "createLabel": "Create a new Form Type",
+        "createOrEditLabel": "Create or edit a Form Type",
+        "notFound": "No Form Types found"
+      },
+      "created": "A new Form Type is created with identifier {{ param }}",
+      "updated": "A Form Type is updated with identifier {{ param }}",
+      "deleted": "A Form Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Form Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Form Type"
+      },
+      "name": "Name"
+    }
+  }
+}

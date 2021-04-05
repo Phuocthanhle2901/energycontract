@@ -1,0 +1,24 @@
+{
+  "managedAccessoriesSystemApp": {
+    "actionType": {
+      "home": {
+        "title": "Action Types",
+        "createLabel": "Thêm mới một Action Type",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Action Type",
+        "notFound": "No Action Types found"
+      },
+      "created": "Một Action Type mới được tạo với định danh {{ param }}",
+      "updated": "Một Action Type cập nhật với định danh {{ param }}",
+      "deleted": "Một Action Type đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Action Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Action Type"
+      },
+      "actionTitle": "Action Title",
+      "description": "Description",
+      "actionLog": "Action Log"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "managedAccessoriesSystemApp": {
+    "statusType": {
+      "home": {
+        "title": "Status Types",
+        "createLabel": "Thêm mới một Status Type",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Status Type",
+        "notFound": "No Status Types found"
+      },
+      "created": "Một Status Type mới được tạo với định danh {{ param }}",
+      "updated": "Một Status Type cập nhật với định danh {{ param }}",
+      "deleted": "Một Status Type đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Status Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Status Type"
+      },
+      "statusTitle": "Status Title",
+      "description": "Description",
+      "statusLog": "Status Log"
+    }
+  }
+}

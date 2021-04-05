@@ -1,0 +1,27 @@
+{
+  "managedAccessoriesSystemApp": {
+    "placeToPerform": {
+      "home": {
+        "title": "Place To Performs",
+        "createLabel": "Create a new Place To Perform",
+        "createOrEditLabel": "Create or edit a Place To Perform",
+        "notFound": "No Place To Performs found"
+      },
+      "created": "A new Place To Perform is created with identifier {{ param }}",
+      "updated": "A Place To Perform is updated with identifier {{ param }}",
+      "deleted": "A Place To Perform is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Place To Perform {{ id }}?"
+      },
+      "detail": {
+        "title": "Place To Perform"
+      },
+      "placeName": "Place Name",
+      "address": "Address",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "representativeName": "Representative Name",
+      "actionLog": "Action Log"
+    }
+  }
+}
