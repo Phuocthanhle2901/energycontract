@@ -1,0 +1,42 @@
+.mod-questions{
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  .detail-content{
+    background-color: #fff;
+    position: relative;
+    display: block;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.3rem 0;
+    box-shadow: 1px 1px 1px rgb(129, 128, 128);
+    &-btn{
+      position: absolute;
+      right: 15px;
+      bottom: 10px;
+    display: block;
+    .btn-edt{
+      background-color: rgb(1, 5, 250);
+      font-size: 16px;
+      color: #fff;
+      padding: 0.01rem 0.5rem;
+    }
+    .btn-delete{
+      background-color: rgb(250, 1, 1);
+      font-size: 16px;
+      color: #fff;
+      padding: 0.01rem 0.5rem;
+    }
+    }
+  }
+  .form-check{
+    &-label{
+      font-size: 15px;
+      font-weight: 300;
+      b{
+        font-weight: 500;
+      }
+    }
+  }
+}

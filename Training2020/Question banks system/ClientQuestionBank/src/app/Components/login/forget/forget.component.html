@@ -1,0 +1,34 @@
+
+<div class="mod-forget d-flex flex-column">
+    <div class="mod-forget-header w-100">
+      <app-haeder></app-haeder>
+    </div>
+    <h4 *ngIf='status==1' class="text-center text-danger">Could not send email</h4>
+    <h4 *ngIf='status==2' class="text-center text-danger">This email is not registered. Please register if you don't have an account</h4>
+    <h4 *ngIf='status==3' class="text-center text-danger">This account is disabled. Please contact Administrators</h4>
+    <div class="mod-forget-form">
+        <h3 class="text-center">Forget Password</h3>
+        <form *ngIf='status!=1' [formGroup]="dataform" (ngSubmit)="sendLink(dataform.value)">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control"
+            [ngClass]="{'is-invalid':dataform.get('email').touched && dataform.get('email').invalid}"
+            formControlName="email" placeholder="Email..." /><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="dataform.get('email').touched && dataform.get('email').invalid">
+              <small *ngIf="dataform.get('email').errors.required" class="form-text  showError">Email is required</small>
+              <small *ngIf="dataform.get('email').errors.email" class="form-text  showError">Enter a valid email address</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class=" form-control btn btn-primary" [disabled]="dataform.status==='INVALID'">
+                Send email <fa-icon [icon]="envelope"></fa-icon>
+            </button>
+          </div>
+        </form>
+    </div>
+    <h4 *ngIf='status==0' class="text-center text-success">Please check your email to reset password</h4>
+    <div class="mod-forget-footer">
+        <app-footer></app-footer>
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /ExportProject/ExportProject/bin
 /ExportProject/Entites/bin
 /ExportProject/DomainModel/bin
@@ -265,4 +264,4 @@ paket-files/
 __pycache__/
 *.pyc
 /SendingRawSOAPRequest/.vs
->>>>>>> 3b066e7fe82d8467a717e146be9fe64ef6a7970c
+/Training2020/Question banks system/QuestionBankDB/QuestionBankDB/Logs
