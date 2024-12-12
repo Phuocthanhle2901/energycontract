@@ -1,0 +1,15 @@
+{
+  "managedAccessoriesSystemApp": {
+    "guaranteeDevices": {
+      "home": {
+        "tit": "Guarantee Devices"
+      },
+      "title": "Title",
+      "yourname": "Your name",
+      "area": "Area",
+      "devicename": "Device name",
+      "quantity": "Quantity",
+      "reason": "Reason"
+    }
+  }
+}

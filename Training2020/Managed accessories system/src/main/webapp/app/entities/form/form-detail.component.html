@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="form">
+            <h2><span jhiTranslate="managedAccessoriesSystemApp.form.detail.title">Form</span> {{ form.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.title">Title</span></dt>
+                <dd>
+                    <span>{{ form.title }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.yourName">Your Name</span></dt>
+                <dd>
+                    <span>{{ form.yourName }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.area">Area</span></dt>
+                <dd>
+                    <span>{{ form.area }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.reason">Reason</span></dt>
+                <dd>
+                    <span>{{ form.reason }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'managedAccessoriesSystemApp.formStatus.' + form.status }}">{{ form.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.formType">Form Type</span></dt>
+                <dd>
+                    <div *ngIf="form.formType">
+                        <a [routerLink]="['/form-type', form.formType?.id, 'view']">{{ form.formType?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.employee">Employee</span></dt>
+                <dd>
+                    <div *ngIf="form.employee">
+                        <a [routerLink]="['/employee', form.employee?.id, 'view']">{{ form.employee?.user?.login }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="managedAccessoriesSystemApp.form.equipment">Equipment</span></dt>
+                <dd>
+                    <div *ngIf="form.equipment">
+                        <a [routerLink]="['/equipment', form.equipment?.id, 'view']">{{ form.equipment?.equipmentName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+        </div>
+    </div>
+</div>

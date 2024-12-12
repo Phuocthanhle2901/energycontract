@@ -1,0 +1,45 @@
+{
+  "name": "UserEquipmentActivityLog",
+  "fields": [
+    {
+      "fieldName": "activity",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "userEquipmentActivityLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "equipment",
+      "otherEntityRelationshipName": "userEquipmentActivityLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "equipment",
+      "otherEntityField": "equipmentName"
+    }
+  ],
+  "changelogDate": "20201130145857",
+  "entityTableName": "user_equipment_activity_log",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

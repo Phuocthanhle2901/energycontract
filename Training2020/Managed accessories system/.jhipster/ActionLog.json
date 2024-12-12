@@ -1,0 +1,76 @@
+{
+  "name": "ActionLog",
+  "fields": [
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "expectedEndDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "actualEndDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Long",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "actionLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "user",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "actionType",
+      "otherEntityRelationshipName": "actionLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "actionType",
+      "otherEntityField": "actionTitle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "placeToPerform",
+      "otherEntityRelationshipName": "actionLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "placeToPerform",
+      "otherEntityField": "placeName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "equipment",
+      "otherEntityRelationshipName": "actionLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "equipment",
+      "otherEntityField": "equipmentName"
+    }
+  ],
+  "changelogDate": "20201130144857",
+  "entityTableName": "action_log",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

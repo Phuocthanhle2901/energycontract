@@ -1,0 +1,61 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.equipmentGroup.home.title">Equipment Groups</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-equipment-group" [routerLink]="['/equipment-group/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.equipmentGroup.home.createLabel">
+            Create a new Equipment Group
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="equipmentGroups?.length === 0">
+        <span jhiTranslate="managedAccessoriesSystemApp.equipmentGroup.home.notFound">No equipmentGroups found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="equipmentGroups && equipmentGroups.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.equipmentGroup.equipmentGroupName">Equipment Group Name</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let equipmentGroup of equipmentGroups ;trackBy: trackId">
+                    <td><a [routerLink]="['/equipment-group', equipmentGroup.id, 'view']">{{ equipmentGroup.id }}</a></td>
+                    <td>{{ equipmentGroup.equipmentGroupName }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/equipment-group', equipmentGroup.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/equipment-group', equipmentGroup.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(equipmentGroup)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

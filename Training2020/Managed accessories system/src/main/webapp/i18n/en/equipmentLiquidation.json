@@ -1,0 +1,15 @@
+{
+  "managedAccessoriesSystemApp": {
+    "equipmentLiquidation": {
+      "home": {
+        "tit": "Equipment Liquidation"
+      },
+      "title": "Title",
+      "yourname": "Your name",
+      "area": "Area",
+      "devicename": "Device name",
+      "quantity": "Quantity",
+      "reason": "Reason"
+    }
+  }
+}

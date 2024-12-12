@@ -1,0 +1,27 @@
+{
+  "managedAccessoriesSystemApp": {
+    "placeToPerform": {
+      "home": {
+        "title": "Place To Performs",
+        "createLabel": "Thêm mới một Place To Perform",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Place To Perform",
+        "notFound": "No Place To Performs found"
+      },
+      "created": "Một Place To Perform mới được tạo với định danh {{ param }}",
+      "updated": "Một Place To Perform cập nhật với định danh {{ param }}",
+      "deleted": "Một Place To Perform đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Place To Perform {{ id }}?"
+      },
+      "detail": {
+        "title": "Place To Perform"
+      },
+      "placeName": "Place Name",
+      "address": "Address",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "representativeName": "Representative Name",
+      "actionLog": "Action Log"
+    }
+  }
+}

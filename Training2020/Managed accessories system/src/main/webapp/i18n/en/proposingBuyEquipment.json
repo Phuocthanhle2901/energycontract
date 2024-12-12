@@ -1,0 +1,15 @@
+{
+  "managedAccessoriesSystemApp": {
+    "proposingBuyEquipment": {
+      "home": {
+        "tit": "Proposing Buy Equipment"
+      },
+      "title": "Title",
+      "yourname": "Your name",
+      "area": "Area",
+      "devicename": "Device name",
+      "quantity": "Quantity",
+      "reason": "Reason"
+    }
+  }
+}

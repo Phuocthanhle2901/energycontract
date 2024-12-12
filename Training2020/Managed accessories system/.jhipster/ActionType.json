@@ -1,0 +1,38 @@
+{
+  "name": "ActionType",
+  "fields": [
+    {
+      "fieldName": "actionTitle",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "actionLog",
+      "otherEntityRelationshipName": "actionType",
+      "relationshipName": "actionLog"
+    }
+  ],
+  "changelogDate": "20201130144957",
+  "entityTableName": "action_type",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

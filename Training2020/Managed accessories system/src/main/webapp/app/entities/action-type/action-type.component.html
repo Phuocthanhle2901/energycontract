@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.actionType.home.title">Action Types</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-action-type" [routerLink]="['/action-type/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.actionType.home.createLabel">
+            Create a new Action Type
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="actionTypes?.length === 0">
+        <span jhiTranslate="managedAccessoriesSystemApp.actionType.home.notFound">No actionTypes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="actionTypes && actionTypes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionType.actionTitle">Action Title</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.actionType.description">Description</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let actionType of actionTypes ;trackBy: trackId">
+                    <td><a [routerLink]="['/action-type', actionType.id, 'view']">{{ actionType.id }}</a></td>
+                    <td>{{ actionType.actionTitle }}</td>
+                    <td>{{ actionType.description }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/action-type', actionType.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit"
+                                    [routerLink]="['/action-type', actionType.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" (click)="delete(actionType)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

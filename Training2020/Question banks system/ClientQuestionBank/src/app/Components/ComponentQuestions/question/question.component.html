@@ -1,0 +1,71 @@
+<style>
+  a:hover{
+    cursor: pointer;
+  }
+</style>
+<div class="mod-question-header">
+  <app-haeder></app-haeder>
+</div>
+<div class="mod-question h-100 my-5">
+  <div class="mod-question-body my-md-5 py-5">
+    <div class="container row  ml-0">
+      <div class="col-md-4 mod-question-body-nav p-0 m-0 col-sm-12">
+        <nav class="navbar navbar-expand-md navbar-light d-flex flex-md-column ">
+
+          <h3>Types of questions</h3>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav d-flex  flex-column">
+              <li class="nav-item" *ngFor="let item of themes">
+                <a class="link-bgWhite" (click)="getThemeQuestions(item,0); getPageCount()">{{item}} Questions</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+      </div>
+      <div class="col-md-8  m-0 col-sm-12">
+        <div class="mod-question-body-content d-flex flex-column">
+
+          <div class="mt-3" *ngFor="let item of questions; index as q">
+              <table>
+                <tr><th><b>{{q+(currentPage*5+1)}}. {{item.question}}</b></th></tr>
+                <tr *ngFor="let a of item.answer; index as i">
+                  <td>
+                    {{i+1}}. {{a}} 
+                    <i *ngIf='item.trueAnswer.includes(a)' class="eva eva-checkmark-outline text-success"></i>
+                  </td>
+                </tr>
+              </table>
+          </div>
+          <!-- pagination -->
+          <nav aria-label=" navigation"class=" pagination-page">
+            <ul class="pagination">
+              <li class="page-item" *ngIf="currentPage>0">
+                <a class="page-link" (click)="getThemeQuestions(currentTheme,0)"><i class="eva eva-arrowhead-left-outline"></i></a>
+              </li>
+              <li class="page-item" *ngIf="currentPage>0">
+                <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage-1)"><i class="eva eva-arrow-ios-back-outline"></i></a>
+              </li>
+              <li class="page-item" *ngFor="let link of ' '.repeat(pageCount).split(''); index as i">
+                <a class="page-link" (click)="getThemeQuestions(currentTheme,i)">{{i+1}}</a>
+              </li>
+              <li class="page-item" *ngIf="currentPage<pageCount-1">
+                <a class="page-link" (click)="getThemeQuestions(currentTheme,currentPage+1)"><i class="eva eva-arrow-ios-forward-outline"></i></a>
+              </li>
+              <li class="page-item" *ngIf="currentPage<pageCount-1">
+                <a class="page-link" (click)="getThemeQuestions(currentTheme,pageCount-1)"><i class="eva eva-arrowhead-right-outline"></i></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mod-question-footer">
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,25 @@
+{
+  "managedAccessoriesSystemApp": {
+    "area": {
+      "home": {
+        "title": "Areas",
+        "createLabel": "Thêm mới một Area",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Area",
+        "notFound": "No Areas found"
+      },
+      "created": "Một Area mới được tạo với định danh {{ param }}",
+      "updated": "Một Area cập nhật với định danh {{ param }}",
+      "deleted": "Một Area đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Area {{ id }}?"
+      },
+      "detail": {
+        "title": "Area"
+      },
+      "areaName": "Area Name",
+      "equipment": "Equipment",
+      "employee": "Employee",
+      "leader": "Leader"
+    }
+  }
+}
