@@ -1,0 +1,26 @@
+{
+  "managedAccessoriesSystemApp": {
+    "employee": {
+      "home": {
+        "title": "Employees",
+        "createLabel": "Thêm mới một Employee",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Employee",
+        "notFound": "No Employees found"
+      },
+      "created": "Một Employee mới được tạo với định danh {{ param }}",
+      "updated": "Một Employee cập nhật với định danh {{ param }}",
+      "deleted": "Một Employee đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Employee {{ id }}?"
+      },
+      "detail": {
+        "title": "Employee"
+      },
+      "phoneNumber": "Phone Number",
+      "user": "User",
+      "area": "Area",
+      "area": "Area",
+	  "title": "THÔNG TIN NHÂN VIÊN"
+    }
+  }
+}

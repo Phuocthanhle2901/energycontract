@@ -1,0 +1,123 @@
+<div id="wrapper">
+
+  <app-navleft></app-navleft>
+  <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+          <app-header-admin></app-header-admin>
+          <div class="container-fluid">
+
+<div class="mod-createQuestion">
+  <h2 class="text-center"> Update Question </h2>
+  <hr/>
+ <div class="mod-createQuestion-content px-4">
+   <form class="row" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+     <div class="col-lg-6 col-12">
+       <div class="form-group">
+         <label >Question</label><br/>
+         <textarea type="text" formControlName="question" cols="60" rows="4"
+            [ngClass]="{'is-invalid':dataForm.get('question').touched && dataForm.get('question').invalid}"
+            ></textarea><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="dataForm.get('question').touched && dataForm.get('question').invalid">
+              <small *ngIf="dataForm.get('question').errors.required" class="form-text  showError">Enter your Question</small>
+            </div>
+       </div>
+
+       <div class="d-flex">
+        <div class="form-group w-75" formArrayName="answer">
+          <label>Answer</label>
+          <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+            {{i + 1}}.) <input type="text" formControlName='name'  class="form-control"
+            [ngClass]="{'is-invalid':dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid}"
+            /><span>(*)</span>
+            <div class="invalid-feedback" *ngIf="dataForm.get('answer')['controls'][i].touched && dataForm.get('answer')['controls'][i].invalid">
+              <small [hidden]="dataForm.get('answer')['controls'][i].errors?.required" class="form-text  showError">Enter your Answer</small>
+            </div>
+            </div>
+        </div>
+        <div class="form-group" formArrayName="trueAnswer">
+          <label>Correct</label><span>(*)</span>
+          <div *ngFor="let list_item of answer.controls;  let i=index" [formGroupName]="i" class="panel panel-default">
+            <input class="form-control" type="checkbox" ng-checked="dataForm.get('trueAnswer').value[i]['cname']==true" formControlName='cname'/>
+          </div>
+          <small *ngIf='checkInvalid==true' class="showError">Choose a correct answer</small>
+        </div>
+      </div>
+       <div class="form-group d-flex">
+         <a class="form-control btn btn-primary" (click)="addAnswer(true)">Add answer field</a>
+         <a class="form-control btn btn-danger" (click)="addAnswer(false)">Remove answer field</a>
+       </div>
+
+     </div>
+     <div class="col-lg-6 col-12">
+       <div class="row">
+           <div class="col-lg-6 d-flex ">
+            <div class="form-group w-100 ">
+              <label >Theme</label>
+              <input class="form-control" formControlName="themeName" type="text" list="suggestions"
+                  [ngClass]="{'is-invalid':dataForm.get('themeName').touched && dataForm.get('themeName').invalid}"><span>(*)</span>
+                <!-- Theme suggestions -->
+                <datalist id="suggestions">
+                 <option *ngFor="let item of themes" [value]="item" >{{item}}</option>
+                </datalist>
+                <div class="invalid-feedback" *ngIf="dataForm.get('themeName').touched && dataForm.get('themeName').invalid">
+                  <small *ngIf="dataForm.get('themeName').errors.required" class="form-text showError">Enter theme name </small>
+                </div>
+            </div>
+          </div>
+           <div class="col-lg-6">
+             <div class="form-group ">
+               <label >Point</label>
+               <input type="text" formControlName="point"  class="form-control"
+               [ngClass]="{'is-invalid':dataForm.get('point').touched && dataForm.get('point').invalid}" ><span>(*)</span>
+               <div class="invalid-feedback" *ngIf="dataForm.get('point').touched && dataForm.get('point').invalid"> <span>(*)</span>
+                <small *ngIf="dataForm.get('point').errors.required" class="form-text showError">Enter your point </small>
+              </div>
+             </div>
+           </div>
+       </div>
+       <div class="row">
+         <div class="col-lg-6">
+           <div class="form-group ">
+             <label >Level</label>
+             <input type="text" formControlName="level"  class="form-control"
+             [ngClass]="{'is-invalid':dataForm.get('level').touched && dataForm.get('level').invalid}"
+             ><span>(*)</span>
+             <div class="invalid-feedback" *ngIf="dataForm.get('level').touched && dataForm.get('level').invalid">
+              <small *ngIf="dataForm.get('level').errors.required" class="form-text showError">Enter your level </small>
+            </div>
+           </div>
+         </div>
+         <div class="col-lg-6">
+           <div class="form-group ">
+             <label >Time(s)</label>
+             <input type="text" formControlName="timeallow"  class="form-control"
+             [ngClass]="{'is-invalid':dataForm.get('timeallow').touched && dataForm.get('timeallow').invalid}"
+             ><span>(*)</span>
+             <div class="invalid-feedback" *ngIf="dataForm.get('timeallow').touched && dataForm.get('timeallow').invalid">
+              <small *ngIf="dataForm.get('timeallow').errors.required" class="form-text showError">Enter your timeallow </small>
+            </div>
+           </div>
+         </div>
+     </div>
+       <button type="submit" class="btn btn-primary"> <i  class="eva eva-save-outline"></i> Save   </button>
+       <button type="submit" routerLink="/admin/questions" class="btn btn-danger ml-1"><i class="eva eva-close-circle-outline
+        "></i> Cancel</button>
+      </div>
+
+   </form>
+ </div>
+</div>
+
+          </div>
+      </div>
+      <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                  <span>Copyright &copy; Your Website 2020</span>
+              </div>
+          </div>
+      </footer>
+  </div>
+</div>
+

@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="entity.import.title">Import operation</h4>
+
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+            (click)="cancel()">&times;</button>
+</div>
+
+<div class="modal-body" >
+    <ngx-dropzone (change)="dropFile($event)">
+      <ngx-dropzone-label jhiTranslate="entity.import.dragndrop.CSV"><h2>Drop a single file</h2></ngx-dropzone-label>
+      <ngx-dropzone-label>{{ file?.name }}<br/>{{ file?.type }}</ngx-dropzone-label>
+    </ngx-dropzone>
+    
+    <div class="alert alert-light" role="alert">{{ message }}</div>
+
+    <!-- <div *ngIf="errorList" role="alert">
+      <div *ngFor="let error of errorList"> -->
+        <ngb-alert id="error" *ngIf="file && !validateType()" type="danger" (close)="close('error')">
+          <div 
+            jhiTranslate="error.file.not.csv"
+          ></div>
+        </ngb-alert>
+      <!-- /div>
+    </div> -->
+
+    <div *ngIf="file && validateType()" role="alert" id="successAlert">
+      <ngb-alert type="success" (close)="closeSuccess()">
+        <div 
+          jhiTranslate="alertReady"
+        >Ready for importation</div>
+      </ngb-alert>
+    </div>
+
+    <jhi-alert-error></jhi-alert-error>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button class="btn btn-success" [disabled]="!file || !validateType()" (click)="confirmImport()">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.import">Delete</span>
+    </button>
+</div>

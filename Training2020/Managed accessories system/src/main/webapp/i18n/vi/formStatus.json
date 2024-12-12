@@ -1,0 +1,10 @@
+{
+  "managedAccessoriesSystemApp": {
+    "formStatus": {
+      "null": "",
+      "WAITING": "WAITING",
+      "ACCEPT": "ACCEPT",
+      "REFUSE": "REFUSE"
+    }
+  }
+}

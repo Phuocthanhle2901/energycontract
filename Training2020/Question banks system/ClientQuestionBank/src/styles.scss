@@ -1,0 +1,80 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Optional
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/eva-icons/style/eva-icons.css";
+
+
+
+$text-color:#010E21;
+
+
+html,body{
+  background:rgba(150, 145, 145, 0.133);
+  box-sizing: border-box;
+}
+body, *{
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+.nav-item{
+  .link{
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #ffff;
+    &:hover{
+      color: rgb(95, 95, 95);
+
+    }
+  }
+}
+.link-bgWhite{
+  color: #010E21;
+
+  &:hover{
+    color: #031836;
+  }
+}
+.active{
+  color:#fd0202;
+}
+.showError{
+  font-style: italic;
+  color: rgb(253, 4, 4) !important;
+	font-size: 16px;
+}
+
+
+#back-top{
+		right: 31px;
+		bottom: 18px;
+		position: fixed;
+		font-size: 50px;
+		a i {
+			display: block;
+      line-height: 50px;
+      font-size: 60px;
+      color: rgb(247, 34, 34);
+	    text-shadow: 110px 0 10px 3px rgba(148, 54, 54, 0.2);
+		}
+}
+.sticky-bar{
+	background: #010E21;
+}
+.form-control{
+  display: inline !important;
+  width: 89% !important;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

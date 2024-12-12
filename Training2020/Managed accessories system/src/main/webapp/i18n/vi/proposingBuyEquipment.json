@@ -1,0 +1,15 @@
+{
+  "managedAccessoriesSystemApp": {
+    "proposingBuyEquipment": {
+      "home": {
+        "tit": "Đề Xuất Mua Trang Thiết Bị"
+      },
+      "title": "Tiêu đề",
+      "yourname": "Nhân viên đề xuất",
+      "area": "Khu vực",
+      "devicename": "Tên thiết bị cần mua",
+      "quantity": "Số lượng",
+      "reason": "Lý do"
+    }
+  }
+}

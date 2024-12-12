@@ -1,0 +1,31 @@
+{
+  "name": "EquipmentGroup",
+  "fields": [
+    {
+      "fieldName": "equipmentGroupName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "equipment",
+      "otherEntityRelationshipName": "equipmentGroup",
+      "relationshipName": "equipment"
+    }
+  ],
+  "changelogDate": "20201130145257",
+  "entityTableName": "equipment_group",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

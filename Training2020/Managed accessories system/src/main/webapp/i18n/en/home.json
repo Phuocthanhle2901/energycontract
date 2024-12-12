@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Welcome to INFOdation MAS!",
+    "subtitle": "This is your homepage",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    },
+    "question": "If you have any question on INFOdation:",
+    "link": {
+      "homepage": "INFOdation homepage",
+      "stackoverflow": "INFOdation Facebook",
+      "bugtracker": "INFOdation Bitbucket",
+      "chat": "INFOdation Atlassian",
+      "follow": "Follow @INFOdation on Twitter"
+    },
+    "like": "If you like INFOdation, don't forget to give us five star on",
+    "github": "ReviewCompany"
+  }
+}
