@@ -1,0 +1,45 @@
+{
+  "name": "StatusLog",
+  "fields": [
+    {
+      "fieldName": "statusDateTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "statusType",
+      "otherEntityRelationshipName": "statusLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "statusType",
+      "otherEntityField": "statusTitle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "equipment",
+      "otherEntityRelationshipName": "statusLog",
+      "relationshipValidateRules": "required",
+      "relationshipName": "equipment",
+      "otherEntityField": "equipmentName"
+    }
+  ],
+  "changelogDate": "20201130145557",
+  "entityTableName": "status_log",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

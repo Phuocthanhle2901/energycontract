@@ -1,0 +1,70 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "formType",
+      "otherEntityName": "formType",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "form"
+    },
+    {
+      "relationshipName": "employee",
+      "otherEntityName": "employee",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "form"
+    },
+    {
+      "relationshipName": "equipment",
+      "otherEntityName": "equipment",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "form"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "10",
+      "fieldValidateRulesMaxlength": "200"
+    },
+    {
+      "fieldName": "yourName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "area",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "reason",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "50",
+      "fieldValidateRulesMaxlength": "400"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "formStatus",
+      "fieldValues": "WAITING,ACCEPT,REFUSE",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "changelogDate": "20210105062359",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "no",
+  "entityTableName": "form",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "no"
+}

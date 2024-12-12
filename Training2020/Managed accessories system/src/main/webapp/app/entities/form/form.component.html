@@ -1,0 +1,82 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="managedAccessoriesSystemApp.form.home.title">Forms</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-form" [routerLink]="['/form/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="managedAccessoriesSystemApp.form.home.createLabel">
+            Create a new Form
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="forms?.length === 0">
+        <span jhiTranslate="managedAccessoriesSystemApp.form.home.notFound">No forms found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="forms && forms.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" *jhiHasAnyAuthority="'ROLE_ADMIN'"><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.title">Title</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.yourName">Your Name</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.area">Area</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.reason">Reason</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.formType">Form Type</span></th>
+                    <th scope="col" ><span jhiTranslate="managedAccessoriesSystemApp.form.status">Status</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let form of forms ;trackBy: trackId">
+                    <td *jhiHasAnyAuthority="'ROLE_ADMIN'"><a [routerLink]="['/form', form.id, 'view']">{{ form.id }}</a></td>
+                    <td>{{ form.title }}</td>
+                    <td>{{ form.yourName }}</td>
+                    <td>{{ form.area }}</td>
+                    <td>{{ form.reason }}</td>
+                    <td>
+                        <div *ngIf="form.formType">
+                            <a [routerLink]="['/form-type', form.formType?.id, 'view']" >{{ form.formType?.name }}</a>
+                        </div>
+                    </td>
+                    <td jhiTranslate="{{ 'managedAccessoriesSystemApp.formStatus.' + form.status }}"
+                        [ngClass] = "checkStatus(form)"
+                        >
+                        {{ form.status }}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/form', form.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                                    type="submit" (click)="accept(form.id!)"
+                                    [disabled]="disableAcceprOrRefuse(form)"
+                                    class="btn btn-success btn-sm">
+                                <fa-icon icon="check"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.accept">Accept</span>
+                            </button>
+
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                                    type="submit" (click)="refuse(form.id!)"
+                                    [disabled]="disableAcceprOrRefuse(form)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.refuse">Refuse</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

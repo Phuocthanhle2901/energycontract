@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Chào mừng bạn đến với INFOdation MAS!",
+    "subtitle": "Đây là trang chủ của bạn",
+    "logged": {
+      "message": "Bạn đang đăng nhập bằng tài khoản \"{{username}}\"."
+    },
+    "question": "Nếu bạn có bất kỳ câu hỏi nào về INFOdation vui lòng truy cập:",
+    "link": {
+      "homepage": "Trang chủ INFOdation",
+      "stackoverflow": "Facebook INFOdation",
+      "bugtracker": "Quản lý Source Code Bitbucket",
+      "chat": "Tiến độ công việc Atlassian",
+      "follow": "Theo dõi @INFOdation trên Twitter"
+    },
+    "like": "Nếu bạn thích INFOdation, đừng quên cho công ty thêm năm ngôi sao trên",
+    "github": "ReviewCompany"
+  }
+}

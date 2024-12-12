@@ -1,0 +1,54 @@
+<div class="mod-login d-flex flex-column h-100">
+  <div class="mod-login-header w-100">
+    <app-haeder></app-haeder>
+  </div>
+</div>
+<div class="container py-5">
+  <div class=" mod-detailAchievement mt-5">
+    <div class="row my-4">
+      <div class="col-md-8">
+        <h2>Details of attempt</h2>
+        <h4>Email: {{result.email}}</h4>
+        <h4>Date: {{result.date|date:'dd/MM/yyyy'}}</h4>
+        <h4>Time submitted: {{result.date|date:'HH:mm:ss'}}</h4>
+        <h4>Score: {{result.summary}}/{{result.total}}</h4>
+        <div class="boxs my-3" *ngFor='let question of result.listquestion; index as i'>
+          <div class="mod-detailAchievement-boxq mt-2" id="index{{i}}">
+            <h5><b>{{i+1}}. {{question.question}}</b></h5>
+            <ul>
+              <li *ngFor="let option of question.answer; index as i">&ensp;{{i+1}}. {{option}}</li>
+              <li>
+                <b>Answer:</b><br/>
+                <span *ngFor='let answer of question.userAnswer'>
+                   {{answer}}
+                  <i *ngIf='question.trueAnswer.includes(answer)' class="eva eva-checkmark-outline text-success"></i>
+                  <i *ngIf='!question.trueAnswer.includes(answer)' class="eva eva-close-outline text-danger"></i><br/>
+                </span>
+              </li>
+              <li><b>Point:</b> {{question.point}}</li>
+            </ul>
+          </div>
+          <div class="mod-detailAchievement-boxa" *ngIf='question.point==0'>
+            The correct answer is:
+            <ul>
+              <li *ngFor='let correct of question.trueAnswer'>{{correct}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 box-link">
+        <h2>Navigation</h2>
+        <div class="justify-content-center box-link-item w-25">
+          <ul class="d-flex flex-wrap">
+            <li *ngFor="let link of ' '.repeat(result.listquestion.length).split(''); index as i"><a pageScroll  href="#index{{i}}" class="btn btn-item">{{i+1}}</a></li>
+          </ul>
+          <a type="button" class="text-primary" (click)='viewAchievements(result.email)'> Finish review </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mod-login-footer">
+  <app-footer></app-footer>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Equipment.
+    -->
+    <changeSet id="20201130145157-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="equipment"
+                                 constraintName="fk_equipment_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="equipment_group_id"
+                                 baseTableName="equipment"
+                                 constraintName="fk_equipment_equipment_group_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipment_group"/>
+
+        <addForeignKeyConstraint baseColumnNames="equipment_type_id"
+                                 baseTableName="equipment"
+                                 constraintName="fk_equipment_equipment_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="equipment_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="area_id"
+                                 baseTableName="equipment"
+                                 constraintName="fk_equipment_area_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="area"/>
+
+    </changeSet>
+</databaseChangeLog>

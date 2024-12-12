@@ -1,0 +1,23 @@
+{
+  "managedAccessoriesSystemApp": {
+    "equipmentGroup": {
+      "home": {
+        "title": "Equipment Groups",
+        "createLabel": "Thêm mới một Equipment Group",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Equipment Group",
+        "notFound": "No Equipment Groups found"
+      },
+      "created": "Một Equipment Group mới được tạo với định danh {{ param }}",
+      "updated": "Một Equipment Group cập nhật với định danh {{ param }}",
+      "deleted": "Một Equipment Group đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Equipment Group {{ id }}?"
+      },
+      "detail": {
+        "title": "Equipment Group"
+      },
+      "equipmentGroupName": "Equipment Group Name",
+      "equipment": "Equipment"
+    }
+  }
+}
