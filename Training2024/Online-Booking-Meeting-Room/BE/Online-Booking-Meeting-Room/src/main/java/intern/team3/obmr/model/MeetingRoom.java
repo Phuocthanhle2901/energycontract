@@ -3,12 +3,14 @@ package intern.team3.obmr.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "meetingroom")
 public class MeetingRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private boolean isAvailable;
+    private String comment;
+    private int capacity;
 
     public Long getId() {
         return id;
@@ -26,11 +28,19 @@ public class MeetingRoom {
         this.name = name;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public String getComment() {
+        return comment;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }
