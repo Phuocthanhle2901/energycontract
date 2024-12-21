@@ -12,20 +12,48 @@ const BookingForm = ({ onClose, onSubmit }) => {
     menber: "",
   });
 
+  const [startDate, setStartDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [startTime, setStartTime] = useState(format(new Date(), 'HH:mm'));
+  const [endDate, setEndDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [endTime, setEndTime] = useState(format(new Date(), 'HH:mm'));
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  
+    // Xử lý riêng từng trường
+    if (name === "startDate") {
+      setStartDate(value);
+    } else if (name === "startTime") {
+      setStartTime(value);
+    } else if (name === "endDate") {
+      setEndDate(value);
+    } else if (name === "endTime") {
+      setEndTime(value);
+    } else {
+      // Các trường khác
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+  
+    const finalData = {
+      ...formData,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+    };
+  
+    console.log("Submitted Data:", finalData);
+    onSubmit(finalData);
     onClose();
   };
 
   return (
     <div className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50" style={{ zIndex: 1050 }}>
-      <div className="bg-white p-4 rounded shadow" style={{ width: "800px", position: "relative" }}>
+      <div className="bg-white p-5 rounded shadow" style={{ width: "800px", position: "relative" }}>
       <button
       onClick={onClose}
       className="close-button position-absolute top-0 end-0 btn btn-link"
@@ -43,7 +71,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
       <i className="fa-solid fa-xmark"></i>
     </button>
         <div className="d-flex justify-content-center">
-          <h4 className="mb-3" style={{color:"#1B374D"}}>BOOKING FORM</h4>
+          <h4 className="mb-3 fw-bold" style={{color:"#1B374D"}}>EVENT MEETING</h4>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -75,7 +103,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
               id="startDate"
               name="startDate"
               className="form-control"
-              value={format(new Date(), 'yyyy-MM-dd')}
+              value={startDate}
               onChange={handleChange}
               required
             />
@@ -84,7 +112,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
               id="startTime"
               name="startTime"
               className="form-control ms-2"
-              value={format(new Date(), 'HH:mm')}
+              value={startTime}
               onChange={handleChange}
               required
             />
@@ -94,7 +122,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
               id="endDate"
               name="endDate"
               className="form-control"
-              value={format(new Date(), 'yyyy-MM-dd')}
+              value={endDate}
               onChange={handleChange}
               required
             />
@@ -103,7 +131,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
               id="endTime"
               name="endTime"
               className="form-control ms-2"
-              value={format(new Date(), 'HH:mm')}
+              value={endTime}
               onChange={handleChange}
               required
             />
@@ -116,7 +144,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
               value={formData.location}
               onChange={handleChange}
             >
-              <option value="">Location</option> {/* Giá trị mặc định */}
+              <option value="">Location</option>
               <option value="Location 1">Location 1</option>
               <option value="Location 2">Location 2</option>
               <option value="Location 3">Location 3</option>
@@ -135,7 +163,7 @@ const BookingForm = ({ onClose, onSubmit }) => {
             ></textarea>
           </div>
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-new-meeting px-5">Booking</button>
+            <button type="submit" className="btn btn-new-meeting px-5">Create</button>
           </div>
         </form>
       </div>

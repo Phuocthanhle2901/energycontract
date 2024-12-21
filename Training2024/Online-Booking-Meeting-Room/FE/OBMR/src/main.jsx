@@ -22,31 +22,51 @@ import LoginLayout from "./layouts/LoginLayout";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Login/Register"
 import Booking from "./pages/Booking";
+import AdminLayout from "./layouts/AdminLayout";
+import RoomController from "./pages/admin/RoomController";
+import UserController from "./pages/admin/UserController";
+import SendCode from "./pages/Login/SendCode";
+import ResetPass from "./pages/Login/ResetPass";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />, // Layout chính có Header, Footer
     children: [
-      // { path: "meeting-rooms", element: <MeetingRooms /> },
       { path: "booking", element: <Booking /> },
-      // { path: "profile", element: <Profile /> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />, // Layout chính có Header, Footer
+    children: [
+      // { path: "meeting-rooms", element: <MeetingRooms /> },
+      { path: "", element: <RoomController /> },
+      { path: "users", element: <UserController /> },
     ],
   },
   {
     path: "/login", 
-    element: <LoginLayout />, // 
-    children: [
-      { path: "", element: <Login /> }, // Trang Login
-    ],
+    element: <Login />, // 
+    // children: [
+    //   { path: "", element: <Login /> }, // Trang Login
+    // ],
   },
   {
     path: "/register", 
-    element: <LoginLayout />, // 
-    children: [
-      { path: "", element: <Register /> }, // Trang Login
-    ],
+    element: <Register />, // 
+    // children: [
+    //   { path: "", element: <Register /> }, // Trang Login
+    // ],
   },
+  {
+    path: "/sendcode",
+    element: <SendCode/>
+  },
+  {
+    path: "/resetpassword",
+    element: <ResetPass/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -6,8 +6,10 @@ import BookingForm from "../components/BookingForm";
 import { format, parse } from 'date-fns';
 import { events } from '../data/eventData';
 import BookingItem from "../components/BookingItem";
+import { useOutletContext } from "react-router-dom";
 
 const Booking = () => {
+    const { isSidebarOpen } = useOutletContext();
     const [todayEvents, setTodayEvents] = useState([]);
     
     useEffect(() => {
@@ -41,8 +43,8 @@ const Booking = () => {
     return (
         <div className="d-flex">
             {/* Sidebar */}
-            <div className="sidebar shadow">
-                <div className="px-3 py-3">
+            <div className={`sidebar shadow ${isSidebarOpen ? "open" : "closed"}`}>
+                <div className="sidebar-content px-3 py-3">
                     {/* New meeting btn */}
                     <div className="d-flex justify-content-center mb-3">
                         <button className="btn btn-new-meeting" onClick={handleNewMeetingClick}>+ New meeting</button>

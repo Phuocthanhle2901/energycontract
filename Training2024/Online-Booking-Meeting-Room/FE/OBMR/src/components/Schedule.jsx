@@ -24,9 +24,7 @@ const CalendarApp = () => {
 
 
   return (
-    <div>
       <ScheduleXCalendar calendarApp={calendar} />
-    </div>
   )
 }
 

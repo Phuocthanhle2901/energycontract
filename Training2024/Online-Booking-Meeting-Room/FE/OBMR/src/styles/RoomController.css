@@ -1,0 +1,47 @@
+.room-page{
+    min-height: calc(100vh - 70px - 40px);;
+}
+.btn-filter{
+    background-color: transparent;
+}
+.search-input{
+    border: 1px solid rgb(146, 146, 146);
+}
+.btn-search{
+    background-color: #1B374D;
+    color: white;
+}
+.btn-search:hover{
+    background-color: #497096;
+    color: white;
+}
+/* .btn-search:active{
+    background-color: #2c4f71!important;
+    color: white!important;
+    border: 1px solid #2c4f71!important;
+} */
+
+.btn-add-room{
+    background-color: #1B374D;
+    color: white;
+}
+.btn-add-room:hover{
+    background-color: #497096;
+    color: white;
+}
+
+.btn-action:hover {
+    background-color: #c2dcf0;
+}
+.btn-action:active {
+    background-color: #7ea4c2!important;
+    border: 1px solid #7ea4c2!important;
+  }
+
+td {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}

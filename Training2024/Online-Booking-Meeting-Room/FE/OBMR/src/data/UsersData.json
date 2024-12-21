@@ -1,0 +1,20 @@
+[
+    {
+     "id": 1,
+     "name": "Nguyễn Công Phương",
+     "email": "ncphuong@gmail.com",
+     "status": "Online",
+     "host": "Mike",
+     "balance": "",
+     "deposite": ""
+    },
+    {
+        "id": 2,
+        "name": "Võ Đại Hiệp",
+        "email": "daihiep@gmail.com",
+        "status": "Offline",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    }
+]
