@@ -5,57 +5,57 @@ import intern.team3.obmr.repository.MeetingRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class MeetingRoomService {
+    private final MeetingRoomRepository meetingRoomRepository;
 
     @Autowired
-    private MeetingRoomRepository meetingRoomRepository;
-
-    // Kiểm tra xem người dùng có phải là Admin không
-    public boolean isAdmin(Principal principal) {
-        String username = principal.getName();
-        // Kiểm tra quyền trong cơ sở dữ liệu hoặc logic cụ thể
-        return "admin".equals(username); // Giả sử tên người dùng là "admin" có quyền Admin
+    public MeetingRoomService(MeetingRoomRepository meetingRoomRepository) {
+        this.meetingRoomRepository = meetingRoomRepository;
     }
 
-    // Lấy danh sách tất cả các phòng họp
+    // Lấy tất cả phòng họp
     public List<MeetingRoom> getAllMeetingRooms() {
-        return meetingRoomRepository.findAll();
+        List<MeetingRoom> rooms = meetingRoomRepository.findAll();
+        return rooms;
     }
 
     // Thêm phòng họp mới
-    public MeetingRoom addMeetingRoom(MeetingRoom meetingRoom, Principal principal) {
-        if (!isAdmin(principal)) {
-            throw new SecurityException("Không có quyền thực hiện thao tác này");
-        }
-        return meetingRoomRepository.save(meetingRoom);
+    public MeetingRoom addMeetingRoom(MeetingRoom meetingRoom) {
+        meetingRoom.setCreatedAt(Instant.from(LocalDateTime.now()));
+        meetingRoom.setUpdatedAt(Instant.from(LocalDateTime.now()));
+        return meetingRoomRepository.save(meetingRoom);  // Gọi phương thức save từ repository
     }
 
     // Cập nhật phòng họp
-    public MeetingRoom updateMeetingRoom(Long id, MeetingRoom meetingRoom, Principal principal) {
-        if (!isAdmin(principal)) {
-            throw new SecurityException("Không có quyền thực hiện thao tác này");
+    public MeetingRoom updateMeetingRoom(Long id, MeetingRoom meetingRoom) {
+        Optional<MeetingRoom> existingRoom = meetingRoomRepository.findById(id);
+        if (existingRoom.isPresent()) {
+            MeetingRoom room = existingRoom.get();
+            room.setName(meetingRoom.getName());
+            room.setDescription(meetingRoom.getDescription());
+            room.setCapacity(meetingRoom.getCapacity());
+            room.setUpdatedAt(Instant.from(LocalDateTime.now()));
+            return meetingRoomRepository.save(room);  // Gọi phương thức save từ repository
+        } else {
+            throw new RuntimeException("Meeting room does not exist!");
         }
-        // Logic cập nhật
-        if (meetingRoomRepository.existsById(id)) {
-            meetingRoom.setId(id);
-            return meetingRoomRepository.save(meetingRoom);
-        }
-        return null;
     }
 
     // Xóa phòng họp
-    public boolean deleteMeetingRoom(Long id, Principal principal) {
-        if (!isAdmin(principal)) {
-            throw new SecurityException("Không có quyền thực hiện thao tác này");
-        }
-        if (meetingRoomRepository.existsById(id)) {
-            meetingRoomRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deleteMeetingRoom(Long id) {
+        meetingRoomRepository.deleteById(id);  // Gọi phương thức deleteById từ repository
+    }
+
+    // Lấy phòng họp theo ID
+    public MeetingRoom getMeetingRoomById(Long id) {
+        return meetingRoomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Meeting room does not exist!"));  // Gọi phương thức findById từ repository
     }
 }

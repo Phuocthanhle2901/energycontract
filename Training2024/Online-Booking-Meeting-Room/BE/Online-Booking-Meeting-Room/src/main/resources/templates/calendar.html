@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Meeting Calendar</title>
+</head>
+<body>
+<h1>Meeting Calendar</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Room ID</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.title}"></td>
+        <td th:text="${event.meetingRoomId}"></td>
+        <td th:text="${event.startTime}"></td>
+        <td th:text="${event.endTime}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

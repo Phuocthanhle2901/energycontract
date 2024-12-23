@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Meeting Rooms</title>
+</head>
+<body>
+<h1>Meeting Rooms</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Capacity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${rooms}">
+        <td th:text="${room.name}"></td>
+        <td th:text="${room.description}"></td>
+        <td th:text="${room.capacity}"></td>
+    </tr>
+    </tbody>
+</table>
+<h2>Book a Room</h2>
+<form action="/meeting/book" method="post">
+    <label for="meetingRoomId">Room:</label>
+    <select name="meetingRoomId" id="meetingRoomId" required>
+        <option th:each="room : ${rooms}"
+                th:value="${room.id}"
+                th:text="${room.name}"></option>
+    </select>
+
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" required>
+
+    <label for="startTime">Start Time:</label>
+    <input type="datetime-local" name="startTime" id="startTime" required>
+
+    <label for="endTime">End Time:</label>
+    <input type="datetime-local" name="endTime" id="endTime" required>
+
+    <label for="userId">User:</label>
+    <select name="userId" id="userId" required>
+        <option th:each="user : ${users}"
+                th:value="${user.id}"
+                th:text="${user.username}"></option>
+    </select>
+
+    <button type="submit">Book</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Meeting Rooms</title>
+</head>
+<body>
+<h1>Meeting Rooms</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Capacity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${rooms}">
+        <td th:text="${room.name}"></td>
+        <td th:text="${room.description}"></td>
+        <td th:text="${room.capacity}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
