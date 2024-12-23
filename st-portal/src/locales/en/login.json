@@ -1,0 +1,20 @@
+{
+  "Nice to see you again!": "Nice to see you again!",
+  "password": "Password",
+  "Vietnamese": "Vietnamese",
+  "Select your language": "Select your language",
+  "English": "English",
+  "placeholderEmail": "Enter your email",
+  "placeholderPassword": "Enter your password",
+  "remember": "Remember me",
+  "forgotPassword": "Forgot Password",
+  "SignIn": "Sign In",
+  "Don't you have an account?": "Don't you have an account?",
+  "SignUpnow": "Sign up now",
+  "Must be a valid email address": "Must be a valid email address",
+  "Please enter your email": "Please enter your email",
+  "Please enter your password": "Please enter your password",
+  "Password must be at least 8 characters": "Password must be at least 8 characters",
+  "Must Contain 8 characters, One Uppercase, One Lowercase, One Number and One Special Case Character": "Must Contain, One Uppercase, One Lowercase, One Number and One Special Case Character",
+  "errorLogin": "Invalid username/password."
+}

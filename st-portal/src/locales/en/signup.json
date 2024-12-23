@@ -1,0 +1,24 @@
+{
+  
+  "password": "Password",
+  "Vietnamese": "Vietnamese",
+  "Select your language": "Select your language",
+  "English": "English",
+  "Enter your Email": "Enter your email",
+  "Enter your password": "Enter your password",
+    "Sign Up": "Sign Up",
+  "Already have an account?": "Already have an account?",
+  "Sign In now": "Sign In now",
+  "Please enter a valid email address": "Please enter a valid email address",
+  "Please enter your email": "Please enter your email",
+  "Please enter your fullname":"Please enter your fullname",
+  "Please enter your password": "Please enter your password",
+  "Please confirm your password":"Please confirm your password",
+  "Password must be at least 8 characters": "Password must be at least 8 characters",
+  "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character": "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character",
+  "Passwords must match":"Passwords must match",
+  "Enter your fullname":"Enter your fullname",
+  "Confirm password": "Confirm password",
+  "Fullname": "Fullname",
+  "Confirm your password":"Confirm your password"
+}

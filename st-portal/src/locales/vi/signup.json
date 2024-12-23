@@ -1,0 +1,27 @@
+{
+  
+  "password": "Mật khẩu",
+  "Vietnamese": "Tiếng Việt",
+  "Select your language": "Chọn ngôn ngữ của bạn",
+  "English": "Tiếng Anh",
+  "Enter your Email": "Nhập email của bạn",
+  "Enter your password": "Nhập mật khẩu của bạn",
+  "Remember me": "Ghi nhớ tôi",
+  "Forgot password?": "Quên mật khẩu?",
+  "Sign Up": "Đăng ký",
+  "Already have an account?": " Bạn đã có tài khoản?",
+  "Sign In now": "Đăng nhập ngay",
+  "Please enter a valid email address": "Vui lòng nhập địa chỉ email hợp lệ",
+  "Please enter your email": "Vui lòng nhập email của bạn",
+  "Please enter your fullname": "Vui lòng nhập họ và tên của bạn.",
+  "Please enter your password": "Vui lòng nhập mật khẩu của bạn",
+  "Please confirm your password": "Vui lòng xác nhận mật khẩu của bạn",
+  "Password must be at least 8 characters": "Mật khẩu phải ít nhất 8 ký tự",
+  "Must contain 8 characters, one uppercase, one lowercase, one number and one special case character": "Phải chứa 8 ký tự, một chữ hoa, một chữ thường, một số và một ký tự chữ đặc biệt",
+  "Passwords must match":"Mật khẩu phải trùng khớp",
+  "Fullname": "Họ và tên",
+  "Enter your fullname": "Nhập họ và tên của bạn",
+  "Confirm password": "Xác nhận mật khẩu",
+  "Confirm your password": "Xác nhận mật khẩu"
+
+}

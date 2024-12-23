@@ -1,0 +1,20 @@
+{
+  "Nice to see you again!": "Rất vui được gặp lại bạn!",
+  "password": "Mật khẩu",
+  "Vietnamese": "Tiếng Việt",
+  "English": "Tiếng Anh",
+  "Select your language": "Chọn ngôn ngữ",
+  "placeholderEmail": "Nhập email của bạn",
+  "placeholderPassword": "Nhập mật khẩu của bạn",
+  "remember": "Lưu mật khẩu",
+  "forgotPassword": "Quên Mật khẩu",
+  "SignIn": "Đăng nhập",
+  "Don't you have an account?": "Bạn chưa có tài khoản?",
+  "SignUpnow": "Đăng ký tại đây",
+  "Must be a valid email address": "Vui lòng nhập email hợp lệ",
+  "Please enter your email": "Vui lòng nhập email",
+  "Please enter your password": "Vui lòng nhập mật khẩu",
+  "Password must be at least 8 characters": "Mật khẩu tối thiểu phải 8 kí tự",
+  "Must Contain 8 characters, One Uppercase, One Lowercase, One Number and One Special Case Character": "Mật khẩu phải bao gồm 1 chữ hoa, 1 chữ thường, 1 số và 1 kí tự đặc biệt",
+  "errorLogin": "Sai thông tin tài khoản hoặc mật khẩu!"
+}
