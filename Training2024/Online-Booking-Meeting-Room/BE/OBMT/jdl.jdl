@@ -1,0 +1,72 @@
+entity AppUsers {
+    username String required
+    password String required
+    email String required
+    phoneNumber String required
+    resetToken String
+    resetTokenCreatedAt ZonedDateTime
+    otpCode String
+    otpCodeCreatedAt ZonedDateTime
+    otpCodeExpiredAt ZonedDateTime
+    otpIsVerified Boolean required
+    rememberToken String
+    isRemembered Boolean required
+    deviceInfo String
+    createdAt ZonedDateTime required
+    updatedAt ZonedDateTime required
+    status String required
+}
+
+entity Roles {
+    roleName String required
+}
+
+entity Permissions {
+    permissionName String required
+}
+
+entity MeetingRooms {
+    name String required
+    description String required
+    capacity Integer required
+    createdAt ZonedDateTime required
+    updatedAt ZonedDateTime required
+}
+
+entity EventMeetings {
+    title String required
+    startTime ZonedDateTime required
+    endTime ZonedDateTime required
+    description String required
+    createdAt ZonedDateTime required
+    updatedAt ZonedDateTime required
+    status String required
+}
+
+entity EventUsers {
+    isOrganizer Boolean required
+}
+
+relationship ManyToMany {
+    AppUsers{roles} to Roles{appusers}
+    Roles{permissions} to Permissions{roles}
+    AppUsers{events} to EventMeetings{members}
+}
+
+relationship ManyToOne {
+    EventMeetings{meetingRoom} to MeetingRooms
+}
+
+relationship ManyToOne {
+    EventUsers{appusers} to AppUsers
+    EventUsers{eventMeeting} to EventMeetings
+}
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

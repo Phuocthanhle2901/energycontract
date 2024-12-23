@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table, Badge } from 'reactstrap';
-import { Translate, TextFormat, JhiPagination, JhiItemCount, getSortState } from 'react-jhipster';
+import { TextFormat, JhiPagination, JhiItemCount, getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
@@ -84,14 +84,13 @@ export const UserManagement = (props: RouteComponentProps<any>) => {
   return (
     <div>
       <h2 id="user-management-page-heading" data-cy="userManagementPageHeading">
-        <Translate contentKey="userManagement.home.title">Users</Translate>
+        Users
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="userManagement.home.refreshListLabel">Refresh List</Translate>
+            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
           <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity">
-            <FontAwesomeIcon icon="plus" /> <Translate contentKey="userManagement.home.createLabel">Create a new user</Translate>
+            <FontAwesomeIcon icon="plus" /> Create a new user
           </Link>
         </div>
       </h2>
@@ -99,35 +98,29 @@ export const UserManagement = (props: RouteComponentProps<any>) => {
         <thead>
           <tr>
             <th className="hand" onClick={sort('id')}>
-              <Translate contentKey="global.field.id">ID</Translate>
+              ID
               <FontAwesomeIcon icon="sort" />
             </th>
             <th className="hand" onClick={sort('login')}>
-              <Translate contentKey="userManagement.login">Login</Translate>
+              Login
               <FontAwesomeIcon icon="sort" />
             </th>
             <th className="hand" onClick={sort('email')}>
-              <Translate contentKey="userManagement.email">Email</Translate>
+              Email
               <FontAwesomeIcon icon="sort" />
             </th>
             <th />
-            <th className="hand" onClick={sort('langKey')}>
-              <Translate contentKey="userManagement.langKey">Lang Key</Translate>
-              <FontAwesomeIcon icon="sort" />
-            </th>
-            <th>
-              <Translate contentKey="userManagement.profiles">Profiles</Translate>
-            </th>
+            <th>Profiles</th>
             <th className="hand" onClick={sort('createdDate')}>
-              <Translate contentKey="userManagement.createdDate">Created Date</Translate>
+              Created Date
               <FontAwesomeIcon icon="sort" />
             </th>
             <th className="hand" onClick={sort('lastModifiedBy')}>
-              <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
+              Last Modified By
               <FontAwesomeIcon icon="sort" />
             </th>
             <th id="modified-date-sort" className="hand" onClick={sort('lastModifiedDate')}>
-              <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+              Last Modified Date
               <FontAwesomeIcon icon="sort" />
             </th>
             <th />
@@ -146,15 +139,14 @@ export const UserManagement = (props: RouteComponentProps<any>) => {
               <td>
                 {user.activated ? (
                   <Button color="success" onClick={toggleActive(user)}>
-                    <Translate contentKey="userManagement.activated">Activated</Translate>
+                    Activated
                   </Button>
                 ) : (
                   <Button color="danger" onClick={toggleActive(user)}>
-                    <Translate contentKey="userManagement.deactivated">Deactivated</Translate>
+                    Deactivated
                   </Button>
                 )}
               </td>
-              <td>{user.langKey}</td>
               <td>
                 {user.authorities
                   ? user.authorities.map((authority, j) => (
@@ -176,16 +168,10 @@ export const UserManagement = (props: RouteComponentProps<any>) => {
               <td className="text-end">
                 <div className="btn-group flex-btn-group-container">
                   <Button tag={Link} to={`${match.url}/${user.login}`} color="info" size="sm">
-                    <FontAwesomeIcon icon="eye" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.view">View</Translate>
-                    </span>
+                    <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                   </Button>
                   <Button tag={Link} to={`${match.url}/${user.login}/edit`} color="primary" size="sm">
-                    <FontAwesomeIcon icon="pencil-alt" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.edit">Edit</Translate>
-                    </span>
+                    <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                   </Button>
                   <Button
                     tag={Link}
@@ -194,10 +180,7 @@ export const UserManagement = (props: RouteComponentProps<any>) => {
                     size="sm"
                     disabled={account.login === user.login}
                   >
-                    <FontAwesomeIcon icon="trash" />{' '}
-                    <span className="d-none d-md-inline">
-                      <Translate contentKey="entity.action.delete">Delete</Translate>
-                    </span>
+                    <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                   </Button>
                 </div>
               </td>

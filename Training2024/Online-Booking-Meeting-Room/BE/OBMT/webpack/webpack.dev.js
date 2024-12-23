@@ -97,7 +97,7 @@ module.exports = async options =>
       ),
       new webpack.HotModuleReplacementPlugin(),
       new WebpackNotifierPlugin({
-        title: 'Obmt',
+        title: 'Obmr',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
       }),
     ].filter(Boolean),

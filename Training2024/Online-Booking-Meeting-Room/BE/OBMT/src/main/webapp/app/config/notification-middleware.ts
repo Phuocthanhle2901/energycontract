@@ -1,10 +1,8 @@
-import { translate } from 'react-jhipster';
 import { toast } from 'react-toastify';
 import { isFulfilledAction, isRejectedAction } from 'app/shared/reducers/reducer.utils';
 
 const addErrorAlert = (message, key?, data?) => {
-  key = key ? key : message;
-  toast.error(translate(key, data));
+  toast.error(message);
 };
 
 export default () => next => action => {
@@ -17,18 +15,14 @@ export default () => next => action => {
   if (isFulfilledAction(action) && payload && payload.headers) {
     const headers = payload?.headers;
     let alert: string | null = null;
-    let alertParams: string | null = null;
     headers &&
       Object.entries<string>(headers).forEach(([k, v]) => {
         if (k.toLowerCase().endsWith('app-alert')) {
           alert = v;
-        } else if (k.toLowerCase().endsWith('app-params')) {
-          alertParams = decodeURIComponent(v.replace(/\+/g, ' '));
         }
       });
     if (alert) {
-      const alertParam = alertParams;
-      toast.success(translate(alert, { param: alertParam }));
+      toast.success(alert);
     }
   }
 
@@ -60,7 +54,7 @@ export default () => next => action => {
                 }
               });
             if (errorHeader) {
-              const entityName = translate('global.menu.entities.' + entityKey);
+              const entityName = entityKey;
               addErrorAlert(errorHeader, errorHeader, { entityName });
             } else if (data?.fieldErrors) {
               const fieldErrors = data.fieldErrors;
@@ -70,7 +64,7 @@ export default () => next => action => {
                 }
                 // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
                 const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
-                const fieldName = translate(`obmtApp.${fieldError.objectName}.${convertedField}`);
+                const fieldName = convertedField.charAt(0).toUpperCase() + convertedField.slice(1);
                 addErrorAlert(`Error on field "${fieldName}"`, `error.${fieldError.message}`, { fieldName });
               }
             } else if (typeof data === 'string' && data !== '') {

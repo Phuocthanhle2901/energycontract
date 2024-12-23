@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: INFO
     tech.jhipster: INFO
-    intern.team3.obmt: INFO
+    intern.team3.obmr: INFO
 
 eureka:
   instance:
@@ -46,15 +46,15 @@ spring:
         max-attempts: 100
       uri: http://admin:${jhipster.registry.password}@localhost:8761/config
       # name of the config server's property source (file.yml) that we want to use
-      name: obmt
+      name: obmr
       profile: prod
       label: main # toggle to switch to a different version of the configuration as stored in git
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/obmt
-    username: obmt
-    password:
+    username: admin
+    password: password
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -82,7 +82,7 @@ spring:
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
-# keytool -genkey -alias obmt -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias obmr -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -127,7 +127,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: NmZkM2NjZjY5OTc4YzhiMjRlZTkwNTI5NDYyOWQ2ODNkZDAzZTdhZDc1MmRhMTZhMjY4YTU0ODBjNTNkNzkzYTU2ZjI3MDZkOGY5YmE1ZTk3YjU3NWYzNzU0OTMwZjlkYTQ3MjgyYTlkZGVhZTRhZDMwOTJhODQyYTM3N2U3ZTE=
+        base64-secret: MTU2N2M3YTZmMGIyMjc2NDhiZGEyY2ViYTA4YjY5MzQxN2RhZjE5NzllYmM1ZDExYzc5Y2FlNGVlMDBlNWM0YjUxZjU4ZTE5NjNlMGNkMzNlZDY0YjM2MTcxYWIzNGNkMGMyYmY0NzY1MmMyNWVjNTM4ZDE0YWVhODc3MzQ1M2Q=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

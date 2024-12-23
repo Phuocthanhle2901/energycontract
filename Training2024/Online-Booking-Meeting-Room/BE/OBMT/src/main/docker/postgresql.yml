@@ -1,13 +1,13 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
 version: '3.8'
 services:
-  obmt-postgresql:
+  obmr-postgresql:
     image: postgres:14.1
     # volumes:
-    #   - ~/volumes/jhipster/obmt/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/obmr/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=obmt
-      - POSTGRES_PASSWORD=
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
       - POSTGRES_HOST_AUTH_METHOD=trust
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix

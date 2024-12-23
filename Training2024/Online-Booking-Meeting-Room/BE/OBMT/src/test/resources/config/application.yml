@@ -17,18 +17,18 @@ eureka:
   client:
     enabled: false
   instance:
-    appname: obmt
-    instanceId: obmt:${spring.application.instance-id:${random.value}}
+    appname: obmr
+    instanceId: obmr:${spring.application.instance-id:${random.value}}
 
 spring:
   application:
-    name: obmt
+    name: obmr
   cloud:
     config:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:obmt;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:obmr;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     name:
     username:
     password:
@@ -68,13 +68,13 @@ spring:
     basename: i18n/messages
   task:
     execution:
-      thread-name-prefix: obmt-task-
+      thread-name-prefix: obmr-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: obmt-scheduling-
+      thread-name-prefix: obmr-scheduling-
       pool:
         size: 1
   thymeleaf:
@@ -92,7 +92,7 @@ server:
 
 jhipster:
   clientApp:
-    name: 'obmtApp'
+    name: 'obmrApp'
   logging:
     # To test json console appender
     use-json-format: false
@@ -108,7 +108,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: NmZkM2NjZjY5OTc4YzhiMjRlZTkwNTI5NDYyOWQ2ODNkZDAzZTdhZDc1MmRhMTZhMjY4YTU0ODBjNTNkNzkzYTU2ZjI3MDZkOGY5YmE1ZTk3YjU3NWYzNzU0OTMwZjlkYTQ3MjgyYTlkZGVhZTRhZDMwOTJhODQyYTM3N2U3ZTE=
+        base64-secret: MTU2N2M3YTZmMGIyMjc2NDhiZGEyY2ViYTA4YjY5MzQxN2RhZjE5NzllYmM1ZDExYzc5Y2FlNGVlMDBlNWM0YjUxZjU4ZTE5NjNlMGNkMzNlZDY0YjM2MTcxYWIzNGNkMGMyYmY0NzY1MmMyNWVjNTM4ZDE0YWVhODc3MzQ1M2Q=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 # ===================================================================

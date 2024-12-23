@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Alert } from 'reactstrap';
-import { Translate, getUrlParameter } from 'react-jhipster';
+import { getUrlParameter } from 'react-jhipster';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { activateAction, reset } from './activate.reducer';
 
 const successAlert = (
   <Alert color="success">
-    <Translate contentKey="activate.messages.success">
-      <strong>Your user account has been activated.</strong> Please
-    </Translate>
+    <strong>Your user account has been activated.</strong> Please
     <Link to="/login" className="alert-link">
-      <Translate contentKey="global.messages.info.authenticated.link">sign in</Translate>
+      sign in
     </Link>
     .
   </Alert>
@@ -20,9 +18,7 @@ const successAlert = (
 
 const failureAlert = (
   <Alert color="danger">
-    <Translate contentKey="activate.messages.error">
-      <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
-    </Translate>
+    <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
   </Alert>
 );
 
@@ -42,9 +38,7 @@ export const ActivatePage = (props: RouteComponentProps<{ key: any }>) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h1>
-            <Translate contentKey="activate.title">Activation</Translate>
-          </h1>
+          <h1>Activation</h1>
           {activationSuccess ? successAlert : undefined}
           {activationFailure ? failureAlert : undefined}
         </Col>

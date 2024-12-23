@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20241222144427",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "event_users",
+  "fields": [
+    {
+      "fieldName": "isOrganizer",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "EventUsers",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "appUsers",
+      "otherEntityRelationshipName": "eventUsers",
+      "relationshipName": "appusers",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "eventMeetings",
+      "otherEntityRelationshipName": "eventUsers",
+      "relationshipName": "eventMeeting",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

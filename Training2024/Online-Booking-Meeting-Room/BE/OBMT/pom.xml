@@ -5,12 +5,12 @@
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>intern.team3.obmt</groupId>
-    <artifactId>obmt</artifactId>
+    <groupId>intern.team3.obmr</groupId>
+    <artifactId>obmr</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Obmt</name>
-    <description>Description for obmt</description>
+    <name>Obmr</name>
+    <description>Description for obmr</description>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -34,7 +34,7 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <start-class>intern.team3.obmt.ObmtApp</start-class>
+        <start-class>intern.team3.obmr.ObmrApp</start-class>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         <run.addResources>false</run.addResources>
@@ -581,7 +581,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>obmt:latest</image>
+                            <image>obmr:latest</image>
                         </to>
                         <container>
                             <entrypoint>
@@ -964,11 +964,11 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>org.postgresql.Driver</driver>
-                                <url>jdbc:postgresql://localhost:5432/obmt</url>
+                                <url>jdbc:postgresql://localhost:5432/obmr</url>
                                 <defaultSchemaName></defaultSchemaName>
-                                <username>obmt</username>
+                                <username>obmr</username>
                                 <password></password>
-                                <referenceUrl>hibernate:spring:intern.team3.obmt.domain?dialect=tech.jhipster.domain.util.FixedPostgreSQL10Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
+                                <referenceUrl>hibernate:spring:intern.team3.obmr.domain?dialect=tech.jhipster.domain.util.FixedPostgreSQL10Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                                 <verbose>true</verbose>
                                 <logging>debug</logging>
                                 <contexts>!test</contexts>

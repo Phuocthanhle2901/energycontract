@@ -4,7 +4,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="intern.team3.obmt" level="INFO"/>
+    <logger name="intern.team3.obmr" level="INFO"/>
 
     <logger name="tech.jhipster" level="WARN"/>
 
