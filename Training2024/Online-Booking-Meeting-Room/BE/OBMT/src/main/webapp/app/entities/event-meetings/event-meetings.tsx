@@ -153,7 +153,7 @@ export const EventMeetings = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{eventMeetings.status}</td>
                   <td>
                     {eventMeetings.meetingRoom ? (
-                      <Link to={`meeting-rooms/${eventMeetings.meetingRoom.id}`}>{eventMeetings.meetingRoom.id}</Link>
+                      <Link to={`meeting-rooms/${eventMeetings.meetingRoom.id}`}>{eventMeetings.meetingRoom.name}</Link>
                     ) : (
                       ''
                     )}

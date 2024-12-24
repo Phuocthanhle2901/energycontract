@@ -99,7 +99,7 @@ export const EventUsersUpdate = (props: RouteComponentProps<{ id: string }>) => 
                 {appUsers
                   ? appUsers.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.username}
                       </option>
                     ))
                   : null}
@@ -109,7 +109,7 @@ export const EventUsersUpdate = (props: RouteComponentProps<{ id: string }>) => 
                 {eventMeetings
                   ? eventMeetings.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.title}
                       </option>
                     ))
                   : null}

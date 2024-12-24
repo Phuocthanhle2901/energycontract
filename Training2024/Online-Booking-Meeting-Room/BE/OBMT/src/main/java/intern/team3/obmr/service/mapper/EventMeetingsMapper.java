@@ -10,16 +10,18 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { MeetingRoomsMapper.class })
 public interface EventMeetingsMapper extends EntityMapper<EventMeetingsDTO, EventMeetings> {
-    @Mapping(target = "meetingRoom", source = "meetingRoom", qualifiedByName = "id")
+    @Mapping(target = "meetingRoom", source = "meetingRoom", qualifiedByName = "name")
     EventMeetingsDTO toDto(EventMeetings s);
 
-    @Named("id")
+    @Named("titleSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    EventMeetingsDTO toDtoId(EventMeetings eventMeetings);
+    @Mapping(target = "title", source = "title")
+    Set<EventMeetingsDTO> toDtoTitleSet(Set<EventMeetings> eventMeetings);
 
-    @Named("idSet")
+    @Named("title")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    Set<EventMeetingsDTO> toDtoIdSet(Set<EventMeetings> eventMeetings);
+    @Mapping(target = "title", source = "title")
+    EventMeetingsDTO toDtoTitle(EventMeetings eventMeetings);
 }

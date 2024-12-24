@@ -99,7 +99,7 @@ export const RolesUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 {permissions
                   ? permissions.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.permissionName}
                       </option>
                     ))
                   : null}

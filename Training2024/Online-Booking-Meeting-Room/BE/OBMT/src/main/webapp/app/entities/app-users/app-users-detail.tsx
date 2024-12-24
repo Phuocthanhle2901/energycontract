@@ -106,7 +106,7 @@ export const AppUsersDetail = (props: RouteComponentProps<{ id: string }>) => {
             {appUsersEntity.roles
               ? appUsersEntity.roles.map((val, i) => (
                   <span key={val.id}>
-                    <a>{val.id}</a>
+                    <a>{val.roleName}</a>
                     {appUsersEntity.roles && i === appUsersEntity.roles.length - 1 ? '' : ', '}
                   </span>
                 ))
@@ -117,7 +117,7 @@ export const AppUsersDetail = (props: RouteComponentProps<{ id: string }>) => {
             {appUsersEntity.events
               ? appUsersEntity.events.map((val, i) => (
                   <span key={val.id}>
-                    <a>{val.id}</a>
+                    <a>{val.title}</a>
                     {appUsersEntity.events && i === appUsersEntity.events.length - 1 ? '' : ', '}
                   </span>
                 ))

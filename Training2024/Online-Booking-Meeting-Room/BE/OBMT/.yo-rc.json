@@ -1,5 +1,6 @@
 {
   "generator-jhipster": {
+    "applicationIndex": 0,
     "applicationType": "monolith",
     "authenticationType": "jwt",
     "baseName": "obmr",
@@ -21,6 +22,7 @@
     "enableTranslation": false,
     "entities": ["AppUsers", "Roles", "Permissions", "MeetingRooms", "EventMeetings", "EventUsers"],
     "entitySuffix": "",
+    "gradleEnterpriseHost": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.6.0",
     "jwtSecretKey": "MTU2N2M3YTZmMGIyMjc2NDhiZGEyY2ViYTA4YjY5MzQxN2RhZjE5NzllYmM1ZDExYzc5Y2FlNGVlMDBlNWM0YjUxZjU4ZTE5NjNlMGNkMzNlZDY0YjM2MTcxYWIzNGNkMGMyYmY0NzY1MmMyNWVjNTM4ZDE0YWVhODc3MzQ1M2Q=",
@@ -29,6 +31,7 @@
     "messageBroker": false,
     "nativeLanguage": "en",
     "otherModules": [],
+    "packageFolder": "intern/team3/obmr",
     "packageName": "intern.team3.obmr",
     "pages": [],
     "prodDatabaseType": "postgresql",

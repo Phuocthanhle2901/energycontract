@@ -10,14 +10,15 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { PermissionsMapper.class })
 public interface RolesMapper extends EntityMapper<RolesDTO, Roles> {
-    @Mapping(target = "permissions", source = "permissions", qualifiedByName = "idSet")
+    @Mapping(target = "permissions", source = "permissions", qualifiedByName = "permissionNameSet")
     RolesDTO toDto(Roles s);
-
-    @Named("idSet")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    Set<RolesDTO> toDtoIdSet(Set<Roles> roles);
 
     @Mapping(target = "removePermissions", ignore = true)
     Roles toEntity(RolesDTO rolesDTO);
+
+    @Named("roleNameSet")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "roleName", source = "roleName")
+    Set<RolesDTO> toDtoRoleNameSet(Set<Roles> roles);
 }

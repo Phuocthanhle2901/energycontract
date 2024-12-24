@@ -122,10 +122,12 @@ export const EventUsers = (props: RouteComponentProps<{ url: string }>) => {
                     </Button>
                   </td>
                   <td>{eventUsers.isOrganizer ? 'true' : 'false'}</td>
-                  <td>{eventUsers.appusers ? <Link to={`app-users/${eventUsers.appusers.id}`}>{eventUsers.appusers.id}</Link> : ''}</td>
+                  <td>
+                    {eventUsers.appusers ? <Link to={`app-users/${eventUsers.appusers.id}`}>{eventUsers.appusers.username}</Link> : ''}
+                  </td>
                   <td>
                     {eventUsers.eventMeeting ? (
-                      <Link to={`event-meetings/${eventUsers.eventMeeting.id}`}>{eventUsers.eventMeeting.id}</Link>
+                      <Link to={`event-meetings/${eventUsers.eventMeeting.id}`}>{eventUsers.eventMeeting.title}</Link>
                     ) : (
                       ''
                     )}

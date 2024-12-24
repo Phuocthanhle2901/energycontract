@@ -9,8 +9,9 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface MeetingRoomsMapper extends EntityMapper<MeetingRoomsDTO, MeetingRooms> {
-    @Named("id")
+    @Named("name")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    MeetingRoomsDTO toDtoId(MeetingRooms meetingRooms);
+    @Mapping(target = "name", source = "name")
+    MeetingRoomsDTO toDtoName(MeetingRooms meetingRooms);
 }

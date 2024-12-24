@@ -34,7 +34,7 @@ export const RolesDetail = (props: RouteComponentProps<{ id: string }>) => {
             {rolesEntity.permissions
               ? rolesEntity.permissions.map((val, i) => (
                   <span key={val.id}>
-                    <a>{val.id}</a>
+                    <a>{val.permissionName}</a>
                     {rolesEntity.permissions && i === rolesEntity.permissions.length - 1 ? '' : ', '}
                   </span>
                 ))

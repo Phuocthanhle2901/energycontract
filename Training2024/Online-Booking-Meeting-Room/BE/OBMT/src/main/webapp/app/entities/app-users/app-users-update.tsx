@@ -230,7 +230,7 @@ export const AppUsersUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 {roles
                   ? roles.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.roleName}
                       </option>
                     ))
                   : null}
@@ -240,7 +240,7 @@ export const AppUsersUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 {eventMeetings
                   ? eventMeetings.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.title}
                       </option>
                     ))
                   : null}

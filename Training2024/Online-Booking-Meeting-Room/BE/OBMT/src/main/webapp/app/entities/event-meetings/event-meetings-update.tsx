@@ -179,7 +179,7 @@ export const EventMeetingsUpdate = (props: RouteComponentProps<{ id: string }>) 
                 {meetingRooms
                   ? meetingRooms.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.name}
                       </option>
                     ))
                   : null}

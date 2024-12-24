@@ -1,5 +1,5 @@
 {
-  "applications": "*",
+  "applications": ["obmr"],
   "changelogDate": "20241222144422",
   "dto": "mapstruct",
   "embedded": false,
@@ -86,6 +86,7 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityField": "roleName",
       "otherEntityName": "roles",
       "otherEntityRelationshipName": "appusers",
       "ownerSide": true,
@@ -93,6 +94,7 @@
       "relationshipType": "many-to-many"
     },
     {
+      "otherEntityField": "title",
       "otherEntityName": "eventMeetings",
       "otherEntityRelationshipName": "members",
       "ownerSide": true,

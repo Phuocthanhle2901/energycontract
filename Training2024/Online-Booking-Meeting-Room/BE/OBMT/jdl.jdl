@@ -1,72 +1,99 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName obmr
+    blueprints []
+    buildTool maven
+    cacheProvider no
+    clientFramework react
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1734878371617
+    databaseType sql
+    devDatabaseType postgresql
+    dtoSuffix DTO
+    enableGradleEnterprise false
+    enableHibernateCache false
+    enableSwaggerCodegen false
+    enableTranslation false
+    gradleEnterpriseHost ""
+    jhiPrefix jhi
+    jhipsterVersion "7.6.0"
+    jwtSecretKey "MTU2N2M3YTZmMGIyMjc2NDhiZGEyY2ViYTA4YjY5MzQxN2RhZjE5NzllYmM1ZDExYzc5Y2FlNGVlMDBlNWM0YjUxZjU4ZTE5NjNlMGNkMzNlZDY0YjM2MTcxYWIzNGNkMGMyYmY0NzY1MmMyNWVjNTM4ZDE0YWVhODc3MzQ1M2Q="
+    languages [en, fr]
+    messageBroker false
+    nativeLanguage en
+    otherModules []
+    packageName intern.team3.obmr
+    prodDatabaseType postgresql
+    reactive false
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType eureka
+    skipUserManagement false
+    testFrameworks []
+    websocket false
+    withAdminUi true
+  }
+
+  entities AppUsers, EventMeetings, EventUsers, MeetingRooms, Permissions, Roles
+}
+
 entity AppUsers {
-    username String required
-    password String required
-    email String required
-    phoneNumber String required
-    resetToken String
-    resetTokenCreatedAt ZonedDateTime
-    otpCode String
-    otpCodeCreatedAt ZonedDateTime
-    otpCodeExpiredAt ZonedDateTime
-    otpIsVerified Boolean required
-    rememberToken String
-    isRemembered Boolean required
-    deviceInfo String
-    createdAt ZonedDateTime required
-    updatedAt ZonedDateTime required
-    status String required
+  username String required
+  password String required
+  email String required
+  phoneNumber String required
+  resetToken String
+  resetTokenCreatedAt ZonedDateTime
+  otpCode String
+  otpCodeCreatedAt ZonedDateTime
+  otpCodeExpiredAt ZonedDateTime
+  otpIsVerified Boolean required
+  rememberToken String
+  isRemembered Boolean required
+  deviceInfo String
+  createdAt ZonedDateTime required
+  updatedAt ZonedDateTime required
+  status String required
 }
-
-entity Roles {
-    roleName String required
-}
-
-entity Permissions {
-    permissionName String required
-}
-
-entity MeetingRooms {
-    name String required
-    description String required
-    capacity Integer required
-    createdAt ZonedDateTime required
-    updatedAt ZonedDateTime required
-}
-
 entity EventMeetings {
-    title String required
-    startTime ZonedDateTime required
-    endTime ZonedDateTime required
-    description String required
-    createdAt ZonedDateTime required
-    updatedAt ZonedDateTime required
-    status String required
+  title String required
+  startTime ZonedDateTime required
+  endTime ZonedDateTime required
+  description String required
+  createdAt ZonedDateTime required
+  updatedAt ZonedDateTime required
+  status String required
 }
-
 entity EventUsers {
-    isOrganizer Boolean required
+  isOrganizer Boolean required
 }
-
+entity MeetingRooms {
+  name String required
+  description String required
+  capacity Integer required
+  createdAt ZonedDateTime required
+  updatedAt ZonedDateTime required
+}
+entity Permissions {
+  permissionName String required
+}
+entity Roles {
+  roleName String required
+}
+relationship ManyToOne {
+  EventMeetings{meetingRoom(name)} to MeetingRooms
+  EventUsers{appusers(username)} to AppUsers
+  EventUsers{eventMeeting(title)} to EventMeetings
+}
 relationship ManyToMany {
-    AppUsers{roles} to Roles{appusers}
-    Roles{permissions} to Permissions{roles}
-    AppUsers{events} to EventMeetings{members}
+  AppUsers{roles(roleName)} to Roles{appusers(username)}
+  AppUsers{events(title)} to EventMeetings{members(username)}
+  Roles{permissions(permissionName)} to Permissions{roles(roleName)}
 }
 
-relationship ManyToOne {
-    EventMeetings{meetingRoom} to MeetingRooms
-}
-
-relationship ManyToOne {
-    EventUsers{appusers} to AppUsers
-    EventUsers{eventMeeting} to EventMeetings
-}
-
-// Set pagination options
-paginate all with pagination
-
-// Use Data Transfer Objects (DTO)
-dto * with mapstruct
-
-// Set service options to all except few
-service all with serviceImpl
+dto AppUsers, EventMeetings, EventUsers, MeetingRooms, Permissions, Roles with mapstruct
+paginate AppUsers, EventMeetings, EventUsers, MeetingRooms, Permissions, Roles with pagination
+service AppUsers, EventMeetings, EventUsers, MeetingRooms, Permissions, Roles with serviceImpl

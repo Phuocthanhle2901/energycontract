@@ -10,16 +10,17 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { RolesMapper.class, EventMeetingsMapper.class })
 public interface AppUsersMapper extends EntityMapper<AppUsersDTO, AppUsers> {
-    @Mapping(target = "roles", source = "roles", qualifiedByName = "idSet")
-    @Mapping(target = "events", source = "events", qualifiedByName = "idSet")
+    @Mapping(target = "roles", source = "roles", qualifiedByName = "roleNameSet")
+    @Mapping(target = "events", source = "events", qualifiedByName = "titleSet")
     AppUsersDTO toDto(AppUsers s);
-
-    @Named("id")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    AppUsersDTO toDtoId(AppUsers appUsers);
 
     @Mapping(target = "removeRoles", ignore = true)
     @Mapping(target = "removeEvents", ignore = true)
     AppUsers toEntity(AppUsersDTO appUsersDTO);
+
+    @Named("username")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "username", source = "username")
+    AppUsersDTO toDtoUsername(AppUsers appUsers);
 }

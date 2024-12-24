@@ -30,9 +30,9 @@ export const EventUsersDetail = (props: RouteComponentProps<{ id: string }>) => 
           </dt>
           <dd>{eventUsersEntity.isOrganizer ? 'true' : 'false'}</dd>
           <dt>Appusers</dt>
-          <dd>{eventUsersEntity.appusers ? eventUsersEntity.appusers.id : ''}</dd>
+          <dd>{eventUsersEntity.appusers ? eventUsersEntity.appusers.username : ''}</dd>
           <dt>Event Meeting</dt>
-          <dd>{eventUsersEntity.eventMeeting ? eventUsersEntity.eventMeeting.id : ''}</dd>
+          <dd>{eventUsersEntity.eventMeeting ? eventUsersEntity.eventMeeting.title : ''}</dd>
         </dl>
         <Button tag={Link} to="/event-users" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

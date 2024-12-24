@@ -68,7 +68,7 @@ export const EventMeetingsDetail = (props: RouteComponentProps<{ id: string }>) 
           </dt>
           <dd>{eventMeetingsEntity.status}</dd>
           <dt>Meeting Room</dt>
-          <dd>{eventMeetingsEntity.meetingRoom ? eventMeetingsEntity.meetingRoom.id : ''}</dd>
+          <dd>{eventMeetingsEntity.meetingRoom ? eventMeetingsEntity.meetingRoom.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/event-meetings" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

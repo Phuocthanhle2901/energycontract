@@ -10,8 +10,9 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface PermissionsMapper extends EntityMapper<PermissionsDTO, Permissions> {
-    @Named("idSet")
+    @Named("permissionNameSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    Set<PermissionsDTO> toDtoIdSet(Set<Permissions> permissions);
+    @Mapping(target = "permissionName", source = "permissionName")
+    Set<PermissionsDTO> toDtoPermissionNameSet(Set<Permissions> permissions);
 }
