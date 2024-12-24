@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity AppUsers.
+    -->
+    <changeSet id="20241222144422-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="app_users_id"
+                                 baseTableName="rel_app_users__roles"
+                                 constraintName="fk_rel_app_users__roles__app_users_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_users"/>
+
+        <addForeignKeyConstraint baseColumnNames="roles_id"
+                                 baseTableName="rel_app_users__roles"
+                                 constraintName="fk_rel_app_users__roles__roles_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="roles"/>
+
+        <addForeignKeyConstraint baseColumnNames="app_users_id"
+                                 baseTableName="rel_app_users__events"
+                                 constraintName="fk_rel_app_users__events__app_users_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_users"/>
+
+        <addForeignKeyConstraint baseColumnNames="events_id"
+                                 baseTableName="rel_app_users__events"
+                                 constraintName="fk_rel_app_users__events__events_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event_meetings"/>
+    </changeSet>
+</databaseChangeLog>

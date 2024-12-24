@@ -1,0 +1,26 @@
+.sidebarAdmin {
+  width: 250px;
+  /* height: calc(100vh - 70px - 40px); */
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.sidebar-closed {
+  width: 0;
+}
+
+.sidebar-open {
+  width: 250px;
+  box-shadow: var(--bs-box-shadow);
+  border-inline-end: 0px;
+}
+
+.ant-menu {
+  height: 100%;
+  border-right: none;
+}
+
+.ant-menu-item-selected {
+  background-color: #c2dcf0 !important;
+  color: #1B374D !important;
+}

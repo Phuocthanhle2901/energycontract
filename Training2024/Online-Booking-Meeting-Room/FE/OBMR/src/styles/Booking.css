@@ -1,0 +1,47 @@
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    height: calc(100vh - 70px - 40px);
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.sidebar.closed {
+    width: 0px;
+}
+
+
+/* component calender */
+.css-5wchs2-MuiDateCalendar-root {
+    width: auto !important;
+    height: 300px !important;
+    border-radius: 2%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.css-1chuxo2-MuiPickersCalendarHeader-label {
+    margin-right: 0px !important;
+}
+
+/* Schedule */
+.sx-react-calendar-wrapper {
+    max-width: 100vw;
+    height: 585px;
+    min-height: calc(100vh - 150px);
+    max-height: calc(100vh - 150px);
+}
+
+.meeting-item {
+    border: none;
+    background-color: rgba(245, 158, 11, 0.2);
+    border-left: 2px solid #F59E0B;
+}
+
+.btn-new-meeting{
+    background-color: #1B374D;
+    color: white;
+}
+.btn-new-meeting:hover{
+    background-color: #2C4A66;
+    color: white;
+}

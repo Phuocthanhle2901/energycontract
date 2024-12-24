@@ -1,0 +1,23 @@
+.app-header{
+    height: 70px;
+    background-color: #1B374D;
+}
+.app-footer{
+    background-color: #1B374D;
+}
+.btn-menu{
+    color: white;
+    font-size: 25px;
+}
+.btn-menu:hover{
+    background-color: #2C4A66;
+    color: white;
+}
+.btn-noti{
+    color: white;
+    font-size: 25px;
+}
+.btn-noti:hover{
+    background-color: #2C4A66;
+    color: white;
+}

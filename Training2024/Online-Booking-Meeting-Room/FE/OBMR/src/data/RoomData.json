@@ -1,0 +1,110 @@
+[
+    {
+     "id": 1,
+     "name": "Amsterdam",
+     "description": "abc",
+     "status": "Free",
+     "host": "Mike",
+     "balance": "",
+     "deposite": ""
+    },
+    {
+        "id": 2,
+        "name": "Phòng A",
+        "description": "phòng siêu to khổng lồ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 3,
+        "name": "Phòng B",
+        "description": "phòng vừa",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 4,
+        "name": "Phòng C",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 5,
+        "name": "Phòng D",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 6,
+        "name": "Phòng E",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 7,
+        "name": "Phòng F",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 8,
+        "name": "Phòng G",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 9,
+        "name": "Phòng H",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 10,
+        "name": "Phòng I",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 11,
+        "name": "Phòng J",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    },
+    {
+        "id": 12,
+        "name": "Phòng K",
+        "description": "phòng nhỏ",
+        "status": "Free",
+        "host": "",
+        "balance": "",
+        "deposite": ""
+    }
+]
