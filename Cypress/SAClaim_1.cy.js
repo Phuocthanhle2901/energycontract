@@ -225,7 +225,7 @@ describe('Claim Test Cases', () => {
             .next()
             .invoke('text')
             .then((status) => {
-                cy.wait(1000);  // Thêm thời gian chờ giữa các bước nếu cần
+                cy.wait(1000);  
     
                 const allowedStatuses = ['Vraag bundeling', 'Bouw fase', 'On hold', 'x-Wave', 'Beheer fase'];
                 const cleanedStatus = status.trim().replace(/\s+/g, '').toLowerCase();
