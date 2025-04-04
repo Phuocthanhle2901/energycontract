@@ -20,7 +20,7 @@ describe('Claim Test Cases', () => {
                 .should('not.be.empty')
                 .then(($body) => {
                     cy.wrap($body).invoke('text').then((iframeText) => {
-                        cy.log('IFRAME TEXT:', iframeText); // Kiểm tra nội dung iframe
+                        cy.log('IFRAME TEXT:', iframeText); 
                         const otp = (iframeText.match(/\d{6}/) || [])[0];
                         if (otp) {
                             cy.log('Extracted OTP:', otp);
