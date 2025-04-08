@@ -20,7 +20,7 @@ describe('Claim Test Cases', () => {
                 .should('not.be.empty')
                 .then(($body) => {
                     cy.wrap($body).invoke('text').then((iframeText) => {
-                        cy.log('IFRAME TEXT:', iframeText); // Kiểm tra nội dung iframe
+                        cy.log('IFRAME TEXT:', iframeText); 
                         const otp = (iframeText.match(/\d{6}/) || [])[0];
                         if (otp) {
                             cy.log('Extracted OTP:', otp);
@@ -225,7 +225,7 @@ describe('Claim Test Cases', () => {
             .next()
             .invoke('text')
             .then((status) => {
-                cy.wait(1000);  // Thêm thời gian chờ giữa các bước nếu cần
+                cy.wait(1000);  
     
                 const allowedStatuses = ['Vraag bundeling', 'Bouw fase', 'On hold', 'x-Wave', 'Beheer fase'];
                 const cleanedStatus = status.trim().replace(/\s+/g, '').toLowerCase();
