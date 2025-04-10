@@ -33,8 +33,8 @@ describe('SA Claim Test Cases', () => {
   });
 
 
-  // Testcase 1: SA can claim in area status 2
-  it('Testcase 1: SA can claim in area status 2', () => {
+  // TC1: SA can claim in area status 2
+  it('TC1: SA can claim in area status 2', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -89,8 +89,8 @@ describe('SA Claim Test Cases', () => {
         })
       })
 
-  // Testcase 2: SA can claim in area status 4
-  it('Testcase 2: SA can claim in area status 4', () => {
+  // TC2: SA can claim in area status 4
+  it('TC2: SA can claim in area status 4', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -143,8 +143,8 @@ describe('SA Claim Test Cases', () => {
         });
     });
 
-  // Testcase 3: SA can claim in area status 5
-  it('Testcase 3: SA can claim in area status 5', () => {
+  // TC3: SA can claim in area status 5
+  it('TC3: SA can claim in area status 5', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -197,8 +197,8 @@ describe('SA Claim Test Cases', () => {
         });
     });
 
-  // Testcase 4: SA can claim in area status 6
-  it('Testcase 4: SA can claim in area status 6', () => {
+  // TC4: SA can claim in area status 6
+  it('TC4: SA can claim in area status 6', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -251,8 +251,8 @@ describe('SA Claim Test Cases', () => {
         });
     });
 
-  // Testcase 5: SA can claim in area status 8
-  it('Testcase 5: SA can claim in area status 8', () => {
+  // TC5: SA can claim in area status 8
+  it('TC5: SA can claim in area status 8', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -305,8 +305,8 @@ describe('SA Claim Test Cases', () => {
         });
     });
 
-  // Testcase 6: SA cannot claim in area status 1
-  it('Testcase 6: SA cannot claim in area status 1', () => {
+  // TC6: SA cannot claim in area status 1
+  it('TC6: SA cannot claim in area status 1', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -348,8 +348,8 @@ describe('SA Claim Test Cases', () => {
       });
   });
 })
-  // Testcase 7: SA cannot claim in area status 3
-  it('Testcase 7: SA cannot claim in area status 3', () => {
+  // TC7: SA cannot claim in area status 3
+  it('TC7: SA cannot claim in area status 3', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
