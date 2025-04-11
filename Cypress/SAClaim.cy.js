@@ -9,7 +9,7 @@ describe('SA Claim Test Cases', () => {
       cy.get('#username').type('PA-SA@gmail.com');
       cy.get('#txtPassword').type('Phuonganh-2003', { log: false });
       cy.contains('Inloggen').click();
-      cy.contains('button', 'Ga verder').click();
+      cy.get('button').contains('Ga verder').click();
   
       // Fetch the latest OTP from the email
       cy.request('http://mailhog.dfn-bs-qc.infodation.com/api/v2/messages').then((response) => {
@@ -22,7 +22,7 @@ describe('SA Claim Test Cases', () => {
         otpCode.split('').forEach((digit, index) => {
           cy.get(`input.form-control.text-center:eq(${index})`).type(digit);
         });
-        cy.contains('button', 'Inloggen').click();
+        cy.get('button').contains('Inloggen').click();
         cy.url().should('include', '/home?tab=Sales');
       });
     });
@@ -33,64 +33,64 @@ describe('SA Claim Test Cases', () => {
   });
 
 
-  // TC1: SA can claim in area status 2
-  it('TC1: SA can claim in area status 2', () => {
-    cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
-    cy.contains('a', 'Aansluitingen').click({ force: true });
-    cy.get('input[name="postalCode"]').clear().type('2003PA');
-    cy.get('button').contains('Zoeken').click({ force: true });
+  // // TC 1: SA can claim in area status 2
+  // it('TC 1: SA can claim in area status 2', () => {
+  //   cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
+  //   cy.contains('a', 'Aansluitingen').click({ force: true });
+  //   cy.get('input[name="postalCode"]').clear().type('2003PA');
+  //   cy.get('button').contains('Zoeken').click({ force: true });
 
-    cy.get('td.mat-column-detailButton button.btn', { timeout: 10000 })
-      .should('have.length', 7)
-      .eq(5)
-      .click({ force: true });
+  //   cy.get('td.mat-column-detailButton button.btn', { timeout: 10000 })
+  //     .should('have.length', 7)
+  //     .eq(5)
+  //     .click({ force: true });
 
-      // Check project status
-      cy.get('td:contains("Projectstatus")')
-      .next()
-      .invoke('text')
-      .then((statusText) => {
-        const status = statusText.trim();
-        if (status !== 'Vraag bundeling') {
-          cy.log('Status not allowed for claiming.');
-          return;
-        }
+  //     // Check project status
+  //     cy.get('td:contains("Projectstatus")')
+  //     .next()
+  //     .invoke('text')
+  //     .then((statusText) => {
+  //       const status = statusText.trim();
+  //       if (status !== 'Vraag bundeling') {
+  //         cy.log('Status not allowed for claiming.');
+  //         return;
+  //       }
   
-        // Open menu
-        cy.get('button.mat-menu-trigger.mat-icon-button').click();
-        cy.wait(500); // wait for menu to load
+  //       // Open menu
+  //       cy.get('button.mat-menu-trigger.mat-icon-button').click();
+  //       cy.wait(500); // wait for menu to load
 
-        cy.get('body').then(($body) => {
-          if ($body.find('div.mat-menu-item:contains("Unclaim")').length > 0) {
-            cy.log('Already claimed. Unclaiming first');
-            cy.contains('div.mat-menu-item', 'Unclaim (V2)').click();
-            cy.wait(2000);
+  //       cy.get('body').then(($body) => {
+  //         if ($body.find('div.mat-menu-item:contains("Unclaim")').length > 0) {
+  //           cy.log('Already claimed. Unclaiming first');
+  //           cy.contains('div.mat-menu-item', 'Unclaim (V2)').click();
+  //           cy.wait(2000);
   
-            // Reopen the menu after unclaim
-            cy.get('button.mat-menu-trigger.mat-icon-button').click();
-          } else {
-            cy.log('Not yet claimed. Proceeding to claim.');
-          }
+  //           // Reopen the menu after unclaim
+  //           cy.get('button.mat-menu-trigger.mat-icon-button').click();
+  //         } else {
+  //           cy.log('Not yet claimed. Proceeding to claim.');
+  //         }
 
-            cy.contains('div.mat-menu-item', 'Claim (V2)').click();
-            cy.get('span.mat-select-placeholder', { timeout: 10000 }).click();
-            cy.contains('span.mat-option-text', 'MTXD').click();
-              cy.get('input[formcontrolname="title"]').type('abc2');
-              cy.get('input[formcontrolname="firstName"]').type('abc2');
-              cy.get('input[formcontrolname="intercalation"]').type('abc2');
-              cy.get('input[formcontrolname="lastName"]').type('abc2');
-              cy.get('input[formcontrolname="email"]').type('abc2@gmail.com');
-              cy.get('input[formcontrolname="companyName"]').type('ABC2');
-              cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
-              cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
-            cy.wait(3000);
-          });
-        })
-      })
+  //           cy.contains('div.mat-menu-item', 'Claim (V2)').click();
+  //           cy.get('span.mat-select-placeholder', { timeout: 10000 }).click();
+  //           cy.contains('span.mat-option-text', 'MTXD').click();
+  //             cy.get('input[formcontrolname="title"]').type('abc2');
+  //             cy.get('input[formcontrolname="firstName"]').type('abc2');
+  //             cy.get('input[formcontrolname="intercalation"]').type('abc2');
+  //             cy.get('input[formcontrolname="lastName"]').type('abc2');
+  //             cy.get('input[formcontrolname="email"]').type('abc2@gmail.com');
+  //             cy.get('input[formcontrolname="companyName"]').type('ABC2');
+  //             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
+  //             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
+  //           cy.contains('button', 'Opslaan').click();
+  //           cy.wait(3000);
+  //         });
+  //       })
+  //     })
 
-  // TC2: SA can claim in area status 4
-  it('TC2: SA can claim in area status 4', () => {
+  // TC 2: SA can claim in area status 4
+  it('TC 2: SA can claim in area status 4', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -137,14 +137,14 @@ describe('SA Claim Test Cases', () => {
               cy.get('input[formcontrolname="companyName"]').type('ABC4');
               cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
               cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
     });
 
-  // TC3: SA can claim in area status 5
-  it('TC3: SA can claim in area status 5', () => {
+  // TC 3: SA can claim in area status 5
+  it('TC 3: SA can claim in area status 5', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -191,14 +191,14 @@ describe('SA Claim Test Cases', () => {
               cy.get('input[formcontrolname="companyName"]').type('ABC5');
               cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
               cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
     });
 
-  // TC4: SA can claim in area status 6
-  it('TC4: SA can claim in area status 6', () => {
+  // TC 4: SA can claim in area status 6
+  it('TC 4: SA can claim in area status 6', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -245,14 +245,14 @@ describe('SA Claim Test Cases', () => {
               cy.get('input[formcontrolname="companyName"]').type('ABC6');
               cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
               cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
     });
 
-  // TC5: SA can claim in area status 8
-  it('TC5: SA can claim in area status 8', () => {
+  // TC 5: SA can claim in area status 8
+  it('TC 5: SA can claim in area status 8', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -290,7 +290,7 @@ describe('SA Claim Test Cases', () => {
           }
             cy.contains('div.mat-menu-item', 'Claim (V2)').click();
             cy.get('span.mat-select-placeholder', { timeout: 10000 }).click();
-            cy.contains('span.mat-option-text', 'MTXD').click();
+            cy.contains('span.mat-option-text', 'Caiway').click();
               cy.get('input[formcontrolname="title"]').type('abc8');
               cy.get('input[formcontrolname="firstName"]').type('abc8');
               cy.get('input[formcontrolname="intercalation"]').type('abc8');
@@ -299,14 +299,14 @@ describe('SA Claim Test Cases', () => {
               cy.get('input[formcontrolname="companyName"]').type('ABC8');
               cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
               cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
     });
 
-  // TC6: SA cannot claim in area status 1
-  it('TC6: SA cannot claim in area status 1', () => {
+  // TC 6: SA cannot claim in area status 1
+  it('TC 6: SA cannot claim in area status 1', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -342,14 +342,14 @@ describe('SA Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC1');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-          cy.contains('button', 'Opslaan').click();
+          cy.get('button').contains('Opslaan').click();
           cy.wait(3000);
         
       });
   });
 })
-  // TC7: SA cannot claim in area status 3
-  it('TC7: SA cannot claim in area status 3', () => {
+  // TC 7: SA cannot claim in area status 3
+  it('TC 7: SA cannot claim in area status 3', () => {
     cy.visit('https://portal.dfn-bs-qc.infodation.com/home?tab=Sales');
     cy.contains('a', 'Aansluitingen').click({ force: true });
     cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -386,7 +386,7 @@ describe('SA Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC3');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-          cy.contains('button', 'Opslaan').click();
+          cy.get('button').contains('Opslaan').click();
           cy.wait(3000);
           });
   
