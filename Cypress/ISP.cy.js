@@ -194,9 +194,10 @@ describe('ISP Claim Test Cases', () => {
       .should('have.length', 6)
       .eq(0)
       .click({ force: true });
+      cy.log('You do not have permission to see this infomation!');
     });
 
-    // Testcase 6: ISP cannot claim in area status 3
+    // Testcase 5: ISP cannot claim in area status 3
     it('ISP cannot claim in area status 3', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
