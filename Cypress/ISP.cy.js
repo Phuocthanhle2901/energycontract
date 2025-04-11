@@ -7,7 +7,7 @@ describe('ISP Claim Test Cases', () => {
       cy.get('#username').type('PA-ISP@gmail.com');
       cy.get('#txtPassword').type('Phuonganh-2003', { log: false });
       cy.contains('Inloggen').click();
-      cy.contains('button', 'Ga verder').click();
+      cy.get('button').contains('Ga verder').click();
 
       cy.request('http://mailhog.dfn-bs-qc.infodation.com/api/v2/messages').then((response) => {
         const latestMessage = response.body.items[0]; // Get the latest message
@@ -18,7 +18,7 @@ describe('ISP Claim Test Cases', () => {
         otpCode.split('').forEach((digit, index) => {
           cy.get(`input.form-control.text-center:eq(${index})`).type(digit);
         });
-        cy.contains('button', 'Inloggen').click();
+        cy.get('button').contains('Inloggen').click();
         cy.url().should('include', '/aansluiting');
       });
     });
@@ -73,7 +73,7 @@ describe('ISP Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC4');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
@@ -125,7 +125,7 @@ describe('ISP Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC5');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
@@ -177,7 +177,7 @@ describe('ISP Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC6');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
@@ -232,7 +232,7 @@ describe('ISP Claim Test Cases', () => {
             cy.get('input[formcontrolname="companyName"]').type('ABC3');
             cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
             cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-            cy.contains('button', 'Opslaan').click();
+            cy.get('button').contains('Opslaan').click();
             cy.wait(3000);
           });
         });
