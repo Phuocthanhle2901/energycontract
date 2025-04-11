@@ -185,8 +185,8 @@ describe('ISP Claim Test Cases', () => {
         });
     });
 
-    // Testcase 4: ISP cannot claim in area status 6
-    it('ISP cannot claim in area status 6', () => {
+    // Testcase 4: ISP can claim in area status 6
+    it('ISP can claim in area status 6', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
       cy.get('input[name="postalCode"]').clear().type('2003PA');
@@ -197,7 +197,44 @@ describe('ISP Claim Test Cases', () => {
       .eq(1)
       .click({ force: true });
     
-      cy.log('You don\'t have permission to claim this project.');
+      // Check project status
+      cy.get('td:contains("Projectstatus")')
+        .next()
+        .invoke('text')
+        .then((statusText) => {
+          const status = statusText.trim();
+          if (status !== 'x-Wave') {
+            cy.log('Status not allowed for claiming.');
+            return;
+          }
+    
+          // Open menu
+          cy.get('button.mat-menu-trigger.mat-icon-button').click();
+          cy.get('body').then(($body) => {
+            if ($body.find('div.mat-menu-item:contains("Unclaim")').length > 0) {
+              cy.log('Already claimed. Unclaiming first');
+              cy.contains('div.mat-menu-item', 'Unclaim (V2)').click();
+              cy.wait(2000);
+    
+              // Reopen the menu after unclaim
+              cy.get('button.mat-menu-trigger.mat-icon-button').click();
+            } else {
+              cy.log('Not yet claimed. Proceeding to claim.');
+            }
+
+            cy.contains('div.mat-menu-item', 'Claim (V2)').click();
+            cy.get('input[formcontrolname="title"]').type('abc6');
+            cy.get('input[formcontrolname="firstName"]').type('abc6');
+            cy.get('input[formcontrolname="intercalation"]').type('abc6');
+            cy.get('input[formcontrolname="lastName"]').type('abc6');
+            cy.get('input[formcontrolname="email"]').type('abc6@gmail.com');
+            cy.get('input[formcontrolname="companyName"]').type('ABC6');
+            cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
+            cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
+            cy.contains('button', 'Opslaan').click();
+            cy.wait(3000);
+          });
+        });
     });
 
     // Testcase 5: ISP cannot claim in area status 8
