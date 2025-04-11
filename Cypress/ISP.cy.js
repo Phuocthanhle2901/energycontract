@@ -26,62 +26,8 @@ describe('ISP Claim Test Cases', () => {
     cy.viewport(1600, 800);
     cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
   });
-
-    // // Testcase 1: ISP can claim in area status 2
-    // it('ISP can claim in area status 2', () => {
-    //   cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
-    //   cy.contains('a', 'Aansluitingen').click({ force: true });
-    //   cy.get('input[name="postalCode"]').clear().type('2003PA');
-    //   cy.get('button').contains('Zoeken').click({ force: true });
-  
-    //   cy.get('td.mat-column-detailButton button.btn', { timeout: 10000 })
-    //   .should('have.length', 6)
-    //   .eq(5)
-    //   .click({ force: true });
     
-    //   // Check project status
-    //   cy.get('td:contains("Projectstatus")')
-    //     .next()
-    //     .invoke('text')
-    //     .then((statusText) => {
-    //       const status = statusText.trim();
-    //       if (status !== 'Vraag bundeling') {
-    //         cy.log('Status not allowed for claiming.');
-    //         return;
-    //       }
-    
-    //       // Open menu
-    //       cy.get('button.mat-menu-trigger.mat-icon-button').click();
-    //       cy.wait(500); // wait for menu to load
-
-    //       cy.get('body').then(($body) => {
-    //         if ($body.find('div.mat-menu-item:contains("Unclaim")').length > 0) {
-    //           cy.log('Already claimed. Unclaiming first');
-    //           cy.contains('div.mat-menu-item', 'Unclaim (V2)').click();
-    //           cy.wait(2000);
-    
-    //           // Reopen the menu after unclaim
-    //           cy.get('button.mat-menu-trigger.mat-icon-button').click();
-    //         } else {
-    //           cy.log('Not yet claimed. Proceeding to claim.');
-    //         }
-
-    //         cy.contains('div.mat-menu-item', 'Claim (V2)').click();
-    //         cy.get('input[formcontrolname="title"]').type('abc2');
-    //         cy.get('input[formcontrolname="firstName"]').type('abc2');
-    //         cy.get('input[formcontrolname="intercalation"]').type('abc2');
-    //         cy.get('input[formcontrolname="lastName"]').type('abc2');
-    //         cy.get('input[formcontrolname="email"]').type('abc2@gmail.com');
-    //         cy.get('input[formcontrolname="companyName"]').type('ABC2');
-    //         cy.get('input[formcontrolname="phoneNumber"]').type('0123456789');
-    //         cy.get('input[formcontrolname="phoneNumber2"]').type('9876543210');
-    //         cy.get('button').contains('Opslaan').click();
-    //         cy.wait(3000);
-    //       });
-    //     });
-    // });
-    
-    // Testcase 2: ISP can claim in area status 4
+    // Testcase 1: ISP can claim in area status 4
     it('ISP can claim in area status 4', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
@@ -133,7 +79,7 @@ describe('ISP Claim Test Cases', () => {
         });
     });
 
-    // Testcase 3: ISP can claim in area status 5
+    // Testcase 2: ISP can claim in area status 5
     it('ISP can claim in area status 5', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
@@ -185,7 +131,7 @@ describe('ISP Claim Test Cases', () => {
         });
     });
 
-    // Testcase 4: ISP can claim in area status 6
+    // Testcase 3: ISP can claim in area status 6
     it('ISP can claim in area status 6', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
@@ -237,7 +183,7 @@ describe('ISP Claim Test Cases', () => {
         });
     });
 
-    // Testcase 5: ISP cannot claim in area status 8
+    // Testcase 4: ISP cannot claim in area status 8
     it('ISP cannot claim in area status 8', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
@@ -291,7 +237,7 @@ describe('ISP Claim Test Cases', () => {
         });
     });
 
-    // Testcase 7: ISP cannot claim in area status 1
+    // Testcase 5: ISP cannot claim in area status 1
     it('ISP cannot claim in area status 1', () => {
       cy.visit('https://portal.dfn-bs-qc.infodation.com/aansluiting');
       cy.contains('a', 'Aansluitingen').click({ force: true });
