@@ -96,5 +96,5 @@ Sáu khi Docker chạy, Database sẽ trống ( lần đầu tiên chạy). Ch�
 ```bash
 dotnet ef database update \
 --project src/CustomerService/CustomerService.Infrastructure/CustomerService.Infrastructure.csproj \
---startup-project src/CustomerService/CustomerService.API/CustomerService.API.csproj
+--startup-project src/CustomerService/CustomerService.API/CustomerService.Api.csproj
 ```
