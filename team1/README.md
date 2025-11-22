@@ -74,3 +74,27 @@ Responsible for:
 - old_value (JSON)  
 - new_value (JSON)  
 - timestamp
+---
+
+## 🐳 Hướng dẫn Setup Database (Docker) cho Team
+
+Để đảm bảo môi trường phát triển đồng nhất, chúng ta sử dụng PostgreSQL chạy trên Docker.
+
+### Bước 1: Cài đặt
+* Cài đặt [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+* Đảm bảo Docker đang chạy (Icon cá voi không còn chuyển động).
+
+### Bước 2: Khởi động Database
+Mở Terminal tại thư mục `Backend/` (nơi chứa file `docker-compose.yml`) và chạy:
+
+```bash
+docker-compose up -d
+```
+- Lệnh này sẽ tải image PostgreSQL và chạy container ngầm
+### Bước 3: Cập nhật cấu trúc bảng (Migration)
+Sáu khi Docker chạy, Database sẽ trống ( lần đầu tiên chạy). Chạy lệnh sau để tạo bảng từ code:
+```bash
+dotnet ef database update \
+--project src/CustomerService/CustomerService.Infrastructure/CustomerService.Infrastructure.csproj \
+--startup-project src/CustomerService/CustomerService.API/CustomerService.API.csproj
+```
