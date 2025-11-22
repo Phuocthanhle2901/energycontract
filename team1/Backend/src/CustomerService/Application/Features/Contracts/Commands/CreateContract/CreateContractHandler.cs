@@ -18,6 +18,7 @@ public class CreateContractHandler : IRequestHandler<CreateContract, int>
     {
         var contract = _mapper.Map<Contract>(request);
         contract.ContractNumber = Guid.NewGuid().ToString().Substring(0,8).ToUpper();
+        contract.StartDate = DateTime.Now;
         var newContract = await _contractRepository.AddContract(contract);
         return newContract.Id;
     }

@@ -9,16 +9,11 @@ namespace Infrastructure;
 
 public static class InfrastructureServiceRegistration
 {
-    
-
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+     
         services.AddDbContext<EnergyDbContext>(options =>
-            // CŨ: options.UseSqlServer(...)  <-- Xóa dòng này
-        
-            // MỚI: Dùng PostgreSQL
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
-        );
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IContractRepository, ContractRepository>();
     
