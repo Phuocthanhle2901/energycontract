@@ -2,12 +2,13 @@ using Application.DTOs;
 using Application.Features.Contracts.Commands.CreateContract;
 using Application.Features.Contracts.Commands.DeleteContract;
 using Application.Features.Contracts.Commands.GetContract;
+using Application.Features.Contracts.Commands.GetContractsByChoice;
 using Application.Features.Contracts.Commands.UpdateContract;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/contracts")]
 public class ContractController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -71,7 +72,15 @@ public class ContractController : ControllerBase
 
         return Ok(result); // 200: Thành công
     }
-    // 4. DELETE: Xóa hợp đồng
+    // 4. Get: Xem toàn bộ hợp đồng
+    [HttpGet]
+    public async Task<ActionResult<List<ContractDto>>> GetAll([FromQuery] int limit =0)
+    {
+        var query = new GetContractsByChoice{Limit =  limit};
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+    // 5. DELETE: Xóa hợp đồng
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

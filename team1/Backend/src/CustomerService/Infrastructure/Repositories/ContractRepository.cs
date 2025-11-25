@@ -41,4 +41,19 @@ public class ContractRepository : IContractRepository
         _dbContext.Contracts.Remove(contract);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<List<Contract>> GetAllContracts(int limit = 0)
+    {
+        var query = _dbContext.Contracts
+            .Include(c => c.Address)
+            .Include(c => c.Reseller)
+            .AsNoTracking()
+            .OrderByDescending(c => c.Id)
+            .AsQueryable();
+        if (limit > 0)
+        {
+            query = query.Take(limit);
+        }
+        return await query.ToListAsync();
+    }
 }

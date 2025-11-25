@@ -8,4 +8,5 @@ public interface IContractRepository
     Task<Contract?> GetContractById(int id);
     Task UpdateContract(Contract contract);
     Task DeleteContract(Contract contract); 
+    Task <List<Contract>> GetAllContracts(int limit = 0);
 }

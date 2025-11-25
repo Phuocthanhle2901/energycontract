@@ -1,30 +1,58 @@
-using Infrastructure; // dùng để gọi AddInfrastructureServices
+using Infrastructure; 
 using System.Reflection;
+using FluentValidation;
 using MediatR;
+using Application.Behaviors;
+using Api.Middleware; // Nhớ import namespace của Middleware
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddInfrastructureServices(builder.Configuration);
-// đăng ký MediatR
+
+// ==========================================
+// 1. GIAI ĐOẠN ĐĂNG KÝ SERVICES (DI CONTAINER)
+// ==========================================
+
+// A. Xác định Assembly của tầng Application (Nơi chứa toàn bộ logic)
 var applicationAssembly = typeof(Application.Features.Contracts.Commands.CreateContract.CreateContractHandler).Assembly;
+
+// B. Đăng ký Infrastructure (Database, Repository)
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// C. Đăng ký Validators (Tự động tìm tất cả file Validator)
+builder.Services.AddValidatorsFromAssembly(applicationAssembly);
+
+// D. Đăng ký MediatR 
 builder.Services.AddMediatR(applicationAssembly);
-// đăng ký AutoMapper
+
+//Đăng ký Pipeline Behavior (Validation)
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviors<,>));
+// E. Đăng ký AutoMapper
 builder.Services.AddAutoMapper(applicationAssembly);
-//đăng ký controler và swagger
+
+// F. Đăng ký Controller & Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
-// Hiển thị swagger ở môi trường dev
+
+// ==========================================
+// 2. GIAI ĐOẠN PIPELINE (MIDDLEWARE)
+// ==========================================
+
+// A. Middleware xử lý lỗi toàn cục (Bắt lỗi Validation trả về 400 thay vì 500)
+app.UseMiddleware<ExceptionMiddleware>(); 
+
+// B. Swagger (Chỉ hiện khi Dev)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-// Chạy ứng dụng
 app.Run();

@@ -2,7 +2,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
-
+// Tạo data base cho bảng
 public class EnergyDbContext : DbContext
 {
     public EnergyDbContext(DbContextOptions<EnergyDbContext> options) : base(options){}
