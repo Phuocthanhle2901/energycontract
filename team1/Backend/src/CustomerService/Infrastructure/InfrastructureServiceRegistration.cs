@@ -16,6 +16,8 @@ public static class InfrastructureServiceRegistration
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IContractRepository, ContractRepository>();
+        services.AddScoped<IResellerRepository, ResellerRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
     
         return services;
     }
