@@ -92,7 +92,7 @@ docker-compose up -d
 ```
 - Lệnh này sẽ tải image PostgreSQL và chạy container ngầm
 ### Bước 3: Cập nhật cấu trúc bảng (Migration)
-Sáu khi Docker chạy, Database sẽ trống ( lần đầu tiên chạy). Chạy lệnh sau để tạo bảng từ code:
+Sau khi Docker chạy, Database sẽ trống ( lần đầu tiên chạy). Chạy lệnh sau để tạo bảng từ code:
 ```bash
 dotnet ef database update \
 --project src/CustomerService/CustomerService.Infrastructure/CustomerService.Infrastructure.csproj \
