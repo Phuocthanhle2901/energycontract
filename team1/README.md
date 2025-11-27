@@ -84,12 +84,12 @@ Responsible for:
 * Cài đặt [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 * Đảm bảo Docker đang chạy (Icon cá voi không còn chuyển động).
 
-### Bước 2: Khởi động Database
+### Bước 2: Khởi chạy BE
 Mở Terminal tại thư mục `Backend/`  và chạy:
 
 ```bash
 docker-compose up --build
 ```
 Lúc này chở docker tạo các gói cần thiết để chạy backend
-### Bước 3: Truy cập vào [http://localhost:5000/swagger] để test API
+### Bước 3: Truy cập vào [(http://localhost:5000/swagger)] để test API
 
