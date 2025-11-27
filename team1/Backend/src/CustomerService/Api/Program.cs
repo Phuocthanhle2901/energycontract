@@ -3,7 +3,8 @@ using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Application.Behaviors;
-using Api.Middleware; // Nhớ import namespace của Middleware
+using Api.Middleware;
+using Microsoft.EntityFrameworkCore; // Nhớ import namespace của Middleware
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,5 +55,26 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// --- TỰ ĐỘNG MIGRATE DATABASE ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<Infrastructure.Persistence.EnergyDbContext>();
+        // Lệnh này tương đương với 'dotnet ef database update'
+        // Nó sẽ tự tạo DB và bảng nếu chưa có
+        if (context.Database.GetPendingMigrations().Any())
+        {
+            context.Database.Migrate();
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
+}
 
 app.Run();

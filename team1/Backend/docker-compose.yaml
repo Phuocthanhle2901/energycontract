@@ -1,17 +1,34 @@
 version: '3.8'
 
 services:
+  # 1. Database (Như cũ)
   postgres-db:
-    image: postgres:16-alpine  # Bản alpine cho nhẹ
+    image: postgres:16-alpine
     container_name: energy_postgres
+    restart: always
     environment:
-      - POSTGRES_USER=postgres      # User mặc định
-      - POSTGRES_PASSWORD=admin     # Mật khẩu (nhớ đổi khi production)
-      - POSTGRES_DB=EnergyDb        # Tên Database sẽ tự tạo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=EnergyDb
     ports:
-      - "5432:5432"                 # Cổng ngoài : Cổng trong
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Để dữ liệu không mất khi tắt container
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. API Backend (Mới thêm)
+  customer-api:
+    build:
+      context: . # Đứng từ thư mục Backend để build
+      dockerfile: src/CustomerService/Api/Dockerfile
+    container_name: energy_customer_api
+    depends_on:
+      - postgres-db # Chờ DB chạy xong mới chạy API
+    ports:
+      - "5000:8080" # Map cổng 8080 trong docker ra cổng 5000 máy thật
+    environment:
+      # Quan trọng: Host đổi từ 'localhost' sang 'postgres-db' (tên service ở trên)
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=EnergyDb;Username=postgres;Password=admin
+      - ASPNETCORE_ENVIRONMENT=Development # Để hiện Swagger
 
 volumes:
   postgres_data:
