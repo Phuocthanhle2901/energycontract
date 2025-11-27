@@ -76,7 +76,7 @@ Responsible for:
 - timestamp
 ---
 
-## 🐳 Hướng dẫn Setup Database (Docker) cho Team
+## 🐳 Hướng dẫn Setup Backend cho team Frontend
 
 Để đảm bảo môi trường phát triển đồng nhất, chúng ta sử dụng PostgreSQL chạy trên Docker.
 
@@ -85,16 +85,11 @@ Responsible for:
 * Đảm bảo Docker đang chạy (Icon cá voi không còn chuyển động).
 
 ### Bước 2: Khởi động Database
-Mở Terminal tại thư mục `Backend/` (nơi chứa file `docker-compose.yml`) và chạy:
+Mở Terminal tại thư mục `Backend/`  và chạy:
 
 ```bash
-docker-compose up -d
+docker-compose up --build
 ```
-- Lệnh này sẽ tải image PostgreSQL và chạy container ngầm
-### Bước 3: Cập nhật cấu trúc bảng (Migration)
-Sau khi Docker chạy, Database sẽ trống ( lần đầu tiên chạy). Chạy lệnh sau để tạo bảng từ code:
-```bash
-dotnet ef database update \
---project src/CustomerService/CustomerService.Infrastructure/CustomerService.Infrastructure.csproj \
---startup-project src/CustomerService/CustomerService.API/CustomerService.Api.csproj
-```
+Lúc này chở docker tạo các gói cần thiết để chạy backend
+### Bước 3: Truy cập vào [http://localhost:5000/swagger] để test API
+
