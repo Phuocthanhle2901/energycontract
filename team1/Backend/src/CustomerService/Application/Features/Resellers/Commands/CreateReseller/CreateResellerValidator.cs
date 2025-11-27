@@ -1,7 +1,7 @@
-using Application.Features.Contracts.Commands.CreateContract;
+using Application.Features.Resellers.Commands.CreateReseller;
 using FluentValidation;
 
-namespace Application.Features.Reseller.Commands.CreateReseller;
+namespace Application.Features.Resellers.Commands.CreateReseller;
 
 public class CreateResellerValidator: AbstractValidator<CreateReseller>
 {

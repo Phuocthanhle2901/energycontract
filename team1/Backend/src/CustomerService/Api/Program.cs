@@ -1,10 +1,8 @@
 using Infrastructure; 
 using System.Reflection;
 using FluentValidation;
-using MediatR;
-using Application.Behaviors;
 using Api.Middleware;
-using Microsoft.EntityFrameworkCore; // Nhớ import namespace của Middleware
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +19,25 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 // C. Đăng ký Validators (Tự động tìm tất cả file Validator)
 builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
-// D. Đăng ký MediatR 
-builder.Services.AddMediatR(applicationAssembly);
+// ================================
+// D. ĐĂNG KÝ CÁC HANDLER (DI)
+// ================================
 
-//Đăng ký Pipeline Behavior (Validation)
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviors<,>));
-// E. Đăng ký AutoMapper
-builder.Services.AddAutoMapper(applicationAssembly);
+// CONTRACTS
+builder.Services.AddTransient<Application.Features.Contracts.Commands.CreateContract.CreateContractHandler>();
+builder.Services.AddTransient<Application.Features.Contracts.Commands.UpdateContract.UpdateContractHandler>();
+builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContract.GetContractByIdHandler>();
+builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContractsByChoice.GetContractsByChoiceHandler>();
+builder.Services.AddTransient<Application.Features.Contracts.Commands.DeleteContract.DeleteContractHandler>();
+
+// ADDRESSES
+builder.Services.AddTransient<Application.Features.Addresses.Commands.CreateAddress.CreateAddressHandler>();
+builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAllAddresses.GetAllAddressesHandler>();
+builder.Services.AddTransient<Application.Features.Addresses.Commands.DeleteAddress.DeleteAddressHandler>();
+
+// RESELLERS
+builder.Services.AddTransient<Application.Features.Resellers.Commands.CreateReseller.CreateResellerHandler>();
+builder.Services.AddTransient<Application.Features.Resellers.Commands.GetAllResellers.GetAllResellerHandler>();
 
 // F. Đăng ký Controller & Swagger
 builder.Services.AddControllers();
@@ -40,7 +50,7 @@ var app = builder.Build();
 // 2. GIAI ĐOẠN PIPELINE (MIDDLEWARE)
 // ==========================================
 
-// A. Middleware xử lý lỗi toàn cục (Bắt lỗi Validation trả về 400 thay vì 500)
+// A. Middleware xử lý lỗi toàn cục
 app.UseMiddleware<ExceptionMiddleware>(); 
 
 // B. Swagger (Chỉ hiện khi Dev)
@@ -63,8 +73,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<Infrastructure.Persistence.EnergyDbContext>();
-        // Lệnh này tương đương với 'dotnet ef database update'
-        // Nó sẽ tự tạo DB và bảng nếu chưa có
+
         if (context.Database.GetPendingMigrations().Any())
         {
             context.Database.Migrate();

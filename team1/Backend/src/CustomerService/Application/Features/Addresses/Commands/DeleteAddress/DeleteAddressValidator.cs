@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.Features.Address.Commands.DeleteAddress
+namespace Application.Features.Addresses.Commands.DeleteAddress
 {
     public class DeleteAddressValidator : AbstractValidator<DeleteAddress>
     {

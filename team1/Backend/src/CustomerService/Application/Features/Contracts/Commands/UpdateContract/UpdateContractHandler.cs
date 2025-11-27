@@ -1,30 +1,37 @@
 using Application.Interfaces;
-using AutoMapper;
-using MediatR;
+using Domain.Entities;
 
 namespace Application.Features.Contracts.Commands.UpdateContract;
 
-public class UpdateContractHandler : IRequestHandler<UpdateContract, Unit>
+public class UpdateContractHandler
 {
     private readonly IContractRepository _contractRepository;
-    private readonly IMapper _mapper;
-    
-    public UpdateContractHandler(IContractRepository contractRepository, IMapper mapper)
+
+    public UpdateContractHandler(IContractRepository contractRepository)
     {
         _contractRepository = contractRepository;
-        _mapper = mapper;
     }
 
-    public async Task<Unit> Handle(UpdateContract request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateContract request)
     {
         var contractToUpdate = await _contractRepository.GetContractById(request.Id);
-        if (contractToUpdate == null)
-        {
-            throw new Exception($"Contract with id {request.Id} not found");
-        }
 
-        _mapper.Map(request, contractToUpdate);
+        if (contractToUpdate == null)
+            throw new Exception($"Contract with id {request.Id} not found");
+
+        // 🔥 Tự map thủ công các property (không dùng AutoMapper)
+        contractToUpdate.FirstName = request.FirstName;
+        contractToUpdate.LastName = request.LastName;
+        contractToUpdate.Email = request.Email;
+        contractToUpdate.Phone = request.Phone;
+        contractToUpdate.StartDate = request.StartDate;
+        contractToUpdate.EndDate = request.EndDate;
+        contractToUpdate.CompanyName = request.CompanyName;
+        contractToUpdate.BankAccountNumber = request.BankAccountNumber;
+        contractToUpdate.PdfLink = request.PdfLink;
+        contractToUpdate.ResellerId = request.ResellerId;
+        contractToUpdate.AddressId = request.AddressId;
+
         await _contractRepository.UpdateContract(contractToUpdate);
-        return Unit.Value; // báo hiệu thành công
     }
 }

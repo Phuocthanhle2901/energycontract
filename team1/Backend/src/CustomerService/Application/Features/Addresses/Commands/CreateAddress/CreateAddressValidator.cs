@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Application.Features.Address.Commands.CreateAddress;
+namespace Application.Features.Addresses.Commands.CreateAddress;
 
 public class CreateAddressValidator : AbstractValidator<CreateAddress>
 {

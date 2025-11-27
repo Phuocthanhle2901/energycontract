@@ -1,29 +1,34 @@
 using Application.DTOs;
 using Application.Interfaces;
-using AutoMapper;
-using MediatR;
 
 namespace Application.Features.Contracts.Commands.GetContract;
 
-public class GetContractByIdHandler : IRequestHandler<GetContractById,ContractDto>
+public class GetContractByIdHandler
 {
     private readonly IContractRepository _contractRepository;
-    private readonly IMapper _mapper;
 
-    public GetContractByIdHandler(IContractRepository contractRepository, IMapper mapper)
+    public GetContractByIdHandler(IContractRepository contractRepository)
     {
         _contractRepository = contractRepository;
-        _mapper = mapper;
     }
-    
-    public async Task<ContractDto> Handle(GetContractById request, CancellationToken cancellationToken)
+
+    public async Task<ContractDto?> Handle(GetContractById request)
     {
         var contractEntity = await _contractRepository.GetContractById(request.Id);
+
         if (contractEntity == null)
-        {
             return null;
-        }
-        var contractDto = _mapper.Map<ContractDto>(contractEntity);
-        return contractDto;
+
+        // 🔥 Map thủ công Contract → ContractDto
+        var dto = new ContractDto
+        {
+            ContractNumber = contractEntity.ContractNumber,
+            CustomerName = $"{contractEntity.FirstName} {contractEntity.LastName}",
+            Email = contractEntity.Email,
+            StartDate = contractEntity.StartDate,
+            Status = "Active" // giữ nguyên default từ DTO
+        };
+
+        return dto;
     }
 }

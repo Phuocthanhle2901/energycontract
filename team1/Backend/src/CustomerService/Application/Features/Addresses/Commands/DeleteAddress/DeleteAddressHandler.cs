@@ -1,9 +1,8 @@
 ﻿using Application.Interfaces;
-using MediatR;
 
-namespace Application.Features.Address.Commands.DeleteAddress
+namespace Application.Features.Addresses.Commands.DeleteAddress
 {
-    public class DeleteAddressHandler : IRequestHandler<DeleteAddress, bool>
+    public class DeleteAddressHandler
     {
         private readonly IAddressRepository _addressRepository;
 
@@ -12,7 +11,7 @@ namespace Application.Features.Address.Commands.DeleteAddress
             _addressRepository = addressRepository;
         }
 
-        public async Task<bool> Handle(DeleteAddress request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteAddress request)
         {
             var address = await _addressRepository.GetByIdAsync(request.Id);
 
@@ -20,7 +19,6 @@ namespace Application.Features.Address.Commands.DeleteAddress
                 return false;
 
             await _addressRepository.DeleteAsync(address);
-
             return true;
         }
     }
