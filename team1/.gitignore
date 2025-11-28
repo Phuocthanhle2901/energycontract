@@ -13,7 +13,7 @@
 !**/packages/build/
 *.nuget.props
 *.nuget.targets
-
+.env
 # Bỏ qua file log, file tạm
 *.log
 .DS_Store

@@ -43,6 +43,20 @@ builder.Services.AddTransient<Application.Features.Resellers.Commands.GetAllRese
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// ===== THÊM CORS =====
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "http://127.0.0.1:5173"
+              )
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -59,7 +73,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+// ===== SỬ DỤNG CORS (PHẢI ĐẶT TRƯỚC UseAuthorization) =====
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
