@@ -1,13 +1,23 @@
-import type { Reseller } from "../types/reseller";
+import api from "../api/axiosInstance";
 
-const resellers: Reseller[] = [
-  { id: 1, name: "Energy Partner A", type: "Premium" },
-  { id: 2, name: "City Power", type: "Standard" },
-];
+export const ResellerApi = {
+  create(data: { name: string; type: string }) {
+    return api.post("/resellers", data).then((r) => r.data);
+  },
 
-const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  getAll() {
+    return api.get("/resellers").then((r) => r.data);
+  },
 
-export async function getResellers(): Promise<Reseller[]> {
-  await delay(150);
-  return resellers;
-}
+  getById(id: number) {
+    return api.get(`/resellers/${id}`).then((r) => r.data);
+  },
+
+  update(id: number, data: { name: string; type: string }) {
+    return api.put(`/resellers/${id}`, data).then((r) => r.data);
+  },
+
+  delete(id: number) {
+    return api.delete(`/resellers/${id}`).then((r) => r.data);
+  },
+};

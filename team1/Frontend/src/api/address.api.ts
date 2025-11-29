@@ -1,13 +1,22 @@
-import type { Address } from "../types/address";
+import api from "./axiosInstance";
 
-const addresses: Address[] = [
-  { id: 1, zipcode: "700000", housenumber: "12", extension: "A" },
-  { id: 2, zipcode: "650000", housenumber: "89", extension: "B" },
-];
+export const AddressApi = {
+  async create(data: {
+    zipCode: string;
+    houseNumber: string;
+    extension: string;
+  }) {
+    const res = await api.post("/addresses", data);
+    return res.data;
+  },
 
-const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  async getAll(limit: number = 0) {
+    const res = await api.get(`/addresses?limit=${limit}`);
+    return res.data;
+  },
 
-export async function getAddresses(): Promise<Address[]> {
-  await delay(150);
-  return addresses;
-}
+  async delete(id: number) {
+    const res = await api.delete(`/addresses/${id}`);
+    return res.data;
+  }
+};

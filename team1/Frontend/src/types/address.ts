@@ -1,6 +1,6 @@
 export interface Address {
   id: number;
-  zipcode: string;
-  housenumber: string;
-  extension?: string;
+  zipCode: string;
+  houseNumber: string;
+  extension: string;
 }
