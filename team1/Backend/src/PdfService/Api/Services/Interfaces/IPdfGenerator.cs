@@ -1,6 +1,6 @@
 namespace Api.Services.Interfaces;
 
-public class IPdfGenerator
+public interface IPdfGenerator
 {
-    
+    Task<byte[]> GeneratePdfFromHtmlAsync(string htmlContent);
 }

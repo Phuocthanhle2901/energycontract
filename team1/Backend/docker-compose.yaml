@@ -1,33 +1,49 @@
-
 services:
-  # 1. Database (Như cũ)
   postgres-db:
     image: postgres:16-alpine
     container_name: energy_postgres
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=EnergyDb
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # 2. API Backend (Mới thêm)
   customer-api:
     platform: linux/amd64
     image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
     restart: always
     depends_on:
-      - postgres-db # Chờ DB chạy xong mới chạy API
+      - postgres-db
     ports:
-      - "5000:8080" # Map cổng 8080 trong docker ra cổng 5000 máy thật
+      - "5000:8080"
     environment:
-      # Quan trọng: Host đổi từ 'localhost' sang 'postgres-db' (tên service ở trên)
-      - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=EnergyDb;Username=postgres;Password=admin
-      - ASPNETCORE_ENVIRONMENT=Development # Để hiện Swagger
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=${POSTGRES_DB_Customer};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  pdf-service:
+    platform: linux/amd64
+    image: huyngoinfo/energy-pdf-service:latest
+    container_name: energy_pdf_service
+    restart: always
+    depends_on:
+      - postgres-db
+    ports:
+      - "5001:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=${POSTGRES_DB_Pdf};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AWS__Region=${AWS_REGION}
+      - AWS__BucketName=${AWS_BUCKET_NAME}
+      - AWS__AccessKey=${AWS_ACCESS_KEY}
+      - AWS__SecretKey=${AWS_SECRET_KEY}
+    volumes:
+      - pdf_temp:/app/temp
 
 volumes:
   postgres_data:
+  pdf_temp:
