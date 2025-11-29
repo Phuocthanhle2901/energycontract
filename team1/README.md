@@ -88,8 +88,13 @@ Responsible for:
 Mở Terminal tại thư mục `Backend/`  và chạy:
 
 ```bash
-docker-compose up --build
+docker-compose pull
 ```
-Lúc này chở docker tạo các gói cần thiết để chạy backend
-### Bước 3: Truy cập vào [(http://localhost:5000/swagger)] để test API
+Tải image mới nhất từ Docker Hub.
 
+```bash
+docker-compose up -d
+```
+Khởi động hệ thống
+### Bước 3: Truy cập vào đường dẫn phía dưới để test API:
+* http://localhost:5000/swagger
