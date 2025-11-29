@@ -10,9 +10,9 @@ const Header: React.FC = () => {
     { label: "Contracts List", path: "/contracts/list" },
     { label: "Create Contract", path: "/contracts/create" },
     { label: "Orders", path: "/orders" },
-    { label: "Resellers", path: "/resellers/create" },
+    { label: "Resellers", path: "/resellers" },// chỉnh 6:30 11/29/25
     { label: "History", path: "/history" },
-    { label: "Reports", path: "/reports" },
+    { label: "ReportPDF", path: "/contracts/:id/pdf" },
   ];
 
   const handleLogout = () => {

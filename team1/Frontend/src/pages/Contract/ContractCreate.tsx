@@ -42,7 +42,7 @@ const ContractCreate: React.FC = () => {
     try {
       await createContract(data);
       alert("Contract created successfully!");
-      navigate("/contracts");
+      navigate("/contracts/list");
     } catch (err) {
       console.error(err);
       alert("Failed to create contract");

@@ -185,12 +185,12 @@ export default function Home() {
           🚀 Quick Actions
         </h2>
         <div className="card-grid">
-          <div className="card action-card" onClick={() => navigate("/contracts/new")}>
+          <div className="card action-card" onClick={() => navigate("/contracts/create")}>
             <div className="action-card-icon">📝</div>
             <h3>Create Contract</h3>
             <p>Add a new energy contract to the system</p>
           </div>
-          <div className="card action-card" onClick={() => navigate("/contracts")}>
+          <div className="card action-card" onClick={() => navigate("/contracts/list")}>
             <div className="action-card-icon">📋</div>
             <h3>Manage Contracts</h3>
             <p>View, edit, and organize all contracts</p>

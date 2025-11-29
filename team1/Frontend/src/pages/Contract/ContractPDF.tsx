@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getContractPdfInfo, ContractPdfInfo } from "../../api/pdf.api";
+import { getContractPdfInfo } from "../../api/pdf.api";
+import type{ContractPdfInfo} from "../../api/pdf.api"
 
 export default function ContractPDFPage() {
   const { id } = useParams();

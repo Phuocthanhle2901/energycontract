@@ -36,7 +36,6 @@ export default function AppRoutes() {
                 <Route path="/address/list" element={<AddressList />} />
                 <Route path="/address/delete/:id" element={<AddressDelete />} />
 
-
                 {/* Reseller */}
                 <Route path="/resellers" element={<ResellerList />} />
                 <Route path="/resellers/create" element={<CreateReseller />} />
