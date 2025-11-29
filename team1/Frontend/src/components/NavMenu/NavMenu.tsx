@@ -10,7 +10,7 @@ const Header: React.FC = () => {
     { label: "Contracts List", path: "/contracts/list" },
     { label: "Create Contract", path: "/contracts/create" },
     { label: "Orders", path: "/orders" },
-    { label: "Resellers", path: "/resellers" },
+    { label: "Resellers", path: "/resellers/create" },
     { label: "History", path: "/history" },
     { label: "Reports", path: "/reports" },
   ];
