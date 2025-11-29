@@ -1,4 +1,4 @@
-import { Reseller } from "../types/reseller";
+import type { Reseller } from "../types/reseller";
 
 const resellers: Reseller[] = [
   { id: 1, name: "Energy Partner A", type: "Premium" },

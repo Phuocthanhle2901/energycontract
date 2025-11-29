@@ -115,7 +115,7 @@ const Header: React.FC = () => {
                                 bgcolor: "#3550ff",
                                 "&:hover": { bgcolor: "#4f6bff" }
                             }}
-                            onClick={() => navigate("/Hero")}
+                            onClick={() => navigate("/home")}
                         >
                             Login
                         </Button>
