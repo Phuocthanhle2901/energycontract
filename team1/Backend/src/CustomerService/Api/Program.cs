@@ -53,7 +53,16 @@ try
     // E. Đăng ký Controller & Swagger
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new() 
+        { 
+            Title = "Energy Contract Service API", 
+            Version = "v1",
+            Description = "API for managing energy contracts, addresses, and resellers"
+        });
+    });
+    
 
     // F. CORS Configuration
     builder.Services.AddCors(options =>
@@ -79,12 +88,17 @@ try
     // A. Middleware xử lý lỗi toàn cục
     app.UseMiddleware<ExceptionMiddleware>();
 
-    // B. Swagger (Chỉ hiện khi Dev)
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+// B. Swagger Configuration 
+  if (app.Environment.IsDevelopment())
+  {
+      app.UseSwagger();
+      app.UseSwaggerUI(c =>
+      {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Energy Contract Service API V1");
+          c.RoutePrefix = string.Empty; // Swagger UI tại root URL
+      });
+  }
+  
 
     // C. CORS (PHẢI ĐẶT TRƯỚC UseAuthorization)
     app.UseCors();
