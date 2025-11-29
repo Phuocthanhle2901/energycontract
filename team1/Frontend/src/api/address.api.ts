@@ -1,4 +1,4 @@
-import { Address } from "../types/address";
+import type { Address } from "../types/address";
 
 const addresses: Address[] = [
   { id: 1, zipcode: "700000", housenumber: "12", extension: "A" },

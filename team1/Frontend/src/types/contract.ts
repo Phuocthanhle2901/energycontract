@@ -1,12 +1,32 @@
+// src/types/contract.ts
+
 export interface Contract {
-    contractNumber: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    startDate: string;
-    endDate?: string;    // API chưa trả, optional
-    status: string;      // Active / Expired
-    orders?: any[];      // tạm để frontend xử lý, default rỗng
-    reseller?: { name: string }; // API chưa trả, tạm tạo
-    address?: any;       // API chưa trả
+  id?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  startDate: string; // ISO date string
+  endDate: string;   // ISO date string
+  companyName: string;
+  bankAccountNumber: string;
+  pdfLink: string;
+  resellerId: number;
+  addressId: number;
+}
+
+export interface ContractSummary {
+  contractNumber: string;
+  customerName: string;
+  email: string;
+  startDate: string;
+  status: string;
+}
+export interface ContractCreateInput {
+  firstName: string;
+  lastName: string;
+  email: string;
+  startDate: string;
+  endDate: string;
+  resellerId: number;
 }

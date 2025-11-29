@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Contract } from "../../types/contract";
+import type { Contract } from "../../types/contract";
 import {
   createContractMock,
   getContractById,
