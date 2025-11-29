@@ -1,29 +1,34 @@
 import React from "react";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
 
-    const menuItems = [
-      { label: "Home", path: "/home" },                     // Dashboard tổng quan
-      { label: "Contracts List", path: "/contracts/list" },      // Danh sách hợp đồng
-      { label: "Create Contract", path: "/contracts/create" }, // Tạo hợp đồng mới
-      { label: "Orders", path: "/orders" },            // Quản lý orders (gas/electric)
-      { label: "Resellers", path: "/resellers" },      // Quản lý đại lý
-      { label: "History", path: "/history" },        // Quản lý lịch sử
-      { label: "Reports / PDF", path: "/reports" }     // Xem, tạo PDF hợp đồng
-    ];
+  const menuItems = [
+    { label: "Home", path: "/home" },
+    { label: "Contracts List", path: "/contracts/list" },
+    { label: "Create Contract", path: "/contracts/create" },
+    { label: "Orders", path: "/orders" },
+    { label: "Resellers", path: "/resellers" },
+    { label: "History", path: "/history" },
+    { label: "Reports", path: "/reports" },
+  ];
+
+  const handleLogout = () => {
+    alert("Logging out...");
+    navigate("/");
+  };
 
   return (
     <Box
       sx={{
         backdropFilter: "blur(12px)",
-        bgcolor: "rgba(50,50,70,0.85)", // background trong suốt pha blur
+        bgcolor: "rgba(50,50,70,0.85)",
         borderBottom: "1px solid rgba(255,255,255,0.1)",
         position: "sticky",
         top: 0,
-        zIndex: 50
+        zIndex: 50,
       }}
     >
       <Container
@@ -32,27 +37,40 @@ const Header: React.FC = () => {
           py: 2,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
-        {/* Logo màu vàng trứng */}
+        {/* Logo */}
         <Typography
           variant="h6"
           sx={{
-            fontSize:40,
+            fontSize: 40,
             fontWeight: 700,
             cursor: "pointer",
-            color: "#ffffffff", // màu vàng trứng
+            color: "#ffffffff",
             transition: "0.3s",
-            "&:hover": { color: "#ffea70" }
+            "&:hover": { color: "#ffea70" },
           }}
           onClick={() => navigate("/")}
         >
-          INFODATION <Typography component="span" variant="body2" sx={{ ml: 1, opacity: 0.8 }}>Management</Typography>
+          INFODATION{" "}
+          <Typography component="span" variant="body2" sx={{ ml: 1, opacity: 0.8 }}>
+            Management
+          </Typography>
         </Typography>
 
-        {/* Menu Items ngang */}
-        <Stack direction="row" spacing={4} sx={{ display: { xs: "none", md: "flex" } }}>
+        {/* Menu Items */}
+        <Stack
+          direction="row"
+          spacing={4}
+          sx={{
+            display: { xs: "none", md: "flex" },
+            flexGrow: 1,
+            ml: 4,
+            flexWrap: "nowrap",
+            overflowX: "auto",
+          }}
+        >
           {menuItems.map((item) => (
             <Typography
               key={item.label}
@@ -61,7 +79,8 @@ const Header: React.FC = () => {
                 transition: "all 0.3s",
                 color: "white",
                 fontWeight: 500,
-                "&:hover": { color: "#FFD700", transform: "translateY(-2px)" } // hover hiệu ứng nhẹ
+                whiteSpace: "nowrap",
+                "&:hover": { color: "#FFD700", transform: "translateY(-2px)" },
               }}
               onClick={() => navigate(item.path)}
             >
@@ -69,6 +88,23 @@ const Header: React.FC = () => {
             </Typography>
           ))}
         </Stack>
+
+        {/* Nút Log Out nhỏ */}
+        <Button
+          size="small"
+          variant="contained"
+          sx={{
+            bgcolor: "#ff4d4d",
+            "&:hover": { bgcolor: "#ff1a1a" },
+            ml: 2,
+            textTransform: "none", // giữ chữ thường
+            fontSize: 12,
+            padding: "4px 8px",
+          }}
+          onClick={handleLogout}
+        >
+          Log Out
+        </Button>
       </Container>
     </Box>
   );

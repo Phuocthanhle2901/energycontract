@@ -17,7 +17,7 @@ export default function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>           
-                <Route path="/introduce" element={<Homepages />} />
+                <Route path="/" element={<Homepages />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/home" element={<Home />} />
                 {/* Contract */}
