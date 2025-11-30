@@ -1,11 +1,12 @@
 
 using Application.DTOs;
-using Application.Features.Address.Commands.CreateAddress;
+using Application.Features.Addresses.Commands.CreateAddress;
 using Application.Features.Contracts.Commands.CreateContract;
 using Application.Features.Contracts.Commands.DeleteContract;
 using Application.Features.Contracts.Commands.GetContract;
 using Application.Features.Contracts.Commands.UpdateContract;
-using Application.Features.Reseller.Commands.CreateReseller;
+using Application.Features.Resellers.Commands.CreateReseller;
+using Application.Features.Resellers.Commands.CreateReseller;
 using AutoMapper;
 using Domain.Entities;
 

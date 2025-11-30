@@ -1,23 +1,35 @@
 using Application.DTOs;
 using Application.Interfaces;
-using AutoMapper;
-using MediatR;
 
 namespace Application.Features.Contracts.Commands.GetContractsByChoice;
 
-public class GetContractsByChoiceHandler : IRequestHandler<GetContractsByChoice, List<ContractDto>>
+public class GetContractsByChoiceHandler
 {
     private readonly IContractRepository _contractRepository;
-    private readonly IMapper _mapper;
 
-    public GetContractsByChoiceHandler(IContractRepository contractRepository, IMapper mapper)
+    public GetContractsByChoiceHandler(IContractRepository contractRepository)
     {
         _contractRepository = contractRepository;
-        _mapper = mapper;
     }
-    public async Task<List<ContractDto>> Handle(GetContractsByChoice request, CancellationToken cancellationToken)
+
+    public async Task<List<ContractDto>> Handle(GetContractsByChoice request)
     {
         var contracts = await _contractRepository.GetAllContracts(request.Limit);
-        return _mapper.Map<List<ContractDto>>(contracts);
+
+        var result = new List<ContractDto>();
+
+        foreach (var c in contracts)
+        {
+            result.Add(new ContractDto
+            {
+                ContractNumber = c.ContractNumber,
+                CustomerName = $"{c.FirstName} {c.LastName}",
+                Email = c.Email,
+                StartDate = c.StartDate,
+                Status = "Active"
+            });
+        }
+
+        return result;
     }
 }

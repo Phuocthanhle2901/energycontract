@@ -1,6 +1,6 @@
 namespace Application.Features.Contracts.Commands.CreateContract;
-using MediatR;
-public class CreateContract : IRequest<int>
+
+public class CreateContract
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

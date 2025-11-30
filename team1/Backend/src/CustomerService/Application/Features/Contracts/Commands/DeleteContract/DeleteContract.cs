@@ -1,8 +1,7 @@
-using MediatR;
-
-namespace Application.Features.Contracts.Commands.DeleteContract;
-
-public class DeleteContract : IRequest<Unit>
+namespace Application.Features.Contracts.Commands.DeleteContract
 {
-    public int Id { get; set; }
+    public class DeleteContract
+    {
+        public int Id { get; set; }
+    }
 }

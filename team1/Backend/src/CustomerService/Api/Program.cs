@@ -1,10 +1,9 @@
-using Infrastructure; 
-using System.Reflection;
+using Infrastructure;
+using Serilog;
+using Serilog.Events;
 using FluentValidation;
-using MediatR;
-using Application.Behaviors;
 using Api.Middleware;
-using Microsoft.EntityFrameworkCore; // Nhớ import namespace của Middleware
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,69 +11,110 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. GIAI ĐOẠN ĐĂNG KÝ SERVICES (DI CONTAINER)
 // ==========================================
 
-// A. Xác định Assembly của tầng Application (Nơi chứa toàn bộ logic)
-var applicationAssembly = typeof(Application.Features.Contracts.Commands.CreateContract.CreateContractHandler).Assembly;
+// Tạo logger ban đầu để bắt lỗi khởi động
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-// B. Đăng ký Infrastructure (Database, Repository)
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
-// C. Đăng ký Validators (Tự động tìm tất cả file Validator)
-builder.Services.AddValidatorsFromAssembly(applicationAssembly);
-
-// D. Đăng ký MediatR 
-builder.Services.AddMediatR(applicationAssembly);
-
-//Đăng ký Pipeline Behavior (Validation)
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviors<,>));
-// E. Đăng ký AutoMapper
-builder.Services.AddAutoMapper(applicationAssembly);
-
-// F. Đăng ký Controller & Swagger
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// ==========================================
-// 2. GIAI ĐOẠN PIPELINE (MIDDLEWARE)
-// ==========================================
-
-// A. Middleware xử lý lỗi toàn cục (Bắt lỗi Validation trả về 400 thay vì 500)
-app.UseMiddleware<ExceptionMiddleware>(); 
-
-// B. Swagger (Chỉ hiện khi Dev)
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    Log.Information("Starting web host for EnergyContractService...");
+    // A. Xác định Assembly của tầng Application (Nơi chứa toàn bộ logic)
+    var applicationAssembly = typeof(Application.Features.Contracts.Commands.CreateContract.CreateContractHandler).Assembly;
 
-app.UseHttpsRedirection();
+    // B. Đăng ký Infrastructure (Database, Repository)
+    builder.Services.AddInfrastructureServices(builder.Configuration);
 
-app.UseAuthorization();
+    // C. Đăng ký Validators (Tự động tìm tất cả file Validator)
+    builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
-app.MapControllers();
+    // ================================
+    // D. ĐĂNG KÝ CÁC HANDLER (DI)
+    // ================================
 
-// --- TỰ ĐỘNG MIGRATE DATABASE ---
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
+    // CONTRACTS
+    builder.Services.AddTransient<Application.Features.Contracts.Commands.CreateContract.CreateContractHandler>();
+    builder.Services.AddTransient<Application.Features.Contracts.Commands.UpdateContract.UpdateContractHandler>();
+    builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContract.GetContractByIdHandler>();
+    builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContractsByChoice.GetContractsByChoiceHandler>();
+    builder.Services.AddTransient<Application.Features.Contracts.Commands.DeleteContract.DeleteContractHandler>();
+
+    // ADDRESSES
+    builder.Services.AddTransient<Application.Features.Addresses.Commands.CreateAddress.CreateAddressHandler>();
+    builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAllAddresses.GetAllAddressesHandler>();
+    builder.Services.AddTransient<Application.Features.Addresses.Commands.DeleteAddress.DeleteAddressHandler>();
+
+    // RESELLERS
+    builder.Services.AddTransient<Application.Features.Resellers.Commands.CreateReseller.CreateResellerHandler>();
+    builder.Services.AddTransient<Application.Features.Resellers.Commands.GetAllResellers.GetAllResellerHandler>();
+
+    // E. Đăng ký Controller & Swagger
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    // F. CORS Configuration
+    builder.Services.AddCors(options =>
     {
+        options.AddDefaultPolicy(policy =>
+        {
+            policy.WithOrigins(
+                    "http://localhost:5173",
+                    "http://127.0.0.1:5173"
+                  )
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+        });
+    });
+
+    var app = builder.Build();
+
+    // ==========================================
+    // 2. GIAI ĐOẠN PIPELINE (MIDDLEWARE)
+    // ==========================================
+
+    // A. Middleware xử lý lỗi toàn cục
+    app.UseMiddleware<ExceptionMiddleware>();
+
+    // B. Swagger (Chỉ hiện khi Dev)
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    // C. CORS (PHẢI ĐẶT TRƯỚC UseAuthorization)
+    app.UseCors();
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+
+    // ==========================================
+    // 3. TỰ ĐỘNG MIGRATE DATABASE
+    // ==========================================
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
         var context = services.GetRequiredService<Infrastructure.Persistence.EnergyDbContext>();
-        // Lệnh này tương đương với 'dotnet ef database update'
-        // Nó sẽ tự tạo DB và bảng nếu chưa có
+
         if (context.Database.GetPendingMigrations().Any())
         {
             context.Database.Migrate();
         }
     }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while migrating the database.");
-    }
-}
 
-app.Run();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+    throw;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
