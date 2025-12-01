@@ -2,7 +2,6 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Router,
 
 } from "react-router-dom";
 
@@ -11,26 +10,16 @@ import Home from "../pages/Home";
 import Login from "../pages/Auth/Login";
 import ContractCreate from "../pages/Contract/ContractCreate";
 import ContractList from "../pages/Contract/ContractList";
-import ContractPDF from './../pages/Contract/ContractPDF';
-import ContractEdit from './../pages/Contract/ContractEdit';
-// import ContractDetail from './../pages/Contract/ContractDetail';
-import ContractDelete from './../pages/Contract/ContractDelete';
-
+import CreateReseller from "../pages/Reseller/CreateReseller";
 import CreateAddress from "../pages/Address/CreateAddress";
 import AddressList from "../../src/pages/Address/AddressList";
 import AddressDelete from "../../src/pages/Address/AddressDelete";
-
-import CreateReseller from "../pages/Reseller/CreateReseller";
 import ResellerList from "../pages/Reseller/ResellerList";
 import ResellerEdit from "../pages/Reseller/ResellerEdit";
 import ResellerDelete from "../pages/Reseller/ResellerDelete";
 import ContractDetail from "@/pages/Contract/ContractDetail";
 import ContractEdit from "@/pages/Contract/ContractEdit";
 import ContractPDF from "@/pages/Contract/ContractPDF";
-
-
-
-
 
 
 export default function AppRoutes() {
@@ -59,9 +48,7 @@ export default function AppRoutes() {
                 <Route path="/resellers/edit/:id" element={<ResellerEdit />} />
                 <Route path="/resellers/delete/:id" element={<ResellerDelete />} />
 
-
-
-            </Routes >
-        </BrowserRouter >
+            </Routes>
+        </BrowserRouter>
     );
 }

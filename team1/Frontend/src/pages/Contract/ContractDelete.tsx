@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
-// ⬇⬇ SỬA
-import { MOCK_CONTRACTS } from "../../mock/mockData";
 
 export default function ContractDelete() {
   const { id } = useParams();
@@ -42,5 +39,3 @@ export default function ContractDelete() {
     </Container>
   );
 }
-=======
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2

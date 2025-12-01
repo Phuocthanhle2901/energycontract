@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   Container,
   Typography,
@@ -42,45 +41,6 @@ export interface ContractData {
   notes?: string;
 }
 
-=======
-// src/pages/Contract/ContractList.tsx
-import React, { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
-import { Search } from "lucide-react";
-import NavMenu from "../../components/NavMenu/NavMenu";
-
-export interface ContractData {
-  contractNumber: string;
-  firstName: string;
-  lastName: string;
-  customerName: string;
-  email: string;
-  phone?: string;
-  startDate: string;
-  endDate?: string;
-  companyName?: string;
-  bankAccountNumber?: string;
-  resellerId?: string;
-  addressId?: string;
-  pdfLink?: string;
-  status: string;
-  notes?: string;
-}
-
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
 const MOCK_CONTRACTS: ContractData[] = [
   {
     contractNumber: "101",
@@ -112,7 +72,6 @@ const MOCK_CONTRACTS: ContractData[] = [
   },
 ];
 
-<<<<<<< HEAD
 // =============================
 // COMPONENT
 // =============================
@@ -135,17 +94,6 @@ export default function ContractList() {
 
     return matchSearch && matchStatus;
   });
-=======
-export default function ContractList() {
-  const [contracts, setContracts] = useState<ContractData[]>(MOCK_CONTRACTS);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-
-  const handleDelete = (contractNumber: string) => {
-    if (!window.confirm("Are you sure you want to delete this contract?")) return;
-    setContracts(contracts.filter(c => c.contractNumber !== contractNumber));
-  };
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
 
   // Tìm kiếm tự động
   const filteredContracts = useMemo(() => {
@@ -156,19 +104,11 @@ export default function ContractList() {
   }, [contracts, search]);
 
   return (
-<<<<<<< HEAD
     <Container sx={{ mt: 4 }}>
       <NavMenu />
 
       {/* Header */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-=======
-    <Box sx={{ ml: "240px", p: 3, minHeight: "100vh", background: "#F3F4F6" }}>
-      <NavMenu />
-
-      {/* Header */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
         <Typography variant="h5" fontWeight={700}>
           Quản lý Hợp đồng
         </Typography>
@@ -181,7 +121,6 @@ export default function ContractList() {
         </Button>
       </Box>
 
-<<<<<<< HEAD
       {/* Filter Box */}
       <Paper
         sx={{
@@ -223,47 +162,16 @@ export default function ContractList() {
             <MenuItem value="expired">Hết hạn</MenuItem>
           </TextField>
         </Box>
-=======
-      {/* Search Box */}
-      <Paper
-        sx={{
-          p: 2,
-          borderRadius: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08)",
-          mb: 3,
-        }}
-      >
-        <TextField
-          fullWidth
-          placeholder="Tìm kiếm theo tên khách hàng hoặc số hợp đồng..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          InputProps={{
-            sx: { borderRadius: 2, height: 45, bgcolor: "#f9fafb" },
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={20} color="#9ca3af" />
-              </InputAdornment>
-            ),
-          }}
-        />
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
       </Paper>
 
       {/* Table */}
       <Paper
         sx={{
-<<<<<<< HEAD
           mt: 3,
           borderRadius: "12px",
           overflow: "hidden",
           boxShadow:
             "0 2px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.10)",
-=======
-          borderRadius: "12px",
-          overflow: "hidden",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.10)",
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
         }}
       >
         <Table>
@@ -273,11 +181,7 @@ export default function ContractList() {
               <TableCell sx={{ fontWeight: 600 }}>KHÁCH HÀNG</TableCell>
               <TableCell sx={{ fontWeight: 600 }}>EMAIL</TableCell>
               <TableCell sx={{ fontWeight: 600 }}>NGÀY BẮT ĐẦU</TableCell>
-<<<<<<< HEAD
               <TableCell sx={{ fontWeight: 600 }}>ĐẠI LÝ</TableCell>
-=======
-              <TableCell sx={{ fontWeight: 600 }}>TRẠNG THÁI</TableCell>
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
               <TableCell sx={{ fontWeight: 600 }} align="right">
                 THAO TÁC
               </TableCell>
@@ -285,7 +189,6 @@ export default function ContractList() {
           </TableHead>
 
           <TableBody>
-<<<<<<< HEAD
             {filtered.map((c) => (
               <TableRow hover key={c.contractNumber}>
                 <TableCell sx={{ fontWeight: 600 }}>{c.contractNumber}</TableCell>
@@ -358,58 +261,5 @@ export default function ContractList() {
         </Box>
       </Paper>
     </Container>
-=======
-            {filteredContracts.map((c) => (
-              <TableRow key={c.contractNumber} hover>
-                <TableCell>{c.contractNumber}</TableCell>
-                <TableCell>{c.customerName}</TableCell>
-                <TableCell>{c.email}</TableCell>
-                <TableCell>{c.startDate}</TableCell>
-                <TableCell>{c.status}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/detail`)}
-                  >
-                    Detail
-                  </Button>
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/edit`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => handleDelete(c.contractNumber)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/pdf`)}
-                  >
-                    PDF
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-            {filteredContracts.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={6} sx={{ textAlign: "center", py: 3 }}>
-                  Không tìm thấy hợp đồng
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </Paper>
-    </Box>
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
   );
 }
