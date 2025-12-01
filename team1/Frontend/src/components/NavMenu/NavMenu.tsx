@@ -7,7 +7,10 @@ export default function NavMenu() {
   const menuItems = [
     { label: "🏠 Home", path: "/home" },
     { label: "📄 Contracts List", path: "/contracts/list" },
+<<<<<<< HEAD
     { label: "📝 Create Contract", path: "/contracts/create" },
+=======
+>>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
     { label: "🛒 Orders", path: "/orders" },
     { label: "🤝 Resellers", path: "/resellers" },
     { label: "📚 History", path: "/history" },
@@ -74,4 +77,8 @@ export default function NavMenu() {
       </button>
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2
