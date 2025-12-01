@@ -97,4 +97,5 @@ docker-compose up -d
 ```
 Khởi động hệ thống
 ### Bước 3: Truy cập vào đường dẫn phía dưới để test API:
-* http://localhost:5000/swagger
+* http://localhost:5000/swagger để test API của CustomerService
+* http://localhost:5001/swagger để test API của PdfService

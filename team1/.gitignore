@@ -17,3 +17,4 @@
 # Bỏ qua file log, file tạm
 *.log
 .DS_Store
+appsettings.json

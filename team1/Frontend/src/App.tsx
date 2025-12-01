@@ -1,7 +1,8 @@
 
 import {BrowserRouter,Routes, Route} from "react-router-dom";
-import ResellerPage from "./pages/ResellerPage.tsx";
+
 import { Toaster } from "sonner";
+import ResellerPage from "@/pages/resellerPage.tsx";
 function App() {
   return ( 
     <>
