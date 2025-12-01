@@ -2,7 +2,7 @@
 
 export interface Contract {
   address: any;
-  contractNumber: ReactNode;
+  
   orders: any;
   id?: number;
   firstName: string;

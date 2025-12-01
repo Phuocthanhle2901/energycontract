@@ -7,7 +7,6 @@ export default function NavMenu() {
   const menuItems = [
     { label: "🏠 Home", path: "/home" },
     { label: "📄 Contracts List", path: "/contracts/list" },
-    { label: "📝 Create Contract", path: "/contracts/create" },
     { label: "🛒 Orders", path: "/orders" },
     { label: "🤝 Resellers", path: "/resellers" },
     { label: "📚 History", path: "/history" },

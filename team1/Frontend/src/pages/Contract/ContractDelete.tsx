@@ -2,6 +2,7 @@ import { Button, Container, Paper, Typography, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 
+
 export default function ContractDelete() {
   const { id } = useParams();
   const navigate = useNavigate();
