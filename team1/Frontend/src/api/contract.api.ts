@@ -1,6 +1,7 @@
 // src/api/contract.api.ts
 import axiosInstance from "./axiosInstance";
-import type { Contract, ContractSummary} from "../types/contract";
+import type { Contract, ContractSummary } from "../types/contract";
+
 
 
 
@@ -34,4 +35,9 @@ export async function updateContract(id: number, contract: Contract): Promise<vo
 export async function deleteContract(id: number): Promise<void> {
   await axiosInstance.delete(`/contracts/${id}`);
 }
+//history
 
+export async function getContractHistory(contractNumber: string) {
+  const res = await axiosInstance.get(`/contracts/${contractNumber}/history`);
+  return res.data;
+}

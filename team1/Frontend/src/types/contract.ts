@@ -1,5 +1,7 @@
 // src/types/contract.ts
 
+import type { ReactNode } from "react";
+
 export interface Contract {
   address: any;
   contractNumber: ReactNode;
@@ -32,4 +34,12 @@ export interface ContractCreateInput {
   startDate: string;
   endDate: string;
   resellerId: number;
+}
+
+export interface ContractHistory {
+  id: number;
+  contractId: string;
+  oldValue: any;
+  newValue: any;
+  timestamp: string;
 }

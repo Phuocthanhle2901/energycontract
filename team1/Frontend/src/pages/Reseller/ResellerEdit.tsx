@@ -4,10 +4,42 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useEffect, useState } from "react";
+import { ResellerApi } from "../../api/reseller.api";
 
 export default function ResellerEdit() {
     const navigate = useNavigate();
     const { id } = useParams();
+
+    const [form, setForm] = useState({
+        name: "",
+        type: "",
+        email: "",
+        phone: "",
+    });
+
+    useEffect(() => {
+        ResellerApi.getById(id).then((data) => {
+            setForm({
+                name: data.name || "",
+                type: data.type || "",
+                email: "",
+                phone: "",
+            });
+
+        });
+    }, [id]);
+
+    const handleSave = async () => {
+        await ResellerApi.update(id, {
+            name: form.name,
+            type: form.type
+        });
+
+        alert("Reseller updated!");
+        navigate("/resellers");
+    };
+
 
     return (
         <Box
@@ -54,65 +86,49 @@ export default function ResellerEdit() {
                 <Box sx={{ p: 4 }}>
                     <Grid container spacing={4}>
 
-                        {/* SECTION TITLE */}
-                        <Grid size={{ xs: 12 }}>
-                            <Box sx={{ borderBottom: "1px solid #e2e8f0", pb: 1, mb: 3 }}>
-                                <Typography
-                                    sx={{
-                                        color: "#3b82f6",
-                                        fontWeight: 700,
-                                        textTransform: "uppercase",
-                                        fontSize: "0.8rem",
-                                    }}
-                                >
-                                    Partner Information
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid size={{ xs: 12, md: 6 }}>
+                        {/* NAME */}
+                        <Grid xs={12} md={6}>
                             <FormLabel>Reseller Name</FormLabel>
-                            <TextField defaultValue="Current reseller name" fullWidth />
+                            <TextField
+                                fullWidth
+                                value={form.name}
+                                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            />
                         </Grid>
 
-                        <Grid size={{ xs: 12, md: 6 }}>
+                        {/* TYPE */}
+                        <Grid xs={12} md={6}>
                             <FormLabel>Partner Type</FormLabel>
                             <FormControl fullWidth>
-                                <Select defaultValue="Broker">
+                                <Select
+                                    value={form.type}
+                                    onChange={(e) => setForm({ ...form, type: e.target.value })}
+                                >
                                     <MenuItem value="Broker">Broker</MenuItem>
                                     <MenuItem value="Agency">Agency</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <FormLabel>Commission Rate (%)</FormLabel>
-                            <TextField defaultValue="10.0" fullWidth />
+
+                        {/* EMAIL */}
+                        <Grid xs={12} md={6}>
+                            <FormLabel>Email</FormLabel>
+                            <TextField
+                                fullWidth
+                                value={form.email}
+                                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            />
                         </Grid>
 
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <Box sx={{ borderBottom: "1px solid #e2e8f0", pb: 1, mb: 3 }}>
-                                <Typography
-                                    sx={{
-                                        color: "#3b82f6",
-                                        fontWeight: 700,
-                                        textTransform: "uppercase",
-                                        fontSize: "0.8rem",
-                                    }}
-                                >
-                                    Contact Details
-                                </Typography>
-                            </Box>
+                        {/* PHONE */}
+                        <Grid xs={12} md={6}>
+                            <FormLabel>Phone</FormLabel>
+                            <TextField
+                                fullWidth
+                                value={form.phone}
+                                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                            />
                         </Grid>
-
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <FormLabel>Email Address</FormLabel>
-                            <TextField defaultValue="contact@company.com" fullWidth />
-                        </Grid>
-
-                        <Grid size={{ xs: 12, md: 6 }}>
-                            <FormLabel>Phone Number</FormLabel>
-                            <TextField defaultValue="+1 (555) 123-4567" fullWidth />
-                        </Grid>
-
                     </Grid>
                 </Box>
 
@@ -135,7 +151,7 @@ export default function ResellerEdit() {
                         Cancel
                     </Button>
 
-                    <Button variant="contained">Save Changes</Button>
+                    <Button variant="contained" onClick={handleSave}>Save Changes</Button>
                 </Box>
             </Card>
         </Box>
