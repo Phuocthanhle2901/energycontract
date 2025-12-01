@@ -1,142 +1,179 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import type { Contract } from "../../types/contract";
-import {
-  createContractMock,
-  getContractById,
-  updateContractMock,
-} from "../../api/contract.api";
-
-type Mode = "create" | "edit";
+import { Box, Grid, TextField, MenuItem, Card, CardContent, Typography } from "@mui/material";
+import { type Contract } from "../../types/contractTypes";
+import type { Reseller } from "@/types/contractTypes";
 
 interface Props {
-  mode: Mode;
+    contract: Contract;
+    resellers: Reseller[];
+    onChange: (field: string, value: any) => void;
 }
 
-export default function ContractFormBase({ mode }: Props) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(mode === "edit");
-  const [form, setForm] = useState<Partial<Contract>>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    companyName: "",
-    startDate: "",
-    endDate: "",
-  });
+export default function ContractFormBase({ contract, resellers, onChange }: Props) {
+    return (
+        <Card>
+            <CardContent>
+                <Typography variant="h6" gutterBottom>
+                    Thông tin hợp đồng
+                </Typography>
 
-  useEffect(() => {
-    if (mode === "edit" && id) {
-      getContractById(Number(id)).then((c) => {
-        if (c) {
-          setForm({
-            ...c,
-          });
-        }
-        setLoading(false);
-      });
-    }
-  }, [id, mode]);
+                <Grid container spacing={3}>
+                    {/* Firstname */}
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            label="Họ"
+                            value={contract.firstName}
+                            onChange={(e) => onChange("firstname", e.target.value)}
+                        />
+                    </Grid>
 
-  function handleChange<K extends keyof Contract>(key: K, value: any) {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  }
+                    {/* Lastname */}
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            label="Tên"
+                            value={contract.lastName}
+                            onChange={(e) => onChange("lastname", e.target.value)}
+                        />
+                    </Grid>
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (mode === "create") {
-      await createContractMock();
-      alert("Mock: created contract");
-    } else {
-      await updateContractMock();
-      alert("Mock: updated contract");
-    }
-    navigate("/contracts");
-  }
+                    {/* Company */}
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Công ty"
+                            value={contract.companyName}
+                            onChange={(e) => onChange("company_name", e.target.value)}
+                        />
+                    </Grid>
 
-  if (loading) return <p>Loading...</p>;
+                    {/* Email */}
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            label="Email"
+                            value={contract.email}
+                            onChange={(e) => onChange("email", e.target.value)}
+                        />
+                    </Grid>
 
-  return (
-    <div>
-      <div className="page-header">
-        <h1>{mode === "create" ? "Create Contract" : "Edit Contract"}</h1>
-      </div>
-      <form className="card form-grid" onSubmit={handleSubmit}>
-        <div className="two-col">
-          <div>
-            <label>First name</label>
-            <input
-              value={form.firstname ?? ""}
-              onChange={(e) => handleChange("firstname", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Last name</label>
-            <input
-              value={form.lastname ?? ""}
-              onChange={(e) => handleChange("lastname", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={form.email ?? ""}
-              onChange={(e) => handleChange("email", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Phone</label>
-            <input
-              value={form.phone ?? ""}
-              onChange={(e) => handleChange("phone", e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Company</label>
-            <input
-              value={form.companyName ?? ""}
-              onChange={(e) => handleChange("companyName", e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Bank account</label>
-            <input
-              value={form.bankAccountNumber ?? ""}
-              onChange={(e) =>
-                handleChange("bankAccountNumber", e.target.value)
-              }
-            />
-          </div>
-          <div>
-            <label>Start date</label>
-            <input
-              type="date"
-              value={form.startDate?.slice(0, 10) ?? ""}
-              onChange={(e) => handleChange("startDate", e.target.value)}
-            />
-          </div>
-          <div>
-            <label>End date</label>
-            <input
-              type="date"
-              value={form.endDate?.slice(0, 10) ?? ""}
-              onChange={(e) => handleChange("endDate", e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="form-actions">
-          <button className="btn-primary" type="submit">
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+                    {/* Phone */}
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            fullWidth
+                            label="Số điện thoại"
+                            value={contract.phone}
+                            onChange={(e) => onChange("phone", e.target.value)}
+                        />
+                    </Grid>
+
+                    {/* Bank Account */}
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Số tài khoản ngân hàng"
+                            value={contract.bankAccountNumber}
+                            onChange={(e) => onChange("bank_account_number", e.target.value)}
+                        />
+                    </Grid>
+
+                    {/* Reseller */}
+                    <Grid item xs={12}>
+                        <TextField
+                            select
+                            fullWidth
+                            label="Đại lý"
+                            value={contract.resellerId}
+                            onChange={(e) => onChange("reseller_id", Number(e.target.value))}
+                        >
+                            {resellers.map((r) => (
+                                <MenuItem key={r.id} value={r.id}>
+                                    {r.name} – {r.type}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>
+                </Grid>
+
+                {/* Address */}
+                <Box mt={4}>
+                    <Typography variant="h6" gutterBottom>
+                        Địa chỉ
+                    </Typography>
+
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                fullWidth
+                                label="Số nhà"
+                                value={contract.address.housenumber}
+                                onChange={(e) =>
+                                    onChange("address", {
+                                        ...contract.address,
+                                        housenumber: e.target.value,
+                                    })
+                                }
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                fullWidth
+                                label="Extension"
+                                value={contract.address.extension}
+                                onChange={(e) =>
+                                    onChange("address", {
+                                        ...contract.address,
+                                        extension: e.target.value,
+                                    })
+                                }
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={4}>
+                            <TextField
+                                fullWidth
+                                label="Zipcode"
+                                value={contract.address.zipcode}
+                                onChange={(e) =>
+                                    onChange("address", {
+                                        ...contract.address,
+                                        zipcode: e.target.value,
+                                    })
+                                }
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Đường"
+                                value={contract.address.street}
+                                onChange={(e) =>
+                                    onChange("address", {
+                                        ...contract.address,
+                                        street: e.target.value,
+                                    })
+                                }
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Thành phố"
+                                value={contract.address.city}
+                                onChange={(e) =>
+                                    onChange("address", {
+                                        ...contract.address,
+                                        city: e.target.value,
+                                    })
+                                }
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
+            </CardContent>
+        </Card>
+    );
 }

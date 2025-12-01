@@ -1,9 +1,9 @@
 using Application.DTOs;
-using MediatR;
 
-namespace Application.Features.Contracts.Commands.GetContractsByChoice;
-
-public class GetContractsByChoice : IRequest<List<ContractDto>>
+namespace Application.Features.Contracts.Commands.GetContractsByChoice
 {
-    public int Limit { get; set; } = 0;
+    public class GetContractsByChoice
+    {
+        public int Limit { get; set; } = 0;
+    }
 }

@@ -9,24 +9,29 @@ import {
     TableBody,
     IconButton,
     Button,
+    Chip,
+    Box,
+    Stack,
+    TextField,
+    InputAdornment,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
-import { ResellerApi } from "../../api/reseller.api";
 
-const cardStyle = {
-    background: "white",
-    borderRadius: "16px",
-    padding: "24px",
-    boxShadow: "0 4px 25px rgba(0,0,0,0.08)",
-};
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/EditOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+
+import NavMenu from "@/components/NavMenu/NavMenu";
+import { ResellerApi } from "../../api/reseller.api";
 
 export default function ResellerList() {
     const [resellers, setResellers] = useState<any[]>([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
-        ResellerApi.getAll().then((res) => setResellers(res));
+        ResellerApi.getAll().then((res) => {
+            setResellers(res || []); // tránh undefined
+        });
     }, []);
 
     const handleDelete = async (id: number) => {
@@ -35,50 +40,109 @@ export default function ResellerList() {
         setResellers((prev) => prev.filter((x) => x.id !== id));
     };
 
+    const filtered = resellers.filter((r) =>
+        r.name.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
-        <Card sx={cardStyle}>
-            <Typography variant="h5" sx={{ mb: 3, fontWeight: 700 }}>
-                🏪 Reseller List
-            </Typography>
+        <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
+            {/* NAV MENU */}
+            <NavMenu />
 
-            <Button
-                variant="contained"
-                href="/reseller/create"
-                sx={{
-                    mb: 2,
-                    borderRadius: "12px",
-                    background: "linear-gradient(90deg,#3550ff,#4f6bff)",
-                }}
-                startIcon={<AddIcon />}
-            >
-                Add Reseller
-            </Button>
+            {/* HEADER */}
+            <Stack direction="row" justifyContent="space-between" alignItems="flex-end" mb={4}>
+                <Box>
+                    <Typography variant="h4" sx={{ fontFamily: "Georgia, serif", fontWeight: 700 }}>
+                        Reseller Management
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "#64748b", mt: 1 }}>
+                        Manage your energy brokers and agency partners.
+                    </Typography>
+                </Box>
 
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell align="right">Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {resellers.map((r) => (
-                        <TableRow key={r.id}>
-                            <TableCell>{r.name}</TableCell>
-                            <TableCell>{r.type}</TableCell>
-                            <TableCell align="right">
-                                <IconButton color="primary" href={`/reseller/edit/${r.id}`}>
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color="error" onClick={() => handleDelete(r.id)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </TableCell>
+                <Stack direction="row" spacing={2}>
+                    <TextField
+                        placeholder="Search resellers..."
+                        size="small"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon sx={{ color: "#94a3b8" }} />
+                                </InputAdornment>
+                            ),
+                            sx: { bgcolor: "white", borderRadius: 2 },
+                        }}
+                    />
+
+                    <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                        href="/resellers/create"
+                    >
+                        Add New Reseller
+                    </Button>
+                </Stack>
+            </Stack>
+
+            {/* TABLE */}
+            <Card sx={{ borderRadius: 4, boxShadow: "0 10px 40px rgba(0,0,0,0.05)" }}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>NAME</TableCell>
+                            <TableCell>TYPE</TableCell>
+                            <TableCell>EMAIL</TableCell>
+                            <TableCell>STATUS</TableCell>
+                            <TableCell align="right">ACTIONS</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Card>
+                    </TableHead>
+
+                    <TableBody>
+                        {filtered.map((r) => (
+                            <TableRow key={r.id} hover>
+                                <TableCell sx={{ fontWeight: 600 }}>{r.name}</TableCell>
+
+                                <TableCell>
+                                    <Chip
+                                        label={r.type}
+                                        size="small"
+                                        sx={{
+                                            bgcolor: r.type === "Broker" ? "#e0f2fe" : "#f3e8ff",
+                                            color: r.type === "Broker" ? "#0369a1" : "#7e22ce",
+                                            fontWeight: 600,
+                                        }}
+                                    />
+                                </TableCell>
+
+                                <TableCell sx={{ color: "#475569" }}>{r.email}</TableCell>
+
+                                <TableCell>
+                                    <Chip
+                                        label="Active"
+                                        size="small"
+                                        sx={{
+                                            bgcolor: "#f0fdf4",
+                                            color: "#15803d",
+                                            fontWeight: 600,
+                                        }}
+                                    />
+                                </TableCell>
+
+                                <TableCell align="right">
+                                    <IconButton href={`/resellers/edit/${r.id}`}>
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton color="error" onClick={() => handleDelete(r.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Card>
+        </Box>
     );
 }

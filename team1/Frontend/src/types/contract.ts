@@ -1,6 +1,9 @@
 // src/types/contract.ts
 
 export interface Contract {
+  address: any;
+  contractNumber: ReactNode;
+  orders: any;
   id?: number;
   firstName: string;
   lastName: string;

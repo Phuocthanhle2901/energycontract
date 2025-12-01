@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # 1. Database (Như cũ)
@@ -17,10 +16,10 @@ services:
 
   # 2. API Backend (Mới thêm)
   customer-api:
-    build:
-      context: . # Đứng từ thư mục Backend để build
-      dockerfile: src/CustomerService/Api/Dockerfile
+    platform: linux/amd64
+    image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
+    restart: always
     depends_on:
       - postgres-db # Chờ DB chạy xong mới chạy API
     ports:

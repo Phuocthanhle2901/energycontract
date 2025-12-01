@@ -1,36 +1,34 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { ContractHistory } from "../../types/contract";
-// import { getContractHistory } from "../../api/contract.api";
+import { Box, Typography, Paper } from "@mui/material";
+import type { Log } from "../../types/contractTypes";
 
-// export default function ContractHistoryPage() {
-//   const { id } = useParams();
-//   const [items, setItems] = useState<ContractHistory[]>([]);
 
-//   useEffect(() => {
-//     if (!id) return;
-//     getContractHistory(Number(id)).then(setItems);
-//   }, [id]);
+export default function ContractHistory({ logs }: { logs: Log[] }) {
+    if (!logs || logs.length === 0) {
+        return <Typography>Chưa có lịch sử ghi nhận.</Typography>;
+    }
 
-//   return (
-//     <div>
-//       <div className="page-header">
-//         <h1>Contract history</h1>
-//       </div>
-//       <div className="timeline">
-//         {items.map((h) => (
-//           <div key={h.id} className="timeline-item">
-//             <div className="timeline-dot" />
-//             <div className="timeline-content">
-//               <div className="timeline-time">
-//                 {new Date(h.changedAt).toLocaleString()}
-//               </div>
-//               <div>{h.summary}</div>
-//             </div>
-//           </div>
-//         ))}
-//         {items.length === 0 && <p className="muted">No history.</p>}
-//       </div>
-//     </div>
-//   );
-// }
+    return (
+        <Box>
+            {logs.map((log, index) => (
+                <Paper
+                    key={index}
+                    sx={{
+                        p: 2,
+                        mb: 2,
+                        borderLeft: "4px solid #1976d2",
+                    }}
+                >
+                    <Typography variant="subtitle1" fontWeight="bold">
+                        {log.action}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {log.timestamp}
+                    </Typography>
+                    <Typography variant="body1" mt={1}>
+                        {log.details}
+                    </Typography>
+                </Paper>
+            ))}
+        </Box>
+    );
+}

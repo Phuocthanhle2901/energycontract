@@ -1,9 +1,9 @@
 using Application.DTOs;
-using MediatR;
 
-namespace Application.Features.Contracts.Commands.GetContract;
-
-public class GetContractById : IRequest<ContractDto>
+namespace Application.Features.Contracts.Commands.GetContract
 {
-    public int Id { get; set; }
+    public class GetContractById
+    {
+        public int Id { get; set; }
+    }
 }

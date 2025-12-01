@@ -100,8 +100,8 @@ const HeroSection: React.FC = () => {
         <Box flex={1} sx={{ display: "flex", justifyContent: "center" }}>
             <Box
                 sx={{
-                width: 320,          // chữ nhật
-                height: 240,
+                width: 620,          // chữ nhật
+                height: 540,
                 borderRadius: 4,
                 boxShadow: "0 0 60px 20px rgba(49,33,120,0.8)",
                 overflow: "hidden",
@@ -136,3 +136,4 @@ const HeroSection: React.FC = () => {
 };
 
 export default HeroSection;
+
