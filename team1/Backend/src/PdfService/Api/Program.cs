@@ -7,7 +7,10 @@ using Api.Infrastructures.Data;
 using Api.Services;
 using Api.Services.Interfaces;
 using Serilog;
+using QuestPDF.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
+// Configure QuestPDF License
+QuestPDF.Settings.License = LicenseType.Community; // Add this line
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -66,7 +69,7 @@ try
 
     // Register Services - UPDATED
     builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
-    builder.Services.AddScoped<IStorageService, AwsS3StorageService>(); // Changed from MinioStorageService
+    builder.Services.AddScoped<IStorageService, AwsS3StorageService>(); 
     builder.Services.AddScoped<ITemplateService, TemplateService>();
     builder.Services.AddScoped<IPdfService, PdfService>();
 
