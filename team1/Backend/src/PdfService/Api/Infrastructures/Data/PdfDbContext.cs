@@ -32,7 +32,6 @@ public class PdfDbContext : DbContext
                 Name = "ContractTemplate",
                 Description = "Default contract template",
                 IsActive = true,
-                CreatedAt = DateTime.UtcNow,
                 HtmlContent = GetDefaultTemplate()
             }
         );
