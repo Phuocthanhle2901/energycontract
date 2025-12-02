@@ -36,7 +36,11 @@ public class AddressRepository : IAddressRepository
     {
         return await _context.Addresses.FindAsync(id);
     }
-
+    public async Task UpdateAsync(Address address)
+    {
+        _context.Addresses.Update(address);
+        await _context.SaveChangesAsync();
+    }
     public async Task DeleteAsync(Address address)
     {
         _context.Addresses.Remove(address);

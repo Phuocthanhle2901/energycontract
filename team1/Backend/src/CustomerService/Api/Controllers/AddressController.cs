@@ -1,6 +1,9 @@
 using Application.Features.Addresses.Commands.CreateAddress;
 using Application.Features.Addresses.Commands.GetAllAddresses;
 using Application.Features.Addresses.Commands.DeleteAddress;
+using Application.Features.Addresses.Commands.UpdateAddress;
+using Application.Features.Addresses.Commands.GetAddress;
+
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,15 +15,21 @@ public class AddressController : ControllerBase
 {
     private readonly CreateAddressHandler _createAddressHandler;
     private readonly GetAllAddressesHandler _getAllAddressesHandler;
+    private readonly GetAddressByIdHandler _getAddressByIdHandler;
     private readonly DeleteAddressHandler _deleteAddressHandler;
+    private readonly UpdateAddressHandler  _updateAddressHandler;
     private readonly ILogger<AddressController> _logger;
     public AddressController(
         CreateAddressHandler createAddressHandler,
+        UpdateAddressHandler updateAddressHandler,
         GetAllAddressesHandler getAllAddressesHandler,
+        GetAddressByIdHandler getAddressByIdHandler,
         DeleteAddressHandler deleteAddressHandler,
         ILogger<AddressController> logger)
     {
         _createAddressHandler = createAddressHandler;
+        _updateAddressHandler = updateAddressHandler;
+        _getAddressByIdHandler =  getAddressByIdHandler;
         _getAllAddressesHandler = getAllAddressesHandler;
         _deleteAddressHandler = deleteAddressHandler;
         _logger = logger;
@@ -41,7 +50,7 @@ public class AddressController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
-
+    
     [HttpGet]
     public async Task<ActionResult<List<Address>>> GetAll([FromQuery] int limit = 0)
     {
@@ -64,7 +73,41 @@ public class AddressController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await _getAddressByIdHandler.Handle(new GetAddressById { Id = id });
 
+        if (result == null)
+            return NotFound("Address not found");
+
+        return Ok(result);
+    }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UpdateAddress command)
+    {
+        try
+        {
+            if (id != command.Id)
+                return BadRequest("Route id and body id do not match");
+
+            var result = await _updateAddressHandler.Handle(command);
+
+            if (!result)
+            {
+                _logger.LogWarning("Attempted update for non-existing address {Id}", id);
+                return NotFound("Address not found");
+            }
+
+            _logger.LogInformation("Updated address with id {Id}", id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error in Update: {Message}", ex.Message);
+            return StatusCode(500, ex.Message);
+        }
+    }
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

@@ -16,19 +16,12 @@ namespace Application.Features.Resellers.Commands.GetAllResellers
         {
             var resellers = await _resellerRepository.GetAllAsync(request.Limit);
 
-            var result = new List<ResellerDto>();
-
-            foreach (var r in resellers)
+            return resellers.Select(x => new ResellerDto
             {
-                result.Add(new ResellerDto
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    Type = r.Type
-                });
-            }
-
-            return result;
+                Id = x.Id,
+                Name = x.Name,
+                Type = x.Type
+            }).ToList();
         }
     }
 }
