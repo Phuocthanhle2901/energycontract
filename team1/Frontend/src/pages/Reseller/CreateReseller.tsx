@@ -5,9 +5,29 @@ import {
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import NavMenu from "@/components/NavMenu/NavMenu";
+import { useState } from "react";
+import { ResellerApi } from "../../api/reseller.api";
 
 export default function CreateReseller() {
     const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        name: "",
+        type: "Broker",
+        email: "",
+        phone: "",
+    });
+
+    const handleCreate = async () => {
+        await ResellerApi.create({
+            name: form.name,
+            type: form.type
+        });
+
+        alert("Reseller created successfully!");
+        navigate("/resellers");
+    };
+
 
     return (
         <>
@@ -57,70 +77,52 @@ export default function CreateReseller() {
                         <Grid container spacing={4}>
 
                             {/* SECTION TITLE */}
-                            <Grid size={{ xs: 12 }}>
-                                <Box sx={{ borderBottom: "1px solid #e2e8f0", pb: 1, mb: 3 }}>
-                                    <Typography
-                                        sx={{
-                                            color: "#3b82f6",
-                                            fontWeight: 700,
-                                            textTransform: "uppercase",
-                                            fontSize: "0.8rem",
-                                        }}
-                                    >
-                                        Partner Information
-                                    </Typography>
-                                </Box>
-                            </Grid>
+
 
                             {/* NAME */}
-                            <Grid size={{ xs: 12, md: 6 }}>
+                            <Grid xs={12} md={6}>
                                 <FormLabel>Reseller Name</FormLabel>
-                                <TextField placeholder="Global Energy Distributor" fullWidth />
+                                <TextField
+                                    fullWidth
+                                    value={form.name}
+                                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                                />
                             </Grid>
 
                             {/* TYPE */}
-                            <Grid size={{ xs: 12, md: 6 }}>
+                            <Grid xs={12} md={6}>
                                 <FormLabel>Partner Type</FormLabel>
                                 <FormControl fullWidth>
-                                    <Select defaultValue="Broker">
+                                    <Select
+                                        value={form.type}
+                                        onChange={(e) => setForm({ ...form, type: e.target.value })}
+                                    >
                                         <MenuItem value="Broker">Broker</MenuItem>
                                         <MenuItem value="Agency">Agency</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
 
-                            {/* COMMISSION */}
-                            <Grid size={{ xs: 12, md: 6 }}>
-                                <FormLabel>Commission Rate (%)</FormLabel>
-                                <TextField type="number" placeholder="10.0" fullWidth />
-                            </Grid>
 
-                            {/* CONTACT SECTION */}
-                            <Grid size={{ xs: 12, md: 6 }}>
-                                <Box sx={{ borderBottom: "1px solid #e2e8f0", pb: 1, mb: 3 }}>
-                                    <Typography
-                                        sx={{
-                                            color: "#3b82f6",
-                                            fontWeight: 700,
-                                            textTransform: "uppercase",
-                                            fontSize: "0.8rem",
-                                        }}
-                                    >
-                                        Contact Details
-                                    </Typography>
-                                </Box>
-                            </Grid>
 
                             {/* EMAIL */}
-                            <Grid size={{ xs: 12, md: 6 }}>
+                            <Grid xs={12} md={6}>
                                 <FormLabel>Email Address</FormLabel>
-                                <TextField placeholder="contact@company.com" fullWidth />
+                                <TextField
+                                    fullWidth
+                                    value={form.email}
+                                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                />
                             </Grid>
 
                             {/* PHONE */}
-                            <Grid size={{ xs: 12, md: 6 }}>
+                            <Grid xs={12} md={6}>
                                 <FormLabel>Phone Number</FormLabel>
-                                <TextField placeholder="+1 (555) 000-0000" fullWidth />
+                                <TextField
+                                    fullWidth
+                                    value={form.phone}
+                                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                                />
                             </Grid>
                         </Grid>
                     </Box>
@@ -144,7 +146,9 @@ export default function CreateReseller() {
                             Cancel
                         </Button>
 
-                        <Button variant="contained">Create Reseller</Button>
+                        <Button variant="contained" onClick={handleCreate}>
+                            Create Reseller
+                        </Button>
                     </Box>
                 </Card>
             </Box>

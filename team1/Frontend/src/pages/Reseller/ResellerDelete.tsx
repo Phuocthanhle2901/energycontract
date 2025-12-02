@@ -2,10 +2,17 @@ import { Box, Button, Card, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import { useNavigate, useParams } from "react-router-dom";
+import { ResellerApi } from "../../api/reseller.api";
 
 export default function ResellerDelete() {
     const navigate = useNavigate();
     const { id } = useParams();
+
+    const handleDelete = async () => {
+        await ResellerApi.delete(id);
+        alert("Reseller deleted!");
+        navigate("/resellers");
+    };
 
     return (
         <Box
@@ -54,7 +61,7 @@ export default function ResellerDelete() {
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary">
-                        This action cannot be undone.
+                        This action cannot be undone.<br />
                         You are deleting reseller with ID: <b>{id}</b>.
                     </Typography>
                 </Box>
@@ -78,7 +85,7 @@ export default function ResellerDelete() {
                         Cancel
                     </Button>
 
-                    <Button variant="contained" color="error">
+                    <Button variant="contained" color="error" onClick={handleDelete}>
                         Delete
                     </Button>
                 </Box>
