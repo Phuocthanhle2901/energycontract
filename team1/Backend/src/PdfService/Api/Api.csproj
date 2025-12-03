@@ -10,7 +10,6 @@
     <ItemGroup>
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.14" />
         <PackageReference Include="AWSSDK.S3" Version="4.0.13.1" />
-        <PackageReference Include="IronPdf" Version="2025.11.12" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.22"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
           <PrivateAssets>all</PrivateAssets>
