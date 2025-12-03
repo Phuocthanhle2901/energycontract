@@ -187,6 +187,16 @@ export default function ContractList() {
                   >
                     PDF
                   </Button>
+                  <Button
+                    size="small"
+                    color="secondary"
+                    sx={{ mr: 1 }}
+                    onClick={() => navigate(`/contracts/${c.contractNumber}/history`)}
+
+                  >
+                    History
+                  </Button>
+
                 </TableCell>
               </TableRow>
             ))}

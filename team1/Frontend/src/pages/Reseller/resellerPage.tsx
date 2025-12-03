@@ -26,6 +26,11 @@ function ResellerPage() {
     const data = await resellerService.getAll();
     
     console.log("Data từ API:", data); // ← Thêm dòng này
+    useEffect(() => {
+    resellerService.getAll().then(result => {
+        console.log("Kết quả thực tế từ resellerService.getAll():", result);
+    });
+}, []);
     console.log("Type of data:", typeof data); // ← Kiểm tra kiểu
     console.log("Is Array?", Array.isArray(data)); // ← Kiểm tra có phải array không
     

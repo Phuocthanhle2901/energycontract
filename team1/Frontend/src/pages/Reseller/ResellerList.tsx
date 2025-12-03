@@ -30,7 +30,7 @@ export default function ResellerList() {
 
     useEffect(() => {
         ResellerApi.getAll().then((res) => {
-            setResellers(res || []); // tránh undefined
+            setResellers(res || []);
         });
     }, []);
 
@@ -117,6 +117,7 @@ export default function ResellerList() {
                                 </TableCell>
 
                                 <TableCell sx={{ color: "#475569" }}>{r.email}</TableCell>
+
 
                                 <TableCell>
                                     <Chip

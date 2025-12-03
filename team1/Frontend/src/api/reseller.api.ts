@@ -1,23 +1,30 @@
-import api from "../api/axiosInstance";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/api/resellers";
 
 export const ResellerApi = {
-  create(data: { name: string; type: string }) {
-    return api.post("/resellers", data).then((r) => r.data);
+  getAll: async () => {
+    const res = await axios.get(API_URL);
+    return res.data;
   },
 
-  getAll() {
-    return api.get("/resellers").then((r) => r.data);
+  getById: async (id: number) => {
+    const res = await axios.get(`${API_URL}/${id}`);
+    return res.data;
   },
 
-  getById(id: number) {
-    return api.get(`/resellers/${id}`).then((r) => r.data);
+  create: async (data: any) => {
+    const res = await axios.post(API_URL, data);
+    return res.data;
   },
 
-  update(id: number, data: { name: string; type: string }) {
-    return api.put(`/resellers/${id}`, data).then((r) => r.data);
+  update: async (id: number, data: any) => {
+    const res = await axios.put(`${API_URL}/${id}`, data);
+    return res.data;
   },
 
-  delete(id: number) {
-    return api.delete(`/resellers/${id}`).then((r) => r.data);
-  },
+  delete: async (id: number) => {
+    const res = await axios.delete(`${API_URL}/${id}`);
+    return res.data;
+  }
 };
