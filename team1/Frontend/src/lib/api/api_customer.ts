@@ -1,13 +1,13 @@
 import axios from "axios";
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+const api_customer = axios.create({
+    baseURL: import.meta.env.CUSTOMER_URL_API,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json"
     }
 });
 // Kiểm tra định dạng của API
-api.interceptors.response.use(
+api_customer.interceptors.response.use(
   (response) => {
      console.log('✅ API Response:', response.data);
     return response;
@@ -22,4 +22,4 @@ api.interceptors.response.use(
     }
 }
 );
-export default api;
+export default api_customer;

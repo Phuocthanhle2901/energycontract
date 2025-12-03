@@ -11,30 +11,16 @@ import Login from "../pages/Auth/Login";
 //=======contract
 import ContractCreate from "../pages/Contract/ContractCreate";
 import ContractList from "../pages/Contract/ContractList";
+import CreateReseller from "../pages/Reseller/CreateReseller";
+import CreateAddress from "../pages/Address/CreateAddress";
+import AddressList from "../../src/pages/Address/AddressList";
+import AddressDelete from "../../src/pages/Address/AddressDelete";
+import ResellerList from "../pages/Reseller/ResellerList";
 import ResellerEdit from "../pages/Reseller/ResellerEdit";
 import ResellerDelete from "../pages/Reseller/ResellerDelete";
 import ContractDetail from "@/pages/Contract/ContractDetail";
 import ContractEdit from "@/pages/Contract/ContractEdit";
 import ContractPDF from "@/pages/Contract/ContractPDF";
-import ContractHistoryPage from "@/pages/Contract/ContractHistoryPage";
-// import CreateAddress from "../pages/Address/CreateAddress";
-// import AddressList from "../../src/pages/Address/AddressList";
-// import AddressDelete from "../../src/pages/Address/AddressDelete";
-// import ResellerList from "../pages/Reseller/ResellerList";
-//reseller
-import ResellerList from "@/pages/Reseller/ResellerList";
-import CreateReseller from "../pages/Reseller/CreateReseller";
-// import ResellerPage from "@/pages/Reseller/resellerPage";//Huy test API
-
-//address
-import AddressResellerList from "@/pages/Address-Reseller/AddressResellerList";
-import AddressResellerEdit from "@/pages/Address-Reseller/AddressResellerEdit";
-import AddressResellerDelete from "@/pages/Address-Reseller/AddressResellerDelete";
-import AddressResellerCreate from "@/pages/Address-Reseller/AddressResellerCreate";
-//order
-import OrderIndex from "@/pages/orders/OrderIndex ";
-import OrderForm from "@/pages/orders/OrderForm";
-import OrderList from "@/pages/orders/OrderList";
 
 
 export default function AppRoutes() {
@@ -64,7 +50,6 @@ export default function AppRoutes() {
                 <Route path="/orderlist" element={<OrderList />} />
 
                 {/* Reseller */}
-                {/* <Route path="/resellers" element={<ResellerPage />} />//HUY test API */}
                 <Route path="/resellers" element={<ResellerList />} />
                 <Route path="/resellers/create" element={<CreateReseller />} />
                 <Route path="/resellers/edit/:id" element={<ResellerEdit />} />

@@ -18,6 +18,9 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IContractRepository, ContractRepository>();
         services.AddScoped<IResellerRepository, ResellerRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IContractHistoryRepository, ContractHistoryRepository>();
+
     
         return services;
     }

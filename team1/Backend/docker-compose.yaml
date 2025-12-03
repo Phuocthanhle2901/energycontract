@@ -14,7 +14,7 @@ services:
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
   customer-api:
-    platform: linux/amd64
+    
     image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
     restart: always
@@ -27,7 +27,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
 
   pdf-service:
-    platform: linux/amd64
+ 
     image: huyngoinfo/energy-pdf-service:latest
     container_name: energy_pdf_service
     restart: always

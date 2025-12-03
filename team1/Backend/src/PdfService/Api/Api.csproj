@@ -10,7 +10,6 @@
     <ItemGroup>
         <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.14" />
         <PackageReference Include="AWSSDK.S3" Version="4.0.13.1" />
-        <PackageReference Include="IronPdf" Version="2025.11.12" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.22"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
           <PrivateAssets>all</PrivateAssets>
@@ -24,6 +23,10 @@
         <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+        <PackageReference Include="QuestPDF" Version="2024.10.0" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
+        
+        
     </ItemGroup>
 
     <ItemGroup>
