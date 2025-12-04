@@ -22,11 +22,25 @@ public class GetContractsByChoiceHandler
         {
             result.Add(new ContractDto
             {
+                Id = c.Id,
                 ContractNumber = c.ContractNumber,
-                CustomerName = $"{c.FirstName} {c.LastName}",
-                Email = c.Email,
+
+                FirstName = c.FirstName!,
+                LastName = c.LastName!,
+
+                Email = c.Email!,
+                Phone = c.Phone!,
+
+                CompanyName = c.CompanyName!,
+
                 StartDate = c.StartDate,
-                Status = "Active"
+                EndDate = c.EndDate,    
+
+                BankAccountNumber = c.BankAccountNumber!,
+                PdfLink = c.PdfLink!,
+
+                AddressId = c.AddressId,
+                ResellerId = c.ResellerId
             });
         }
 

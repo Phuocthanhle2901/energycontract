@@ -22,11 +22,25 @@ public class GetContractByIdHandler
         // 🔥 Map thủ công Contract → ContractDto
         var dto = new ContractDto
         {
+            Id = contractEntity.Id,
             ContractNumber = contractEntity.ContractNumber,
-            CustomerName = $"{contractEntity.FirstName} {contractEntity.LastName}",
+
+            FirstName = contractEntity.FirstName,
+            LastName = contractEntity.LastName,
+
             Email = contractEntity.Email,
+            Phone = contractEntity.Phone,
+
+            CompanyName = contractEntity.CompanyName,
+
             StartDate = contractEntity.StartDate,
-            Status = "Active" // giữ nguyên default từ DTO
+            EndDate = contractEntity.EndDate,
+
+            BankAccountNumber = contractEntity.BankAccountNumber,
+            PdfLink = contractEntity.PdfLink,
+
+            AddressId = contractEntity.AddressId,
+            ResellerId = contractEntity.ResellerId
         };
 
         return dto;
