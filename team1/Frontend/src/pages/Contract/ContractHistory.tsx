@@ -15,7 +15,7 @@ export default function ContractHistory({ logs }: Props) {
     return (
         <Box>
             {logs.length === 0 ? (
-                <Typography>Không có lịch sử thay đổi.</Typography>
+                <Typography>No history records found.</Typography>
             ) : (
                 logs.map((log) => (
                     <Paper
@@ -27,16 +27,21 @@ export default function ContractHistory({ logs }: Props) {
                             borderRadius: "8px",
                         }}
                     >
+                        {/* TIME */}
                         <Typography fontWeight={700}>
-                            Thời gian: {new Date(log.timestamp).toLocaleString()}
+                            Time: {new Date(log.timestamp).toLocaleString()}
                         </Typography>
 
+                        {/* OLD VALUE */}
                         <Typography mt={1} color="gray">
-                            <strong>Old:</strong> {JSON.stringify(log.oldValue)}
+                            <strong>Old Value:</strong>{" "}
+                            {JSON.stringify(log.oldValue, null, 2)}
                         </Typography>
 
+                        {/* NEW VALUE */}
                         <Typography mt={1} color="green">
-                            <strong>New:</strong> {JSON.stringify(log.newValue)}
+                            <strong>New Value:</strong>{" "}
+                            {JSON.stringify(log.newValue, null, 2)}
                         </Typography>
                     </Paper>
                 ))

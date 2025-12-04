@@ -1,156 +1,187 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { Box, Button, TextField, MenuItem, Stack, Typography, Paper } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import NavMenu from "@/components/NavMenu/NavMenu";
+
 import {
-    Box, Paper, Typography, Button, Grid,
-    TextField, RadioGroup, FormControlLabel,
-    Radio, Select, MenuItem, InputLabel,
-    FormControl
-} from "@mui/material";
+    createOrder,
+    updateOrder,
+    getOrderById,
+    deleteOrder
+} from "@/services/customerService/OrderService";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import PaidIcon from "@mui/icons-material/Paid";
+import { getContracts } from "@/services/customerService/ContractService";
 
-export default function OrderForm({
-    selectedOrder,
-    formData,
-    onChange,
-    onSubmit,
-    onBack
-}: any) {
+export default function OrderForm() {
+    const { id, mode } = useParams();
+    const navigate = useNavigate();
+
+    const isEdit = mode === "edit";
+    const isDelete = mode === "delete";
+
+    const [contracts, setContracts] = useState<any[]>([]);
+    const [form, setForm] = useState({
+        orderNumber: "",
+        orderType: 0,
+        status: 0,
+        startDate: "",
+        endDate: "",
+        topupFee: 0,
+        contractId: 0,
+    });
+
+    useEffect(() => {
+        getContracts().then((res) => Array.isArray(res) && setContracts(res));
+    }, []);
+
+    useEffect(() => {
+        if (isEdit && id) {
+            getOrderById(Number(id)).then((res) => {
+                setForm({
+                    orderNumber: res.orderNumber || "",
+                    orderType: res.orderType ?? 0,
+                    status: res.status ?? 0,
+                    startDate: res.startDate?.substring(0, 10) || "",
+                    endDate: res.endDate?.substring(0, 10) || "",
+                    topupFee: res.topupFee ?? 0,
+                    contractId: res.contractId ?? 0,
+                });
+            });
+        }
+    }, [id, isEdit]);
+
+    const handleChange = (e: any) => {
+        let { name, value } = e.target;
+        if (["orderType", "status", "contractId", "topupFee"].includes(name)) {
+            value = Number(value);
+        }
+        setForm((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async () => {
+        const payload = {
+            ...form,
+            startDate: new Date(form.startDate).toISOString(),
+            endDate: new Date(form.endDate).toISOString(),
+        };
+
+        if (isEdit && id) {
+            await updateOrder(Number(id), payload);
+            alert("Order updated!");
+        } else {
+            await createOrder(payload);
+            alert("Order created!");
+        }
+        navigate("/orders");
+    };
+
+    const handleDelete = async () => {
+        await deleteOrder(Number(id));
+        alert("Order deleted!");
+        navigate("/orders");
+    };
+
     return (
-        <Box sx={{ mt: 2 }}>
-            <Button
-                startIcon={<ArrowBackIcon />}
-                onClick={onBack}
-                sx={{
-                    textTransform: "none",
-                    fontWeight: 600,
-                    color: "#1565c0",
-                    mb: 2
-                }}
-            >
-                ← Quay lại Danh sách Đơn hàng
-            </Button>
+        <Box sx={{ ml: "240px", p: 3 }}>
+            <NavMenu />
 
-            <Paper
-                sx={{
-                    p: 4,
-                    borderRadius: "16px",
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
-                    backgroundColor: "#fff"
-                }}
-            >
-                <Typography variant="h5" sx={{ fontWeight: 800, mb: 3 }}>
-                    {selectedOrder ?
-                        `Chỉnh Sửa Đơn hàng: ${selectedOrder.order_number}` :
-                        "Tạo Đơn hàng Mới"}
+            <Paper sx={{ maxWidth: 600, p: 3, mx: "auto" }}>
+                <Typography variant="h5" mb={3} fontWeight={600}>
+                    {isDelete ? "Delete Order" : isEdit ? "Edit Order" : "Create Order"}
                 </Typography>
 
-                <Box component="form" onSubmit={onSubmit}>
-                    <Grid container spacing={3}>
+                <Stack spacing={2}>
+                    <TextField
+                        label="Order Number"
+                        name="orderNumber"
+                        disabled={isDelete}
+                        fullWidth
+                        value={form.orderNumber}
+                        onChange={handleChange}
+                    />
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                fullWidth
-                                label="Số Đơn hàng"
-                                name="order_number"
-                                value={formData.order_number || ""}
-                                InputProps={{ readOnly: true }}
-                            />
-                        </Grid>
+                    <TextField select fullWidth label="Order Type" name="orderType" disabled={isDelete}
+                        value={form.orderType} onChange={handleChange}>
+                        <MenuItem value={0}>Gas</MenuItem>
+                        <MenuItem value={1}>Electricity</MenuItem>
+                    </TextField>
 
-                        <Grid item xs={12} md={6}>
-                            <Typography sx={{ fontWeight: 600, mb: 1 }}>Loại Năng lượng</Typography>
-                            <RadioGroup
-                                row
-                                name="order_type"
-                                value={formData.order_type || "electricity"}
-                                onChange={onChange}
-                            >
-                                <FormControlLabel value="electricity" control={<Radio />} label="Electricity (Điện)" />
-                                <FormControlLabel value="gas" control={<Radio />} label="Gas (Ga)" />
-                            </RadioGroup>
-                        </Grid>
+                    <TextField select fullWidth label="Status" name="status" disabled={isDelete}
+                        value={form.status} onChange={handleChange}>
+                        <MenuItem value={0}>Pending</MenuItem>
+                        <MenuItem value={1}>Active</MenuItem>
+                        <MenuItem value={2}>Completed</MenuItem>
+                        <MenuItem value={3}>Cancelled</MenuItem>
+                    </TextField>
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                label="Ngày Bắt đầu"
-                                type="date"
-                                fullWidth
-                                name="start_date"
-                                value={formData.start_date || ""}
-                                onChange={onChange}
-                                InputLabelProps={{ shrink: true }}
-                            />
-                        </Grid>
+                    <Stack direction="row" spacing={2}>
+                        <TextField
+                            type="date"
+                            label="Start Date"
+                            InputLabelProps={{ shrink: true }}
+                            name="startDate"
+                            disabled={isDelete}
+                            value={form.startDate}
+                            onChange={handleChange}
+                            fullWidth
+                        />
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                label="Ngày Kết thúc"
-                                type="date"
-                                fullWidth
-                                name="end_date"
-                                value={formData.end_date || ""}
-                                onChange={onChange}
-                                InputLabelProps={{ shrink: true }}
-                            />
-                        </Grid>
+                        <TextField
+                            type="date"
+                            label="End Date"
+                            InputLabelProps={{ shrink: true }}
+                            name="endDate"
+                            disabled={isDelete}
+                            value={form.endDate}
+                            onChange={handleChange}
+                            fullWidth
+                        />
+                    </Stack>
 
-                        <Grid item xs={12} md={6}>
-                            <FormControl fullWidth>
-                                <InputLabel>Trạng thái</InputLabel>
-                                <Select
-                                    name="status"
-                                    value={formData.status || "pending"}
-                                    onChange={onChange}
-                                >
-                                    <MenuItem value="active">Active</MenuItem>
-                                    <MenuItem value="pending">Pending</MenuItem>
-                                    <MenuItem value="completed">Completed</MenuItem>
-                                    <MenuItem value="cancelled">Cancelled</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
+                    <TextField
+                        type="number"
+                        fullWidth
+                        label="Top-up Fee"
+                        name="topupFee"
+                        disabled={isDelete}
+                        value={form.topupFee}
+                        onChange={handleChange}
+                    />
 
-                        <Grid item xs={12} md={6}>
-                            <TextField
-                                label="Phí Nạp/Đăng ký (VND)"
-                                type="number"
-                                fullWidth
-                                name="topup_fee"
-                                value={formData.topup_fee || 0}
-                                onChange={onChange}
-                                InputProps={{
-                                    startAdornment: <PaidIcon sx={{ mr: 1 }} />
-                                }}
-                            />
-                        </Grid>
+                    <TextField
+                        select
+                        fullWidth
+                        label="Contract"
+                        name="contractId"
+                        disabled={isDelete}
+                        value={form.contractId}
+                        onChange={handleChange}
+                    >
+                        {contracts.map((c) => (
+                            <MenuItem key={c.id} value={c.id}>
+                                {c.contractNumber} — {c.firstName} {c.lastName}
+                            </MenuItem>
+                        ))}
+                    </TextField>
 
-                    </Grid>
+                    <Stack direction="row" spacing={2} mt={2}>
+                        {!isDelete && (
+                            <Button variant="contained" onClick={handleSubmit}>
+                                {isEdit ? "Update" : "Create"}
+                            </Button>
+                        )}
 
-                    <Box sx={{ textAlign: "right", mt: 4 }}>
-                        <Button
-                            variant="outlined"
-                            onClick={onBack}
-                            sx={{ mr: 2, borderRadius: "10px" }}
-                        >
-                            HỦY
+                        {isDelete && (
+                            <Button color="error" variant="contained" onClick={handleDelete}>
+                                Delete
+                            </Button>
+                        )}
+
+                        <Button variant="outlined" onClick={() => navigate("/orders")}>
+                            Back
                         </Button>
-
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            sx={{
-                                backgroundColor: "#1976D2",
-                                borderRadius: "10px",
-                                px: 4,
-                                py: 1.2,
-                                fontWeight: 700
-                            }}
-                        >
-                            {selectedOrder ? "LƯU THAY ĐỔI" : "TẠO ĐƠN HÀNG"}
-                        </Button>
-                    </Box>
-                </Box>
+                    </Stack>
+                </Stack>
             </Paper>
         </Box>
     );

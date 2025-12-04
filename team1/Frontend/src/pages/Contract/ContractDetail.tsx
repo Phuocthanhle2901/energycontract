@@ -1,139 +1,220 @@
-// src/pages/Contract/ContractDetail.tsx
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Box, Card, CardHeader, CardContent, Typography, Button, Divider, Stack, Chip, Link } from "@mui/material";
-import { ChevronLeft } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getContractById } from "@/services/customerService/ContractService";
+import type { ContractResponse } from "@/types/contract";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Divider,
+  Grid,
+  Button,
+  Chip,
+  Stack,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
+
 import NavMenu from "@/components/NavMenu/NavMenu";
 
-interface ContractDetailType {
-  contractNumber: string;
-  firstName: string;
-  lastName: string;
-  customerName: string;
-  email: string;
-  phone?: string;
-  startDate: string;
-  endDate?: string;
-  companyName?: string;
-  bankAccountNumber?: string;
-  resellerId?: string;
-  addressId?: string;
-  pdfLink?: string;
-  status: string;
-  notes?: string;
-}
-
 export default function ContractDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [contract, setContract] = useState<ContractDetailType | null>(null);
+
+  const [contract, setContract] = useState<ContractResponse | null>(null);
 
   useEffect(() => {
-    const mockContracts: ContractDetailType[] = [
-      {
-        contractNumber: "101",
-        firstName: "Nguyen",
-        lastName: "Van A",
-        customerName: "Nguyen Van A",
-        email: "a.nguyen@example.com",
-        phone: "0901234567",
-        startDate: "2025-12-01",
-        endDate: "2026-12-01",
-        companyName: "ABC Corp",
-        bankAccountNumber: "123456789",
-        resellerId: "R101",
-        addressId: "ADDR101",
-        pdfLink: "https://example.com/101.pdf",
-        status: "Active",
-        notes: "Priority customer",
-      },
-      {
-        contractNumber: "102",
-        firstName: "Tran",
-        lastName: "Thi B",
-        customerName: "Tran Thi B",
-        email: "b.tran@example.com",
-        phone: "0902345678",
-        startDate: "2025-11-15",
-        endDate: "2026-11-15",
-        companyName: "XYZ Ltd",
-        bankAccountNumber: "987654321",
-        resellerId: "R102",
-        addressId: "ADDR102",
-        pdfLink: "https://example.com/102.pdf",
-        status: "Inactive",
-        notes: "Needs review",
-      },
-      {
-        contractNumber: "103",
-        firstName: "Le",
-        lastName: "Van C",
-        customerName: "Le Van C",
-        email: "c.le@example.com",
-        phone: "0903456789",
-        startDate: "2025-10-30",
-        endDate: "2026-10-30",
-        companyName: "Tech Co",
-        bankAccountNumber: "555666777",
-        resellerId: "R103",
-        addressId: "ADDR103",
-        pdfLink: "https://example.com/103.pdf",
-        status: "Active",
-        notes: "Standard contract",
-      },
-    ];
-
-    const found = mockContracts.find(c => c.contractNumber === id);
-    setContract(found || null);
+    if (id) {
+      getContractById(Number(id)).then((res) => setContract(res));
+    }
   }, [id]);
 
-  if (!contract) {
+  if (!contract)
     return (
-      <Box sx={{ p: 4, textAlign: "center", ml: "240px" }}>
-        <Typography variant="h6">Contract not found</Typography>
-        <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/contracts/list")}>Back to List</Button>
+      <Box sx={{ ml: "240px", p: 4 }}>
+        <NavMenu />
+        <Typography>Loading...</Typography>
       </Box>
     );
-  }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Active": return "success";
-      case "Inactive": return "default";
-      case "Pending": return "warning";
-      case "Expired": return "error";
-      default: return "default";
-    }
-  };
+  const isActive =
+    new Date(contract.endDate).getTime() > new Date().getTime();
 
   return (
-
-    <Box sx={{ p: 4, ml: "240px" }}>
+    <Box sx={{ display: "flex" }}>
       <NavMenu />
-      <Button startIcon={<ChevronLeft />} variant="outlined" onClick={() => navigate("/contracts/list")}>Back to List</Button>
 
-      <Card sx={{ mt: 3, borderRadius: 3, boxShadow: "0 4px 25px rgba(0,0,0,0.08)" }}>
-        <CardHeader title={`Contract #${contract.contractNumber}`} />
-        <Divider />
-        <CardContent>
-          <Stack spacing={1}>
-            <Typography><strong>First Name:</strong> {contract.firstName}</Typography>
-            <Typography><strong>Last Name:</strong> {contract.lastName}</Typography>
-            <Typography><strong>Customer Name:</strong> {contract.customerName}</Typography>
-            <Typography><strong>Email:</strong> {contract.email}</Typography>
-            {contract.phone && <Typography><strong>Phone:</strong> {contract.phone}</Typography>}
-            <Typography><strong>Start Date:</strong> {contract.startDate}</Typography>
-            {contract.endDate && <Typography><strong>End Date:</strong> {contract.endDate}</Typography>}
-            {contract.companyName && <Typography><strong>Company Name:</strong> {contract.companyName}</Typography>}
-            {contract.bankAccountNumber && <Typography><strong>Bank Account Number:</strong> {contract.bankAccountNumber}</Typography>}
-            {contract.resellerId && <Typography><strong>Reseller ID:</strong> {contract.resellerId}</Typography>}
-            {contract.addressId && <Typography><strong>Address ID:</strong> {contract.addressId}</Typography>}
-            {contract.pdfLink && <Typography><strong>PDF Link:</strong> <Link href={contract.pdfLink} target="_blank">{contract.pdfLink}</Link></Typography>}
-            <Typography><strong>Status:</strong> <Chip label={contract.status} color={getStatusColor(contract.status)} /></Typography>
-            {contract.notes && <Typography><strong>Notes:</strong> {contract.notes}</Typography>}
+      <Box
+        sx={{
+          ml: "240px",
+          p: 4,
+          width: "100%",
+          backgroundColor: "#f9fafb",
+          minHeight: "100vh",
+        }}
+      >
+        {/* ==== HEADER ==== */}
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
+          <Box>
+            <Typography variant="h4" fontWeight={700}>
+              Contract #{contract.contractNumber}
+            </Typography>
+            <Typography sx={{ color: "#6b7280" }}>
+              Detailed contract overview
+            </Typography>
+          </Box>
+
+          <Stack direction="row" spacing={1.5}>
+            <Button variant="outlined" onClick={() => navigate(`/contracts/${id}/history`)}>
+              HISTORY
+            </Button>
+            <Button variant="outlined">EXPORT PDF</Button>
+            <Button variant="contained">EDIT</Button>
           </Stack>
-        </CardContent>
-      </Card>
+        </Stack>
+
+        {/* ==== STATUS ==== */}
+        <Chip
+          label={isActive ? "Active" : "Expired"}
+          sx={{
+            mb: 4,
+            px: 2,
+            py: 0.7,
+            fontWeight: 700,
+            fontSize: "0.9rem",
+            background: isActive
+              ? "linear-gradient(135deg, #4ade80, #16a34a)"
+              : "linear-gradient(135deg, #fda4af, #dc2626)",
+            color: "white",
+          }}
+        />
+
+        {/* ==== 2 COLUMN INFO ===== */}
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
+            <InfoCard title="Customer Information">
+              <Info label="Full name" value={`${contract.firstName} ${contract.lastName}`} />
+              <Info label="Email" value={contract.email} />
+              <Info label="Phone" value={contract.phone || "—"} />
+              <Info label="Company" value={contract.companyName || "—"} />
+            </InfoCard>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <InfoCard title="Contract Information">
+              <Info label="Start date" value={format(contract.startDate)} />
+              <Info label="End date" value={format(contract.endDate)} />
+              <Info label="Address ID" value={contract.addressId} />
+              <Info label="Reseller ID" value={contract.resellerId} />
+            </InfoCard>
+          </Grid>
+        </Grid>
+
+        {/* ===== ORDERS TABLE ===== */}
+        <InfoCard title="Orders" sx={{ mt: 3 }}>
+          {contract.orders?.length === 0 ? (
+            <Typography sx={{ py: 2, color: "#6b7280" }}>
+              No orders found.
+            </Typography>
+          ) : (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <HeaderCell>Order #</HeaderCell>
+                  <HeaderCell>Type</HeaderCell>
+                  <HeaderCell>Status</HeaderCell>
+                  <HeaderCell>Start</HeaderCell>
+                  <HeaderCell>End</HeaderCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {contract.orders?.map((o) => (
+                  <TableRow
+                    key={o.id}
+                    hover
+                    sx={{ "&:hover": { backgroundColor: "#f3f4f6" } }}
+                  >
+                    <TableCell>{o.orderNumber}</TableCell>
+                    <TableCell>{o.orderType}</TableCell>
+                    <TableCell>
+                      <Chip size="small" label={o.status} sx={{ background: "#e5e7eb" }} />
+                    </TableCell>
+                    <TableCell>{format(o.startDate)}</TableCell>
+                    <TableCell>{format(o.endDate)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </InfoCard>
+
+        <Button onClick={() => navigate("/contracts/list")} sx={{ mt: 3 }}>
+          ← BACK
+        </Button>
+      </Box>
     </Box>
   );
+}
+
+/* =================================================================== */
+/* ========================== COMPONENTS ============================== */
+/* =================================================================== */
+
+function InfoCard({ title, children, sx }: any) {
+  return (
+    <Card
+      sx={{
+        borderRadius: 2.5,
+        boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+        border: "1px solid #e5e7eb",
+        ...sx,
+      }}
+    >
+      <CardContent>
+        <Typography fontWeight={700} sx={{ mb: 1.5 }}>
+          {title}
+        </Typography>
+        <Divider sx={{ mb: 2 }} />
+        {children}
+      </CardContent>
+    </Card>
+  );
+}
+
+function Info({ label, value }: { label: string; value: any }) {
+  return (
+    <Box sx={{ mb: 1.5 }}>
+      <Typography sx={{ color: "#6b7280", fontSize: "0.8rem" }}>
+        {label}
+      </Typography>
+      <Typography sx={{ fontSize: "1rem", fontWeight: 600 }}>
+        {value}
+      </Typography>
+    </Box>
+  );
+}
+
+function HeaderCell({ children }: any) {
+  return (
+    <TableCell
+      sx={{
+        fontWeight: 700,
+        fontSize: "0.85rem",
+        color: "#374151",
+        textTransform: "uppercase",
+      }}
+    >
+      {children}
+    </TableCell>
+  );
+}
+
+function format(date: string) {
+  return new Date(date).toLocaleDateString("vi-VN");
 }

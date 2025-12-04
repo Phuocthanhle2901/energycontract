@@ -1,46 +1,33 @@
-<<<<<<< HEAD
-import { Button, Container, Paper, Typography, Box } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-
-// ⬇⬇ SỬA
-import { MOCK_CONTRACTS } from "../../mock/mockData";
+import { useParams, useNavigate } from "react-router-dom";
+import { deleteContract } from "../../services/customerService/ContractService";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import NavMenu from "@/components/NavMenu/NavMenu";
 
 export default function ContractDelete() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const contract = MOCK_CONTRACTS.find((c) => c.id === Number(id));
-
-  if (!contract) return <div>Không tìm thấy hợp đồng.</div>;
-
-  const handleDelete = () => {
-    alert(`Đã xoá hợp đồng ${contract.contract_number}`);
+  const handleDelete = async () => {
+    await deleteContract(Number(id));
+    alert("Deleted!");
     navigate("/contracts/list");
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Paper sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          Xác nhận xoá hợp đồng
-        </Typography>
+    <Box sx={{ ml: "240px", p: 3 }}>
+      <NavMenu />
 
-        <Typography>
-          Bạn có chắc muốn xoá hợp đồng{" "}
-          <strong>{contract.contract_number}</strong>?
-        </Typography>
+      <Paper sx={{ maxWidth: 500, p: 4 }}>
+        <Typography variant="h6">Delete contract #{id}?</Typography>
 
-        <Box display="flex" justifyContent="flex-end" mt={3} gap={2}>
-          <Button variant="outlined" onClick={() => navigate(-1)}>
-            Huỷ
-          </Button>
-          <Button variant="contained" color="error" onClick={handleDelete}>
-            Xoá
-          </Button>
-        </Box>
+        <Button sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+          Cancel
+        </Button>
+
+        <Button color="error" variant="contained" onClick={handleDelete}>
+          Delete
+        </Button>
       </Paper>
-    </Container>
+    </Box>
   );
 }
-=======
->>>>>>> 698cc5c9fd1c7995b68f73ddd62c77f7054809e2

@@ -1,21 +1,14 @@
-// src/pages/Contract/ContractEdit.tsx
-import React from "react";
 import { useParams } from "react-router-dom";
+import NavMenu from "@/components/NavMenu/NavMenu";
 import ContractFormBase from "./ContractFormBase";
-import NavMenu from "../../components/NavMenu/NavMenu";
 
-const ContractEdit: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+export default function ContractEdit() {
+  const { id } = useParams();
 
   return (
     <>
-      {/* NavMenu */}
       <NavMenu />
-
-      {/* Contract form */}
-      <ContractFormBase mode="edit" contractNumber={id} />
+      <ContractFormBase mode="edit" id={id} />
     </>
   );
-};
-
-export default ContractEdit;
+}

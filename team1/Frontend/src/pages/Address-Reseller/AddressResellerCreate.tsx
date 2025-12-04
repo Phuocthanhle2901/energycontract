@@ -5,8 +5,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
 import { useState } from "react";
-import { AddressApi } from "../../api/address.api";
-import { ResellerApi } from "../../api/reseller.api";
+import { AddressApi } from "@/services/customerService/AddressService";
+import { ResellerApi } from "@/services/customerService/ResellerService";
+
 
 export default function AddressResellerCreate() {
     const navigate = useNavigate();

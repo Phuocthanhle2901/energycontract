@@ -13,8 +13,8 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { AddressApi } from "../../api/address.api";
-import { ResellerApi } from "../../api/reseller.api";
+import { AddressApi } from "@/services/customerService/AddressService";
+import { ResellerApi } from "@/services/customerService/ResellerService";
 import NavMenu from "@/components/NavMenu/NavMenu";
 
 export default function AddressResellerEdit() {

@@ -2,7 +2,7 @@ import { Box, Button, Card, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import { useNavigate, useParams } from "react-router-dom";
-import { ResellerApi } from "../../api/reseller.api";
+import { ResellerApi } from "@/services/customerService/ResellerService";
 
 export default function ResellerDelete() {
     const navigate = useNavigate();

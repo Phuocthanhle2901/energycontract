@@ -1,28 +1,29 @@
-import api from '@/lib/axios.ts';
-import type {Reseller} from "@/types/reseller.ts";
+import axiosInstance from "../../lib/axiosInstance";
 
-const endpoint = '/resellers';
-
-const resellerService = {
-    getAll: async (limit?: number) => {
-        const params = limit && limit > 0 ? { limit } : {};
-        const response = await api.get<Reseller[]>(endpoint, { params });
-        return response.data;
+export const ResellerApi = {
+    getAll: async () => {
+        const res = await axiosInstance.get("/resellers");
+        return res.data;
     },
 
     getById: async (id: number) => {
-        const response = await api.get<Reseller>(`${endpoint}/${id}`);
-        return response.data;
+        const res = await axiosInstance.get(`/resellers/${id}`);
+        return res.data;
     },
 
-    create: async (data: Omit<Reseller, 'id'>) => {
-        const response = await api.post<number>(endpoint, data);
-        return response.data;
+    create: async (data: any) => {
+        const res = await axiosInstance.post("/resellers", data);
+        return res.data;
+    },
+
+    update: async (id: number, data: any) => {
+        const res = await axiosInstance.put(`/resellers/${id}`, data);
+        return res.data;
     },
 
     delete: async (id: number) => {
-        await api.delete(`${endpoint}/${id}`);
-    }
+        const res = await axiosInstance.delete(`/resellers/${id}`);
+        return res.data;
+    },
 };
-
-export default resellerService;
+export default ResellerApi;

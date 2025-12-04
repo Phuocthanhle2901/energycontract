@@ -1,7 +1,7 @@
 import { Box, Button, Card, Typography } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import { AddressApi } from "../../api/address.api";
-import { ResellerApi } from "../../api/reseller.api";
+import { AddressApi } from "../../services/customerService/AddressService";
+import { ResellerApi } from "../../services/customerService/ResellerService";
 
 export default function AddressResellerDelete() {
     const { type, id } = useParams();

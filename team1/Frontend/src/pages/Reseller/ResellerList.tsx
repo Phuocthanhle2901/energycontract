@@ -22,8 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 
 import NavMenu from "@/components/NavMenu/NavMenu";
-import { ResellerApi } from "../../api/reseller.api";
-
+import { ResellerApi } from "@/services/customerService/ResellerService";
 export default function ResellerList() {
     const [resellers, setResellers] = useState<any[]>([]);
     const [search, setSearch] = useState("");

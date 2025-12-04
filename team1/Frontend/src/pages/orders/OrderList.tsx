@@ -1,138 +1,73 @@
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Chip,
-    IconButton,
-} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Typography, Paper, Button, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import NavMenu from "@/components/NavMenu/NavMenu";
+import { getOrders } from "@/services/customerService/OrderService";
 
-import FlashOnIcon from "@mui/icons-material/FlashOn";
-import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+export default function OrderList() {
+    const navigate = useNavigate();
+    const [list, setList] = useState<any[]>([]);
 
-export interface Order {
-    id: string;
-    order_number: string;
-    order_type: "electricity" | "gas";
-    status: "active" | "pending" | "completed" | "cancelled";
-    start_date: string;
-    end_date: string;
-    topup_fee: number;
-}
+    useEffect(() => {
+        getOrders().then((res) => setList(Array.isArray(res) ? res : []));
+    }, []);
 
-export const mockOrders: Order[] = [
-    {
-        id: "1",
-        order_number: "ORD-12345",
-        order_type: "electricity",
-        status: "active",
-        start_date: "2026-01-01",
-        end_date: "2026-12-31",
-        topup_fee: 50000,
-    },
-    {
-        id: "2",
-        order_number: "ORD-67890",
-        order_type: "gas",
-        status: "pending",
-        start_date: "2027-06-15",
-        end_date: "2027-12-31",
-        topup_fee: 0,
-    },
-];
+    const mapOrderType = (v: number) => (v === 0 ? "Gas" : "Electricity");
+    const mapStatus = (v: number) =>
+        ["Pending", "Active", "Completed", "Cancelled"][v] || "Unknown";
 
-const statusColor: any = {
-    active: "success",
-    pending: "warning",
-    completed: "info",
-    cancelled: "error",
-};
-
-export default function OrderList({ orders, onEdit, onDelete }: any) {
     return (
-        <Paper
-            elevation={1}
-            sx={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                backgroundColor: "#fff",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                mb: 4,
-            }}
-        >
-            <TableContainer>
-                <Table>
+        <Box sx={{ ml: "240px", p: 3 }}>
+            <NavMenu />
 
-                    {/* HEADER – ĐỔI THÀNH MÀU XÁM (#D1D5DB) */}
-                    <TableHead>
-                        <TableRow sx={{ bgcolor: "#D1D5DB" }}>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Số Đơn hàng</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Loại</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Trạng thái</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Ngày Bắt đầu</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Phí Nạp</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Thao tác</TableCell>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+                <Typography variant="h5" sx={{ fontWeight: 600 }}>Orders</Typography>
+                <Button variant="contained" onClick={() => navigate("/orders/create")}>
+                    + Add Order
+                </Button>
+            </Box>
+
+            <Paper sx={{ p: 2 }}>
+                <Table>
+                    <TableHead sx={{ background: "#f5f7fa" }}>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Order Number</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Start Date</TableCell>
+                            <TableCell>End Date</TableCell>
+                            <TableCell>Top-up Fee</TableCell>
+                            <TableCell>Contract</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
-
                     <TableBody>
-                        {orders.map((o: Order) => (
+                        {list.map((o) => (
                             <TableRow key={o.id} hover>
-                                <TableCell sx={{ fontWeight: 600 }}>{o.order_number}</TableCell>
+                                <TableCell>{o.id}</TableCell>
+                                <TableCell>{o.orderNumber}</TableCell>
+                                <TableCell>{mapOrderType(o.orderType)}</TableCell>
+                                <TableCell>{mapStatus(o.status)}</TableCell>
+                                <TableCell>{o.startDate?.substring(0, 10)}</TableCell>
+                                <TableCell>{o.endDate?.substring(0, 10)}</TableCell>
+                                <TableCell>{o.topupFee}</TableCell>
+                                <TableCell>{o.contractId}</TableCell>
 
-                                <TableCell>
-                                    <Chip
-                                        icon={o.order_type === "electricity" ? <FlashOnIcon /> : <LocalGasStationIcon />}
-                                        label={o.order_type.toUpperCase()}
-                                        variant="outlined"
-                                        sx={{
-                                            fontWeight: 600,
-                                            borderColor: "#9CA3AF",
-                                            color: "#374151",
-                                            "& .MuiChip-icon": { color: "#6B7280" }
-                                        }}
-                                    />
+                                <TableCell align="right">
+                                    <Button size="small" onClick={() => navigate(`/orders/${o.id}/edit`)}>Edit</Button>
+                                    <Button size="small" color="error" onClick={() => navigate(`/orders/${o.id}/delete`)}>Delete</Button>
                                 </TableCell>
-
-                                <TableCell>
-                                    <Chip
-                                        label={o.status.toUpperCase()}
-                                        variant="outlined"
-                                        sx={{
-                                            fontWeight: 600,
-                                            borderColor: "#9CA3AF",
-                                            color: "#374151",
-                                        }}
-                                    />
-                                </TableCell>
-
-                                <TableCell>{o.start_date}</TableCell>
-
-                                <TableCell sx={{ fontWeight: 600 }}>
-                                    {o.topup_fee.toLocaleString()} VND
-                                </TableCell>
-
-                                <TableCell>
-                                    <IconButton color="primary" onClick={() => onEdit(o)}>
-                                        <EditIcon />
-                                    </IconButton>
-
-                                    <IconButton color="error" onClick={() => onDelete(o.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </TableCell>
-
                             </TableRow>
                         ))}
+                        {list.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={9} align="center">No orders found</TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
-
                 </Table>
-            </TableContainer>
-        </Paper>
+            </Paper>
+        </Box>
     );
 }
