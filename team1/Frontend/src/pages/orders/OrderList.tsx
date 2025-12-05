@@ -55,8 +55,10 @@ export default function OrderList() {
                                 <TableCell>{o.contractId}</TableCell>
 
                                 <TableCell align="right">
-                                    <Button size="small" onClick={() => navigate(`/orders/${o.id}/edit`)}>Edit</Button>
-                                    <Button size="small" color="error" onClick={() => navigate(`/orders/${o.id}/delete`)}>Delete</Button>
+                                    <Button size="small" onClick={() => navigate(`/orders/${o.id}/edit`)
+                                    }>Edit</Button>
+                                    <Button size="small" color="error" onClick={() => navigate(`/orders/${o.id}/delete`)
+                                    }>Delete</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -67,7 +69,7 @@ export default function OrderList() {
                         )}
                     </TableBody>
                 </Table>
-            </Paper>
-        </Box>
+            </Paper >
+        </Box >
     );
 }

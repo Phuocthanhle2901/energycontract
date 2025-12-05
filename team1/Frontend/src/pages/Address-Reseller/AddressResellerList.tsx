@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import {
     Box,
     Button,
@@ -21,33 +21,19 @@ import EditIcon from "@mui/icons-material/EditOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 import NavMenu from "@/components/NavMenu/NavMenu";
-import { AddressApi } from "@/services/customerService/AddressService";
-import { ResellerApi } from "@/services/customerService/ResellerService";
 import { useNavigate } from "react-router-dom";
+import { useAddressResellerList } from "@/hooks/addressReseller/useAddressResellerList";
 
 export default function AddressResellerList() {
     const navigate = useNavigate();
 
-    const [addresses, setAddresses] = useState<any[]>([]);
-    const [resellers, setResellers] = useState<any[]>([]);
-    const [search, setSearch] = useState("");
+    const {
+        search,
+        setSearch,
+        filteredAddresses,
+        filteredResellers
+    } = useAddressResellerList();
 
-    useEffect(() => {
-        AddressApi.getAll().then((res) => {
-            setAddresses(res.data ?? res);
-        });
-        ResellerApi.getAll().then((res) => {
-            setResellers(res.data ?? res);
-        });
-    }, []);
-
-    const filteredAddresses = addresses.filter((a) =>
-        a.zipCode?.toLowerCase().includes(search.toLowerCase())
-    );
-
-    const filteredResellers = resellers.filter((r) =>
-        r.name?.toLowerCase().includes(search.toLowerCase())
-    );
 
     return (
         <Box sx={{ display: "flex" }}>

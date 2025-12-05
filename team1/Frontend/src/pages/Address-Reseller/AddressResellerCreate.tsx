@@ -2,48 +2,28 @@ import {
     Box, Button, Card, FormControl, FormLabel,
     Grid, MenuItem, Select, TextField, Typography
 } from "@mui/material";
+
 import { useNavigate } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
-import { useState } from "react";
-import { AddressApi } from "@/services/customerService/AddressService";
-import { ResellerApi } from "@/services/customerService/ResellerService";
 
+import { useCreateAddressReseller } from "@/hooks/addressReseller/useCreateAddressReseller";
 
 export default function AddressResellerCreate() {
     const navigate = useNavigate();
 
-    const [address, setAddress] = useState({
-        zipCode: "",
-        houseNumber: "",
-        extension: "",
-    });
+    const {
+        address,
+        reseller,
+        setAddress,
+        setReseller,
+        createAll
+    } = useCreateAddressReseller();
 
-    const [reseller, setReseller] = useState({
-        name: "",
-        type: "Broker",
-    });
-
-    // ===========================
-    // 🔥 CREATE BOTH IN ONE CLICK
-    // ===========================
-    const handleCreateAll = async () => {
+    const handleCreate = async () => {
         try {
-            // 1) Create Address
-            await AddressApi.create({
-                zipCode: address.zipCode,
-                houseNumber: address.houseNumber,
-                extension: address.extension,
-            });
-
-            // 2) Create Reseller
-            await ResellerApi.create({
-                name: reseller.name,
-                type: reseller.type,
-            });
-
+            await createAll();
             alert("Created Address + Reseller successfully!");
             navigate("/address-reseller/list");
-
         } catch (err) {
             console.error(err);
             alert("Error creating data!");
@@ -59,15 +39,8 @@ export default function AddressResellerCreate() {
                     Create Address & Reseller
                 </Typography>
 
-                <Card
-                    sx={{
-                        p: 4,
-                        borderRadius: 4,
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.05)",
-                        mb: 3
-                    }}
-                >
-                    {/* ADDRESS SECTION */}
+                {/* ADDRESS */}
+                <Card sx={{ p: 4, borderRadius: 4, mb: 3 }}>
                     <Typography fontWeight={700} sx={{ mb: 2 }}>
                         Address Information
                     </Typography>
@@ -108,15 +81,8 @@ export default function AddressResellerCreate() {
                     </Grid>
                 </Card>
 
-                {/* RESELLER SECTION */}
-                <Card
-                    sx={{
-                        p: 4,
-                        borderRadius: 4,
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.05)",
-                        mb: 4
-                    }}
-                >
+                {/* RESELLER */}
+                <Card sx={{ p: 4, borderRadius: 4, mb: 4 }}>
                     <Typography fontWeight={700} sx={{ mb: 2 }}>
                         Reseller Information
                     </Typography>
@@ -150,31 +116,25 @@ export default function AddressResellerCreate() {
                     </Grid>
                 </Card>
 
-                {/* ============================ */}
-                {/* 🔥 ONE BUTTON FOR BOTH */}
-                {/* ============================ */}
+                {/* BUTTONS */}
                 <Button
                     variant="contained"
                     fullWidth
+                    onClick={handleCreate}
                     sx={{
                         textTransform: "none",
                         py: 1.5,
                         fontSize: "1rem",
                         fontWeight: 600,
-                        borderRadius: 2
                     }}
-                    onClick={handleCreateAll}
                 >
                     Create Address + Reseller
                 </Button>
 
                 <Button
                     variant="outlined"
-                    sx={{
-                        mt: 2,
-                        textTransform: "none",
-                        borderRadius: 2
-                    }}
+                    fullWidth
+                    sx={{ mt: 2 }}
                     onClick={() => navigate("/address-reseller/list")}
                 >
                     Cancel

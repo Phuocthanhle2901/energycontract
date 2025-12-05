@@ -24,3 +24,7 @@ export async function deleteOrder(id: number) {
     const res = await axiosInstance.delete(`/orders/${id}`);
     return res.data;
 }
+export async function getOrdersByContractId(contractId: number) {
+    const res = await axiosInstance.get(`/orders?contractId=${contractId}`);
+    return res.data;
+}

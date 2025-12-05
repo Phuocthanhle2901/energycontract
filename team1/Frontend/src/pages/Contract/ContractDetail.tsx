@@ -73,7 +73,9 @@ export default function ContractDetail() {
             <Button variant="outlined" onClick={() => navigate(`/contracts/${id}/history`)}>
               HISTORY
             </Button>
-            <Button variant="outlined">EXPORT PDF</Button>
+            <Button variant="outlined" onClick={() => navigate(`/contracts/${contract.id}/pdf`)
+
+            }>EXPORT PDF</Button>
             <Button variant="contained">EDIT</Button>
           </Stack>
         </Stack>
@@ -158,13 +160,11 @@ export default function ContractDetail() {
           ← BACK
         </Button>
       </Box>
-    </Box>
+    </Box >
   );
 }
 
-/* =================================================================== */
 /* ========================== COMPONENTS ============================== */
-/* =================================================================== */
 
 function InfoCard({ title, children, sx }: any) {
   return (

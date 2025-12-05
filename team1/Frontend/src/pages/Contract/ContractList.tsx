@@ -13,12 +13,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
 import { getContracts } from "../../services/customerService/ContractService";
-import { ResellerApi } from "../../services/customerService/ResellerService";  // <-- THÊM
+import { ResellerApi } from "../../services/customerService/ResellerService";
 import type { ContractResponse } from "@/types/contract";
 
 export default function ContractList() {
   const [list, setList] = useState<ContractResponse[]>([]);
-  const [resellers, setResellers] = useState<any[]>([]); // <-- THÊM
+  const [resellers, setResellers] = useState<any[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,13 +29,13 @@ export default function ContractList() {
     });
 
     // Load resellers
-    ResellerApi.getAll().then((res) => setResellers(res)); // <-- THÊM
+    ResellerApi.getAll().then((res) => setResellers(res));
   }, []);
 
   // Map resellerId → resellerName
   const getResellerName = (id: number | null | undefined) => {
     const found = resellers.find((r) => r.id === id);
-    return found ? found.name : "—";   // name vì API reseller trả về name
+    return found ? found.name : "—";
   };
 
   return (

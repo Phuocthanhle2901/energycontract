@@ -11,65 +11,28 @@ import {
 } from "@mui/material";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-import { AddressApi } from "@/services/customerService/AddressService";
-import { ResellerApi } from "@/services/customerService/ResellerService";
 import NavMenu from "@/components/NavMenu/NavMenu";
+
+import { useAddressResellerEdit } from "@/hooks/addressReseller/useAddressResellerEdit";
 
 export default function AddressResellerEdit() {
     const { type, id } = useParams();
     const navigate = useNavigate();
 
-    const [data, setData] = useState<any>(null);
-    const isAddress = type === "address";
-    const isReseller = type === "reseller";
+    const {
+        data,
+        setData,
+        save,
+        loading,
+        isAddress,
+        isReseller
+    } = useAddressResellerEdit(type, id);
 
-    useEffect(() => {
-        if (!id || !type) return;
-
-        if (isAddress) {
-            AddressApi.getById(Number(id))
-                .then((d) =>
-                    setData({
-                        zipCode: d.zipCode || "",
-                        houseNumber: d.houseNumber || "",
-                        extension: d.extension || ""
-                    })
-                )
-                .catch(() => setData({}));
-        }
-
-        if (isReseller) {
-            ResellerApi.getById(Number(id))
-                .then((d) =>
-                    setData({
-                        name: d.name || "",
-                        partnerType: d.type || "Broker"
-                    })
-                )
-                .catch(() => setData({}));
-        }
-    }, [id, type]);
-
+    if (loading) return <div>Loading...</div>;
+    if (!data) return <div>No data found</div>;
     const handleSave = async () => {
-        if (!data) return;
-
         try {
-            if (isAddress) {
-                await AddressApi.update(Number(id), {
-                    zipCode: data.zipCode,
-                    houseNumber: data.houseNumber,
-                    extension: data.extension
-                });
-            }
-
-            if (isReseller) {
-                await ResellerApi.update(Number(id), {
-                    name: data.name,
-                    type: data.partnerType
-                });
-            }
+            await save();
 
             alert("Updated successfully!");
             navigate("/address-reseller/list");
@@ -78,19 +41,16 @@ export default function AddressResellerEdit() {
             console.error(err);
         }
     };
-
-    if (!data) return null;
-
     return (
         <Box sx={{ p: 4, maxWidth: 900, mx: "auto" }}>
             <NavMenu />
 
-            <Card sx={{ p: 4, borderRadius: 4, boxShadow: "0 8px 30px rgba(0,0,0,0.05)" }}>
+            <Card sx={{ p: 4, borderRadius: 4 }}>
                 <Typography variant="h4" fontWeight={700} sx={{ mb: 3 }}>
                     Edit {isAddress ? "Address" : "Reseller"}
                 </Typography>
 
-                {/* ----- ADDRESS EDIT FORM ----- */}
+                {/* ----- ADDRESS FORM ----- */}
                 {isAddress && (
                     <>
                         <TextField
@@ -125,7 +85,7 @@ export default function AddressResellerEdit() {
                     </>
                 )}
 
-                {/* ----- RESELLER EDIT FORM ----- */}
+                {/* ----- RESELLER FORM ----- */}
                 {isReseller && (
                     <>
                         <TextField

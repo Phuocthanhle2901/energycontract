@@ -1,15 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Home,
+  FileText,
+  ShoppingCart,
+  Users,
+  History,
+  Layers,
+} from "lucide-react";
 
 export default function NavMenu() {
   const navigate = useNavigate();
 
   const menuItems = [
-    { label: "🏠 Home", path: "/home" },
-    { label: "📄 Contracts List", path: "/contracts/list" },
-    { label: "🛒 Orders", path: "/orders" },
-    { label: "🤝 Resellers", path: "/address-reseller/list" },
-    { label: "📚 History", path: "/history" },
+    { label: "Home", path: "/home", icon: <Home size={20} /> },
+
+    { label: "Contracts List", path: "/contracts/list", icon: <FileText size={20} /> },
+
+    { label: "Orders", path: "/orders", icon: <ShoppingCart size={20} /> },
+
+    { label: "Resellers", path: "/address-reseller/list", icon: <Users size={20} /> },
+
+    { label: "History", path: "/history", icon: <History size={20} /> },
+
+    { label: "Templates", path: "/templates", icon: <Layers size={20} /> },
   ];
 
   return (

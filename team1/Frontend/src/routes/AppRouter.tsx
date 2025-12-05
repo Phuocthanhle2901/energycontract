@@ -20,12 +20,19 @@ import AddressResellerEdit from "@/pages/Address-Reseller/AddressResellerEdit";
 import AddressResellerDelete from "@/pages/Address-Reseller/AddressResellerDelete";
 
 /* ===================== ORDERS MODULE ===================== */
+import OrderForm from "@/pages/orders/OrderCreate";
+import OrderDelete from "@/pages/orders/OrderDelete";
 import OrderList from "@/pages/orders/OrderList";
-import OrderForm from "@/pages/orders/OrderForm";
-import OrderIndex from "@/pages/orders/OrderIndex ";
+import OrderEdit from "@/pages/orders/OrderEdit";
 
 /* ===================== RESELLERS ===================== */
 import ResellerPage from "@/pages/resellerPage";
+import ContractDelete from "@/pages/Contract/ContractDelete";
+import TemplateList from "@/pages/Template/TemplateList";
+import TemplateCreate from "@/pages/Template/TemplateCreate";
+import TemplateEdit from "@/pages/Template/TemplateEdit";
+import TemplateDelete from "@/pages/Template/TemplateDelete";
+
 
 export default function AppRoutes() {
     return (
@@ -42,8 +49,13 @@ export default function AppRoutes() {
                 <Route path="/contracts/create" element={<ContractCreate />} />
                 <Route path="/contracts/:id/detail" element={<ContractDetail />} />
                 <Route path="/contracts/:id/edit" element={<ContractEdit />} />
-                <Route path="/contracts/:contractNumber/pdf" element={<ContractPDF />} />
+                <Route path="/contracts/:id/delete" element={<ContractDelete />} />
                 <Route path="/contracts/:id/history" element={<ContractHistoryPage />} />
+
+                {/* ===================== CONTRACT (PDF) ===================== */}
+                <Route path="/contracts/:id/pdf" element={<ContractPDF />} />
+
+
 
                 {/* ===================== ADDRESS - RESELLER (CRUD FULL) ===================== */}
                 <Route path="/address-reseller/list" element={<AddressResellerList />} />
@@ -51,19 +63,23 @@ export default function AppRoutes() {
                 <Route path="/address-reseller/edit/:type/:id" element={<AddressResellerEdit />} />
                 <Route path="/address-reseller/delete/:type/:id" element={<AddressResellerDelete />} />
 
-                {/* ===================== ORDERS (CRUD FULL) ===================== */}
+                {/* ======================= ORDERS ======================= */}
 
                 <Route path="/orders" element={<OrderList />} />
-
-                <Route path="/orders/create" element={<OrderForm mode="create" />} />
-
-                <Route path="/orders/:id/edit" element={<OrderForm mode="edit" />} />
-
-                <Route path="/orders/:id/delete" element={<OrderForm mode="delete" />} />
+                <Route path="/orders/create" element={<OrderForm />} />
+                <Route path="/orders/:id/edit" element={<OrderEdit />} />
+                <Route path="/orders/:id/delete" element={<OrderDelete />} />
 
 
                 {/* ===================== RESELLERS ===================== */}
                 <Route path="/resellers" element={<ResellerPage />} />
+
+                {/* ===================== TEAMPLATE ===================== */}
+
+                <Route path="/templates" element={<TemplateList />} />
+                <Route path="/templates/create" element={<TemplateCreate />} />
+                <Route path="/templates/:id/edit" element={<TemplateEdit />} />
+                <Route path="/templates/:id/delete" element={<TemplateDelete />} />
 
             </Routes>
         </BrowserRouter>

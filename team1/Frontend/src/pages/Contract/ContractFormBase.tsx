@@ -29,17 +29,18 @@ export default function ContractFormBase({ mode, id }: Props) {
     const [addresses, setAddresses] = useState<any[]>([]);
     const [resellers, setResellers] = useState<any[]>([]);
 
-    // FORM DATA
+    // FORM STATE
     const [data, setData] = useState({
+        contractNumber: "",
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         companyName: "",
-        startDate: "",
-        endDate: "",
         bankAccountNumber: "",
         pdfLink: "",
+        startDate: "",
+        endDate: "",
         resellerId: "",
         addressId: "",
     });
@@ -50,42 +51,46 @@ export default function ContractFormBase({ mode, id }: Props) {
         ResellerApi.getAll().then((res) => setResellers(res || []));
     }, []);
 
-    /* -------------------- LOAD CONTRACT WHEN EDIT -------------------- */
+    /* -------------------- LOAD DATA WHEN EDIT -------------------- */
     useEffect(() => {
         if (mode === "edit" && id) {
             getContractById(Number(id)).then((res) => {
                 setData({
+                    contractNumber: res.contractNumber ?? "",
                     firstName: res.firstName ?? "",
                     lastName: res.lastName ?? "",
                     email: res.email ?? "",
                     phone: res.phone ?? "",
                     companyName: res.companyName ?? "",
-                    startDate: res.startDate?.slice(0, 10) ?? "",
-                    endDate: res.endDate?.slice(0, 10) ?? "",
                     bankAccountNumber: res.bankAccountNumber ?? "",
                     pdfLink: res.pdfLink ?? "",
+                    startDate: res.startDate?.slice(0, 10) ?? "",
+                    endDate: res.endDate?.slice(0, 10) ?? "",
                     resellerId: res.resellerId?.toString() ?? "",
                     addressId: res.addressId?.toString() ?? "",
                 });
             });
         }
-    }, [mode, id]);
+    }, [id, mode]);
 
-    /* -------------------- Date → ISO Format -------------------- */
-    const toIso = (value: string) => {
-        if (!value) return null;
-        return new Date(value).toISOString();
-    };
-
-    /* -------------------- Handle Change -------------------- */
+    /* -------------------- Handle input change -------------------- */
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setData((prev) => ({ ...prev, [name]: value }));
     };
 
+    /* -------------------- Convert YYYY-MM-DD → ISO -------------------- */
+    const convertDate = (d: string) => {
+        if (!d) return null;
+        return new Date(d).toISOString();
+    };
+
     /* -------------------- SUBMIT -------------------- */
     const handleSubmit = async () => {
         const payload = {
+            id: mode === "edit" ? Number(id) : undefined,
+
+            contractNumber: data.contractNumber,
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
@@ -93,27 +98,30 @@ export default function ContractFormBase({ mode, id }: Props) {
             companyName: data.companyName,
             bankAccountNumber: data.bankAccountNumber,
             pdfLink: data.pdfLink || null,
-            startDate: new Date(data.startDate + "T00:00:00Z").toISOString(),
-            endDate: new Date(data.endDate + "T00:00:00Z").toISOString(),
-            addressId: Number(data.addressId),
+
+            startDate: convertDate(data.startDate),
+            endDate: convertDate(data.endDate),
+
             resellerId: Number(data.resellerId),
+            addressId: Number(data.addressId),
         };
 
         try {
             if (mode === "create") {
                 await createContract(payload);
-                alert("Created!");
+                alert("Contract created!");
             } else {
                 await updateContract(Number(id), payload);
-                alert("Updated!");
+                alert("Contract updated!");
             }
+
             navigate("/contracts/list");
+
         } catch (err: any) {
-            console.log("❌ FULL ERROR:", err.response?.data || err);
+            console.log("❌ SERVER ERROR:", err.response?.data || err);
             alert(JSON.stringify(err.response?.data || err, null, 2));
         }
     };
-
 
     /* -------------------- UI -------------------- */
     return (
@@ -123,7 +131,14 @@ export default function ContractFormBase({ mode, id }: Props) {
             </Typography>
 
             <Stack spacing={2}>
-                {/* First + Last Name */}
+                <TextField
+                    label="Contract Number"
+                    name="contractNumber"
+                    value={data.contractNumber}
+                    onChange={handleChange}
+                    fullWidth
+                />
+
                 <Stack direction="row" spacing={2}>
                     <TextField
                         label="First Name"
@@ -132,6 +147,7 @@ export default function ContractFormBase({ mode, id }: Props) {
                         onChange={handleChange}
                         fullWidth
                     />
+
                     <TextField
                         label="Last Name"
                         name="lastName"
@@ -160,7 +176,6 @@ export default function ContractFormBase({ mode, id }: Props) {
                     fullWidth
                 />
 
-                {/* Dates */}
                 <Stack direction="row" spacing={2}>
                     <TextField
                         type="date"
@@ -183,40 +198,36 @@ export default function ContractFormBase({ mode, id }: Props) {
                     />
                 </Stack>
 
-                {/* Address */}
                 <TextField
                     select
-                    label="Address"
-                    name="addressId"
-                    value={data.addressId}
-                    onChange={handleChange}
                     fullWidth
-                >
-                    {addresses.map((a: any) => (
-                        <MenuItem key={a.id} value={a.id}>
-                            {a.zipCode} – {a.houseNumber} {a.extension ? `(${a.extension})` : ""}
-                        </MenuItem>
-                    ))}
-                </TextField>
-
-                {/* Reseller */}
-                <TextField
-                    select
                     label="Reseller"
                     name="resellerId"
                     value={data.resellerId}
                     onChange={handleChange}
-                    fullWidth
                 >
-                    {resellers.map((r: any) => (
-                        <MenuItem key={r.id} value={r.id}>
-                            {r.name} – {r.type}
+                    {resellers.map((r) => (
+                        <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>
+                    ))}
+                </TextField>
+
+                <TextField
+                    select
+                    fullWidth
+                    label="Address"
+                    name="addressId"
+                    value={data.addressId}
+                    onChange={handleChange}
+                >
+                    {addresses.map((a) => (
+                        <MenuItem key={a.id} value={a.id}>
+                            {a.zipCode} - {a.houseNumber}
                         </MenuItem>
                     ))}
                 </TextField>
 
                 <TextField
-                    label="PDF Link"
+                    label="PDF Link (optional)"
                     name="pdfLink"
                     value={data.pdfLink}
                     onChange={handleChange}
