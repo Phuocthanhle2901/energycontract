@@ -1,6 +1,6 @@
 // src/types/contract.ts
 
-import type { ReactNode } from "react";
+
 
 export interface Contract {
   address: any;
