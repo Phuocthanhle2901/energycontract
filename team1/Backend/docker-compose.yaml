@@ -39,6 +39,25 @@ services:
     volumes:
       - postgres_auth_data:/var/lib/postgresql/data
   
+  minio:
+    image: minio/minio:latest
+    container_name: energy_minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      
   customer-api:
     image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
@@ -59,17 +78,20 @@ services:
     restart: always
     depends_on:
       - postgres-pdf
+      - minio
     env_file:
       - .env
     ports:
       - "5001:8080"
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-pdf;Port=5432;Database=${POSTGRES_DB_PDF};Username=${POSTGRES_USER_PDF};Password=${POSTGRES_PASSWORD_PDF}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
       - AWS__Region=${AWS_REGION}
       - AWS__BucketName=${AWS_BUCKET_NAME}
       - AWS__AccessKey=${AWS_ACCESS_KEY}
       - AWS__SecretKey=${AWS_SECRET_KEY}
+      - AWS__ServiceURL=${AWS_SERVICE_URL}
+      - AWS__ForcePathStyle=${AWS_FORCE_PATH_STYLE:-true}
     volumes:
       - pdf_temp:/app/temp
   
@@ -91,3 +113,4 @@ volumes:
   postgres_pdf_data:
   postgres_auth_data:
   pdf_temp:
+  minio_data:

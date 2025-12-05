@@ -35,37 +35,63 @@ try
             })
     );
 
-    // ========================================
-    // AWS S3 Configuration - UPDATED
-    // ========================================
-    var awsAccessKey = builder.Configuration["AWS:AccessKey"];
-    var awsSecretKey = builder.Configuration["AWS:SecretKey"];
-    var awsRegion = builder.Configuration["AWS:Region"] ?? "ap-southeast-1";
 
-    if (string.IsNullOrEmpty(awsAccessKey) || string.IsNullOrEmpty(awsSecretKey))
-    {
-        Log.Warning("AWS credentials not found in configuration. Trying default credential chain...");
-        
-        // Use default credential chain (IAM roles, environment variables, etc.)
-        var awsOptions = builder.Configuration.GetAWSOptions();
-        awsOptions.Region = RegionEndpoint.GetBySystemName(awsRegion);
-        builder.Services.AddDefaultAWSOptions(awsOptions);
-    }
-    else
-    {
-        Log.Information($"Using AWS credentials from configuration. Region: {awsRegion}");
-        
-        // Use credentials from appsettings.json
-        var awsOptions = new Amazon.Extensions.NETCore.Setup.AWSOptions
-        {
-            Credentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey),
-            Region = RegionEndpoint.GetBySystemName(awsRegion)
-        };
-        
-        builder.Services.AddDefaultAWSOptions(awsOptions);
-    }
+// ========================================
+   // AWS S3 / MinIO Configuration
+   // ========================================
+   var awsAccessKey = builder.Configuration["AWS:AccessKey"];
+   var awsSecretKey = builder.Configuration["AWS:SecretKey"];
+   var awsRegion = builder.Configuration["AWS:Region"] ?? "ap-southeast-1";
+   var serviceUrl = builder.Configuration["AWS:ServiceURL"];
+   var forcePathStyle = builder.Configuration.GetValue<bool>("AWS:ForcePathStyle");
+   
+   if (string.IsNullOrEmpty(awsAccessKey) || string.IsNullOrEmpty(awsSecretKey))
+   {
+       Log.Warning("AWS credentials not found in configuration. Trying default credential chain...");
+       
+       var awsOptions = builder.Configuration.GetAWSOptions();
+       awsOptions.Region = RegionEndpoint.GetBySystemName(awsRegion);
+       builder.Services.AddDefaultAWSOptions(awsOptions);
+   }
+   else
+   {
+       var storageType = string.IsNullOrEmpty(serviceUrl) ? "AWS S3" : "MinIO";
+       Log.Information($"Using {storageType}. Region: {awsRegion}");
+   
+       var awsOptions = new Amazon.Extensions.NETCore.Setup.AWSOptions
+       {
+           Credentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey),
+           Region = RegionEndpoint.GetBySystemName(awsRegion)
+       };
+   
+       builder.Services.AddDefaultAWSOptions(awsOptions);
+   }
+   
+   // Configure S3 Client cho MinIO hoặc AWS S3
+   builder.Services.AddSingleton<IAmazonS3>(sp =>
+   {
+       var awsOptions = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<Amazon.Extensions.NETCore.Setup.AWSOptions>>().Value;
+       
+       var s3Config = new AmazonS3Config
+       {
+           RegionEndpoint = RegionEndpoint.GetBySystemName(awsRegion),
+           ForcePathStyle = forcePathStyle,
+           UseHttp = !string.IsNullOrEmpty(serviceUrl)
+       };
+   
+       // Nếu có ServiceURL (MinIO), sử dụng nó
+       if (!string.IsNullOrEmpty(serviceUrl))
+       {
+           s3Config.ServiceURL = serviceUrl;
+           s3Config.UseHttp = serviceUrl.StartsWith("http://");
+       }
 
-    builder.Services.AddAWSService<IAmazonS3>();
+       return new AmazonS3Client(
+           new BasicAWSCredentials(awsAccessKey, awsSecretKey),
+           s3Config
+       );
+   });
+   
 
     // Register Services - UPDATED
     builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
