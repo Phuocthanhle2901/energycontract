@@ -5,12 +5,14 @@ using Application.Features.Addresses.Commands.UpdateAddress;
 using Application.Features.Addresses.Commands.GetAddress;
 
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/addresses")]
+[Authorize]
 public class AddressController : ControllerBase
 {
     private readonly CreateAddressHandler _createAddressHandler;
@@ -36,6 +38,7 @@ public class AddressController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<int>> Create(CreateAddress command)
     {
         try
@@ -52,6 +55,7 @@ public class AddressController : ControllerBase
     }
     
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<Address>>> GetAll([FromQuery] int limit = 0)
     {
         try
@@ -74,6 +78,7 @@ public class AddressController : ControllerBase
         }
     }
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetById(int id)
     {
         var result = await _getAddressByIdHandler.Handle(new GetAddressById { Id = id });
@@ -84,6 +89,7 @@ public class AddressController : ControllerBase
         return Ok(result);
     }
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> Update(int id, UpdateAddress command)
     {
         try
@@ -109,6 +115,7 @@ public class AddressController : ControllerBase
         }
     }
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(int id)
     {
         try

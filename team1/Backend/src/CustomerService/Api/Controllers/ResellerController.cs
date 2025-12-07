@@ -4,12 +4,14 @@
     using Application.Features.Resellers.Commands.UpdateReseller;
     using Application.Features.Resellers.Commands.GetResellerById;
     using Application.Features.Resellers.Commands.DeleteReseller;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     namespace Api.Controllers
     {
         [ApiController]
         [Route("api/resellers")]
+        [Authorize]
         public class ResellerController : ControllerBase
         {
             private readonly CreateResellerHandler _createResellerHandler;
@@ -33,12 +35,14 @@
             }
             
             [HttpPost]
+            [Authorize]
             public async Task<ActionResult<int>> Create(CreateReseller command)
             {
                 var id = await _createResellerHandler.Handle(command);
                 return Ok(id);
             }
             [HttpPut("{id}")]
+            [Authorize]
             public async Task<IActionResult> Update(int id, UpdateReseller command)
             {
                 command.Id = id;
@@ -46,6 +50,7 @@
                 return NoContent();
             }
             [HttpGet("{id}")]
+            [Authorize]
             public async Task<IActionResult> GetById(int id)
             {
                 var result = await _getResellerByIdHandler.Handle(new GetResellerById { Id = id });
@@ -57,6 +62,7 @@
             }
 
             [HttpDelete("{id}")]
+            [Authorize]
             public async Task<IActionResult> Delete(int id)
             {
                 await _deleteResellerHandler.Handle(new DeleteReseller { Id = id });
@@ -64,6 +70,7 @@
             }
 
             [HttpGet]
+            [Authorize]
             public async Task<ActionResult<List<ResellerDto>>> GetAll([FromQuery] int limit = 0)
             {
                 var query = new GetAllResellers { Limit = limit };

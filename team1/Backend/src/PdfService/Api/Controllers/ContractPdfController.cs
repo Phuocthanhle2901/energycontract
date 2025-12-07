@@ -1,10 +1,12 @@
 using Api.Services.Interfaces;
 using Api.VMs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 [ApiController]
 [Route("api/pdf-contract")]
+[Authorize]
 public class ContractPdfController : ControllerBase
 {
     private readonly IPdfService _pdfService;
@@ -51,6 +53,7 @@ public class ContractPdfController : ControllerBase
     /// Health check endpoint
     /// </summary>
     [HttpGet("health")]
+    [AllowAnonymous]
     public IActionResult HealthCheck()
     {
         return Ok(new { status = "healthy", timestamp = DateTime.UtcNow });

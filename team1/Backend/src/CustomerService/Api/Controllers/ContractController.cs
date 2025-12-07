@@ -4,12 +4,14 @@ using Application.Features.Contracts.Commands.DeleteContract;
 using Application.Features.Contracts.Commands.GetContract;
 using Application.Features.Contracts.Commands.GetContractsByChoice;
 using Application.Features.Contracts.Commands.UpdateContract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("api/contracts")]
+[Authorize]
 public class ContractController : ControllerBase
 {
     private readonly CreateContractHandler _createContractHandler;
@@ -38,6 +40,7 @@ public class ContractController : ControllerBase
 
     // 1. POST: Create new contract
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<int>> Create(CreateContract command)
     {
         try
@@ -55,6 +58,7 @@ public class ContractController : ControllerBase
 
     // 2. PUT: Update contract
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<ActionResult> Update(int id, UpdateContract command)
     {
         if (id != command.Id)
@@ -78,6 +82,7 @@ public class ContractController : ControllerBase
 
     // 3. GET: Get contract details
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ContractDto>> GetById(int id)
     {
         var result = await _getContractByIdHandler.Handle(new GetContractById { Id = id });
@@ -93,6 +98,7 @@ public class ContractController : ControllerBase
 
     // 4. GET: Get all contracts
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<ContractDto>>> GetAll([FromQuery] int limit = 0)
     {
         try
@@ -114,6 +120,7 @@ public class ContractController : ControllerBase
     }
     // 5. DELETE: Delete contract
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<ActionResult> Delete(int id)
     {
         try

@@ -6,6 +6,7 @@ using Api.Infrastructures.Data;
 using Api.Models;
 using Api.Services.Interfaces;
 using Api.VMs;
+using DefaultNamespace;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -49,7 +50,7 @@ public class AuthService : IAuthService
                 PasswordHash = passwordHash,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Role = request.Role
+                Role = "User"
             };
 
             _context.Users.Add(user);
@@ -159,14 +160,16 @@ public class AuthService : IAuthService
     {
         try
         {
-            // 1. Kiểm tra refresh token có được cung cấp không
             if (string.IsNullOrEmpty(refreshToken))
             {
                 _logger.LogError("No refresh token provided");
                 throw new Exception("No refresh token provided.");
             }
 
-            _logger.LogInformation($"Found token: {refreshToken.Substring(0, 20)}...");
+
+            var logToken = refreshToken.Length > 20 
+                ? refreshToken.Substring(0, 20) 
+                : refreshToken;
 
             // 2. Tìm session trong DB
             var session = await _context.Sessions.FirstOrDefaultAsync(s => s.Token == refreshToken);
@@ -243,6 +246,40 @@ public class AuthService : IAuthService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    public async Task<UserResponse> GetMeAsync(int userId)
+    {
+        try
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                _logger.LogError($"User with ID {userId} not found");
+                throw new Exception("User not found.");
+            }
+    
+            return new UserResponse
+            {
+                Success = true,
+                User = new UserDto()
+                {
+                    username = user.Username,
+                    email = user.Email,
+                    firstName = user.FirstName,
+                    lastName = user.LastName
+                }
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error getting user info: {ex.Message}");
+            return new UserResponse
+            {
+                Success = false,
+                ErrorMessage = ex.Message
+            };
+        }
+    }
+    
 
     private string GenerateRefreshToken()
     {

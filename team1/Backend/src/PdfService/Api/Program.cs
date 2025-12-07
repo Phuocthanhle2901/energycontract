@@ -1,11 +1,16 @@
+using System.Text;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
 using Microsoft.EntityFrameworkCore;
 using Api.Infrastructures;
 using Api.Infrastructures.Data;
+using Api.Infrastructures.MiddleWare;
 using Api.Services;
 using Api.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using QuestPDF.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
@@ -91,7 +96,30 @@ try
            s3Config
        );
    });
-   
+   // ==========================================
+   // JWT AUTHENTICATION - THÊM MỚI
+   // ==========================================
+   var jwtKey = builder.Configuration["Jwt:Key"];
+   var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+   var jwtAudience = builder.Configuration["Jwt:Audience"];
+
+   builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(options =>
+       {
+           options.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateIssuer = true,
+               ValidateAudience = true,
+               ValidateLifetime = true,
+               ValidateIssuerSigningKey = true,
+               ValidIssuer = jwtIssuer,
+               ValidAudience = jwtAudience,
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+               ClockSkew = TimeSpan.Zero
+           };
+       });
+
+   builder.Services.AddAuthorization();
 
     // Register Services - UPDATED
     builder.Services.AddScoped<IPdfGenerator, PdfGenerator>();
@@ -102,14 +130,44 @@ try
     // Controllers
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
+    // ==========================================
+    // SWAGGER VỚI BEARER TOKEN - SỬA LẠI
+    // ==========================================
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new() 
-        { 
-            Title = "PDF Service API", 
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "Energy PDF Service API",
             Version = "v1",
-            Description = "API for generating and managing PDF contracts with AWS S3 storage"
+            Description = "API for managing PDF and common template "
         });
+
+        // Thêm Bearer Token vào Swagger
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token.",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+
+        c.OrderActionsBy(api => api.RelativePath);
     });
 
     // CORS
@@ -118,8 +176,8 @@ try
         options.AddPolicy("AllowAll", policy =>
         {
             policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
+                .AllowAnyMethod()
+                .AllowAnyHeader();
         });
     });
 
@@ -151,13 +209,13 @@ try
             c.RoutePrefix = string.Empty;
         });
     }
+    app.UseMiddleware<AuthenticationMiddleware>();
 
     app.UseSerilogRequestLogging();
     app.UseCors("AllowAll");
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-
     Log.Information("PdfService started successfully with AWS S3 storage");
     app.Run();
 }

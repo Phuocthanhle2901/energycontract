@@ -14,6 +14,6 @@ public class ContractDto
     public DateTime? EndDate { get; set; }
     public string BankAccountNumber { get; set; }
     public string PdfLink { get; set; }
-    public int AddressId { get; set; }
+    public int? AddressId { get; set; }
     public int? ResellerId { get; set; }
 }

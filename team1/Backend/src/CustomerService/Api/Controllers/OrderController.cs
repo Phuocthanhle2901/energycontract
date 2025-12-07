@@ -4,12 +4,14 @@ using Application.Features.Orders.Commands.GetAllOrders;
 using Application.Features.Orders.Commands.GetOrderById;
 using Application.Features.Orders.Commands.UpdateOrder;
 using Application.Features.Orders.Commands.DeleteOrder;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
     [Route("api/orders")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly CreateOrderHandler _createHandler;
@@ -33,6 +35,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<int>> Create(CreateOrder req)
         {
             var id = await _createHandler.Handle(req);
@@ -40,6 +43,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<OrderDto>>> GetAll([FromQuery] int limit = 0)
         {
             var res = await _getAllHandler.Handle(new GetAllOrders { Limit = limit });
@@ -47,6 +51,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<OrderDto>> GetById(int id)
         {
             var res = await _getByIdHandler.Handle(new GetOrderById { Id = id });
@@ -55,6 +60,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, UpdateOrder req)
         {
             req.Id = id;
@@ -63,6 +69,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _deleteHandler.Handle(new DeleteOrder { Id = id });

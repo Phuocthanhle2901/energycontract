@@ -4,6 +4,10 @@ using Serilog.Events;
 using FluentValidation;
 using Api.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. GIAI ĐOẠN ĐĂNG KÝ SERVICES (DI CONTAINER)
 // ==========================================
 
-// Tạo logger ban đầu để bắt lỗi khởi động
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
@@ -21,68 +24,109 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     Log.Information("Starting web host for EnergyContractService...");
-    // A. Xác định Assembly của tầng Application (Nơi chứa toàn bộ logic)
+    
     var applicationAssembly = typeof(Application.Features.Contracts.Commands.CreateContract.CreateContractHandler).Assembly;
 
-    // B. Đăng ký Infrastructure (Database, Repository)
     builder.Services.AddInfrastructureServices(builder.Configuration);
-
-    // C. Đăng ký Validators (Tự động tìm tất cả file Validator)
     builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
-    // ================================
-    // D. ĐĂNG KÝ CÁC HANDLER (DI)
-    // ================================
+    // ==========================================
+    // JWT AUTHENTICATION - THÊM MỚI
+    // ==========================================
+    var jwtKey = builder.Configuration["Jwt:Key"];
+    var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+    var jwtAudience = builder.Configuration["Jwt:Audience"];
 
-    // CONTRACTS
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+                ClockSkew = TimeSpan.Zero
+            };
+        });
+
+    builder.Services.AddAuthorization();
+
+    // ĐĂNG KÝ HANDLERS
     builder.Services.AddTransient<Application.Features.Contracts.Commands.CreateContract.CreateContractHandler>();
     builder.Services.AddTransient<Application.Features.Contracts.Commands.UpdateContract.UpdateContractHandler>();
     builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContract.GetContractByIdHandler>();
     builder.Services.AddTransient<Application.Features.Contracts.Commands.GetContractsByChoice.GetContractsByChoiceHandler>();
     builder.Services.AddTransient<Application.Features.Contracts.Commands.DeleteContract.DeleteContractHandler>();
 
-    // ADDRESSES
     builder.Services.AddTransient<Application.Features.Addresses.Commands.CreateAddress.CreateAddressHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAllAddresses.GetAllAddressesHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAddress.GetAddressByIdHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.DeleteAddress.DeleteAddressHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.UpdateAddress.UpdateAddressHandler>();
 
-    // RESELLERS
     builder.Services.AddTransient<Application.Features.Resellers.Commands.CreateReseller.CreateResellerHandler>();
     builder.Services.AddTransient<Application.Features.Resellers.Commands.GetAllResellers.GetAllResellerHandler>();
     builder.Services.AddTransient<Application.Features.Resellers.Commands.UpdateReseller.UpdateResellerHandler>();
     builder.Services.AddTransient<Application.Features.Resellers.Commands.GetResellerById.GetResellerByIdHandler>();
     builder.Services.AddTransient<Application.Features.Resellers.Commands.DeleteReseller.DeleteResellerHandler>();
-    
-    // ORDERS
+
     builder.Services.AddTransient<Application.Features.Orders.Commands.CreateOrder.CreateOrderHandler>();
     builder.Services.AddTransient<Application.Features.Orders.Commands.GetAllOrders.GetAllOrdersHandler>();
     builder.Services.AddTransient<Application.Features.Orders.Commands.GetOrderById.GetOrderByIdHandler>();
     builder.Services.AddTransient<Application.Features.Orders.Commands.UpdateOrder.UpdateOrderHandler>();
     builder.Services.AddTransient<Application.Features.Orders.Commands.DeleteOrder.DeleteOrderHandler>();
 
-    // CONTRACT HISTORIES
     builder.Services.AddTransient<Application.Features.ContractHistories.Commands.CreateContractHistory.CreateContractHistoryHandler>();
     builder.Services.AddTransient<Application.Features.ContractHistories.Commands.GetHistoryByContractId.GetHistoryByContractIdHandler>();
 
-    
-    // E. Đăng ký Controller & Swagger
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
+
+    // ==========================================
+    // SWAGGER VỚI BEARER TOKEN - SỬA LẠI
+    // ==========================================
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new() 
-        { 
-            Title = "Energy Contract Service API", 
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "Energy Contract Service API",
             Version = "v1",
             Description = "API for managing energy contracts, addresses, and resellers"
         });
+
+        // Thêm Bearer Token vào Swagger
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token.",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+
         c.OrderActionsBy(api => api.RelativePath);
     });
-    
 
-    // F. CORS Configuration
+    // CORS Configuration
     builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(policy =>
@@ -105,26 +149,27 @@ try
     // 2. GIAI ĐOẠN PIPELINE (MIDDLEWARE)
     // ==========================================
 
-    // A. Middleware xử lý lỗi toàn cục
     app.UseMiddleware<ExceptionMiddleware>();
+    app.UseMiddleware<AuthenticationMiddleware>();
+    
 
-// B. Swagger Configuration 
-  if (app.Environment.IsDevelopment())
-  {
-      app.UseSwagger();
-      app.UseSwaggerUI(c =>
-      {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Energy Contract Service API V1");
-          c.RoutePrefix = string.Empty; // Swagger UI tại root URL
-      });
-  }
-  
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Energy Contract Service API V1");
+            c.RoutePrefix = string.Empty;
+        });
+    }
 
-    // C. CORS (PHẢI ĐẶT TRƯỚC UseAuthorization)
     app.UseCors();
-
     app.UseHttpsRedirection();
+    
+    // ⚠️ QUAN TRỌNG: Thứ tự phải đúng!
+    app.UseAuthentication();  // ← Phải trước UseAuthorization
     app.UseAuthorization();
+    
     app.MapControllers();
 
     // ==========================================

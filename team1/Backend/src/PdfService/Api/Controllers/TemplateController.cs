@@ -1,10 +1,12 @@
 using Api.Services.Interfaces;
 using Api.VMs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 [ApiController]
 [Route("api/templates")]
+[Authorize]
 public class TemplateController : ControllerBase
 {
     private readonly ITemplateService _templateService;
