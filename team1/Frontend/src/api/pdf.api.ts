@@ -1,18 +1,20 @@
-import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
-export type ContractPdfInfo = {
-  contractNumber: string;
-  customerName: string;
-  startDate: string;
-  endDate: string;
-  resellerName: string;
-  address: string;
-  orders: { orderNumber: string; type: string; status: string; startDate: string; endDate: string }[];
-  generatedAt: string;
-  pdfUrl?: string; // link thực nếu có
+const pdfApi = axios.create({
+    baseURL: "http://localhost:5001/api",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+export const PdfApi = {
+    generate: async (data: any) => {
+        const res = await pdfApi.post("/pdf-contract/generate", data);
+        return res.data;
+    },
+
+    health: async () => {
+        const res = await pdfApi.get("/pdf-contract/health");
+        return res.data;
+    }
 };
-
-export async function getContractPdfInfo(contractId: number): Promise<ContractPdfInfo> {
-  const res = await axiosInstance.get(`/contracts/${contractId}/pdf`);
-  return res.data;
-}

@@ -1,30 +1,34 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/resellers";
+import axiosClient from "./axiosClient";
 
 export const ResellerApi = {
-  getAll: async () => {
-    const res = await axios.get(API_URL);
-    return res.data;
-  },
+    getAll: async (limit: number = 0) => {
+        const res = await axiosClient.get(`/resellers?limit=${limit}`);
+        return res.data;
+    },
 
-  getById: async (id: number) => {
-    const res = await axios.get(`${API_URL}/${id}`);
-    return res.data;
-  },
 
-  create: async (data: any) => {
-    const res = await axios.post(API_URL, data);
-    return res.data;
-  },
+    //search: string, page: number
 
-  update: async (id: number, data: any) => {
-    const res = await axios.put(`${API_URL}/${id}`, data);
-    return res.data;
-  },
 
-  delete: async (id: number) => {
-    const res = await axios.delete(`${API_URL}/${id}`);
-    return res.data;
-  }
+    getById: async (id: number) => {
+        const res = await axiosClient.get(`/resellers/${id}`);
+        return res.data;
+    },
+
+    create: async (data: any) => {
+        const res = await axiosClient.post("/resellers", data);
+        return res.data;
+    },
+
+    update: async (id: number, data: any) => {
+        const res = await axiosClient.put(`/resellers/${id}`, data);
+        return res.data;
+    },
+
+    delete: async (id: number) => {
+        const res = await axiosClient.delete(`/resellers/${id}`);
+        return res.data;
+    },
 };
+
+export default ResellerApi;

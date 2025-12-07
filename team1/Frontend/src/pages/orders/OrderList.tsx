@@ -1,141 +1,285 @@
 import {
+    Box,
+    Button,
+    Typography,
     Paper,
     Table,
-    TableBody,
-    TableCell,
-    TableContainer,
     TableHead,
     TableRow,
-    Chip,
-    IconButton,
+    TableCell,
+    TableBody,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    TextField,
+    MenuItem,
+    Stack,
 } from "@mui/material";
 
-import FlashOnIcon from "@mui/icons-material/FlashOn";
-import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useEffect, useState } from "react";
+import NavMenu from "@/components/NavMenu/NavMenu";
 
-export interface Order {
-    id: string;
-    order_number: string;
-    order_type: "electricity" | "gas";
-    status: "active" | "pending" | "completed" | "cancelled";
-    start_date: string;
-    end_date: string;
-    topup_fee: number;
-}
+import { OrderApi } from "@/api/order.api";
+import { ContractApi } from "@/api/contract.api";
 
-export const mockOrders: Order[] = [
-    {
-        id: "1",
-        order_number: "ORD-E-001",
-        order_type: "electricity",
-        status: "active",
-        start_date: "2025-12-01",
-        end_date: "2025-12-01",
-        topup_fee: 120000,
+export default function OrderList() {
 
-    },
-    {
-        id: "2",
-        order_number: "ORD-G-002",
-        order_type: "gas",
-        status: "active",
-        start_date: "2025-12-01",
-        end_date: "2026-12-01",
-        topup_fee: 80000,
-    },
-];
+    const [orders, setOrders] = useState<any[]>([]);
+    const [contracts, setContracts] = useState<any[]>([]);
 
-const statusColor: any = {
-    active: "success",
-    pending: "warning",
-    completed: "info",
-    cancelled: "error",
-};
+    // popup
+    const [open, setOpen] = useState(false);
+    const [mode, setMode] = useState(""); // create | edit | delete
+    const [current, setCurrent] = useState<any>({});
 
-export default function OrderList({ orders, onEdit, onDelete }: any) {
+    // ===============================
+    // FETCH DATA
+    // ===============================
+    const loadData = async () => {
+        setOrders(await OrderApi.getOrders(0));
+
+        setContracts(await ContractApi.getContracts());
+    };
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    // ===============================
+    // OPEN POPUP
+    // ===============================
+    const openPopup = (m: string, item: any = null) => {
+        setMode(m);
+
+        if (m === "create") {
+            setCurrent({
+                orderNumber: "",
+                orderType: 0,
+                status: 0,
+                startDate: "",
+                endDate: "",
+                topupFee: 0,
+                contractId: "",
+            });
+        } else {
+            setCurrent(item);
+        }
+
+        setOpen(true);
+    };
+
+    const closePopup = () => setOpen(false);
+
+    // ===============================
+    // HANDLE FORM
+    // ===============================
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+
+        // convert numeric fields
+        const numeric = ["orderType", "status", "contractId", "topupFee"];
+
+        setCurrent((prev: any) => ({
+            ...prev,
+            [name]: numeric.includes(name) ? Number(value) : value,
+        }));
+    };
+
+    // ===============================
+    // SUBMIT CRUD
+    // ===============================
+    const handleSubmit = async () => {
+        try {
+            if (mode === "create") await OrderApi.create(current);
+            if (mode === "edit") await OrderApi.update(current.id, current);
+            if (mode === "delete") await OrderApi.delete(current.id);
+
+            closePopup();
+            loadData();
+        } catch (err) {
+            console.error(err);
+            alert("Error!");
+        }
+    };
+
+    // ===============================
+    // RENDER
+    // ===============================
+    const mapType = (v: number) => (v === 0 ? "Gas" : "Electricity");
+    const mapStatus = (v: number) =>
+        ["Pending", "Active", "Completed", "Cancelled"][v] ?? "Unknown";
+
     return (
-        <Paper
-            elevation={1}
-            sx={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                backgroundColor: "#fff",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                mb: 4,
-            }}
-        >
-            <TableContainer>
-                <Table>
+        <Box sx={{ ml: "240px", p: 3 }}>
+            <NavMenu />
 
-                    {/* HEADER – ĐỔI THÀNH MÀU XÁM (#D1D5DB) */}
-                    <TableHead>
-                        <TableRow sx={{ bgcolor: "#D1D5DB" }}>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Số Đơn hàng</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Loại</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Trạng thái</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Ngày Bắt đầu</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Ngày Kết thúc</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Chi phí</TableCell>
-                            <TableCell sx={{ color: "#000", fontWeight: 700 }}>Thao tác</TableCell>
+            <Box display="flex" justifyContent="space-between" mb={3}>
+                <Typography variant="h5" fontWeight={700}>Orders</Typography>
+
+                <Button variant="contained" onClick={() => openPopup("create")}>
+                    + Add Order
+                </Button>
+            </Box>
+
+            <Paper sx={{ p: 2 }}>
+                <Table>
+                    <TableHead sx={{ background: "#f0f2f5" }}>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Order Number</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Start</TableCell>
+                            <TableCell>End</TableCell>
+                            <TableCell>Topup Fee</TableCell>
+                            <TableCell>Contract</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        {orders.map((o: Order) => (
+                        {orders.map((o: any) => (
                             <TableRow key={o.id} hover>
-                                <TableCell sx={{ fontWeight: 600 }}>{o.order_number}</TableCell>
+                                <TableCell>{o.id}</TableCell>
+                                <TableCell>{o.orderNumber}</TableCell>
+                                <TableCell>{mapType(o.orderType)}</TableCell>
+                                <TableCell>{mapStatus(o.status)}</TableCell>
+                                <TableCell>{o.startDate?.slice(0, 10)}</TableCell>
+                                <TableCell>{o.endDate?.slice(0, 10)}</TableCell>
+                                <TableCell>{o.topupFee}</TableCell>
+                                <TableCell>{o.contractId}</TableCell>
 
-                                <TableCell>
-                                    <Chip
-                                        icon={o.order_type === "electricity" ? <FlashOnIcon /> : <LocalGasStationIcon />}
-                                        label={o.order_type.toUpperCase()}
-                                        variant="outlined"
-                                        sx={{
-                                            fontWeight: 600,
-                                            borderColor: "#9CA3AF",
-                                            color: "#374151",
-                                            "& .MuiChip-icon": { color: "#6B7280" }
-                                        }}
-                                    />
+                                <TableCell align="right">
+                                    <Button size="small" onClick={() => openPopup("edit", o)}>
+                                        Edit
+                                    </Button>
+
+                                    <Button
+                                        size="small"
+                                        color="error"
+                                        sx={{ ml: 1 }}
+                                        onClick={() => openPopup("delete", o)}
+                                    >
+                                        Delete
+                                    </Button>
                                 </TableCell>
-
-                                <TableCell>
-                                    <Chip
-                                        label={o.status.toUpperCase()}
-                                        variant="outlined"
-                                        sx={{
-                                            fontWeight: 600,
-                                            borderColor: "#9CA3AF",
-                                            color: "#374151",
-                                        }}
-                                    />
-                                </TableCell>
-
-                                <TableCell>{o.start_date}</TableCell>
-                                <TableCell>{o.end_date}</TableCell>
-
-                                <TableCell sx={{ fontWeight: 600 }}>
-                                    {o.topup_fee.toLocaleString()} VND
-                                </TableCell>
-
-                                <TableCell>
-                                    <IconButton color="primary" onClick={() => onEdit(o)}>
-                                        <EditIcon />
-                                    </IconButton>
-
-                                    <IconButton color="error" onClick={() => onDelete(o.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </TableCell>
-
                             </TableRow>
                         ))}
-                    </TableBody>
 
+                        {orders.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={9} align="center">
+                                    No orders found
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
                 </Table>
-            </TableContainer>
-        </Paper>
+            </Paper>
+
+            {/* =============================== */}
+            {/* POPUP CRUD */}
+            {/* =============================== */}
+            <Dialog open={open} onClose={closePopup} fullWidth maxWidth="sm">
+                <DialogTitle>
+                    {mode === "create" && "Create Order"}
+                    {mode === "edit" && "Edit Order"}
+                    {mode === "delete" && "Delete Order"}
+                </DialogTitle>
+
+                <DialogContent sx={{ mt: 1 }}>
+                    {mode === "delete" ? (
+                        <Typography>Are you sure you want to delete this order?</Typography>
+                    ) : (
+                        <Stack spacing={2}>
+                            <TextField
+                                label="Order Number"
+                                name="orderNumber"
+                                fullWidth
+                                value={current.orderNumber}
+                                onChange={handleChange}
+                            />
+
+                            <TextField
+                                label="Order Type"
+                                select
+                                name="orderType"
+                                value={current.orderType}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={0}>Gas</MenuItem>
+                                <MenuItem value={1}>Electricity</MenuItem>
+                            </TextField>
+
+                            <TextField
+                                label="Status"
+                                select
+                                name="status"
+                                value={current.status}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={0}>Pending</MenuItem>
+                                <MenuItem value={1}>Active</MenuItem>
+                                <MenuItem value={2}>Completed</MenuItem>
+                                <MenuItem value={3}>Cancelled</MenuItem>
+                            </TextField>
+
+                            <TextField
+                                type="date"
+                                label="Start Date"
+                                name="startDate"
+                                InputLabelProps={{ shrink: true }}
+                                value={current.startDate?.slice(0, 10) || ""}
+                                onChange={handleChange}
+                            />
+
+                            <TextField
+                                type="date"
+                                label="End Date"
+                                name="endDate"
+                                InputLabelProps={{ shrink: true }}
+                                value={current.endDate?.slice(0, 10) || ""}
+                                onChange={handleChange}
+                            />
+
+                            <TextField
+                                type="number"
+                                label="Top-up Fee"
+                                name="topupFee"
+                                value={current.topupFee}
+                                onChange={handleChange}
+                            />
+
+                            <TextField
+                                label="Contract"
+                                select
+                                name="contractId"
+                                value={current.contractId}
+                                onChange={handleChange}
+                            >
+                                {contracts.map((c: any) => (
+                                    <MenuItem key={c.id} value={c.id}>
+                                        {c.contractNumber} – {c.firstName} {c.lastName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Stack>
+                    )}
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={closePopup}>Cancel</Button>
+
+                    <Button
+                        onClick={handleSubmit}
+                        variant="contained"
+                        color={mode === "delete" ? "error" : "primary"}
+                    >
+                        {mode === "delete" ? "Delete" : "Save"}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Box>
     );
 }

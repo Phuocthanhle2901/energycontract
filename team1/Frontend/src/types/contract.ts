@@ -1,10 +1,12 @@
-// src/types/contract.ts
 
 
+import type { ReactNode } from "react";
 
 export interface Contract {
+  resellerName: ReactNode;
+  contractNumber: ReactNode;
   address: any;
-  
+
   orders: any;
   id?: number;
   firstName: string;

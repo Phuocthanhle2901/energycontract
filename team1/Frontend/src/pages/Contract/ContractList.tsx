@@ -1,215 +1,192 @@
-// src/pages/Contract/ContractList.tsx
-import React, { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import {
-  Box,
-  Button,
-  Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  TextField,
-  InputAdornment,
+  Box, Button, Paper, Table, TableHead, TableRow, TableCell,
+  TableBody, Typography, Stack, IconButton
 } from "@mui/material";
-import { Search } from "lucide-react";
-import NavMenu from "../../components/NavMenu/NavMenu";
 
-export interface ContractData {
-  contractNumber: string;
-  firstName: string;
-  lastName: string;
-  customerName: string;
-  email: string;
-  phone?: string;
-  startDate: string;
-  endDate?: string;
-  companyName?: string;
-  bankAccountNumber?: string;
-  resellerId?: string;
-  addressId?: string;
-  pdfLink?: string;
-  status: string;
-  notes?: string;
-}
+import {
+  FiEdit, FiTrash2, FiEye, FiPlus
+} from "react-icons/fi";
 
-const MOCK_CONTRACTS: ContractData[] = [
-  {
-    contractNumber: "101",
-    firstName: "Nguyen",
-    lastName: "Van A",
-    customerName: "Nguyen Van A",
-    email: "a.nguyen@example.com",
-    phone: "0901234567",
-    startDate: "2025-12-01",
-    endDate: "2026-12-01",
-    companyName: "ABC Corp",
-    pdfLink: "",
-    status: "Active",
-    notes: "Priority customer",
-  },
-  {
-    contractNumber: "102",
-    firstName: "Tran",
-    lastName: "Thi B",
-    customerName: "Tran Thi B",
-    email: "b.tran@example.com",
-    phone: "0902345678",
-    startDate: "2025-11-15",
-    endDate: "2026-11-15",
-    companyName: "XYZ Ltd",
-    pdfLink: "",
-    status: "Inactive",
-    notes: "Needs review",
-  },
-];
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import { ContractApi } from "@/api/contract.api";
+import { ResellerApi } from "@/api/reseller.api";
+import { AddressApi } from "@/api/address.api";
+
+import toast from "react-hot-toast";
+
+import NavMenu from "@/components/NavMenu/NavMenu";
+import ContractFormDrawer from "./ContractFormDrawer";
+import ContractDelete from "./ContractDelete";
+import { useNavigate } from "react-router-dom";
 
 export default function ContractList() {
-  const [contracts, setContracts] = useState<ContractData[]>(MOCK_CONTRACTS);
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  const handleDelete = (contractNumber: string) => {
-    if (!window.confirm("Are you sure you want to delete this contract?")) return;
-    setContracts(contracts.filter(c => c.contractNumber !== contractNumber));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
+  const [editData, setEditData] = useState<any>(null);
+  const [deleteData, setDeleteData] = useState<any>(null);
+
+  // ===============================
+  // LOAD CONTRACTS
+  // ===============================
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["contracts"],
+    queryFn: ContractApi.getContracts,
+  });
+
+  const list = data ?? [];
+
+  // ===============================
+  // LOAD RESELLERS
+  // ===============================
+  const { data: resellers = [] } = useQuery<any[]>({
+    queryKey: ["resellers"],
+    queryFn: () => ResellerApi.getAll(0),
+  });
+
+
+  // ===============================
+  // LOAD ADDRESSES
+  // ===============================
+  const { data: addresses = [] } = useQuery<any[]>({
+    queryKey: ["addresses"],
+    queryFn: () => AddressApi.getAll(0),
+  });
+
+  // ===============================
+  // JOIN FUNCTIONS
+  // ===============================
+  const getResellerName = (id: any) => {
+    if (!id) return "-";
+    const r = resellers.find((x: any) => x.id === id);
+    return r ? r.name : "-";
   };
 
-  // Tìm kiếm tự động
-  const filteredContracts = useMemo(() => {
-    return contracts.filter(c =>
-      c.customerName.toLowerCase().includes(search.toLowerCase()) ||
-      c.contractNumber.includes(search)
-    );
-  }, [contracts, search]);
+  const getAddressText = (id: any) => {
+    if (!id) return "-";
+    const a = addresses.find((x: any) => x.id === id);
+    if (!a) return "-";
+
+    return `${a.zipCode} – ${a.houseNumber}${a.extension || ""}`;
+  };
+
+  // ===============================
+
+  const openCreate = () => {
+    setDrawerMode("create");
+    setEditData(null);
+    setDrawerOpen(true);
+  };
+
+  const openEdit = (row: any) => {
+    setDrawerMode("edit");
+    setEditData(row);
+    setDrawerOpen(true);
+  };
+
+  if (isLoading)
+    return <Typography sx={{ ml: "260px", p: 3 }}>Loading...</Typography>;
 
   return (
-    <Box sx={{ ml: "240px", p: 3, minHeight: "100vh", background: "#F3F4F6" }}>
+    <Box sx={{ display: "flex" }}>
       <NavMenu />
 
-      {/* Header */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5" fontWeight={700}>
-          Contract Manager
-        </Typography>
-        <Button
-          variant="contained"
-          sx={{ bgcolor: "#1677ff", textTransform: "none", px: 2 }}
-          onClick={() => navigate("/contracts/create")}
-        >
-          + Create Contract
-        </Button>
+      <Box sx={{ ml: "240px", p: 3, width: "100%" }}>
+        <Stack direction="row" justifyContent="space-between" mb={3}>
+          <Typography variant="h4" fontWeight={700}>
+            Contract Management
+          </Typography>
+
+          <Button
+            variant="contained"
+            startIcon={<FiPlus />}
+            onClick={openCreate}
+            sx={{ fontWeight: 600 }}
+          >
+            Add Contract
+          </Button>
+        </Stack>
+
+        <Paper sx={{ p: 2 }}>
+          <Table>
+            <TableHead sx={{ background: "#f8fafc" }}>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Contract Number</TableCell>
+                <TableCell>Customer</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Reseller</TableCell>
+                <TableCell>Address</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {list.map((c: any) => (
+                <TableRow key={c.id} hover>
+                  <TableCell>{c.id}</TableCell>
+                  <TableCell>{c.contractNumber}</TableCell>
+                  <TableCell>{c.firstName} {c.lastName}</TableCell>
+                  <TableCell>{c.email}</TableCell>
+
+                  {/* 🔥 FIXED: SHOW RESELLER */}
+                  <TableCell>{getResellerName(c.resellerId)}</TableCell>
+
+                  {/* 🔥 FIXED: SHOW ADDRESS */}
+                  <TableCell>{getAddressText(c.addressId)}</TableCell>
+
+                  <TableCell align="right">
+                    <Stack direction="row" spacing={1} justifyContent="end">
+                      <IconButton onClick={() => navigate(`/contracts/${c.id}/detail`)}>
+                        <FiEye />
+                      </IconButton>
+                      <IconButton onClick={() => openEdit(c)}>
+                        <FiEdit />
+                      </IconButton>
+
+                      <IconButton onClick={() => setDeleteData(c)} color="error">
+                        <FiTrash2 />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {list.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} align="center" sx={{ py: 3 }}>
+                    No contracts found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Paper>
       </Box>
 
-      {/* Search Box */}
-      <Paper
-        sx={{
-          p: 2,
-          borderRadius: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08)",
-          mb: 3,
+      <ContractFormDrawer
+        open={drawerOpen}
+        mode={drawerMode}
+        initialData={editData}
+        onClose={() => setDrawerOpen(false)}
+        onSaved={() => {
+          toast.success("Saved");
+          refetch();
         }}
-      >
-        <TextField
-          fullWidth
-          placeholder="Tìm kiếm theo tên khách hàng hoặc số hợp đồng..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          InputProps={{
-            sx: { borderRadius: 2, height: 45, bgcolor: "#f9fafb" },
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={20} color="#9ca3af" />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Paper>
+      />
 
-      {/* Table */}
-      <Paper
-        sx={{
-          borderRadius: "12px",
-          overflow: "hidden",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.10)",
+      <ContractDelete
+        open={!!deleteData}
+        data={deleteData}
+        onClose={() => setDeleteData(null)}
+        onDeleted={() => {
+          toast.success("Deleted");
+          refetch();
         }}
-      >
-        <Table>
-          <TableHead sx={{ bgcolor: "#f8fafc" }}>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 600 }}>SỐ HỢP ĐỒNG</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>KHÁCH HÀNG</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>EMAIL</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>NGÀY BẮT ĐẦU</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>TRẠNG THÁI</TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="right">
-                THAO TÁC
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {filteredContracts.map((c) => (
-              <TableRow key={c.contractNumber} hover>
-                <TableCell>{c.contractNumber}</TableCell>
-                <TableCell>{c.customerName}</TableCell>
-                <TableCell>{c.email}</TableCell>
-                <TableCell>{c.startDate}</TableCell>
-                <TableCell>{c.status}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/detail`)}
-                  >
-                    Detail
-                  </Button>
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/edit`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => handleDelete(c.contractNumber)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/pdf`)}
-                  >
-                    PDF
-                  </Button>
-                  <Button
-                    size="small"
-                    color="secondary"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/history`)}
-
-                  >
-                    History
-                  </Button>
-
-                </TableCell>
-              </TableRow>
-            ))}
-            {filteredContracts.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={6} sx={{ textAlign: "center", py: 3 }}>
-                  Không tìm thấy hợp đồng
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </Paper>
+      />
     </Box>
   );
 }

@@ -1,7 +1,7 @@
-export interface User{ // Define the shape of a User object
+export interface User {
     _id: number;
     username: string;
-    email: string;  
+    email: string;
     firstName: string;
     lastName: string;
 }

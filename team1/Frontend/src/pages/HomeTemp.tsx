@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {useLogout, useUser} from "@/hook/useAuth.ts";
+import { useLogout, useUser } from "@/hooks/useAuth";
 
 export default function HomePage() {
     // 1. Sử dụng hook useUser để lấy thông tin người dùng

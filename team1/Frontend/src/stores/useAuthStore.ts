@@ -1,22 +1,29 @@
 import { create } from "zustand";
-import type { AuthState } from "@/types/store.ts";
+
+interface AuthState {
+    user(arg0: { accessToken: any; refreshToken: string; }, user: any): unknown;
+    setAuth(arg0: { accessToken: any; refreshToken: string; }, user: any): unknown;
+    clearAuth(): unknown;
+    accessToken: string | null;
+    refreshToken: string | null;
+
+    setTokens: (tokens: { accessToken: string; refreshToken: string }) => void;
+    clearTokens: () => void;
+}
 
 export const useAuthStore = create<AuthState>((set) => ({
-    accessToken: null,
-    isAuthenticated: false,
+    accessToken: localStorage.getItem("accessToken") || null,
+    refreshToken: localStorage.getItem("refreshToken") || null,
 
-    setAccessToken: (token: string | null) => {
-        set({
-            accessToken: token,
-            isAuthenticated: !!token
-        });
+    setTokens: ({ accessToken, refreshToken }) => {
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        set({ accessToken, refreshToken });
     },
-    clearState:() =>{
-        set({
-            accessToken: null,
-            isAuthenticated: false,
-            // Nếu bạn có lưu user trong store (cách cũ) thì set user: null tại đây luôn
-            // user: null 
-        });
-    }
+
+    clearTokens: () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        set({ accessToken: null, refreshToken: null });
+    },
 }));
