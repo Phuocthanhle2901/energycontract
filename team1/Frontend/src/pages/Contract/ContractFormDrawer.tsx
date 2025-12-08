@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 // FORM TYPE
 // =============================
 export interface ContractFormValues {
-    contractNumber: string;
+    contractNumber: string;      // chỉ dùng để hiển thị, BE không nhận
     firstName: string;
     lastName: string;
     email: string;
@@ -30,7 +30,7 @@ export interface ContractFormValues {
     bankAccountNumber: string | null;
     resellerId: string;
     addressId: string;
-    notes: string | null;
+    notes: string | null;        // BE không nhận, chỉ lưu FE nếu muốn
     startDate: string | null;
     endDate: string | null;
 }
@@ -47,10 +47,10 @@ interface ContractFormDrawerProps {
 }
 
 // =============================
-// YUP SCHEMA – KHỚP 100% FORM
+// YUP SCHEMA
 // =============================
 const schema = yup.object({
-    contractNumber: yup.string().required("Required"),
+    contractNumber: yup.string(), // không required vì BE không cần
     firstName: yup.string().required("Required"),
     lastName: yup.string().required("Required"),
     email: yup.string().email().required("Required"),
@@ -121,7 +121,26 @@ export default function ContractFormDrawer({
     // EDIT MODE — RESET FORM DATA
     // ================================
     useEffect(() => {
-        if (!isEdit || !initialData) return;
+        if (!isEdit || !initialData) {
+            // nếu create thì reset trắng
+            if (!isEdit) {
+                reset({
+                    contractNumber: "",
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    companyName: "",
+                    bankAccountNumber: "",
+                    resellerId: "",
+                    addressId: "",
+                    notes: "",
+                    startDate: "",
+                    endDate: "",
+                });
+            }
+            return;
+        }
 
         reset({
             contractNumber: initialData.contractNumber ?? "",
@@ -143,13 +162,7 @@ export default function ContractFormDrawer({
     // SUBMIT FORM
     // ================================
     const onSubmit: SubmitHandler<ContractFormValues> = async (form) => {
-        const payload = {
-            id: initialData.id,
-
-            // backend cần 2 trường này để tránh lỗi
-            contractNumber: initialData.contractNumber,
-            customerName: `${form.firstName} ${form.lastName}`,
-
+        const payloadBase = {
             firstName: form.firstName,
             lastName: form.lastName,
             email: form.email,
@@ -158,26 +171,49 @@ export default function ContractFormDrawer({
             endDate: form.endDate ? new Date(form.endDate).toISOString() : null,
             companyName: form.companyName || "",
             bankAccountNumber: form.bankAccountNumber || "",
-
-            // FIX LỚN → backend không nhận null
-            pdfLink: initialData.pdfLink ?? "",
-
             resellerId: Number(form.resellerId),
-            addressId: Number(form.addressId)
+            addressId: Number(form.addressId),
         };
 
         try {
-            await ContractApi.update(initialData.id, payload);
-            toast.success("Updated successfully");
+            if (isEdit) {
+                if (!initialData?.id) {
+                    toast.error("Missing contract id");
+                    return;
+                }
+
+                const payload = {
+                    id: initialData.id,
+                    pdfLink: initialData.pdfLink ?? "",
+                    ...payloadBase,
+                };
+
+                console.log("UPDATE PAYLOAD:", payload);
+
+                await ContractApi.update(initialData.id, payload);
+                toast.success("Updated successfully");
+            } else {
+                const payload = {
+                    pdfLink: "",
+                    ...payloadBase,
+                };
+
+                console.log("CREATE PAYLOAD:", payload);
+
+                await ContractApi.create(payload);
+                toast.success("Created successfully");
+            }
+
             onSaved?.();
             onClose();
         } catch (err) {
-            console.error("UPDATE ERROR PAYLOAD:", payload);
-            toast.error("Failed to save");
+            console.error("ERROR PAYLOAD:", isEdit ? "UPDATE" : "CREATE", {
+                ...(isEdit && { id: initialData?.id }),
+                ...payloadBase,
+            });
+            toast.error("Failed to save contract");
         }
     };
-
-
 
     // ================================
     // UI
@@ -200,11 +236,17 @@ export default function ContractFormDrawer({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={2}>
 
+                        {/* Contract Number: chỉ hiển thị ở edit */}
                         <TextField
                             label="Contract Number"
                             {...register("contractNumber")}
+                            disabled={!isEdit}
                             error={!!errors.contractNumber}
-                            helperText={errors.contractNumber?.message}
+                            helperText={
+                                isEdit
+                                    ? errors.contractNumber?.message
+                                    : "Auto generated after create"
+                            }
                         />
 
                         <Stack direction="row" spacing={2}>
