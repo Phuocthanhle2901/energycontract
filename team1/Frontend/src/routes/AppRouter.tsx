@@ -31,7 +31,7 @@ import OrderList from "@/pages/orders/OrderList";
 import TemplateList from "@/pages/Template/TemplateList";
 import TemplateCreate from "@/pages/Template/TemplateCreate";
 import TemplateEdit from "@/pages/Template/TemplateEdit";
-import TemplateDelete from "@/pages/Template/TemplateDelete";
+
 
 
 export default function AppRoutes() {
@@ -75,8 +75,8 @@ export default function AppRoutes() {
 
                 <Route path="/templates" element={<TemplateList />} />
                 <Route path="/templates/create" element={<TemplateCreate />} />
-                <Route path="/templates/:id/edit" element={<TemplateEdit />} />
-                <Route path="/templates/:id/delete" element={<TemplateDelete />} />
+                <Route path="/templates/edit/:id" element={<TemplateEdit />} />
+
 
             </Routes>
         </BrowserRouter>

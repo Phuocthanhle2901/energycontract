@@ -1,64 +1,76 @@
-import { useEffect, useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import NavMenu from "@/components/NavMenu/NavMenu";
-
+import { useQuery } from "@tanstack/react-query";
 import { TemplateApi } from "@/api/template.api";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { templateSchema } from "@/schemas/template.schema";
+import { TextField, Button, Switch, FormControlLabel } from "@mui/material";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function TemplateEdit() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [form, setForm] = useState<any>(null);
+
+    const { data, isLoading } = useQuery({
+        queryKey: ["template", id],
+        queryFn: () => TemplateApi.getById(Number(id)),
+    });
+
+    const { register, handleSubmit, reset } = useForm({
+        resolver: yupResolver(templateSchema),
+        defaultValues: {
+            name: "",
+            description: "",
+            htmlContent: "",
+            isActive: true,
+        },
+    });
 
     useEffect(() => {
-        if (id) {
-            TemplateApi.getById(Number(id)).then((res) => setForm(res));
+        if (data) {
+            reset({
+                name: data.name,
+                description: data.description,
+                htmlContent: data.htmlContent,
+                isActive: data.isActive,
+            });
         }
-    }, [id]);
+    }, [data]);
 
-    const handleChange = (e: any) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+    if (isLoading) return <p>Loading...</p>;
+
+    const onSubmit = async (form: any) => {
+        try {
+            await TemplateApi.update(Number(id), form);
+            toast.success("Updated!");
+            navigate("/templates");
+        } catch {
+            toast.error("Update failed!");
+        }
     };
-
-    const handleUpdate = async () => {
-        await TemplateApi.update(Number(id), form);
-        navigate("/templates");
-    };
-
-    if (!form) return null;
 
     return (
-        <>
-            <NavMenu />
-            <Box sx={{ p: 4, ml: "240px" }}>
-                <Typography variant="h4" fontWeight={700} mb={3}>
-                    Edit Template
-                </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
 
-                <TextField
-                    name="description"
-                    label="Description"
-                    value={form.description}
-                    onChange={handleChange}
-                    fullWidth
-                    sx={{ mb: 2 }}
-                />
+            <TextField label="Name" fullWidth {...register("name")} />
 
-                <TextField
-                    name="htmlContent"
-                    label="HTML Content"
-                    value={form.htmlContent}
-                    onChange={handleChange}
-                    fullWidth
-                    multiline
-                    rows={8}
-                    sx={{ mb: 2 }}
-                />
+            <TextField label="Description" fullWidth {...register("description")} />
 
-                <Button variant="contained" onClick={handleUpdate}>
-                    Update
-                </Button>
-            </Box>
-        </>
+            <TextField
+                label="HTML Content"
+                fullWidth
+                multiline
+                rows={12}
+                {...register("htmlContent")}
+            />
+
+            <FormControlLabel
+                control={<Switch {...register("isActive")} />}
+                label="Active"
+            />
+
+            <Button type="submit" variant="contained">Update</Button>
+        </form>
     );
 }

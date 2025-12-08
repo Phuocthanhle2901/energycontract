@@ -1,69 +1,54 @@
-import { useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import NavMenu from "@/components/NavMenu/NavMenu";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { templateSchema } from "@/schemas/template.schema";
 import { TemplateApi } from "@/api/template.api";
+import { TextField, Button, Switch, FormControlLabel } from "@mui/material";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function TemplateCreate() {
     const navigate = useNavigate();
-    const [form, setForm] = useState({
-        name: "",
-        description: "",
-        htmlContent: "",
-        isActive: true,
+
+    const { register, handleSubmit } = useForm({
+        resolver: yupResolver(templateSchema),
+        defaultValues: {
+            name: "",
+            description: "",
+            htmlContent: "",
+            isActive: true,
+        },
     });
 
-    const handleChange = (e: any) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
-
-    const handleCreate = async () => {
-        await TemplateApi.create(form);
-        navigate("/templates");
+    const onSubmit = async (form: any) => {
+        try {
+            await TemplateApi.create(form);
+            toast.success("Template created!");
+            navigate("/templates");
+        } catch {
+            toast.error("Create failed!");
+        }
     };
 
     return (
-        <>
-            <NavMenu />
-            <Box sx={{ p: 4, ml: "240px" }}>
-                <Typography variant="h4" fontWeight={700} mb={3}>
-                    Create Template
-                </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField label="Name" fullWidth {...register("name")} />
 
-                <TextField
-                    name="name"
-                    label="Template Name"
-                    value={form.name}
-                    onChange={handleChange}
-                    fullWidth
-                    sx={{ mb: 2 }}
-                />
+            <TextField label="Description" fullWidth {...register("description")} />
 
-                <TextField
-                    name="description"
-                    label="Description"
-                    value={form.description}
-                    onChange={handleChange}
-                    fullWidth
-                    sx={{ mb: 2 }}
-                />
+            <TextField
+                label="HTML Content"
+                fullWidth
+                multiline
+                rows={10}
+                {...register("htmlContent")}
+            />
 
-                <TextField
-                    name="htmlContent"
-                    label="HTML Content"
-                    value={form.htmlContent}
-                    onChange={handleChange}
-                    fullWidth
-                    multiline
-                    rows={8}
-                    sx={{ mb: 2 }}
-                />
+            <FormControlLabel
+                control={<Switch {...register("isActive")} />}
+                label="Active"
+            />
 
-                <Button variant="contained" onClick={handleCreate}>
-                    Save
-                </Button>
-            </Box>
-        </>
+            <Button variant="contained" type="submit">Create</Button>
+        </form>
     );
 }

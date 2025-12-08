@@ -1,40 +1,30 @@
 import axios from "axios";
 
 const pdfApi = axios.create({
-    baseURL: "http://localhost:5001/api",
-    headers: {
-        "Content-Type": "application/json",
-    },
+    baseURL: "http://localhost:5001/api", // đúng port PDF service
+    headers: { "Content-Type": "application/json" },
 });
 
 export const TemplateApi = {
-    getAll: async () => {
-        const res = await pdfApi.get("/templates");
-        return res.data;
-    },
+    getAll: () => pdfApi.get("/templates").then(res => res.data),
 
-    getById: async (id: number) => {
-        const res = await pdfApi.get(`/templates/${id}`);
-        return res.data;
-    },
+    getById: (id: number) => pdfApi.get(`/templates/${id}`).then(res => res.data),
 
-    create: async (data: any) => {
-        const res = await pdfApi.post("/templates", data);
-        return res.data;
-    },
+    create: (data: {
+        name: string;
+        description: string;
+        htmlContent: string;
+        isActive: boolean;
+    }) => pdfApi.post("/templates", data).then(res => res.data),
 
-    update: async (id: number, data: any) => {
-        const res = await pdfApi.put(`/templates/${id}`, data);
-        return res.data;
-    },
+    update: (id: number, data: {
+        description: string;
+        htmlContent: string;
+        isActive: boolean;
+    }) => pdfApi.put(`/templates/${id}`, data).then(res => res.data),
 
-    delete: async (id: number) => {
-        const res = await pdfApi.delete(`/templates/${id}`);
-        return res.data;
-    },
+    delete: (id: number) => pdfApi.delete(`/templates/${id}`).then(res => res.data),
 
-    getByName: async (name: string) => {
-        const res = await pdfApi.get(`/templates/by-name/${name}`);
-        return res.data;
-    },
+    getByName: (name: string) =>
+        pdfApi.get(`/templates/by-name/${name}`).then(res => res.data),
 };

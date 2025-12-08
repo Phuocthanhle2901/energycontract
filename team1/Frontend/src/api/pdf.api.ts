@@ -2,19 +2,24 @@ import axios from "axios";
 
 const pdfApi = axios.create({
     baseURL: "http://localhost:5001/api",
-    headers: {
-        "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
 });
 
 export const PdfApi = {
-    generate: async (data: any) => {
-        const res = await pdfApi.post("/pdf-contract/generate", data);
-        return res.data;
-    },
+    generateContractPdf: (data: {
+        contractNumber: string;
+        startDate: string;
+        endDate: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+        companyName: string;
+        bankAccountNumber: string;
+        addressLine: string;
+        totalAmount: number;
+        currency: string;
+    }) => pdfApi.post("/pdf-contract/generate", data).then(res => res.data),
 
-    health: async () => {
-        const res = await pdfApi.get("/pdf-contract/health");
-        return res.data;
-    }
+    health: () => pdfApi.get("/pdf-contract/health").then(res => res.data),
 };

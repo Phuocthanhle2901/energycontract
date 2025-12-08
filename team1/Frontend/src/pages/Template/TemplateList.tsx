@@ -1,78 +1,51 @@
-import { useEffect, useState } from "react";
-import {
-    Box,
-    Button,
-    Typography,
-    Table,
-    TableRow,
-    TableCell,
-    TableHead,
-    TableBody
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import NavMenu from "@/components/NavMenu/NavMenu";
-
+import { useQuery } from "@tanstack/react-query";
 import { TemplateApi } from "@/api/template.api";
+import { Button, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function TemplateList() {
-    const [list, setList] = useState<any[]>([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        TemplateApi.getAll().then((res) => setList(res));
-    }, []);
+    const { data = [], refetch } = useQuery({
+        queryKey: ["templates"],
+        queryFn: TemplateApi.getAll,
+    });
 
     return (
-        <>
-            <NavMenu />
-            <Box sx={{ p: 4, ml: "240px" }}>
-                <Typography variant="h4" fontWeight={700} mb={3}>
-                    PDF Templates
-                </Typography>
+        <div>
+            <Button variant="contained" onClick={() => navigate("/templates/create")}>
+                Create Template
+            </Button>
 
-                <Button
-                    variant="contained"
-                    onClick={() => navigate("/templates/create")}
-                    sx={{ mb: 2 }}
-                >
-                    Create New Template
-                </Button>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Description</TableCell>
+                        <TableCell>Active</TableCell>
+                        <TableCell>Actions</TableCell>
+                    </TableRow>
+                </TableHead>
 
-                <Table sx={{ background: "#fff", borderRadius: "10px" }}>
-                    <TableHead>
-                        <TableRow sx={{ background: "#f8fafc" }}>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell align="right">Actions</TableCell>
+                <TableBody>
+                    {data.map((t: any) => (
+                        <TableRow key={t.id}>
+                            <TableCell>{t.name}</TableCell>
+                            <TableCell>{t.description}</TableCell>
+                            <TableCell>{t.isActive ? "Yes" : "No"}</TableCell>
+                            <TableCell>
+                                <Button onClick={() => navigate(`/templates/edit/${t.id}`)}>Edit</Button>
+                                <Button color="error" onClick={async () => {
+                                    await TemplateApi.delete(t.id);
+                                    refetch();
+                                }}>
+                                    Delete
+                                </Button>
+                            </TableCell>
                         </TableRow>
-                    </TableHead>
-
-                    <TableBody>
-                        {list.map((t) => (
-                            <TableRow key={t.id} hover>
-                                <TableCell>{t.name}</TableCell>
-                                <TableCell>{t.description}</TableCell>
-                                <TableCell>{t.isActive ? "Active" : "Inactive"}</TableCell>
-                                <TableCell align="right">
-                                    <Button
-                                        onClick={() => navigate(`/templates/${t.id}/edit`)}
-                                        sx={{ mr: 1 }}
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        color="error"
-                                        onClick={() => navigate(`/templates/${t.id}/delete`)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Box>
-        </>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
     );
 }
