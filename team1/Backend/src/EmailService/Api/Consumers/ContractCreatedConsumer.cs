@@ -1,27 +1,37 @@
-using Api.Vms;
+using Api.VMs;
 using MassTransit;
 using MimeKit;
 using MailKit.Net.Smtp;
-using MailKit.Security;
 
 namespace Api.Consumers;
 
 public class ContractCreatedConsumer : IConsumer<ContractCreatedEvent>
 {
     private readonly ILogger<ContractCreatedConsumer> _logger;
-    
-    public ContractCreatedConsumer(ILogger<ContractCreatedConsumer> logger)
+    private readonly IConfiguration _configuration;
+
+    public ContractCreatedConsumer(ILogger<ContractCreatedConsumer> logger, IConfiguration configuration)
     {
         _logger = logger;
+        _configuration = configuration;
     }
-    
+
     public async Task Consume(ConsumeContext<ContractCreatedEvent> context)
     {
         var msg = context.Message;
+        _logger.LogInformation($"[RabbitMQ] Nhận yêu cầu gửi mail cho: {msg.Email}");
+
         try
         {
+            // 1. Đọc cấu hình từ appsettings.json
+            var senderName = _configuration["EmailSettings:SenderName"];
+            var senderEmail = _configuration["EmailSettings:SenderEmail"];
+            var appPassword = _configuration["EmailSettings:AppPassword"];
+            var smtpHost = _configuration["EmailSettings:SmtpHost"];
+            var smtpPort = int.Parse(_configuration["EmailSettings:SmtpPort"]!); // Chuyển sang int
+
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Energy System", "ngoquanghuy1603@gmail.com"));
+            message.From.Add(new MailboxAddress(senderName, senderEmail));
             message.To.Add(new MailboxAddress(msg.FullName, msg.Email));
             message.Subject = $"Xác nhận hợp đồng số {msg.ContractNumber}";
 
@@ -34,8 +44,11 @@ public class ContractCreatedConsumer : IConsumer<ContractCreatedEvent>
             message.Body = bodyBuilder.ToMessageBody();
 
             using var client = new SmtpClient();
-            await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync("ngoquanghuy1603l@gmail.com", "Huy16032004@");
+            
+            // Sử dụng thông tin từ cấu hình
+            await client.ConnectAsync(smtpHost, smtpPort, false);
+            await client.AuthenticateAsync(senderEmail, appPassword);
+
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
 
@@ -43,8 +56,7 @@ public class ContractCreatedConsumer : IConsumer<ContractCreatedEvent>
         }
         catch (Exception ex)
         {
-            _logger.LogError($"❌ Lỗi khi gửi mail: {ex.Message}");
-            throw;
+            _logger.LogError(ex, "[RabbitMQ] Lỗi khi gửi mail");
         }
     }
 }

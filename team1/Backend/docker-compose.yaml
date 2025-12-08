@@ -67,13 +67,21 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   customer-api:
     image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
     restart: always
     depends_on:
-      - postgres-db
+      postgres-db:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -118,13 +126,18 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-auth;Port=5432;Database=${POSTGRES_DB_Auth};Username=${POSTGRES_USER_AUTH};Password=${POSTGRES_PASSWORD_AUTH}
       - ASPNETCORE_ENVIRONMENT=Development
+
   email-api:
     image: huyngoinfo/energy-email-api:latest
+    container_name: energy_email_api
     build:
       context: .
       dockerfile: src/EmailService/Api/Dockerfile
     depends_on:
-      - rabbitmq # Chờ RabbitMQ chạy mới lên
+      rabbitmq:
+        condition: service_healthy
+    ports: 
+      - "5003:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 volumes:

@@ -1,3 +1,4 @@
+using Api.Consumers;
 using MassTransit;
 using Api.Consumers;
 

@@ -1,4 +1,4 @@
-namespace Api.Vms;
+namespace Api.VMs;
 
 public class ContractCreatedEvent
 {
