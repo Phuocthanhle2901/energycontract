@@ -14,7 +14,10 @@
 *.nuget.props
 *.nuget.targets
 .env
+.env.production
+appsettings.*.json
+!appsettings.json
+
 # Bỏ qua file log, file tạm
 *.log
 .DS_Store
-appsettings.json

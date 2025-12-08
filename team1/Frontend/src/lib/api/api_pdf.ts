@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/useAuthStore";
 import axios from "axios";
 const api_pdf = axios.create({
     baseURL: import.meta.env.VITE_PDF_API_URL,
@@ -6,6 +7,16 @@ const api_pdf = axios.create({
         "Content-Type": "application/json"
     }
 });
+api_pdf.interceptors.request.use(
+    (config) => {
+        const accessToken = useAuthStore.getState().accessToken;
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 // Kiểm tra định dạng của API
 api_pdf.interceptors.response.use(
     (response) => {

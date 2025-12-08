@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/useAuthStore";
 import axios from "axios";
 const api_customer = axios.create({
     baseURL: import.meta.env.VITE_CUSTOMER_URL_API,
@@ -6,6 +7,16 @@ const api_customer = axios.create({
         "Content-Type": "application/json"
     }
 });
+api_customer.interceptors.request.use(
+    (config) => {
+        const accessToken = useAuthStore.getState().accessToken;
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 // Kiểm tra định dạng của API
 api_customer.interceptors.response.use(
   (response) => {
