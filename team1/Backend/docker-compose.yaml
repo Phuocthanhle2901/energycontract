@@ -57,7 +57,17 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
-      
+
+  rabbitmq:
+    image: rabbitmq:3-management # Bản management có giao diện web quản lý
+    container_name: energy_rabbitmq
+    ports:
+      - "5672:5672"   # Cổng giao tiếp cho Code (AMQP)
+      - "15672:15672" # Cổng giao diện Web (UI)
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
   customer-api:
     image: huyngoinfo/energy-customer-api:latest
     container_name: energy_customer_api
@@ -107,6 +117,15 @@ services:
       - "5002:8080"
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-auth;Port=5432;Database=${POSTGRES_DB_Auth};Username=${POSTGRES_USER_AUTH};Password=${POSTGRES_PASSWORD_AUTH}
+      - ASPNETCORE_ENVIRONMENT=Development
+  email-api:
+    image: huyngoinfo/energy-email-api:latest
+    build:
+      context: .
+      dockerfile: src/EmailService/Api/Dockerfile
+    depends_on:
+      - rabbitmq # Chờ RabbitMQ chạy mới lên
+    environment:
       - ASPNETCORE_ENVIRONMENT=Development
 volumes:
   postgres_data:

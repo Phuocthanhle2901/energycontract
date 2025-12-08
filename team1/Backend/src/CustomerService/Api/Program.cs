@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -140,6 +141,20 @@ try
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials();
+        });
+    });
+    // Cấu hình RabbitMQ Producer
+    builder.Services.AddMassTransit(x =>
+    {
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            // "rabbitmq" là tên service trong docker-compose
+            // Nếu chạy local rider thì dùng "localhost"
+            cfg.Host("rabbitmq", "/", h => 
+            {
+                h.Username("guest");
+                h.Password("guest");
+            });
         });
     });
 

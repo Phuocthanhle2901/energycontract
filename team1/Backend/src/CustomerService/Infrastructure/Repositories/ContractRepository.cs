@@ -1,23 +1,33 @@
+using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using MassTransit;
 
 namespace Infrastructure.Repositories;
 
 public class ContractRepository : IContractRepository
 {
     private readonly EnergyDbContext _dbContext;
-    
-    public ContractRepository(EnergyDbContext dbContext)
+    private readonly IPublishEndpoint _publishEndpoint;
+    public ContractRepository(EnergyDbContext dbContext, IPublishEndpoint publishEndpoint)
     {
         _dbContext = dbContext; 
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<Contract> AddContract(Contract contract)
     {
         await  _dbContext.Contracts.AddAsync(contract);
         await _dbContext.SaveChangesAsync();
+        await _publishEndpoint.Publish(new ContractCreatedEvent
+        {
+            ContractNumber = contract.ContractNumber,
+            Email = contract.Email, 
+            FullName = $"{contract.FirstName} {contract.LastName}",
+            CreatedAt = DateTime.UtcNow
+        });
         return contract;
     }
 
