@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> intern2025-team1
 import {
     Box, Button, Card, Typography, Table, TableHead, TableRow,
     TableCell, TableBody, Stack, TextField, InputAdornment, Chip,
@@ -14,29 +10,15 @@ import EditIcon from "@mui/icons-material/EditOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 import NavMenu from "@/components/NavMenu/NavMenu";
-<<<<<<< HEAD
-import { useNavigate } from "react-router-dom";
-import { useAddressResellerList } from "@/hooks/addressReseller/useAddressResellerList";
-=======
 import { useEffect, useState } from "react";
 
 import { AddressApi } from "@/api/address.api";
 import { ResellerApi } from "@/api/reseller.api";
->>>>>>> intern2025-team1
 
 export default function AddressResellerList() {
 
     const [search, setSearch] = useState("");
 
-<<<<<<< HEAD
-    const {
-        search,
-        setSearch,
-        filteredAddresses,
-        filteredResellers
-    } = useAddressResellerList();
-
-=======
     const [addresses, setAddresses] = useState<any[]>([]);
     const [resellers, setResellers] = useState<any[]>([]);
 
@@ -131,7 +113,6 @@ export default function AddressResellerList() {
     const filteredResellers = resellers.filter((r) =>
         r.name.toLowerCase().includes(search.toLowerCase())
     );
->>>>>>> intern2025-team1
 
     // =====================================================================
     // UI
@@ -139,86 +120,6 @@ export default function AddressResellerList() {
 
     return (
         <Box sx={{ display: "flex" }}>
-<<<<<<< HEAD
-            {/* FIXED SIDEBAR */}
-            <NavMenu />
-
-            {/* MAIN CONTENT */}
-            <Box
-                sx={{
-                    marginLeft: "240px",
-                    padding: "32px",
-                    width: "100%",
-                    background: "#F8FAFC",
-                    minHeight: "100vh",
-                }}
-            >
-                {/* HEADER */}
-                <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
-                    <Box>
-                        <Typography variant="h4" sx={{ fontWeight: 700 }}>
-                            Address & Reseller Management
-                        </Typography>
-                        <Typography sx={{ color: "#64748b", mt: 1 }}>
-                            Manage addresses and reseller partners in one place.
-                        </Typography>
-                    </Box>
-
-                    <Button
-                        variant="contained"
-                        startIcon={<AddIcon />}
-                        onClick={() => navigate("/address-reseller/create")}
-                        sx={{
-                            textTransform: "none",
-                            px: 3,
-                            borderRadius: 2,
-                            fontWeight: 600,
-                            boxShadow: "0 4px 14px rgba(59,130,246,0.25)",
-                        }}
-                    >
-                        Add New
-                    </Button>
-                </Stack>
-
-                {/* SEARCH BOX */}
-                <Card
-                    sx={{
-                        p: 2,
-                        mb: 4,
-                        borderRadius: 3,
-                        boxShadow: "0 6px 25px rgba(0,0,0,0.05)",
-                    }}
-                >
-                    <TextField
-                        placeholder="Search by zipcode or reseller name..."
-                        fullWidth
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon sx={{ color: "#94a3b8" }} />
-                                </InputAdornment>
-                            ),
-                            sx: { bgcolor: "white", borderRadius: 2 },
-                        }}
-                    />
-                </Card>
-
-                {/* ADDRESS LIST */}
-                <Card
-                    sx={{
-                        p: 3,
-                        mb: 5,
-                        borderRadius: 4,
-                        boxShadow: "0 10px 35px rgba(0,0,0,0.06)",
-                    }}
-                >
-                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                        Address List
-                    </Typography>
-
-=======
             <NavMenu />
 
             <Box sx={{ ml: "240px", p: 4, width: "100%", background: "#F8FAFC" }}>
@@ -302,7 +203,6 @@ export default function AddressResellerList() {
                 <Card sx={{ p: 3 }}>
                     <Typography variant="h6" fontWeight={600} mb={2}>Reseller List</Typography>
 
->>>>>>> intern2025-team1
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -382,65 +282,6 @@ export default function AddressResellerList() {
                         </TableHead>
 
                         <TableBody>
-<<<<<<< HEAD
-                            {filteredResellers.length === 0 ? (
-                                <TableRow>
-                                    <TableCell colSpan={3} align="center" sx={{ py: 4, color: "#64748b" }}>
-                                        No resellers available.
-                                    </TableCell>
-                                </TableRow>
-                            ) : (
-                                filteredResellers.map((r) => (
-                                    <TableRow key={r.id} hover sx={{ transition: "0.2s", "&:hover": { bgcolor: "#f1f5f9" } }}>
-                                        <TableCell sx={{ fontWeight: 600 }}>{r.name}</TableCell>
-
-                                        <TableCell>
-                                            <Chip
-                                                label={r.type}
-                                                size="small"
-                                                sx={{
-                                                    px: 1.5,
-                                                    fontWeight: 600,
-                                                    bgcolor: r.type === "Broker" ? "#e0f2fe" : "#f3e8ff",
-                                                    color: r.type === "Broker" ? "#0369a1" : "#7e22ce",
-                                                }}
-                                            />
-                                        </TableCell>
-
-                                        <TableCell align="right">
-                                            <Button
-                                                startIcon={<EditIcon />}
-                                                onClick={() =>
-                                                    navigate(`/address-reseller/edit/reseller/${r.id}`)
-                                                }
-                                                sx={{
-                                                    color: "#2563eb",
-                                                    textTransform: "none",
-                                                    fontWeight: 600,
-                                                }}
-                                            >
-                                                Edit
-                                            </Button>
-
-                                            <Button
-                                                startIcon={<DeleteIcon />}
-                                                onClick={() =>
-                                                    navigate(`/address-reseller/delete/reseller/${r.id}`)
-                                                }
-                                                sx={{
-                                                    color: "#dc2626",
-                                                    textTransform: "none",
-                                                    fontWeight: 600,
-                                                    ml: 1,
-                                                }}
-                                            >
-                                                Delete
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            )}
-=======
                             {filteredResellers.map((r) => (
                                 <TableRow key={r.id} hover>
                                     <TableCell>{r.name}</TableCell>
@@ -454,7 +295,6 @@ export default function AddressResellerList() {
                                     </TableCell>
                                 </TableRow>
                             ))}
->>>>>>> intern2025-team1
                         </TableBody>
                     </Table>
                 </Card>

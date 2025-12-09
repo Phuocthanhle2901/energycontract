@@ -2,19 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 /* ===================== AUTH & HOME ===================== */
 import Homepages from "@/pages/Introduce/Homepages";
-<<<<<<< HEAD
-import Login from "@/pages/Auth/Login";
-import Home from "@/pages/Home";
-
-/* ===================== CONTRACT MODULE ===================== */
-import ContractCreate from "@/pages/Contract/ContractCreate";
-=======
 // import Login from "@/pages/Auth/Login";
 import Home from "@/pages/Home";
 
 /* ===================== CONTRACT MODULE ===================== */
 // import ContractCreate from "@/pages/Contract/ContractCreate";
->>>>>>> intern2025-team1
 import ContractList from "@/pages/Contract/ContractList";
 import ContractDetail from "@/pages/Contract/ContractDetail";
 // import ContractEdit from "@/pages/Contract/ContractEdit";
@@ -23,17 +15,6 @@ import ContractHistoryPage from "@/pages/Contract/ContractHistoryPage";
 
 /* ===================== ADDRESS - RESELLER MODULE ===================== */
 import AddressResellerList from "@/pages/Address-Reseller/AddressResellerList";
-<<<<<<< HEAD
-import CreateAddressReseller from "@/pages/Address-Reseller/AddressResellerCreate";
-import AddressResellerEdit from "@/pages/Address-Reseller/AddressResellerEdit";
-import AddressResellerDelete from "@/pages/Address-Reseller/AddressResellerDelete";
-
-/* ===================== ORDERS MODULE ===================== */
-import OrderForm from "@/pages/orders/OrderCreate";
-import OrderDelete from "@/pages/orders/OrderDelete";
-import OrderList from "@/pages/orders/OrderList";
-import OrderEdit from "@/pages/orders/OrderEdit";
-=======
 // import CreateAddressReseller from "@/pages/Address-Reseller/AddressResellerCreate";
 // import AddressResellerEdit from "@/pages/Address-Reseller/AddressResellerEdit";
 // import AddressResellerDelete from "@/pages/Address-Reseller/AddressResellerDelete";
@@ -47,18 +28,14 @@ import OrderList from "@/pages/orders/OrderList";
 /* ===================== RESELLERS ===================== */
 // import ResellerPage from "@/pages/resellerPage";
 // import ContractDelete from "@/pages/Contract/ContractDelete";
-import TemplateList from "@/pages/Template/TemplateList";
-import TemplateCreate from "@/pages/Template/TemplateCreate";
-import TemplateEdit from "@/pages/Template/TemplateEdit";
->>>>>>> intern2025-team1
+
 
 /* ===================== RESELLERS ===================== */
-import ResellerPage from "@/pages/resellerPage";
-import ContractDelete from "@/pages/Contract/ContractDelete";
+
 import TemplateList from "@/pages/Template/TemplateList";
 import TemplateCreate from "@/pages/Template/TemplateCreate";
 import TemplateEdit from "@/pages/Template/TemplateEdit";
-import TemplateDelete from "@/pages/Template/TemplateDelete";
+
 
 
 export default function AppRoutes() {
@@ -73,17 +50,10 @@ export default function AppRoutes() {
 
                 {/* ===================== CONTRACT (CRUD FULL) ===================== */}
                 <Route path="/contracts/list" element={<ContractList />} />
-<<<<<<< HEAD
-                <Route path="/contracts/create" element={<ContractCreate />} />
-                <Route path="/contracts/:id/detail" element={<ContractDetail />} />
-                <Route path="/contracts/:id/edit" element={<ContractEdit />} />
-                <Route path="/contracts/:id/delete" element={<ContractDelete />} />
-=======
                 {/* <Route path="/contracts/create" element={<ContractCreate />} /> */}
                 <Route path="/contracts/:id/detail" element={<ContractDetail />} />
                 {/* <Route path="/contracts/:id/edit" element={<ContractEdit />} />
                 <Route path="/contracts/:id/delete" element={<ContractDelete />} /> */}
->>>>>>> intern2025-team1
                 <Route path="/contracts/:id/history" element={<ContractHistoryPage />} />
 
                 {/* ===================== CONTRACT (PDF) ===================== */}
@@ -104,9 +74,7 @@ export default function AppRoutes() {
                 {/* ======================= ORDERS ======================= */}
 
                 <Route path="/orders" element={<OrderList />} />
-                <Route path="/orders/create" element={<OrderForm />} />
-                <Route path="/orders/:id/edit" element={<OrderEdit />} />
-                <Route path="/orders/:id/delete" element={<OrderDelete />} />
+
 
                 {/* ===================== RESELLERS ===================== */}
                 {/* <Route path="/resellers" element={<ResellerPage />} /> */}
@@ -118,18 +86,8 @@ export default function AppRoutes() {
                 <Route path="/templates/edit/:id" element={<TemplateEdit />} />
 
                 {/* ===================== RESELLERS ===================== */}
-                <Route path="/resellers" element={<ResellerPage />} />
 
-<<<<<<< HEAD
-                {/* ===================== TEAMPLATE ===================== */}
 
-                <Route path="/templates" element={<TemplateList />} />
-                <Route path="/templates/create" element={<TemplateCreate />} />
-                <Route path="/templates/:id/edit" element={<TemplateEdit />} />
-                <Route path="/templates/:id/delete" element={<TemplateDelete />} />
-
-=======
->>>>>>> intern2025-team1
             </Routes>
         </BrowserRouter>
     );
