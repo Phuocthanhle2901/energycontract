@@ -3,6 +3,7 @@ using System.Text;
 using Api.Infrastructures.Data;
 using Api.Services;
 using Api.Services.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -82,6 +83,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 // Cấu hình CORS
 builder.Services.AddCors(options =>
 {
@@ -90,6 +92,19 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
+});
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        // "rabbitmq" là tên service trong docker-compose
+        // Nếu chạy local rider thì dùng "localhost"
+        cfg.Host("rabbitmq", "/", h => 
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+    });
 });
 
 var app = builder.Build();

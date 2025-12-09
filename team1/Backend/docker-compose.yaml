@@ -118,7 +118,10 @@ services:
     container_name: energy_auth_service
     restart: always
     depends_on:
-      - postgres-auth
+      postgres-auth:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - .env
     ports:
