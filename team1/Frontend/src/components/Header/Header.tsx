@@ -1,211 +1,149 @@
 import React from "react";
-import {
-    Box,
-    Button,
-    Container,
+import { Box, Button, Container, Modal, Stack, TextField, Typography } from "@mui/material";
+import { useLogin, useRegister } from "@/hooks/useAuth";
 
-    Modal,
-    Stack,
-    TextField,
-    Typography
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-// import { Link } from "react-router-dom";
-
-const Header: React.FC = () => {
+const Header = () => {
     const [openLogin, setOpenLogin] = React.useState(false);
     const [openRegister, setOpenRegister] = React.useState(false);
 
-    const inputStyle = {
-        input: { color: "white" },
-        label: { color: "white" },
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(255,255,255,0.4)"
-        },
-        "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-        }
-    };
-    const navigate = useNavigate();
+    const login = useLogin();
+    const register = useRegister();
 
+    const [loginData, setLoginData] = React.useState({ username: "", password: "" });
+    const [registerData, setRegisterData] = React.useState({
+        username: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const handleLogin = () => {
+        login.mutate(loginData);
+    };
+
+    const handleRegister = () => {
+        if (registerData.password !== registerData.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        register.mutate(registerData);
+    };
 
     return (
         <>
-            {/* TOP NAV */}
             <Box sx={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-                <Container
-                    maxWidth="lg"
-                    sx={{
-                        py: 2,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                    }}
-                >
-                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                        INFODATION
-                        <Typography
-                            component="span"
-                            variant="body2"
-                            sx={{ ml: 1, opacity: 0.7 }}
-                        >
-                            Management
-                        </Typography>
-                    </Typography>
+                <Container sx={{ py: 2, display: "flex", justifyContent: "space-between" }}>
+                    <Typography variant="h6">INFODATION Management</Typography>
 
-                    <Stack
-                        direction="row"
-                        spacing={3}
-                        sx={{ display: { xs: "none", md: "flex" } }}
-                    >
-                        <Typography>SOFTWARE</Typography>
-                        <Typography>INDUSTRIES</Typography>
-                        <Typography>FREE TRIAL</Typography>
-                        <Typography>RESOURCES</Typography>
-                        <Typography>COMPANY</Typography>
-                        <Typography>BLOG</Typography>
-                    </Stack>
-
-                    <Button
-                        variant="outlined"
-                        onClick={() => setOpenLogin(true)}
-                        sx={{
-                            px: 3,
-                            borderRadius: 999,
-                            color: "white",
-                            borderColor: "white",
-                            "&:hover": { borderColor: "#4f77ff", color: "#4f77ff" }
-                        }}
-                    >
+                    <Button variant="outlined" onClick={() => setOpenLogin(true)}>
                         SIGN IN
                     </Button>
                 </Container>
             </Box>
 
-            {/* ========== LOGIN POPUP ========== */}
+            {/* LOGIN MODAL */}
             <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 380,
-                        bgcolor: "rgba(255,255,255,0.15)",
-                        backdropFilter: "blur(20px)",
-                        p: 4,
-                        borderRadius: 3,
-                        border: "1px solid rgba(255,255,255,0.3)",
-                        color: "white",
-                        boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
-                        Sign In
-                    </Typography>
+                <Box sx={modalStyle}>
+                    <Typography variant="h5">Sign In</Typography>
 
                     <Stack spacing={2}>
-                        <TextField label="Email" fullWidth sx={inputStyle} />
-                        <TextField label="Password" type="password" fullWidth sx={inputStyle} />
+                        <TextField
+                            label="Username"
+                            value={loginData.username}
+                            onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
+                        />
 
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#3550ff",
-                                "&:hover": { bgcolor: "#4f6bff" }
-                            }}
-                            onClick={() => navigate("/home")}
-                        >
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={loginData.password}
+                            onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                        />
+
+                        <Button variant="contained" onClick={handleLogin}>
                             Login
                         </Button>
-
-
-                        <Typography sx={{ textAlign: "center", mt: 1 }}>
-                            Don’t have an account?{" "}
-                            <span
-                                style={{
-                                    color: "#ffd700",
-                                    cursor: "pointer",
-                                    fontWeight: 700
-                                }}
-                                onClick={() => {
-                                    setOpenLogin(false);
-                                    setOpenRegister(true);
-                                }}
-                            >
-                                Register
-                            </span>
-                        </Typography>
                     </Stack>
+
+                    <Typography sx={{ mt: 2 }}>
+                        No account?{" "}
+                        <span onClick={() => { setOpenLogin(false); setOpenRegister(true); }}>
+                            Register
+                        </span>
+                    </Typography>
                 </Box>
             </Modal>
 
-            {/* ========== REGISTER POPUP ========== */}
+            {/* REGISTER MODAL */}
             <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 420,
-                        bgcolor: "rgba(255,255,255,0.12)",
-                        backdropFilter: "blur(20px)",
-                        p: 4,
-                        borderRadius: 3,
-                        border: "1px solid rgba(255,255,255,0.3)",
-                        color: "white",
-                        boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
-                        Create Account
-                    </Typography>
+                <Box sx={modalStyle}>
+                    <Typography variant="h5">Create Account</Typography>
 
                     <Stack spacing={2}>
+                        <TextField
+                            label="Username"
+                            value={registerData.username}
+                            onChange={(e) => setRegisterData({ ...registerData, username: e.target.value })}
+                        />
+
                         <Stack direction="row" spacing={2}>
-                            <TextField label="First Name" fullWidth sx={inputStyle} />
-                            <TextField label="Last Name" fullWidth sx={inputStyle} />
+                            <TextField
+                                label="First Name"
+                                value={registerData.firstName}
+                                onChange={(e) => setRegisterData({ ...registerData, firstName: e.target.value })}
+                            />
+                            <TextField
+                                label="Last Name"
+                                value={registerData.lastName}
+                                onChange={(e) => setRegisterData({ ...registerData, lastName: e.target.value })}
+                            />
                         </Stack>
 
-                        <TextField label="Email" fullWidth sx={inputStyle} />
-                        <TextField label="Phone" fullWidth sx={inputStyle} />
+                        <TextField
+                            label="Email"
+                            value={registerData.email}
+                            onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
+                        />
 
-                        <TextField label="Password" type="password" fullWidth sx={inputStyle} />
-                        <TextField label="Confirm Password" type="password" fullWidth sx={inputStyle} />
+                        <TextField
+                            label="Password"
+                            type="password"
+                            value={registerData.password}
+                            onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                        />
 
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#3550ff",
-                                "&:hover": { bgcolor: "#4f6bff" }
-                            }}
-                        >
+                        <TextField
+                            label="Confirm Password"
+                            type="password"
+                            value={registerData.confirmPassword}
+                            onChange={(e) =>
+                                setRegisterData({ ...registerData, confirmPassword: e.target.value })
+                            }
+                        />
+
+                        <Button variant="contained" onClick={handleRegister}>
                             Register
                         </Button>
-
-                        <Typography sx={{ textAlign: "center", mt: 1 }}>
-                            Already have an account?{" "}
-                            <span
-                                style={{
-                                    color: "#ffd700",
-                                    cursor: "pointer",
-                                    fontWeight: 700
-                                }}
-                                onClick={() => {
-                                    setOpenRegister(false);
-                                    setOpenLogin(true);
-                                }}
-                            >
-                                Sign In
-                            </span>
-                        </Typography>
                     </Stack>
                 </Box>
             </Modal>
         </>
     );
+};
+
+const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    p: 4,
+    bgcolor: "#222",
+    color: "white",
+    borderRadius: 3,
+    width: 400
 };
 
 export default Header;

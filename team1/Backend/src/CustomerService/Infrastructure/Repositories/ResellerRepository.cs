@@ -13,7 +13,11 @@ public class ResellerRepository : IResellerRepository
     {
         _context = context;
     }
-
+    public async Task UpdateAsync(Reseller reseller)
+    {
+        _context.Resellers.Update(reseller);
+        await _context.SaveChangesAsync();
+    }
     public async Task<Reseller> AddAsync(Reseller reseller)
     {
         await _context.Resellers.AddAsync(reseller);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getContractById } from "@/services/customerService/ContractService";
@@ -20,11 +21,35 @@ import {
   TableCell,
 } from "@mui/material";
 
+=======
+import {
+  Box,
+  Typography,
+  Paper,
+  Divider,
+  Stack,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@mui/material";
+
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+import { ContractApi } from "@/api/contract.api";
+import { AddressApi } from "@/api/address.api";
+import { ResellerApi } from "@/api/reseller.api";
+
+import { FiClock, FiEdit, FiFileText, FiArrowLeft } from "react-icons/fi";
+>>>>>>> intern2025-team1
 import NavMenu from "@/components/NavMenu/NavMenu";
 
 export default function ContractDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+<<<<<<< HEAD
 
   const [contract, setContract] = useState<ContractResponse | null>(null);
 
@@ -44,6 +69,42 @@ export default function ContractDetail() {
 
   const isActive =
     new Date(contract.endDate).getTime() > new Date().getTime();
+=======
+  const numericId = Number(id);
+
+  // ============================
+  // FETCH CONTRACT
+  // ============================
+  const { data: contract, isLoading } = useQuery({
+    queryKey: ["contract", numericId],
+    enabled: !!numericId,
+    queryFn: () => ContractApi.getById(numericId),
+  });
+
+  // FETCH ADDRESS LIST
+  const { data: addresses = [] } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: () => AddressApi.getAll(),
+  });
+
+  // FETCH RESELLER LIST
+  const { data: resellers = [] } = useQuery({
+    queryKey: ["resellers"],
+    queryFn: () => ResellerApi.getAll(),
+  });
+
+  if (isLoading)
+    return <Typography sx={{ ml: "260px", p: 3 }}>Loading...</Typography>;
+
+  if (!contract)
+    return (
+      <Typography sx={{ ml: "260px", p: 3 }}>Contract not found</Typography>
+    );
+
+  // JOIN DATA
+  const address = addresses.find((a: any) => a.id === contract.addressId);
+  const reseller = resellers.find((r: any) => r.id === contract.resellerId);
+>>>>>>> intern2025-team1
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -54,16 +115,37 @@ export default function ContractDetail() {
           ml: "240px",
           p: 4,
           width: "100%",
+<<<<<<< HEAD
           backgroundColor: "#f9fafb",
           minHeight: "100vh",
         }}
       >
         {/* ==== HEADER ==== */}
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
+=======
+          background: "#f5f7fa",
+          minHeight: "100vh",
+        }}
+      >
+        {/* 🔙 BACK BUTTON */}
+        <Button
+          startIcon={<FiArrowLeft />}
+          onClick={() => navigate("/contracts/list")}
+          sx={{ mb: 3 }}
+        >
+          Back
+        </Button>
+
+        {/* ============================
+            HEADER
+        ============================ */}
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+>>>>>>> intern2025-team1
           <Box>
             <Typography variant="h4" fontWeight={700}>
               Contract #{contract.contractNumber}
             </Typography>
+<<<<<<< HEAD
             <Typography sx={{ color: "#6b7280" }}>
               Detailed contract overview
             </Typography>
@@ -196,10 +278,110 @@ function Info({ label, value }: { label: string; value: any }) {
       <Typography sx={{ fontSize: "1rem", fontWeight: 600 }}>
         {value}
       </Typography>
+=======
+
+            <Typography sx={{ color: "#6b7280" }}>
+              Detailed information of this contract
+            </Typography>
+          </Box>
+
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              startIcon={<FiFileText />}
+              onClick={() => navigate(`/contracts/${numericId}/pdf`)}
+            >
+              View PDF
+            </Button>
+
+            <Button
+              variant="outlined"
+              startIcon={<FiClock />}
+              onClick={() => navigate(`/contracts/${numericId}/history`)}
+            >
+              View History
+            </Button>
+
+            {/* <Button
+              variant="outlined"
+              startIcon={<FiEdit />}
+              onClick={() => navigate(`/contracts/${numericId}/edit`)}
+            >
+              Edit Contract
+            </Button> */}
+          </Stack>
+        </Stack>
+
+        {/* ============================
+            DETAIL CARD
+        ============================ */}
+        <Paper
+          sx={{
+            mt: 4,
+            p: 4,
+            borderRadius: 3,
+            boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+          }}
+        >
+          <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
+            Contract Details
+          </Typography>
+
+          <Divider sx={{ mb: 3 }} />
+
+          <Table>
+            <TableBody>
+              <DetailRow
+                label="Full Name"
+                value={`${contract.firstName} ${contract.lastName}`}
+              />
+              <DetailRow label="Email" value={contract.email} />
+              <DetailRow label="Phone" value={contract.phone || "-"} />
+              <DetailRow label="Company" value={contract.companyName || "-"} />
+
+              {/* Address */}
+              <DetailRow
+                label="Address"
+                value={
+                  address
+                    ? `${address.zipCode} — ${address.houseNumber} ${address.extension || ""}`
+                    : "-"
+                }
+              />
+
+              {/* Reseller */}
+              <DetailRow
+                label="Reseller"
+                value={
+                  reseller ? `${reseller.name} (${reseller.type})` : "-"
+                }
+              />
+
+              <DetailRow
+                label="Start Date"
+                value={contract.startDate?.slice(0, 10)}
+              />
+              <DetailRow
+                label="End Date"
+                value={contract.endDate?.slice(0, 10) || "-"}
+              />
+
+              <DetailRow
+                label="Bank Account"
+                value={contract.bankAccountNumber || "-"}
+              />
+
+              <DetailRow label="Notes" value={contract.notes || "No notes"} />
+            </TableBody>
+          </Table>
+        </Paper>
+      </Box>
+>>>>>>> intern2025-team1
     </Box>
   );
 }
 
+<<<<<<< HEAD
 function HeaderCell({ children }: any) {
   return (
     <TableCell
@@ -218,3 +400,35 @@ function HeaderCell({ children }: any) {
 function format(date: string) {
   return new Date(date).toLocaleDateString("vi-VN");
 }
+=======
+/* ============================
+   ROW COMPONENT
+============================ */
+function DetailRow({ label, value }: any) {
+  return (
+    <TableRow>
+      <TableCell
+        sx={{
+          width: 240,
+          fontWeight: 600,
+          borderBottom: "1px solid #e5e7eb",
+          color: "#374151",
+          background: "#fafafa",
+        }}
+      >
+        {label}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          fontWeight: 500,
+          borderBottom: "1px solid #e5e7eb",
+          color: "#111827",
+        }}
+      >
+        {value}
+      </TableCell>
+    </TableRow>
+  );
+}
+>>>>>>> intern2025-team1

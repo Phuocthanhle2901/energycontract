@@ -1,6 +1,6 @@
 export interface Order {
     id: string;
-    order_number: string;
+    orderNumber: string;
     order_type: 'electricity' | 'gas';
     status: 'active' | 'pending' | 'completed' | 'cancelled';
     start_date: string;

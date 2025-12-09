@@ -44,16 +44,43 @@ try
     // ADDRESSES
     builder.Services.AddTransient<Application.Features.Addresses.Commands.CreateAddress.CreateAddressHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAllAddresses.GetAllAddressesHandler>();
+    builder.Services.AddTransient<Application.Features.Addresses.Commands.GetAddress.GetAddressByIdHandler>();
     builder.Services.AddTransient<Application.Features.Addresses.Commands.DeleteAddress.DeleteAddressHandler>();
+    builder.Services.AddTransient<Application.Features.Addresses.Commands.UpdateAddress.UpdateAddressHandler>();
 
     // RESELLERS
     builder.Services.AddTransient<Application.Features.Resellers.Commands.CreateReseller.CreateResellerHandler>();
     builder.Services.AddTransient<Application.Features.Resellers.Commands.GetAllResellers.GetAllResellerHandler>();
+    builder.Services.AddTransient<Application.Features.Resellers.Commands.UpdateReseller.UpdateResellerHandler>();
+    builder.Services.AddTransient<Application.Features.Resellers.Commands.GetResellerById.GetResellerByIdHandler>();
+    builder.Services.AddTransient<Application.Features.Resellers.Commands.DeleteReseller.DeleteResellerHandler>();
+    
+    // ORDERS
+    builder.Services.AddTransient<Application.Features.Orders.Commands.CreateOrder.CreateOrderHandler>();
+    builder.Services.AddTransient<Application.Features.Orders.Commands.GetAllOrders.GetAllOrdersHandler>();
+    builder.Services.AddTransient<Application.Features.Orders.Commands.GetOrderById.GetOrderByIdHandler>();
+    builder.Services.AddTransient<Application.Features.Orders.Commands.UpdateOrder.UpdateOrderHandler>();
+    builder.Services.AddTransient<Application.Features.Orders.Commands.DeleteOrder.DeleteOrderHandler>();
 
+    // CONTRACT HISTORIES
+    builder.Services.AddTransient<Application.Features.ContractHistories.Commands.CreateContractHistory.CreateContractHistoryHandler>();
+    builder.Services.AddTransient<Application.Features.ContractHistories.Commands.GetHistoryByContractId.GetHistoryByContractIdHandler>();
+
+    
     // E. Đăng ký Controller & Swagger
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new() 
+        { 
+            Title = "Energy Contract Service API", 
+            Version = "v1",
+            Description = "API for managing energy contracts, addresses, and resellers"
+        });
+        c.OrderActionsBy(api => api.RelativePath);
+    });
+    
 
     // F. CORS Configuration
     builder.Services.AddCors(options =>
@@ -62,7 +89,9 @@ try
         {
             policy.WithOrigins(
                     "http://localhost:5173",
-                    "http://127.0.0.1:5173"
+                    "http://localhost:5174",
+                    "http://127.0.0.1:5173",
+                    "http://127.0.0.1:5174"
                   )
                   .AllowAnyMethod()
                   .AllowAnyHeader()
@@ -79,12 +108,17 @@ try
     // A. Middleware xử lý lỗi toàn cục
     app.UseMiddleware<ExceptionMiddleware>();
 
-    // B. Swagger (Chỉ hiện khi Dev)
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+// B. Swagger Configuration 
+  if (app.Environment.IsDevelopment())
+  {
+      app.UseSwagger();
+      app.UseSwaggerUI(c =>
+      {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Energy Contract Service API V1");
+          c.RoutePrefix = string.Empty; // Swagger UI tại root URL
+      });
+  }
+  
 
     // C. CORS (PHẢI ĐẶT TRƯỚC UseAuthorization)
     app.UseCors();

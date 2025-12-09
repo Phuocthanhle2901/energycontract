@@ -5,6 +5,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
 
+<<<<<<< HEAD
 import {
     createOrder,
     updateOrder,
@@ -17,6 +18,14 @@ import { getContracts } from "@/services/customerService/ContractService";
 export default function OrderForm() {
 
     // ✅ LẤY ĐÚNG PARAMS (QUAN TRỌNG NHẤT!)
+=======
+// 🔥 IMPORT API MỚI
+import { OrderApi } from "@/api/order.api";
+import { ContractApi } from "@/api/contract.api";
+
+export default function OrderForm() {
+
+>>>>>>> intern2025-team1
     const { id, mode } = useParams();
     const navigate = useNavigate();
 
@@ -36,6 +45,7 @@ export default function OrderForm() {
         contractId: 0,
     });
 
+<<<<<<< HEAD
     // Load list contract
     useEffect(() => {
         getContracts().then((res) => Array.isArray(res) && setContracts(res));
@@ -45,6 +55,19 @@ export default function OrderForm() {
     useEffect(() => {
         if (isEdit && id) {
             getOrderById(Number(id)).then((res) => {
+=======
+    // 🔥 Load contracts bằng API mới
+    useEffect(() => {
+        ContractApi.getContracts().then((res) => {
+            if (Array.isArray(res)) setContracts(res);
+        });
+    }, []);
+
+    // 🔥 Load order khi EDIT
+    useEffect(() => {
+        if (isEdit && id) {
+            OrderApi.getById(Number(id)).then((res) => {
+>>>>>>> intern2025-team1
                 setForm({
                     orderNumber: res.orderNumber || "",
                     orderType: res.orderType ?? 0,
@@ -58,7 +81,11 @@ export default function OrderForm() {
         }
     }, [id, isEdit]);
 
+<<<<<<< HEAD
     // Handle input change
+=======
+    // 🔥 Handle change
+>>>>>>> intern2025-team1
     const handleChange = (e: any) => {
         let { name, value } = e.target;
 
@@ -69,9 +96,13 @@ export default function OrderForm() {
         setForm((prev) => ({ ...prev, [name]: value }));
     };
 
+<<<<<<< HEAD
     // ==========================
     // CREATE + UPDATE
     // ==========================
+=======
+    // 🔥 CREATE + UPDATE
+>>>>>>> intern2025-team1
     const handleSubmit = async () => {
         try {
             const payload = {
@@ -85,6 +116,7 @@ export default function OrderForm() {
             };
 
             if (isEdit) {
+<<<<<<< HEAD
                 await updateOrder(Number(id), {
                     id: Number(id),
                     ...payload,
@@ -92,6 +124,12 @@ export default function OrderForm() {
                 alert("Order updated!");
             } else {
                 await createOrder(payload);
+=======
+                await OrderApi.update(Number(id), payload);
+                alert("Order updated!");
+            } else {
+                await OrderApi.create(payload);
+>>>>>>> intern2025-team1
                 alert("Order created!");
             }
 
@@ -103,10 +141,17 @@ export default function OrderForm() {
         }
     };
 
+<<<<<<< HEAD
     // DELETE
     const handleDelete = async () => {
         try {
             await deleteOrder(Number(id));
+=======
+    // 🔥 DELETE
+    const handleDelete = async () => {
+        try {
+            await OrderApi.delete(Number(id));
+>>>>>>> intern2025-team1
             alert("Order deleted!");
             navigate("/orders");
         } catch (err) {
@@ -120,13 +165,19 @@ export default function OrderForm() {
             <NavMenu />
 
             <Paper sx={{ maxWidth: 600, p: 3, mx: "auto" }}>
+<<<<<<< HEAD
 
                 {/* ===== TITLE ===== */}
+=======
+>>>>>>> intern2025-team1
                 <Typography variant="h5" mb={3} fontWeight={600}>
                     {isDelete ? "Delete Order" : isEdit ? "Edit Order" : "Create Order"}
                 </Typography>
 
+<<<<<<< HEAD
                 {/* ===== FORM ===== */}
+=======
+>>>>>>> intern2025-team1
                 <Stack spacing={2}>
                     <TextField
                         label="Order Number"
@@ -215,7 +266,10 @@ export default function OrderForm() {
                         ))}
                     </TextField>
 
+<<<<<<< HEAD
                     {/* ===== ACTION BUTTONS ===== */}
+=======
+>>>>>>> intern2025-team1
                     <Stack direction="row" spacing={2} mt={2}>
                         {!isDelete && (
                             <Button variant="contained" onClick={handleSubmit}>

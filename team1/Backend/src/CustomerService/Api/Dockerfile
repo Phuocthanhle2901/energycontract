@@ -7,18 +7,26 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/CustomerService/Api/Api.csproj", "src/CustomerService/Api/"]
-COPY ["src/CustomerService/Application/Application.csproj", "src/CustomerService/Application/"]
-COPY ["src/CustomerService/Domain/Domain.csproj", "src/CustomerService/Domain/"]
-COPY ["src/CustomerService/Infrastructure/Infrastructure.csproj", "src/CustomerService/Infrastructure/"]
-RUN dotnet restore "src/CustomerService/Api/Api.csproj"
-COPY . .
-WORKDIR "/src/src/CustomerService/Api"
-RUN dotnet build "./Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Copy từ context root (src/CustomerService)
+COPY ["Api/Api.csproj", "Api/"]
+COPY ["Application/Application.csproj", "Application/"]
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+
+RUN dotnet restore "Api/Api.csproj"
+
+COPY Api/ ./Api
+COPY Application/ ./Application
+COPY Domain/ ./Domain
+COPY Infrastructure/ ./Infrastructure
+
+WORKDIR "/src/Api"
+RUN dotnet build "Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
