@@ -3,37 +3,31 @@ import { useNavigate } from "react-router-dom";
 import type { Contract } from "../types/contract";
 import { ContractApi } from "../api/contract.api";
 import NavMenu from "../components/NavMenu/NavMenu";
-import { Box, Button } from "@mui/material";
 
 export default function Home() {
   const [contracts, setContracts] = useState<Contract[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Load contracts from API
   useEffect(() => {
     ContractApi.getContracts()
       .then((data) => {
-        setContracts(Array.isArray(data) ? data : []); // FIX
+        setContracts(Array.isArray(data) ? data : []);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  // ----------------------------
-  // SAFE CALCULATIONS (NO CRASH)
-  // ----------------------------
+  // -------------------- CALCULATIONS ----------------------
 
-  // Thời hạn hợp đồng (nếu endDate null → coi như expired)
   const activeContracts = contracts.filter((c) => {
-    if (!c.endDate) return false;
+    if (!c?.endDate) return false;
     return new Date(c.endDate) > new Date();
   }).length;
 
   const expiredContracts = contracts.length - activeContracts;
 
-  // FIX: orders có thể undefined hoặc null → fallback []
   const totalOrders = contracts.reduce((sum, c) => {
-    const orderList = Array.isArray(c.orders) ? c.orders : [];
+    const orderList = Array.isArray(c?.orders) ? c.orders : [];
     return sum + orderList.length;
   }, 0);
 
@@ -50,45 +44,49 @@ export default function Home() {
           minHeight: "100vh",
         }}
       >
-        {/* Hero Section */}
+        {/* ================= HERO ================= */}
         <div className="hero-section">
           <h1>⚡ Energy Contract Manager</h1>
           <p>Manage all your energy contracts and orders in one centralized platform</p>
 
           <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => navigate("/contracts/create")}>
+            <button
+              className="btn-primary"
+              onClick={() => navigate("/contracts/create")}
+            >
               Create New Contract
             </button>
 
-            <button className="btn-outline" onClick={() => navigate("/contracts/list")}>
+            <button
+              className="btn-outline"
+              onClick={() => navigate("/contracts/list")}
+            >
               View All Contracts
             </button>
           </div>
         </div>
 
-        {/* Dashboard Overview */}
+        {/* ================= DASHBOARD ================= */}
         <h2 style={{ marginBottom: "2rem", fontSize: "1.6rem", fontWeight: 700 }}>
           📊 Dashboard Overview
         </h2>
 
         <div className="card-grid">
-          {/* Total Contracts */}
+          {/* TOTAL CONTRACTS */}
           <div className="card stat-card">
             <p className="stat-label">📋 Total Contracts</p>
             <div className="stat-number">{contracts.length}</div>
 
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1rem" }}>
+            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
               <span className="status-badge status-active">{activeContracts} Active</span>
 
               {expiredContracts > 0 && (
-                <span className="status-badge status-expired">
-                  {expiredContracts} Expired
-                </span>
+                <span className="status-badge status-expired">{expiredContracts} Expired</span>
               )}
             </div>
           </div>
 
-          {/* Total Orders */}
+          {/* TOTAL ORDERS */}
           <div className="card stat-card">
             <p className="stat-label">🔌 Total Orders</p>
             <div className="stat-number">{totalOrders}</div>
@@ -97,7 +95,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Expired */}
+          {/* EXPIRED CONTRACTS */}
           <div className="card stat-card">
             <p className="stat-label">⏰ Requires Renewal</p>
             <div className="stat-number">{expiredContracts}</div>
@@ -107,32 +105,44 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Recent Contracts */}
+        {/* ================= RECENT CONTRACTS ================= */}
         <div className="card" style={{ marginTop: "3rem" }}>
           <div className="recent-contracts-header">
             <h2>📄 Recent Contracts</h2>
-            <button className="btn-primary" onClick={() => navigate("/contracts")}>
+            <button
+              className="btn-primary"
+              onClick={() => navigate("/contracts")}
+            >
               View All →
-            </Button>
-          </Box>
+            </button>
+          </div>
 
+          {/* LOADING STATE */}
           {loading ? (
             <div style={{ textAlign: "center", padding: "3rem" }}>
               <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⏳</div>
               <p className="muted">Loading contracts...</p>
             </div>
           ) : contracts.length === 0 ? (
+            /* EMPTY STATE */
             <div style={{ textAlign: "center", padding: "3rem" }}>
               <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📭</div>
-              <p className="muted" style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
+              <p
+                className="muted"
+                style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}
+              >
                 No contracts yet. Create your first contract!
               </p>
-              <button className="btn-primary" onClick={() => navigate("/contracts/new")}>
+              <button
+                className="btn-primary"
+                onClick={() => navigate("/contracts/new")}
+              >
                 Create First Contract
               </button>
             </div>
           ) : (
-            <Box sx={{ overflowX: "auto" }}>
+            /* TABLE DATA */
+            <div className="table-wrapper">
               <table className="data-table">
                 <thead>
                   <tr>
@@ -149,8 +159,12 @@ export default function Home() {
 
                 <tbody>
                   {contracts.slice(0, 5).map((c) => {
-                    const isActive = c.endDate && new Date(c.endDate) > new Date();
-                    const orders = Array.isArray(c.orders) ? c.orders.length : 0;
+                    const isActive =
+                      c.endDate && new Date(c.endDate) > new Date();
+
+                    const orderCount = Array.isArray(c.orders)
+                      ? c.orders.length
+                      : 0;
 
                     return (
                       <tr key={c.id}>
@@ -158,33 +172,33 @@ export default function Home() {
                           {c.contractNumber}
                         </td>
 
-                        <td style={{ fontWeight: 500 }}>
+                        <td>
                           {c.firstName} {c.lastName}
                         </td>
 
                         <td className="muted">{c.email}</td>
 
-                        <td>{c.resellerName}</td>
+                        <td>{c.resellerName ?? "—"}</td>
 
                         <td className="muted" style={{ fontSize: "0.85rem" }}>
                           {new Date(c.startDate).toLocaleDateString("vi-VN")} –{" "}
-                          {new Date(c.endDate).toLocaleDateString("vi-VN")}
+                          {c.endDate
+                            ? new Date(c.endDate).toLocaleDateString("vi-VN")
+                            : "N/A"}
                         </td>
 
                         <td>
-                          <Button
-                            size="small"
-                            sx={{
-                              borderRadius: "20px",
-                              px: 2,
-                              textTransform: "none",
-                              background: isActive
-                                ? "#E3F2FD"
-                                : "rgba(255,0,0,0.08)",
-                              color: isActive ? "#1E88E5" : "red",
+                          <span
+                            style={{
+                              background: "#E0F2FE",
+                              color: "#0284C7",
+                              padding: "0.4rem 0.9rem",
+                              borderRadius: "0.625rem",
+                              fontSize: "0.85rem",
+                              fontWeight: 700,
                             }}
                           >
-                            {orders} order{orders !== 1 ? "s" : ""}
+                            {orderCount} order{orderCount !== 1 ? "s" : ""}
                           </span>
                         </td>
 
@@ -201,16 +215,19 @@ export default function Home() {
                         </td>
 
                         <td>
-                          <button className="btn-link" onClick={() => navigate(`/contracts/${c.id}/detail`)}>
+                          <button
+                            className="btn-link"
+                            onClick={() => navigate(`/contracts/${c.id}/detail`)}
+                          >
                             Details →
-                          </Button>
+                          </button>
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-            </Box>
+            </div>
           )}
         </div>
       </div>
