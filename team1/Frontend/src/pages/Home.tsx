@@ -197,7 +197,7 @@ export default function Home() {
                         </td>
 
                         <td>
-                          <button className="btn-link" onClick={() => navigate(`/contracts/${c.id}`)}>
+                          <button className="btn-link" onClick={() => navigate(`/contracts/${c.id}/detail`)}>
                             Details →
                           </button>
                         </td>
