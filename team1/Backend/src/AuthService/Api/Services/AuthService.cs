@@ -7,8 +7,10 @@ using Api.Models;
 using Api.Services.Interfaces;
 using Api.VMs;
 using DefaultNamespace;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Events;
 
 namespace Api.Services;
 
@@ -17,16 +19,18 @@ public class AuthService : IAuthService
     private readonly AuthDBContext _context;
     private readonly IConfiguration _config;
     private readonly ILogger<AuthService> _logger;
+    private readonly IPublishEndpoint _publishEndpoint;
     
     // Access token sống 30 phút, refresh token sống 14 ngày
     private const int ACCESS_TOKEN_MINUTES = 30;
     private const int REFRESH_TOKEN_DAYS = 14;
 
-    public AuthService(AuthDBContext context, IConfiguration config, ILogger<AuthService> logger)
+    public AuthService(AuthDBContext context, IConfiguration config, ILogger<AuthService> logger, IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _config = config;
         _logger = logger;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<RegisterResult> RegisterAsync(RegisterRequest request)
@@ -55,6 +59,14 @@ public class AuthService : IAuthService
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            _logger.LogWarning("Starting connnect to RabbitMQ to publish ContractCreatedEvent");
+            await _publishEndpoint.Publish(new AccountCreatedEvent()
+            {
+                Email = user.Email,
+                FullName = $"{user.FirstName} {user.LastName}",
+                CreatedAt = DateTime.UtcNow
+            });
+            
         }
         catch (Exception ex)
         {

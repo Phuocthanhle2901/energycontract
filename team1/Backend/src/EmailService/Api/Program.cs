@@ -1,6 +1,8 @@
 using Api.Consumers;
 using MassTransit;
 using Api.Consumers;
+using EmailService.Api.Consumers;
+using Shared.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddMassTransit(x =>
 {
     // Đăng ký Consumer vừa tạo
     x.AddConsumer<ContractCreatedConsumer>();
+    x.AddConsumer<AccountCreatedConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -23,6 +26,10 @@ builder.Services.AddMassTransit(x =>
         cfg.ReceiveEndpoint("contract-created-queue", e =>
         {
             e.ConfigureConsumer<ContractCreatedConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("account-created-queue", e =>
+        {
+            e.ConfigureConsumer<AccountCreatedConsumer>(context);
         });
     });
 });

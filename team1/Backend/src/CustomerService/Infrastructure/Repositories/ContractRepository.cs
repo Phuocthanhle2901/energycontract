@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Persistence;
 using MassTransit;
+using Microsoft.Extensions.Logging;
+using Shared.Events;
 
 namespace Infrastructure.Repositories;
 
@@ -11,23 +13,34 @@ public class ContractRepository : IContractRepository
 {
     private readonly EnergyDbContext _dbContext;
     private readonly IPublishEndpoint _publishEndpoint;
-    public ContractRepository(EnergyDbContext dbContext, IPublishEndpoint publishEndpoint)
+    private readonly ILogger<ContractRepository> _logger;
+    public ContractRepository(EnergyDbContext dbContext, IPublishEndpoint publishEndpoint, ILogger<ContractRepository> logger)
     {
         _dbContext = dbContext; 
         _publishEndpoint = publishEndpoint;
+        _logger = logger;
     }
 
     public async Task<Contract> AddContract(Contract contract)
     {
         await  _dbContext.Contracts.AddAsync(contract);
         await _dbContext.SaveChangesAsync();
-        await _publishEndpoint.Publish(new ContractCreatedEvent
+        try
         {
-            ContractNumber = contract.ContractNumber,
-            Email = contract.Email, 
-            FullName = $"{contract.FirstName} {contract.LastName}",
-            CreatedAt = DateTime.UtcNow
-        });
+            _logger.LogWarning("Starting connnect to RabbitMQ to publish ContractCreatedEvent");
+            await _publishEndpoint.Publish(new ContractCreatedEvent
+            {
+                ContractNumber = contract.ContractNumber,
+                Email = contract.Email,
+                FullName = $"{contract.FirstName} {contract.LastName}",
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+        }
+      
         return contract;
     }
 
