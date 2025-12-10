@@ -12,23 +12,30 @@ public class GetAllAddressesHandler
         _addressRepository = addressRepository;
     }
 
-    public async Task<List<AddressDto>> Handle(GetAllAddresses request)
+    public async Task<PagedResult<AddressDto>> Handle(GetAllAddresses request)
     {
-        var addresses = await _addressRepository.GetAllAsync(request.Limit);
+        var (items, totalCount) = await _addressRepository.GetPagedAsync(
+            request.Search,
+            request.ZipCode,
+            request.PageNumber,
+            request.PageSize,
+            request.SortBy,
+            request.SortDesc);
 
-        var result = new List<AddressDto>();
-
-        foreach (var a in addresses)
+        var dtos = items.Select(a => new AddressDto
         {
-            result.Add(new AddressDto
-            {
-                Id = a.Id,
-                ZipCode = a.ZipCode,
-                HouseNumber = a.HouseNumber,
-                Extension = a.Extension
-            });
-        }
+            Id = a.Id,
+            ZipCode = a.ZipCode,
+            HouseNumber = a.HouseNumber,
+            Extension = a.Extension
+        }).ToList();
 
-        return result;
+        return new PagedResult<AddressDto>
+        {
+            Items = dtos,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize,
+            TotalCount = totalCount
+        };
     }
 }

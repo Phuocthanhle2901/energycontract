@@ -46,4 +46,46 @@ public class AddressRepository : IAddressRepository
         _context.Addresses.Remove(address);
         await _context.SaveChangesAsync();
     }
+    public async Task<(List<Address> Items, int TotalCount)> GetPagedAsync(
+        string? search,
+        string? zipCode,
+        int pageNumber,
+        int pageSize,
+        string? sortBy,
+        bool sortDesc)
+    {
+        var query = _context.Addresses.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            search = search.Trim().ToLower();
+            query = query.Where(a =>
+                a.ZipCode.ToLower().Contains(search) ||
+                a.HouseNumber.ToLower().Contains(search));
+        }
+
+        if (!string.IsNullOrWhiteSpace(zipCode))
+        {
+            var z = zipCode.Trim().ToLower();
+            query = query.Where(a => a.ZipCode.ToLower() == z);
+        }
+
+        query = (sortBy?.ToLower(), sortDesc) switch
+        {
+            ("zipcode", false)     => query.OrderBy(a => a.ZipCode),
+            ("zipcode", true)      => query.OrderByDescending(a => a.ZipCode),
+            ("housenumber", false) => query.OrderBy(a => a.HouseNumber),
+            ("housenumber", true)  => query.OrderByDescending(a => a.HouseNumber),
+            _                      => sortDesc ? query.OrderByDescending(a => a.Id) : query.OrderBy(a => a.Id),
+        };
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (items, totalCount);
+    }
 }

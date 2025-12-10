@@ -12,16 +12,30 @@ namespace Application.Features.Resellers.Commands.GetAllResellers
             _resellerRepository = resellerRepository;
         }
 
-        public async Task<List<ResellerDto>> Handle(GetAllResellers request)
+        public async Task<PagedResult<ResellerDto>> Handle(GetAllResellers request)
         {
-            var resellers = await _resellerRepository.GetAllAsync(request.Limit);
+            var (items, totalCount) = await _resellerRepository.GetPagedAsync(
+                request.Search,
+                request.Type,
+                request.PageNumber,
+                request.PageSize,
+                request.SortBy,
+                request.SortDesc);
 
-            return resellers.Select(x => new ResellerDto
+            var dtos = items.Select(r => new ResellerDto
             {
-                Id = x.Id,
-                Name = x.Name,
-                Type = x.Type
+                Id = r.Id,
+                Name = r.Name,
+                Type = r.Type
             }).ToList();
+
+            return new PagedResult<ResellerDto>
+            {
+                Items = dtos,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize,
+                TotalCount = totalCount
+            };
         }
     }
 }

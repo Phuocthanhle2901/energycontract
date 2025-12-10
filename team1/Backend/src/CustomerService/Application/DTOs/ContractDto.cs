@@ -15,5 +15,9 @@ public class ContractDto
     public string BankAccountNumber { get; set; }
     public string PdfLink { get; set; }
     public int? AddressId { get; set; }
+    public string AddressZipCode { get; set; }
+    public string AddressHouseNumber { get; set; }
     public int? ResellerId { get; set; }
+    public string ResellerName { get; set; }
+    public string ResellerType { get; set; }
 }

@@ -2,6 +2,14 @@
 {
     public class GetAllOrders
     {
-        public int Limit { get; set; }
+        public string? Search { get; set; }   // search theo OrderNumber
+        public int? Status { get; set; }      // Domain.Enums.OrderStatus
+        public int? OrderType { get; set; }   // Domain.Enums.OrderType
+
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+
+        public string? SortBy { get; set; } = "startDate"; // orderNumber | startDate
+        public bool SortDesc { get; set; } = true;
     }
 }

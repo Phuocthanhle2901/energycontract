@@ -79,4 +79,61 @@ public class ContractRepository : IContractRepository
         }
         return await query.ToListAsync();
     }
+    public async Task<(List<Contract> Items, int TotalCount)> GetPagedContractsAsync(
+    string? search,
+    int? resellerId,
+    DateTime? startDateFrom,
+    DateTime? startDateTo,
+    int pageNumber,
+    int pageSize,
+    string? sortBy,
+    bool sortDesc)
+{
+    var query = _dbContext.Contracts
+        .Include(c => c.Address)
+        .Include(c => c.Reseller)
+        .AsNoTracking()
+        .AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(search))
+    {
+        search = search.Trim().ToLower();
+        query = query.Where(c =>
+            c.ContractNumber.ToLower().Contains(search) ||
+            c.FirstName.ToLower().Contains(search) ||
+            c.LastName.ToLower().Contains(search) ||
+            c.Email.ToLower().Contains(search) ||
+            c.Phone.ToLower().Contains(search));
+    }
+
+    if (resellerId.HasValue)
+        query = query.Where(c => c.ResellerId == resellerId.Value);
+
+    if (startDateFrom.HasValue)
+        query = query.Where(c => c.StartDate >= startDateFrom.Value);
+
+    if (startDateTo.HasValue)
+        query = query.Where(c => c.StartDate <= startDateTo.Value);
+
+    // SORT
+    query = (sortBy?.ToLower(), sortDesc) switch
+    {
+        ("contractnumber", false) => query.OrderBy(c => c.ContractNumber),
+        ("contractnumber", true)  => query.OrderByDescending(c => c.ContractNumber),
+        ("startdate", false)      => query.OrderBy(c => c.StartDate),
+        ("startdate", true)       => query.OrderByDescending(c => c.StartDate),
+        ("customername", false)   => query.OrderBy(c => c.FirstName).ThenBy(c => c.LastName),
+        ("customername", true)    => query.OrderByDescending(c => c.FirstName).ThenByDescending(c => c.LastName),
+        _                         => sortDesc ? query.OrderByDescending(c => c.Id) : query.OrderBy(c => c.Id),
+    };
+
+    var totalCount = await query.CountAsync();
+
+    var items = await query
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
+
+    return (items, totalCount);
+}
 }

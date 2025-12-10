@@ -6,5 +6,10 @@ namespace Application.Interfaces
     {
         Task<ContractHistory> AddAsync(ContractHistory history);
         Task<List<ContractHistory>> GetByContractIdAsync(int contractId);
+        Task<(List<ContractHistory> Items, int TotalCount)> GetPagedByContractIdAsync(
+            int contractId,
+            string? search,
+            int pageNumber,
+            int pageSize);
     }
 }

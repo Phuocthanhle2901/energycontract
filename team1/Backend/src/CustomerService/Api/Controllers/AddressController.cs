@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Application.Features.Addresses.Commands.CreateAddress;
 using Application.Features.Addresses.Commands.GetAllAddresses;
 using Application.Features.Addresses.Commands.DeleteAddress;
@@ -56,19 +57,20 @@ public class AddressController : ControllerBase
     
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<List<Address>>> GetAll([FromQuery] int limit = 0)
+    public async Task<ActionResult<PagedResult<AddressDto>>> GetAll(
+        [FromQuery] GetAllAddresses query)
     {
         try
         {
-            if (limit < 0)
+            if (query.PageNumber <= 0 || query.PageSize <= 0)
             {
-                _logger.LogError("Invalid limit parameter: {Limit}", limit);
-                return BadRequest("Limit must be a non-negative integer");
+                _logger.LogError("Invalid paging params: {PageNumber}, {PageSize}",
+                    query.PageNumber, query.PageSize);
+                return BadRequest("PageNumber & PageSize must be positive");
             }
-                
-            var query = new GetAllAddresses { Limit = limit };
+
             var result = await _getAllAddressesHandler.Handle(query);
-            _logger.LogInformation($"Retrieved {result.Count} addresses");
+            _logger.LogInformation("Retrieved {Count} addresses", result.Items.Count);
             return Ok(result);
         }
         catch (Exception ex)
@@ -77,6 +79,7 @@ public class AddressController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
     [HttpGet("{id}")]
     [Authorize]
     public async Task<IActionResult> GetById(int id)

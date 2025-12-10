@@ -9,4 +9,13 @@ public interface IContractRepository
     Task UpdateContract(Contract contract);
     Task DeleteContract(Contract contract); 
     Task <List<Contract>> GetAllContracts(int limit = 0);
+    Task<(List<Contract> Items, int TotalCount)> GetPagedContractsAsync(
+        string? search,
+        int? resellerId,
+        DateTime? startDateFrom,
+        DateTime? startDateTo,
+        int pageNumber,
+        int pageSize,
+        string? sortBy,
+        bool sortDesc);
 }

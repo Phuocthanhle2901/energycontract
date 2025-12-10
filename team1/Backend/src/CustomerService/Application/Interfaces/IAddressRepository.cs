@@ -9,4 +9,11 @@ public interface IAddressRepository
     Task<Address?> GetByIdAsync(int id);
     Task UpdateAsync(Address address);
     Task DeleteAsync(Address address);
+    Task<(List<Address> Items, int TotalCount)> GetPagedAsync(
+        string? search,
+        string? zipCode,
+        int pageNumber,
+        int pageSize,
+        string? sortBy,
+        bool sortDesc);
 }

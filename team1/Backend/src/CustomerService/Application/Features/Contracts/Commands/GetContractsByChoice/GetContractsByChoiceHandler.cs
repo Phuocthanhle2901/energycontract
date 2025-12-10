@@ -12,38 +12,45 @@ public class GetContractsByChoiceHandler
         _contractRepository = contractRepository;
     }
 
-    public async Task<List<ContractDto>> Handle(GetContractsByChoice request)
+    public async Task<PagedResult<ContractDto>> Handle(GetContractsByChoice request)
     {
-        var contracts = await _contractRepository.GetAllContracts(request.Limit);
+        var (contracts, totalCount) = await _contractRepository.GetPagedContractsAsync(
+            request.Search,
+            request.ResellerId,
+            request.StartDateFrom,
+            request.StartDateTo,
+            request.PageNumber,
+            request.PageSize,
+            request.SortBy,
+            request.SortDesc);
 
-        var result = new List<ContractDto>();
-
-        foreach (var c in contracts)
+        var items = contracts.Select(c => new ContractDto
         {
-            result.Add(new ContractDto
-            {
-                Id = c.Id,
-                ContractNumber = c.ContractNumber,
+            Id = c.Id,
+            ContractNumber = c.ContractNumber,
+            FirstName = c.FirstName,
+            LastName = c.LastName,
+            Email = c.Email,
+            Phone = c.Phone,
+            StartDate = c.StartDate,
+            EndDate = c.EndDate,
+            BankAccountNumber = c.BankAccountNumber,
+            PdfLink = c.PdfLink,
 
-                FirstName = c.FirstName!,
-                LastName = c.LastName!,
+            AddressId = c.AddressId,
+            AddressZipCode = c.Address.ZipCode,
+            AddressHouseNumber = c.Address.HouseNumber,
+            ResellerId = c.ResellerId,
+            ResellerName = c.Reseller.Name,
+            ResellerType = c.Reseller.Type
+        }).ToList();
 
-                Email = c.Email!,
-                Phone = c.Phone!,
-
-                CompanyName = c.CompanyName!,
-
-                StartDate = c.StartDate,
-                EndDate = c.EndDate,    
-
-                BankAccountNumber = c.BankAccountNumber!,
-                PdfLink = c.PdfLink!,
-
-                AddressId = c.AddressId,
-                ResellerId = c.ResellerId
-            });
-        }
-
-        return result;
+        return new PagedResult<ContractDto>
+        {
+            Items = items,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize,
+            TotalCount = totalCount
+        };
     }
 }

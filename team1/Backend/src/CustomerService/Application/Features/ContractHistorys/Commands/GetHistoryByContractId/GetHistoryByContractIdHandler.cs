@@ -12,11 +12,15 @@ namespace Application.Features.ContractHistories.Commands.GetHistoryByContractId
             _repository = repository;
         }
 
-        public async Task<List<ContractHistoryDto>> Handle(GetHistoryByContractId request)
+        public async Task<PagedResult<ContractHistoryDto>> Handle(GetHistoryByContractId request)
         {
-            var list = await _repository.GetByContractIdAsync(request.ContractId);
+            var (list, totalCount) = await _repository.GetPagedByContractIdAsync(
+                request.ContractId,
+                request.Search,
+                request.PageNumber,
+                request.PageSize);
 
-            return list.Select(h => new ContractHistoryDto
+            var items = list.Select(h => new ContractHistoryDto
             {
                 Id = h.Id,
                 OldValue = h.OldValue,
@@ -24,6 +28,14 @@ namespace Application.Features.ContractHistories.Commands.GetHistoryByContractId
                 Timestamp = h.Timestamp,
                 ContractId = h.ContractId
             }).ToList();
+
+            return new PagedResult<ContractHistoryDto>
+            {
+                Items = items,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize,
+                TotalCount = totalCount
+            };
         }
     }
 }

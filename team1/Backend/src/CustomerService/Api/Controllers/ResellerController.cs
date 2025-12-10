@@ -71,13 +71,11 @@
 
             [HttpGet]
             [Authorize]
-            public async Task<ActionResult<List<ResellerDto>>> GetAll([FromQuery] int limit = 0)
+            public async Task<ActionResult<PagedResult<ResellerDto>>> GetAll(
+                [FromQuery] GetAllResellers query)
             {
-                var query = new GetAllResellers { Limit = limit };
                 var result = await _getAllResellerHandler.Handle(query);
                 return Ok(result);
             }
-
-            
         }
     }

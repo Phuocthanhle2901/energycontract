@@ -48,4 +48,44 @@ public class ResellerRepository : IResellerRepository
         _context.Resellers.Remove(reseller);
         await _context.SaveChangesAsync();
     }
+    public async Task<(List<Reseller> Items, int TotalCount)> GetPagedAsync(
+        string? search,
+        string? type,
+        int pageNumber,
+        int pageSize,
+        string? sortBy,
+        bool sortDesc)
+    {
+        var query = _context.Resellers.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            search = search.Trim().ToLower();
+            query = query.Where(r =>
+                r.Name.ToLower().Contains(search) ||
+                r.Type.ToLower().Contains(search));
+        }
+
+        if (!string.IsNullOrWhiteSpace(type))
+        {
+            var t = type.Trim().ToLower();
+            query = query.Where(r => r.Type.ToLower() == t);
+        }
+
+        query = (sortBy?.ToLower(), sortDesc) switch
+        {
+            ("name", false) => query.OrderBy(r => r.Name),
+            ("name", true)  => query.OrderByDescending(r => r.Name),
+            _               => sortDesc ? query.OrderByDescending(r => r.Id) : query.OrderBy(r => r.Id),
+        };
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (items, totalCount);
+    }
 }

@@ -12,11 +12,18 @@ namespace Application.Features.Orders.Commands.GetAllOrders
             _orderRepository = orderRepository;
         }
 
-        public async Task<List<OrderDto>> Handle(GetAllOrders request)
+        public async Task<PagedResult<OrderDto>> Handle(GetAllOrders request)
         {
-            var orders = await _orderRepository.GetAllAsync(request.Limit);
+            var (orders, totalCount) = await _orderRepository.GetPagedAsync(
+                request.Search,
+                request.Status,
+                request.OrderType,
+                request.PageNumber,
+                request.PageSize,
+                request.SortBy,
+                request.SortDesc);
 
-            return orders.Select(o => new OrderDto
+            var items = orders.Select(o => new OrderDto
             {
                 Id = o.Id,
                 OrderNumber = o.OrderNumber,
@@ -27,6 +34,14 @@ namespace Application.Features.Orders.Commands.GetAllOrders
                 TopupFee = o.TopupFee,
                 ContractId = o.ContractId
             }).ToList();
+
+            return new PagedResult<OrderDto>
+            {
+                Items = items,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize,
+                TotalCount = totalCount
+            };
         }
     }
 }

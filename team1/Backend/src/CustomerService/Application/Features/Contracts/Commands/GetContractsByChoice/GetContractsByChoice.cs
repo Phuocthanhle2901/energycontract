@@ -2,8 +2,23 @@ using Application.DTOs;
 
 namespace Application.Features.Contracts.Commands.GetContractsByChoice
 {
+    // Dùng cho GET /api/contracts
     public class GetContractsByChoice
     {
-        public int Limit { get; set; } = 0;
+        // Search chung: ContractNumber, CustomerName, Email, Phone
+        public string? Search { get; set; }
+
+        // Filter
+        public int? ResellerId { get; set; }
+        public DateTime? StartDateFrom { get; set; }
+        public DateTime? StartDateTo { get; set; }
+
+        // Pagination
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+
+        // Sort
+        public string? SortBy { get; set; } = "startDate"; // startDate | contractNumber | customerName
+        public bool SortDesc { get; set; } = true;
     }
 }

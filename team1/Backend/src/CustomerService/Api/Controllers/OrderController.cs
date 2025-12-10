@@ -44,10 +44,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<OrderDto>>> GetAll([FromQuery] int limit = 0)
+        public async Task<ActionResult<PagedResult<OrderDto>>> GetAll(
+            [FromQuery] GetAllOrders query)
         {
-            var res = await _getAllHandler.Handle(new GetAllOrders { Limit = limit });
-            return Ok(res);
+            var result = await _getAllHandler.Handle(query);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]

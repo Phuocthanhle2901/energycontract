@@ -28,14 +28,21 @@ namespace Api.Controllers
         }
 
         [HttpGet("{contractId}")]
-        public async Task<ActionResult<List<ContractHistoryDto>>> Get(int contractId)
+        public async Task<ActionResult<PagedResult<ContractHistoryDto>>> Get(
+            int contractId,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? search = null)
         {
-            var histories = await _getHandler.Handle(new GetHistoryByContractId
+            var result = await _getHandler.Handle(new GetHistoryByContractId
             {
-                ContractId = contractId
+                ContractId = contractId,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Search = search
             });
 
-            return Ok(histories);
+            return Ok(result);
         }
     }
 }

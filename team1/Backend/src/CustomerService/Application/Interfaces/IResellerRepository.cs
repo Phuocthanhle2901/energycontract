@@ -9,4 +9,11 @@ public interface IResellerRepository
     Task<Reseller?> GetByIdAsync(int id);
     Task UpdateAsync(Reseller reseller);
     Task DeleteAsync(Reseller reseller);
+    Task<(List<Reseller> Items, int TotalCount)> GetPagedAsync(
+        string? search,
+        string? type,
+        int pageNumber,
+        int pageSize,
+        string? sortBy,
+        bool sortDesc);
 }

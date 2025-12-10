@@ -1,4 +1,4 @@
-namespace Shared.Events;
+﻿namespace Shared.Events;
 
 public class ContractCreatedEvent
 {

@@ -44,5 +44,46 @@ namespace Infrastructure.Repositories
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
         }
+        public async Task<(List<Order> Items, int TotalCount)> GetPagedAsync(
+            string? search,
+            int? status,
+            int? orderType,
+            int pageNumber,
+            int pageSize,
+            string? sortBy,
+            bool sortDesc)
+        {
+            var query = _context.Orders.AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim().ToLower();
+                query = query.Where(o => o.OrderNumber.ToLower().Contains(search));
+            }
+
+            if (status.HasValue)
+                query = query.Where(o => o.Status == status.Value);
+
+            if (orderType.HasValue)
+                query = query.Where(o => o.OrderType == orderType.Value);
+
+            query = (sortBy?.ToLower(), sortDesc) switch
+            {
+                ("ordernumber", false) => query.OrderBy(o => o.OrderNumber),
+                ("ordernumber", true)  => query.OrderByDescending(o => o.OrderNumber),
+                ("startdate", false)   => query.OrderBy(o => o.StartDate),
+                ("startdate", true)    => query.OrderByDescending(o => o.StartDate),
+                _                      => sortDesc ? query.OrderByDescending(o => o.Id) : query.OrderBy(o => o.Id),
+            };
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
     }
 }

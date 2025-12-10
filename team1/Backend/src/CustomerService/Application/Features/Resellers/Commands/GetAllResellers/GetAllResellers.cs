@@ -4,6 +4,13 @@ namespace Application.Features.Resellers.Commands.GetAllResellers
 {
     public class GetAllResellers
     {
-        public int Limit { get; set; } = 0;
+        public string? Search { get; set; }  // Name / Type
+        public string? Type { get; set; }
+
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
+
+        public string? SortBy { get; set; } = "name";
+        public bool SortDesc { get; set; } = false;
     }
 }

@@ -99,16 +99,17 @@ public class ContractController : ControllerBase
     // 4. GET: Get all contracts
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<List<ContractDto>>> GetAll([FromQuery] int limit = 0)
+    public async Task<ActionResult<PagedResult<ContractDto>>> GetAll(
+        [FromQuery] GetContractsByChoice query)
     {
         try
         {
-            if (limit < 0)
+            if (query.PageNumber <= 0 || query.PageSize <= 0)
             {
-                _logger.LogError("Invalid limit value: {Limit}", limit);
-                return BadRequest("Limit must be non-negative");
+                return BadRequest("PageNumber và PageSize phải > 0");
             }
-            var result = await _getContractsByChoiceHandler.Handle(new GetContractsByChoice { Limit = limit });
+
+            var result = await _getContractsByChoiceHandler.Handle(query);
             return Ok(result);
         }
         catch (Exception ex)
@@ -116,7 +117,6 @@ public class ContractController : ControllerBase
             _logger.LogError("Error processing request: {Message}", ex.Message);
             return StatusCode(500, ex.Message);
         }
-      
     }
     // 5. DELETE: Delete contract
     [HttpDelete("{id}")]
