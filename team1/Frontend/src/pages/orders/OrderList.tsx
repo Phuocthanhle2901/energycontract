@@ -24,43 +24,56 @@ import { OrderApi } from "@/api/order.api";
 import { ContractApi } from "@/api/contract.api";
 
 export default function OrderList() {
-
     const [orders, setOrders] = useState<any[]>([]);
     const [contracts, setContracts] = useState<any[]>([]);
-
-    // popup
     const [open, setOpen] = useState(false);
-    const [mode, setMode] = useState(""); // create | edit | delete
-    const [current, setCurrent] = useState<any>({});
+    const [mode, setMode] = useState<"create" | "edit" | "delete">("create");
 
-    // ===============================
-    // FETCH DATA
-    // ===============================
+    const emptyOrder = {
+        id: null,
+        orderNumber: "",
+        orderType: 0,
+        status: 0,
+        startDate: "",
+        endDate: "",
+        topupFee: 0,
+        contractId: "",
+    };
+
+    const [current, setCurrent] = useState<any>(emptyOrder);
+
+    // ===========================
+    // LOAD DATA
+    // ===========================
     const loadData = async () => {
-        setOrders(await OrderApi.getOrders(0));
+        const o = await OrderApi.getOrders(0);
+        const c = await ContractApi.getContracts();
 
-        setContracts(await ContractApi.getContracts());
+        setOrders(Array.isArray(o) ? o : []);
+        setContracts(Array.isArray(c) ? c : []);
     };
 
     useEffect(() => {
         loadData();
     }, []);
 
-    // ===============================
+    // ===========================
+    // AUTO GENERATE ORDER NUMBER
+    // ===========================
+    const generateOrderNumber = () => {
+        return "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    };
+
+    // ===========================
     // OPEN POPUP
-    // ===============================
-    const openPopup = (m: string, item: any = null) => {
+    // ===========================
+    const openPopup = (m: "create" | "edit" | "delete", item: any = null) => {
         setMode(m);
 
         if (m === "create") {
             setCurrent({
-                orderNumber: "",
-                orderType: 0,
-                status: 0,
-                startDate: "",
-                endDate: "",
-                topupFee: 0,
-                contractId: "",
+                ...emptyOrder,
+                orderNumber: generateOrderNumber(), // 🔥 TỰ ĐỘNG TẠO ORDER NUMBER
             });
         } else {
             setCurrent(item);
@@ -71,24 +84,22 @@ export default function OrderList() {
 
     const closePopup = () => setOpen(false);
 
-    // ===============================
-    // HANDLE FORM
-    // ===============================
+    // ===========================
+    // HANDLE FORM FIELDS
+    // ===========================
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-
-        // convert numeric fields
-        const numeric = ["orderType", "status", "contractId", "topupFee"];
+        const numericFields = ["orderType", "status", "contractId", "topupFee"];
 
         setCurrent((prev: any) => ({
             ...prev,
-            [name]: numeric.includes(name) ? Number(value) : value,
+            [name]: numericFields.includes(name) ? Number(value) : value,
         }));
     };
 
-    // ===============================
+    // ===========================
     // SUBMIT CRUD
-    // ===============================
+    // ===========================
     const handleSubmit = async () => {
         try {
             if (mode === "create") await OrderApi.create(current);
@@ -103,9 +114,10 @@ export default function OrderList() {
         }
     };
 
-    // ===============================
-    // RENDER
-    // ===============================
+
+    // ===========================
+    // RENDER HELPERS
+    // ===========================
     const mapType = (v: number) => (v === 0 ? "Gas" : "Electricity");
     const mapStatus = (v: number) =>
         ["Pending", "Active", "Completed", "Cancelled"][v] ?? "Unknown";
@@ -115,7 +127,9 @@ export default function OrderList() {
             <NavMenu />
 
             <Box display="flex" justifyContent="space-between" mb={3}>
-                <Typography variant="h5" fontWeight={700}>Orders</Typography>
+                <Typography variant="h5" fontWeight={700}>
+                    Orders
+                </Typography>
 
                 <Button variant="contained" onClick={() => openPopup("create")}>
                     + Add Order
@@ -137,6 +151,7 @@ export default function OrderList() {
                             <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
                         {orders.map((o: any) => (
                             <TableRow key={o.id} hover>
@@ -177,9 +192,7 @@ export default function OrderList() {
                 </Table>
             </Paper>
 
-            {/* =============================== */}
             {/* POPUP CRUD */}
-            {/* =============================== */}
             <Dialog open={open} onClose={closePopup} fullWidth maxWidth="sm">
                 <DialogTitle>
                     {mode === "create" && "Create Order"}
@@ -189,7 +202,9 @@ export default function OrderList() {
 
                 <DialogContent sx={{ mt: 1 }}>
                     {mode === "delete" ? (
-                        <Typography>Are you sure you want to delete this order?</Typography>
+                        <Typography>
+                            Are you sure you want to delete this order?
+                        </Typography>
                     ) : (
                         <Stack spacing={2}>
                             <TextField
@@ -197,7 +212,7 @@ export default function OrderList() {
                                 name="orderNumber"
                                 fullWidth
                                 value={current.orderNumber}
-                                onChange={handleChange}
+                                disabled
                             />
 
                             <TextField
@@ -269,7 +284,6 @@ export default function OrderList() {
 
                 <DialogActions>
                     <Button onClick={closePopup}>Cancel</Button>
-
                     <Button
                         onClick={handleSubmit}
                         variant="contained"

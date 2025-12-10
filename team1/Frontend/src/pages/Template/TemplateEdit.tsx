@@ -38,8 +38,8 @@ interface PreviewState {
     fillFromContract?: boolean;
 }
 
-// HTML mẫu hợp đồng với placeholder
-const CONTRACT_TEMPLATE_HTML = `<!DOCTYPE html>
+// 🔹 HTML mẫu hợp đồng chung (New Template vẫn dùng cái này)
+export const CONTRACT_TEMPLATE_HTML = `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -187,10 +187,12 @@ export default function TemplateEdit() {
 
     const navigationState = (location.state as PreviewState) || {};
     const previewVariables = navigationState.previewVariables;
-    const fillFromContract = navigationState.fillFromContract ?? false;
+    // Nếu có previewVariables mà không set flag thì auto coi như mở từ contract
+    const fillFromContract =
+        navigationState.fillFromContract ?? !!previewVariables;
 
     const [templateName, setTemplateName] = useState<string>("");
-    const [leftWidth, setLeftWidth] = useState<number>(50); // % chiều rộng cột trái
+    const [leftWidth, setLeftWidth] = useState<number>(50);
     const [isResizing, setIsResizing] = useState<boolean>(false);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -219,34 +221,36 @@ export default function TemplateEdit() {
 
     const htmlContent = watch("htmlContent");
 
-    // Load dữ liệu template từ API + inject dữ liệu hợp đồng vào HTML (nếu có)
+    // 🔹 Load template từ API + (nếu mở từ contract) merge dữ liệu hợp đồng vào HTML code
     useEffect(() => {
-        if (!data) return;
+        if (data) {
+            setTemplateName(data.name);
 
-        setTemplateName(data.name);
+            // 1. Lấy base template từ DB, nếu rỗng thì dùng template chung
+            const htmlFromDb = data.htmlContent?.trim();
+            let htmlBase =
+                htmlFromDb && htmlFromDb.length > 0
+                    ? htmlFromDb
+                    : CONTRACT_TEMPLATE_HTML;
 
-        // 1. Nếu DB đã có htmlContent thì dùng, nếu chưa có thì dùng template mặc định
-        let htmlToUse =
-            data.htmlContent && data.htmlContent.trim().length > 0
-                ? data.htmlContent
-                : CONTRACT_TEMPLATE_HTML;
+            // 2. Nếu mở từ Contract ⇒ thay placeholder bằng dữ liệu hợp đồng
+            if (fillFromContract && previewVariables) {
+                Object.entries(previewVariables).forEach(([key, value]) => {
+                    const regex = new RegExp(`\\{${key}\\}`, "g");
+                    htmlBase = htmlBase.replace(regex, value ?? "");
+                });
+            }
 
-        // 2. Nếu mở từ trang hợp đồng và có previewVariables => thay placeholder bằng dữ liệu thật
-        if (fillFromContract && previewVariables) {
-            Object.entries(previewVariables).forEach(([key, value]) => {
-                const regex = new RegExp(`\\{${key}\\}`, "g");
-                htmlToUse = htmlToUse.replace(regex, value ?? "");
+            // 3. Reset form với HTML đã merge (hoặc template gốc)
+            reset({
+                description: data.description,
+                htmlContent: htmlBase,
+                isActive: data.isActive,
             });
         }
-
-        reset({
-            description: data.description,
-            htmlContent: htmlToUse,
-            isActive: data.isActive,
-        });
     }, [data, reset, fillFromContract, previewVariables]);
 
-    // Xử lý kéo divider để thay đổi width
+    // 🔹 Drag handle chia 2 cột
     useEffect(() => {
         function handleMouseMove(e: MouseEvent) {
             if (!isResizing || !containerRef.current) return;
@@ -255,7 +259,6 @@ export default function TemplateEdit() {
             const offsetX = e.clientX - rect.left;
             let newLeft = (offsetX / rect.width) * 100;
 
-            // Giới hạn 25% – 75% cho đẹp
             newLeft = Math.max(25, Math.min(75, newLeft));
             setLeftWidth(newLeft);
         }
@@ -302,12 +305,14 @@ export default function TemplateEdit() {
         }
     };
 
-    // HTML cho preview: hiển thị đúng những gì đang ở htmlContent (đã merge dữ liệu nếu có)
-    const previewHtml = useMemo(() => {
-        return htmlContent && htmlContent.trim().length > 0
-            ? htmlContent
-            : "<p style='font-family:system-ui;padding:16px;'>No HTML content yet. Start typing in the editor.</p>";
-    }, [htmlContent]);
+    // 🔹 Preview: chỉ render đúng những gì đang có trong htmlContent
+    const previewHtml = useMemo(
+        () =>
+            htmlContent && htmlContent.trim().length > 0
+                ? htmlContent
+                : "<p style='font-family:system-ui;padding:16px;'>No HTML content yet. Start typing in the editor.</p>",
+        [htmlContent]
+    );
 
     if (Number.isNaN(numericId)) {
         return (
@@ -376,7 +381,7 @@ export default function TemplateEdit() {
                             Update the HTML layout and settings of this PDF template. The
                             preview on the right will update in real-time as you edit the
                             code. Nếu bạn mở từ trang hợp đồng, dữ liệu hợp đồng sẽ được chèn
-                            sẵn vào HTML Template (code) để bạn chỉnh sửa trực tiếp.
+                            thẳng vào HTML bên trái để bạn chỉnh sửa và lưu lại.
                         </Typography>
                     </Box>
 
@@ -399,7 +404,7 @@ export default function TemplateEdit() {
                     </Stack>
                 </Stack>
 
-                {/* MAIN CONTENT: SPLIT + DRAG HANDLE */}
+                {/* BODY + DRAG HANDLE */}
                 <Box
                     ref={containerRef}
                     sx={{
@@ -409,7 +414,7 @@ export default function TemplateEdit() {
                         gap: { xs: 2, md: 0 },
                     }}
                 >
-                    {/* LEFT: TEMPLATE SETTINGS + CODE */}
+                    {/* LEFT: SETTINGS + CODE */}
                     <Box
                         sx={{
                             flexBasis: { xs: "100%", md: `${leftWidth}%` },
@@ -483,7 +488,7 @@ export default function TemplateEdit() {
                         </Paper>
                     </Box>
 
-                    {/* DIVIDER – drag handle (chỉ hiện trên md+) */}
+                    {/* DRAG HANDLE */}
                     <Box
                         sx={{
                             display: { xs: "none", md: "flex" },
@@ -498,9 +503,7 @@ export default function TemplateEdit() {
                                 cursor: "col-resize",
                                 bgcolor: isResizing ? "#3b82f6" : "#e5e7eb",
                                 borderRadius: "999px",
-                                "&:hover": {
-                                    bgcolor: "#cbd5f5",
-                                },
+                                "&:hover": { bgcolor: "#cbd5f5" },
                             }}
                         />
                     </Box>
@@ -530,9 +533,8 @@ export default function TemplateEdit() {
                                 Preview
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                This preview is rendered from the HTML template on the left. It
-                                always shows exactly what will be stored and used to generate
-                                the final PDF.
+                                This preview is rendered directly from the HTML template on the
+                                left.
                             </Typography>
 
                             <Box

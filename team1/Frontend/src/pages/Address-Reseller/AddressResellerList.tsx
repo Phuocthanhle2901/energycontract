@@ -88,7 +88,6 @@ export default function AddressResellerList() {
                 if (mode === "edit") await AddressApi.update(current.id, current);
                 if (mode === "delete") await AddressApi.delete(current.id);
             }
-
             if (target === "reseller") {
                 if (mode === "create") await ResellerApi.create(current);
                 if (mode === "edit") await ResellerApi.update(current.id, current);
@@ -167,7 +166,6 @@ export default function AddressResellerList() {
                         }}
                     />
                 </Card>
-
                 {/* ADDRESS TABLE */}
                 <Card sx={{ p: 3, mb: 5 }}>
                     <Typography variant="h6" fontWeight={600} mb={2}>Address List</Typography>
@@ -206,78 +204,9 @@ export default function AddressResellerList() {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ fontWeight: 700 }}>Zipcode</TableCell>
-                                <TableCell sx={{ fontWeight: 700 }}>House</TableCell>
-                                <TableCell sx={{ fontWeight: 700 }}>Extension</TableCell>
-                                <TableCell align="right" sx={{ fontWeight: 700 }}>
-                                    Actions
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {filteredAddresses.map((a) => (
-                                <TableRow key={a.id} hover sx={{ transition: "0.2s", "&:hover": { bgcolor: "#f1f5f9" } }}>
-                                    <TableCell>{a.zipCode}</TableCell>
-                                    <TableCell>{a.houseNumber}</TableCell>
-                                    <TableCell>{a.extension}</TableCell>
-
-                                    <TableCell align="right">
-                                        <Button
-                                            startIcon={<EditIcon />}
-                                            onClick={() =>
-                                                navigate(`/address-reseller/edit/address/${a.id}`)
-                                            }
-                                            sx={{
-                                                color: "#2563eb",
-                                                textTransform: "none",
-                                                fontWeight: 600,
-                                            }}
-                                        >
-                                            Edit
-                                        </Button>
-
-                                        <Button
-                                            startIcon={<DeleteIcon />}
-                                            onClick={() =>
-                                                navigate(`/address-reseller/delete/address/${a.id}`)
-                                            }
-                                            sx={{
-                                                color: "#dc2626",
-                                                textTransform: "none",
-                                                fontWeight: 600,
-                                                ml: 1,
-                                            }}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Card>
-
-                {/* ------------------  RESELLER LIST  ------------------ */}
-                <Card
-                    sx={{
-                        p: 3,
-                        borderRadius: 4,
-                        boxShadow: "0 10px 35px rgba(0,0,0,0.06)",
-                    }}
-                >
-                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-                        Reseller List
-                    </Typography>
-
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
-                                <TableCell sx={{ fontWeight: 700 }}>Type</TableCell>
-                                <TableCell align="right" sx={{ fontWeight: 700 }}>
-                                    Actions
-                                </TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Type</TableCell>
+                                <TableCell align="right">Actions</TableCell>
                             </TableRow>
                         </TableHead>
 

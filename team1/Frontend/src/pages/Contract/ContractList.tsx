@@ -1,13 +1,27 @@
 import {
-  Box, Button, Paper, Table, TableHead, TableRow, TableCell,
-  TableBody, Typography, Stack, IconButton
+  Box,
+  Button,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Typography,
+  Stack,
+  IconButton,
+  TextField,
+  Pagination,
 } from "@mui/material";
 
 import {
-  FiEdit, FiTrash2, FiEye, FiPlus
+  FiEdit,
+  FiTrash2,
+  FiEye,
+  FiPlus,
 } from "react-icons/fi";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { ContractApi } from "@/api/contract.api";
@@ -15,7 +29,6 @@ import { ResellerApi } from "@/api/reseller.api";
 import { AddressApi } from "@/api/address.api";
 
 import toast from "react-hot-toast";
-
 import NavMenu from "@/components/NavMenu/NavMenu";
 import ContractFormDrawer from "./ContractFormDrawer";
 import ContractDelete from "./ContractDelete";
@@ -24,57 +37,80 @@ import { useNavigate } from "react-router-dom";
 export default function ContractList() {
   const navigate = useNavigate();
 
+  // Drawer
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
   const [editData, setEditData] = useState<any>(null);
   const [deleteData, setDeleteData] = useState<any>(null);
 
+  // Search
+  const [search, setSearch] = useState("");
+
+  // Pagination
+  const PAGE_SIZE = 10;
+  const [page, setPage] = useState(1);
+  const [pageData, setPageData] = useState<any[]>([]);
+
   // ===============================
-  // LOAD CONTRACTS
+  // LOAD ALL DATA
   // ===============================
-  const { data, isLoading, refetch } = useQuery({
+  const { data: allContracts = [], isLoading, refetch } = useQuery({
     queryKey: ["contracts"],
     queryFn: ContractApi.getContracts,
   });
 
-  const list = data ?? [];
-
-  // ===============================
-  // LOAD RESELLERS
-  // ===============================
-  const { data: resellers = [] } = useQuery<any[]>({
+  const { data: resellers = [] } = useQuery({
     queryKey: ["resellers"],
-    queryFn: () => ResellerApi.getAll(0),
+    queryFn: () => ResellerApi.getAll(),
   });
 
-
-  // ===============================
-  // LOAD ADDRESSES
-  // ===============================
-  const { data: addresses = [] } = useQuery<any[]>({
+  const { data: addresses = [] } = useQuery({
     queryKey: ["addresses"],
-    queryFn: () => AddressApi.getAll(0),
+    queryFn: () => AddressApi.getAll(),
   });
 
-  // ===============================
-  // JOIN FUNCTIONS
-  // ===============================
+  // Helpers
   const getResellerName = (id: any) => {
-    if (!id) return "-";
     const r = resellers.find((x: any) => x.id === id);
     return r ? r.name : "-";
   };
 
   const getAddressText = (id: any) => {
-    if (!id) return "-";
     const a = addresses.find((x: any) => x.id === id);
-    if (!a) return "-";
-
-    return `${a.zipCode} – ${a.houseNumber}${a.extension || ""}`;
+    return a ? `${a.zipCode} – ${a.houseNumber}${a.extension || ""}` : "-";
   };
 
   // ===============================
+  // SEARCH FILTER (FE)
+  // ===============================
+  const filteredList = useMemo(() => {
+    if (!search.trim()) return allContracts;
+    const keyword = search.toLowerCase();
 
+    return allContracts.filter((c: any) => {
+      return (
+        c.contractNumber?.toLowerCase().includes(keyword) ||
+        `${c.firstName} ${c.lastName}`.toLowerCase().includes(keyword) ||
+        c.email?.toLowerCase().includes(keyword)
+      );
+    });
+  }, [search, allContracts]);
+
+  // ===============================
+  // UPDATE PAGE DATA WHEN PAGE OR LIST CHANGES
+  // ===============================
+  useEffect(() => {
+    const startIdx = (page - 1) * PAGE_SIZE;
+    const endIdx = startIdx + PAGE_SIZE;
+
+    setPageData(filteredList.slice(startIdx, endIdx));
+  }, [page, filteredList]);
+
+  const totalPages = Math.ceil(filteredList.length / PAGE_SIZE);
+
+  // ===============================
+  // OPEN FORMS
+  // ===============================
   const openCreate = () => {
     setDrawerMode("create");
     setEditData(null);
@@ -90,6 +126,9 @@ export default function ContractList() {
   if (isLoading)
     return <Typography sx={{ ml: "260px", p: 3 }}>Loading...</Typography>;
 
+  // ===============================
+  // RENDER UI
+  // ===============================
   return (
     <Box sx={{ display: "flex" }}>
       <NavMenu />
@@ -100,16 +139,24 @@ export default function ContractList() {
             Contract Management
           </Typography>
 
-          <Button
-            variant="contained"
-            startIcon={<FiPlus />}
-            onClick={openCreate}
-            sx={{ fontWeight: 600 }}
-          >
+          <Button variant="contained" startIcon={<FiPlus />} onClick={openCreate}>
             Add Contract
           </Button>
         </Stack>
 
+        {/* Search */}
+        <TextField
+          fullWidth
+          placeholder="Search by contract number, name or email..."
+          sx={{ mb: 2 }}
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1); // reset về page 1 khi search
+          }}
+        />
+
+        {/* Table */}
         <Paper sx={{ p: 2 }}>
           <Table>
             <TableHead sx={{ background: "#f8fafc" }}>
@@ -125,24 +172,21 @@ export default function ContractList() {
             </TableHead>
 
             <TableBody>
-              {list.map((c: any) => (
+              {pageData.map((c: any) => (
                 <TableRow key={c.id} hover>
                   <TableCell>{c.id}</TableCell>
                   <TableCell>{c.contractNumber}</TableCell>
                   <TableCell>{c.firstName} {c.lastName}</TableCell>
                   <TableCell>{c.email}</TableCell>
-
-                  {/* 🔥 FIXED: SHOW RESELLER */}
                   <TableCell>{getResellerName(c.resellerId)}</TableCell>
-
-                  {/* 🔥 FIXED: SHOW ADDRESS */}
                   <TableCell>{getAddressText(c.addressId)}</TableCell>
 
                   <TableCell align="right">
-                    <Stack direction="row" spacing={1} justifyContent="end">
+                    <Stack direction="row" spacing={1}>
                       <IconButton onClick={() => navigate(`/contracts/${c.id}/detail`)}>
                         <FiEye />
                       </IconButton>
+
                       <IconButton onClick={() => openEdit(c)}>
                         <FiEdit />
                       </IconButton>
@@ -155,7 +199,7 @@ export default function ContractList() {
                 </TableRow>
               ))}
 
-              {list.length === 0 && (
+              {pageData.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={7} align="center" sx={{ py: 3 }}>
                     No contracts found
@@ -165,8 +209,19 @@ export default function ContractList() {
             </TableBody>
           </Table>
         </Paper>
+
+        {/* Pagination */}
+        <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+          <Pagination
+            count={totalPages}
+            page={page}
+            color="primary"
+            onChange={(e, value) => setPage(value)}
+          />
+        </Box>
       </Box>
 
+      {/* Drawer Create / Edit */}
       <ContractFormDrawer
         open={drawerOpen}
         mode={drawerMode}
@@ -178,6 +233,7 @@ export default function ContractList() {
         }}
       />
 
+      {/* Delete Dialog */}
       <ContractDelete
         open={!!deleteData}
         data={deleteData}

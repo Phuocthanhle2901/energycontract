@@ -1,7 +1,6 @@
 // src/pages/Contract/ContractPDF.tsx
-
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import {
   Box,
@@ -54,6 +53,20 @@ export default function ContractPDF() {
     }
   }, [numericId]);
 
+  // 🔎 CHỈ LẤY ORDER CÙNG CONTRACT
+  const filteredOrders = useMemo(() => {
+    if (!contract) return [];
+
+    // ❗️Giả sử trong Order có field `contractId`.
+    // Nếu backend của bạn dùng field khác (vd: `contractID`, `contract.id`,
+    // hoặc so sánh theo `contractNumber`), hãy đổi điều kiện filter bên dưới cho đúng.
+    return orders.filter((o) => o.contractId === contract.id);
+    // Ví dụ khác:
+    // return orders.filter((o) => o.contract?.id === contract.id);
+    // hoặc:
+    // return orders.filter((o) => o.contractNumber === contract.contractNumber);
+  }, [orders, contract]);
+
   // ───────────────── LOAD DEFAULT TEMPLATE (để Edit PDF) ─────────────────
   useEffect(() => {
     async function loadDefaultTemplate() {
@@ -80,7 +93,6 @@ export default function ContractPDF() {
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const img = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
-
       const width = pdf.internal.pageSize.getWidth();
       const height = (canvas.height * width) / canvas.width;
 
@@ -92,15 +104,17 @@ export default function ContractPDF() {
   // ───────────────── NÚT EDIT PDF TEMPLATE ─────────────────
   const handleEditTemplate = () => {
     if (!defaultTemplateId || !contract) {
-      // nếu chưa có template thì quay về list để user chọn
       navigate("/templates");
       return;
     }
 
-    const firstOrder = orders[0] || {};
+    const firstOrder = filteredOrders[0] || {};
 
     // Chuẩn bị dữ liệu để preview bên TemplateEdit
-    const totalAmount = orders.reduce((sum, o) => sum + (o.topupFee ?? 0), 0);
+    const totalAmount = filteredOrders.reduce(
+      (sum, o) => sum + (o.topupFee ?? 0),
+      0
+    );
 
     const previewVariables = {
       ContractNumber: contract.contractNumber ?? "",
@@ -244,7 +258,7 @@ export default function ContractPDF() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orders.map((order) => (
+                {filteredOrders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell>{order.orderNumber}</TableCell>
                     <TableCell>

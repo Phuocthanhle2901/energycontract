@@ -181,7 +181,7 @@ export default function ContractDetail() {
                 value={contract.bankAccountNumber || "-"}
               />
 
-              <DetailRow label="Notes" value={contract.notes || "No notes"} />
+              <DetailRow label="PDF Link" value={contract.pdfLink || "PDF Link"} />
             </TableBody>
           </Table>
         </Paper>
