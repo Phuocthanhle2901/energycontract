@@ -31,6 +31,10 @@ builder.Services.AddMassTransit(x =>
         {
             e.ConfigureConsumer<AccountCreatedConsumer>(context);
         });
+        cfg.ReceiveEndpoint("invoice-reminder-queue", e =>
+        {
+            e.ConfigureConsumer<InvoiceReminderConsumer>(context);
+        });
     });
 });
 

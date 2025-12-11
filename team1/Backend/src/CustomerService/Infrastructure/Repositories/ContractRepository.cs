@@ -33,7 +33,8 @@ public class ContractRepository : IContractRepository
                 ContractNumber = contract.ContractNumber,
                 Email = contract.Email,
                 FullName = $"{contract.FirstName} {contract.LastName}",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                FinishedAt = contract.EndDate
             });
         }
         catch (Exception ex)
