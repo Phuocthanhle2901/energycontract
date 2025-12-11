@@ -1,56 +1,23 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import ResellerApi from "@/api/reseller.api";
+import { useQuery } from "@tanstack/react-query";
+import { ResellerApi } from "@/api/reseller.api";
 
-// 🟩 Lấy danh sách reseller
-export function useResellers() {
+export const RESELLER_KEYS = {
+    all: ["resellers"] as const,
+    list: (params: any) => ["resellers", params] as const,
+    detail: (id: number) => ["reseller", id] as const,
+};
+
+export function useResellers(params: any) {
     return useQuery({
-        queryKey: ["resellers"],
-        queryFn: ResellerApi.getAll,
+        queryKey: RESELLER_KEYS.list(params),
+        queryFn: () => ResellerApi.getAll(params),
     });
 }
 
-// 🟩 Lấy reseller theo ID
 export function useReseller(id: number) {
     return useQuery({
-        queryKey: ["reseller", id],
+        queryKey: RESELLER_KEYS.detail(id),
         queryFn: () => ResellerApi.getById(id),
         enabled: !!id,
-    });
-}
-
-// 🟩 Create reseller
-export function useCreateReseller() {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-        mutationFn: ResellerApi.create,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["resellers"] });
-        },
-    });
-}
-
-// 🟩 Update reseller
-export function useUpdateReseller(id: number) {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-        mutationFn: (data) => ResellerApi.update(id, data),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["resellers"] });
-            queryClient.invalidateQueries({ queryKey: ["reseller", id] });
-        },
-    });
-}
-
-// 🟩 Delete reseller
-export function useDeleteReseller() {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-        mutationFn: ResellerApi.delete,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["resellers"] });
-        },
     });
 }

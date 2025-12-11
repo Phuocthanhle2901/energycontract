@@ -3,38 +3,35 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 const axiosClient = axios.create({
     baseURL: "http://localhost:5000/api",
-    withCredentials: true,
+    withCredentials: true, // refresh token dùng cookie HttpOnly
 });
 
-// REQUEST → attach accessToken
-axiosClient.interceptors.request.use(
-    (config) => {
-        const token = useAuthStore.getState().accessToken;
+// ===========================
+// REQUEST → gắn access token
+// ===========================
+axiosClient.interceptors.request.use((config) => {
+    const token = useAuthStore.getState().accessToken;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+});
 
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
-
-// RESPONSE → auto refresh token
+// ===========================
+// RESPONSE → refresh token
+// ===========================
 axiosClient.interceptors.response.use(
-    (response) => response,
+    (res) => res,
     async (error) => {
         const original = error.config;
         const store = useAuthStore.getState();
 
-        // Nếu token hết hạn → refresh
         if (error.response?.status === 401 && !original._retry) {
             original._retry = true;
 
             try {
+                // ⚠️ Swagger: refresh-token KHÔNG có body
                 const res = await axios.post(
                     "http://localhost:5002/api/auth/refresh-token",
-                    { refreshToken: store.refreshToken },
+                    {},
                     { withCredentials: true }
                 );
 

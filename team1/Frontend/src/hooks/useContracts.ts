@@ -1,56 +1,80 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ContractApi } from "@/api/contract.api";
 
-// 🟩 Lấy danh sách contract
-export function useContracts() {
+export const CONTRACT_KEYS = {
+    all: ["contracts"] as const,
+    list: (params: any) => ["contracts", params] as const,
+    detail: (id: number) => ["contract", id] as const,
+};
+
+// ===============================
+// GET LIST CONTRACTS
+// ===============================
+export function useContracts(params?: any) {
     return useQuery({
-        queryKey: ["contracts"],
-        queryFn: ContractApi.getContracts,
+        queryKey: CONTRACT_KEYS.list(params),
+        queryFn: () => ContractApi.getAll(params),
+
+        // giữ lại data cũ khi đổi trang
+        placeholderData: (prev) => prev,
     });
 }
 
-// 🟩 Lấy 1 contract theo ID
-export function useContract(id: number) {
+// ===============================
+// GET CONTRACT BY ID
+// ===============================
+export function useContract(id?: number) {
     return useQuery({
-        queryKey: ["contract", id],
-        queryFn: () => ContractApi.getById(id),
-        enabled: !!id, // chỉ chạy khi id tồn tại
+        queryKey: CONTRACT_KEYS.detail(id!),
+        queryFn: () => ContractApi.getById(id!),
+        enabled: !!id,
     });
 }
 
-// 🟩 Tạo contract
+// ===============================
+// CREATE CONTRACT
+// ===============================
 export function useCreateContract() {
-    const queryClient = useQueryClient();
+    const qc = useQueryClient();
 
     return useMutation({
-        mutationFn: ContractApi.create,
+        mutationFn: (data: any) => ContractApi.create(data),
+
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["contracts"] });
+            qc.invalidateQueries({ queryKey: CONTRACT_KEYS.all });
         },
     });
 }
 
-// 🟩 Update contract
-export function useUpdateContract(id: number) {
-    const queryClient = useQueryClient();
+// ===============================
+// UPDATE CONTRACT
+// ===============================
+export function useUpdateContract() {
+    const qc = useQueryClient();
 
     return useMutation({
-        mutationFn: (data) => ContractApi.update(id, data),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["contracts"] });
-            queryClient.invalidateQueries({ queryKey: ["contract", id] });
+        mutationFn: (payload: { id: number; body: any }) =>
+            ContractApi.update(payload.id, payload.body),
+
+        onSuccess: (_data, payload) => {
+            qc.invalidateQueries({ queryKey: CONTRACT_KEYS.all });
+            qc.invalidateQueries({ queryKey: CONTRACT_KEYS.detail(payload.id) });
         },
     });
 }
 
-// 🟩 Delete contract
+// ===============================
+// DELETE CONTRACT
+// ===============================
 export function useDeleteContract() {
-    const queryClient = useQueryClient();
+    const qc = useQueryClient();
 
     return useMutation({
         mutationFn: (id: number) => ContractApi.delete(id),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["contracts"] });
+
+        onSuccess: (_data, id) => {
+            qc.invalidateQueries({ queryKey: CONTRACT_KEYS.all });
+            qc.invalidateQueries({ queryKey: CONTRACT_KEYS.detail(id) });
         },
     });
 }

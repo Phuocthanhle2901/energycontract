@@ -3,7 +3,8 @@ import * as yup from "yup";
 export const resellerSchema = yup.object({
     name: yup
         .string()
-        .required("Reseller name is required"),
+        .required("Reseller name is required")
+        .trim(),
 
     type: yup
         .string()

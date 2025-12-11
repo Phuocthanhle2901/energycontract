@@ -1,80 +1,46 @@
-import {
-    Box,
-    Paper,
-    Typography,
-    TextField,
-    Button,
-    Stack,
-} from "@mui/material";
-
-import NavMenu from "@/components/NavMenu/NavMenu";
-import { useNavigate } from "react-router-dom";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Stack } from "@mui/material";
+import { useState } from "react";
 import { useAddressForm } from "@/hooks/useAddressForm";
 
-export default function AddressCreate() {
+export default function AddressCreate({ open, onClose, onSaved }: any) {
+    const { submitCreate, loading } = useAddressForm();
 
-    const navigate = useNavigate();
+    const [form, setForm] = useState({
+        zipCode: "",
+        houseNumber: "",
+        extension: "",
+    });
 
-    const {
-        form,
-        handleChange,
-        handleSubmit,
-        loading
-    } = useAddressForm(undefined);
+    const change = (e: any) => {
+        const { name, value } = e.target;
+        setForm((p) => ({ ...p, [name]: value }));
+    };
 
-    const onSubmit = () => {
-        handleSubmit(() => navigate("/address-reseller"));
+    const submit = () => {
+        submitCreate(form, () => {
+            onSaved?.();
+            onClose();
+        });
     };
 
     return (
-        <Box sx={{ display: "flex" }}>
-            <NavMenu />
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+            <DialogTitle>Create Address</DialogTitle>
 
-            <Box sx={{ ml: "240px", p: 4, width: "100%" }}>
-                <Paper sx={{ maxWidth: 600, mx: "auto", p: 4 }}>
-                    <Typography variant="h4" fontWeight={700} mb={3}>
-                        Create Address
-                    </Typography>
+            <DialogContent>
+                <Stack spacing={2}>
+                    <TextField label="Zip Code" name="zipCode" value={form.zipCode} onChange={change} />
+                    <TextField label="House Number" name="houseNumber" value={form.houseNumber} onChange={change} />
+                    <TextField label="Extension" name="extension" value={form.extension} onChange={change} />
+                </Stack>
+            </DialogContent>
 
-                    <Stack spacing={2}>
-                        <TextField
-                            label="Zipcode"
-                            name="zipCode"
-                            value={form.zipCode}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-
-                        <TextField
-                            label="House Number"
-                            name="houseNumber"
-                            value={form.houseNumber}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-
-                        <TextField
-                            label="Extension"
-                            name="extension"
-                            value={form.extension}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-
-                        <Button
-                            variant="contained"
-                            onClick={onSubmit}
-                            disabled={loading}
-                        >
-                            {loading ? "Creating..." : "Create"}
-                        </Button>
-
-                        <Button variant="outlined" onClick={() => navigate("/address-reseller")}>
-                            Cancel
-                        </Button>
-                    </Stack>
-                </Paper>
-            </Box>
-        </Box>
+            <DialogActions>
+                <Button onClick={onClose}>Cancel</Button>
+                <Button onClick={submit} variant="contained" disabled={loading}>
+                    Save
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 }

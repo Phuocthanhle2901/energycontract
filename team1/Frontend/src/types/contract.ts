@@ -1,31 +1,23 @@
-
-
-import type { ReactNode } from "react";
-
-export interface Contract {
-  resellerName: ReactNode;
-  contractNumber: ReactNode;
-  address: any;
-
-  orders: any;
-  id?: number;
+export interface ContractCreate {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  companyName: string;
   startDate: string;
   endDate: string;
-  status: string;
+  companyName: string;
   bankAccountNumber: string;
   pdfLink: string;
   resellerId: number;
   addressId: number;
 }
 
-export interface ContractCreateInput {
+export interface ContractDto {
+  id: number;
+  contractNumber: string;
   firstName: string;
   lastName: string;
+  customerName: string;
   email: string;
   phone: string;
   companyName: string;
@@ -33,6 +25,18 @@ export interface ContractCreateInput {
   endDate: string;
   bankAccountNumber: string;
   pdfLink: string;
-  resellerId: number;
   addressId: number;
+  addressZipCode: string;
+  addressHouseNumber: string;
+  resellerId: number;
+  resellerName: string;
+  resellerType: string;
+}
+
+export interface ContractPaged {
+  items: ContractDto[];
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
 }

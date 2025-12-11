@@ -1,52 +1,31 @@
-import { useEffect, useState } from "react";
-import { AddressApi } from "../api/address.api";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AddressApi } from "@/api/address.api";
+import { ADDRESS_KEYS } from "./useAddresses";
 
 export function useAddressForm(id?: number) {
-    const [form, setForm] = useState({
-        zipCode: "",
-        houseNumber: "",
-        extension: "",
+    const qc = useQueryClient();
+
+    const create = useMutation({
+        mutationFn: AddressApi.create,
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ADDRESS_KEYS.all });
+        },
     });
 
-    const [loading, setLoading] = useState(false);
+    const update = useMutation({
+        mutationFn: (data: any) => AddressApi.update(id!, data),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ADDRESS_KEYS.all });
+            qc.invalidateQueries({ queryKey: ADDRESS_KEYS.detail(id!) });
+        },
+    });
 
-    // FETCH WHEN EDIT
-    useEffect(() => {
-        if (!id) return;
+    const remove = useMutation({
+        mutationFn: (id: number) => AddressApi.delete(id),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ADDRESS_KEYS.all });
+        },
+    });
 
-        setLoading(true);
-        AddressApi.getById(id)
-            .then((res: { zipCode: any; houseNumber: any; extension: any; }) => {
-                setForm({
-                    zipCode: res.zipCode || "",
-                    houseNumber: res.houseNumber || "",
-                    extension: res.extension || "",
-                });
-            })
-            .finally(() => setLoading(false));
-    }, [id]);
-
-    // HANDLE CHANGE
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-    };
-
-    // SUBMIT
-    const handleSubmit = async (onSuccess: () => void) => {
-        try {
-            setLoading(true);
-            if (id) {
-                await AddressApi.update(id, form);
-            } else {
-                await AddressApi.create(form);
-            }
-            onSuccess();
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return { form, handleChange, handleSubmit, loading };
+    return { create, update, remove };
 }

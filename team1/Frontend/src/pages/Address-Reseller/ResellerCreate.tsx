@@ -1,81 +1,61 @@
 import {
-    Box,
-    Paper,
-    Typography,
-    TextField,
-    Button,
-    Stack,
-    MenuItem
+    Dialog, DialogTitle, DialogContent, DialogActions,
+    TextField, Button, MenuItem
 } from "@mui/material";
-
-import NavMenu from "@/components/NavMenu/NavMenu";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useResellerForm } from "@/hooks/useResellerForm";
 
-export default function ResellerCreate() {
+export default function ResellerCreate({ open, onClose }: any) {
+    const { create } = useResellerForm();
 
-    const navigate = useNavigate();
+    const [form, setForm] = useState({
+        name: "",
+        type: "Broker",
+    });
 
-    // ✅ Create mode → KHÔNG truyền id
-    const {
-        form,
-        handleChange,
-        handleSubmit,
-        loading
-    } = useResellerForm(undefined);
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setForm((p) => ({ ...p, [name]: value }));
+    };
 
-    const onSubmit = () => {
-        handleSubmit(() => navigate("/address-reseller"));
+    const save = () => {
+        create.mutate(form, {
+            onSuccess: () => onClose(),
+        });
     };
 
     return (
-        <Box sx={{ display: "flex" }}>
-            <NavMenu />
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+            <DialogTitle>Create Reseller</DialogTitle>
 
-            <Box sx={{ ml: "240px", p: 4, width: "100%" }}>
-                <Paper sx={{ maxWidth: 600, mx: "auto", p: 4 }}>
-                    <Typography variant="h4" fontWeight={700} mb={3}>
-                        Create Reseller
-                    </Typography>
+            <DialogContent>
+                <TextField
+                    label="Name"
+                    name="name"
+                    fullWidth
+                    margin="dense"
+                    value={form.name}
+                    onChange={handleChange}
+                />
 
-                    <Stack spacing={2}>
-                        <TextField
-                            label="Name"
-                            name="name"
-                            value={form.name}
-                            onChange={handleChange}
-                            fullWidth
-                        />
+                <TextField
+                    label="Type"
+                    name="type"
+                    fullWidth
+                    margin="dense"
+                    select
+                    value={form.type}
+                    onChange={handleChange}
+                >
+                    <MenuItem value="Broker">Broker</MenuItem>
+                    <MenuItem value="Agency">Agency</MenuItem>
+                </TextField>
+            </DialogContent>
 
-                        <TextField
-                            label="Type"
-                            name="type"
-                            select
-                            value={form.type}
-                            onChange={handleChange}
-                            fullWidth
-                        >
-                            <MenuItem value="Broker">Broker</MenuItem>
-                            <MenuItem value="Agency">Agency</MenuItem>
-                        </TextField>
-
-                        <Button
-                            variant="contained"
-                            onClick={onSubmit}
-                            disabled={loading}
-                        >
-                            {loading ? "Creating..." : "Create"}
-                        </Button>
-
-                        <Button
-                            variant="outlined"
-                            onClick={() => navigate("/address-reseller")}
-                        >
-                            Cancel
-                        </Button>
-                    </Stack>
-                </Paper>
-            </Box>
-        </Box>
+            <DialogActions>
+                <Button onClick={onClose}>Cancel</Button>
+                <Button variant="contained" onClick={save}>Save</Button>
+            </DialogActions>
+        </Dialog>
     );
 }

@@ -58,4 +58,3 @@ export default function OrderDelete() {
 function useOrderById(arg0: number): { data: any; isLoading: any; } {
     throw new Error("Function not implemented.");
 }
-

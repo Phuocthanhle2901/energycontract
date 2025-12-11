@@ -1,25 +1,23 @@
 import axios from "axios";
 
-const pdfApi = axios.create({
-    baseURL: "http://localhost:5001/api",
-    headers: { "Content-Type": "application/json" },
+const pdfClient = axios.create({
+    baseURL: import.meta.env.VITE_PDF_URL || "http://localhost:5001/api",
+    withCredentials: false,
+});
+
+pdfClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
 });
 
 export const PdfApi = {
-    generateContractPdf: (data: {
-        contractNumber: string;
-        startDate: string;
-        endDate: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        phone: string;
-        companyName: string;
-        bankAccountNumber: string;
-        addressLine: string;
-        totalAmount: number;
-        currency: string;
-    }) => pdfApi.post("/pdf-contract/generate", data).then(res => res.data),
+    generate: (data: any) =>
+        pdfClient.post("/pdf-contract/generate", data).then(res => res.data),
 
-    health: () => pdfApi.get("/pdf-contract/health").then(res => res.data),
+    health: () =>
+        pdfClient.get("/pdf-contract/health").then(res => res.data),
 };

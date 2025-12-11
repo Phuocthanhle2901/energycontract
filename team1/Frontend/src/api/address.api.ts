@@ -1,29 +1,19 @@
 import axiosClient from "./axiosClient";
 
 export const AddressApi = {
-    getAll: async (limit: number = 0) => {
-        const res = await axiosClient.get(`/addresses?limit=${limit}`);
-        return res.data;
-    },
+    getAll: (params?: any) =>
+        axiosClient.get("/addresses", { params }).then(res => res.data),
 
+    getById: (id: number) =>
+        axiosClient.get(`/addresses/${id}`).then(res => res.data),
 
-    getById: async (id: number) => {
-        const res = await axiosClient.get(`/addresses/${id}`);
-        return res.data;
-    },
+    create: (data: any) =>
+        axiosClient.post("/addresses", data).then(res => res.data),
 
-    create: async (data: any) => {
-        const res = await axiosClient.post("/addresses", data);
-        return res.data;
-    },
+    update: (id: number, data: any) =>
+        axiosClient.put(`/addresses/${id}`, data).then(res => res.data),
 
-    update: async (id: number, data: any) => {
-        const res = await axiosClient.put(`/addresses/${id}`, data);
-        return res.data;
-    },
-
-    delete: async (id: number) => {
-        const res = await axiosClient.delete(`/addresses/${id}`);
-        return res.data;
-    },
+    delete: (id: number) =>
+        axiosClient.delete(`/addresses/{id}`.replace("{id}", id.toString()))
+            .then(res => res.data),
 };

@@ -1,44 +1,37 @@
+// useAuth.ts
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@/services/authService/authService";
 import { useAuthStore } from "@/stores/useAuthStore";
 
-// ============== LOGIN ==============
+// LOGIN
 export const useLogin = () => {
     const navigate = useNavigate();
-    const setTokens = useAuthStore((s) => s.setTokens);
+    const setAuth = useAuthStore((s) => s.setAuth);
 
     return useMutation({
         mutationFn: authService.login,
 
         onSuccess: (res) => {
-            setTokens({
-                accessToken: res.accessToken,
-                refreshToken: res.refreshToken,
-            });
-
+            setAuth(res.accessToken, res.user);
             toast.success("Login successful!");
             navigate("/home");
         },
 
-        onError: (err: any) => {
-            toast.error(err?.response?.data?.message || "Login failed!");
-        }
+        onError: () => toast.error("Invalid username or password"),
     });
 };
 
-// ============== REGISTER ==============
-export const useRegister = () => {
-    return useMutation({
+// REGISTER
+export const useRegister = () =>
+    useMutation({
         mutationFn: authService.register,
-
         onSuccess: () => toast.success("Register successful!"),
-        onError: () => toast.error("Register failed!")
+        onError: () => toast.error("Register failed"),
     });
-};
 
-// ============== ME ==============
+// ME
 export const useUser = () => {
     const token = useAuthStore((s) => s.accessToken);
 
@@ -49,18 +42,18 @@ export const useUser = () => {
     });
 };
 
-// ============== LOGOUT ==============
+// LOGOUT
 export const useLogout = () => {
     const navigate = useNavigate();
-    const clearTokens = useAuthStore((s) => s.clearTokens);
+    const clearAuth = useAuthStore((s) => s.clearAuth);
 
     return useMutation({
         mutationFn: authService.logout,
 
         onSuccess: () => {
-            clearTokens();
-            toast.success("Logged out");
+            clearAuth();
             navigate("/signin");
-        }
+            toast.success("Logged out");
+        },
     });
 };

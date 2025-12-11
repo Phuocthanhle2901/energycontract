@@ -1,62 +1,27 @@
-import { useEffect, useState } from "react";
-import ResellerApi from "@/api/reseller.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ResellerApi } from "@/api/reseller.api";
+import { RESELLER_KEYS } from "./useResellers";
 
 export function useResellerForm(id?: number) {
-    const [form, setForm] = useState({
-        name: "",
-        type: "Broker",
+    const qc = useQueryClient();
+
+    const create = useMutation({
+        mutationFn: ResellerApi.create,
+        onSuccess: () => qc.invalidateQueries({ queryKey: RESELLER_KEYS.all }),
     });
 
-    const [loading, setLoading] = useState(false);
+    const update = useMutation({
+        mutationFn: (data: any) => ResellerApi.update(id!, data),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: RESELLER_KEYS.all });
+            qc.invalidateQueries({ queryKey: RESELLER_KEYS.detail(id!) });
+        },
+    });
 
-    // --- LOAD DATA WHEN EDIT ---
-    useEffect(() => {
-        if (!id) return;
+    const remove = useMutation({
+        mutationFn: (id: number) => ResellerApi.delete(id),
+        onSuccess: () => qc.invalidateQueries({ queryKey: RESELLER_KEYS.all }),
+    });
 
-        setLoading(true);
-        ResellerApi.getById(id)
-            .then((data) => {
-                setForm({
-                    name: data.name || "",
-                    type: data.type || "Broker",
-                });
-            })
-            .finally(() => setLoading(false));
-    }, [id]);
-
-    // --- HANDLE CHANGE ---
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    // --- SUBMIT (CREATE / UPDATE) ---
-    const handleSubmit = async (onSuccess: () => void) => {
-        try {
-            setLoading(true);
-
-            if (id) {
-                // Update reseller
-                await ResellerApi.update(id, form);
-            } else {
-                // Create reseller
-                await ResellerApi.create(form);
-            }
-
-            onSuccess();
-
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return {
-        form,
-        handleChange,
-        handleSubmit,
-        loading,
-    };
+    return { create, update, remove };
 }

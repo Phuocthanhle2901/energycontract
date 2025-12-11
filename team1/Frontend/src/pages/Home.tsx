@@ -9,15 +9,21 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // ===================== FETCH CONTRACT DATA =====================
   useEffect(() => {
-    ContractApi.getContracts()
+    setLoading(true);
+
+    ContractApi.getAll()
       .then((data) => {
-        setContracts(Array.isArray(data) ? data : []);
+        setContracts(Array.isArray(data.items) ? data.items : []);
+      })
+      .catch(() => {
+        setContracts([]);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  // -------------------- CALCULATIONS ----------------------
+  // ===================== CALCULATIONS =====================
 
   const activeContracts = contracts.filter((c) => {
     if (!c?.endDate) return false;
@@ -30,6 +36,8 @@ export default function Home() {
     const orderList = Array.isArray(c?.orders) ? c.orders : [];
     return sum + orderList.length;
   }, 0);
+
+  // ===================== UI ======================
 
   return (
     <div style={{ display: "flex" }}>
@@ -78,10 +86,14 @@ export default function Home() {
             <div className="stat-number">{contracts.length}</div>
 
             <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
-              <span className="status-badge status-active">{activeContracts} Active</span>
+              <span className="status-badge status-active">
+                {activeContracts} Active
+              </span>
 
               {expiredContracts > 0 && (
-                <span className="status-badge status-expired">{expiredContracts} Expired</span>
+                <span className="status-badge status-expired">
+                  {expiredContracts} Expired
+                </span>
               )}
             </div>
           </div>
@@ -109,10 +121,7 @@ export default function Home() {
         <div className="card" style={{ marginTop: "3rem" }}>
           <div className="recent-contracts-header">
             <h2>📄 Recent Contracts</h2>
-            <button
-              className="btn-primary"
-              onClick={() => navigate("/contracts")}
-            >
+            <button className="btn-primary" onClick={() => navigate("/contracts/list")}>
               View All →
             </button>
           </div>
@@ -127,16 +136,10 @@ export default function Home() {
             /* EMPTY STATE */
             <div style={{ textAlign: "center", padding: "3rem" }}>
               <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📭</div>
-              <p
-                className="muted"
-                style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}
-              >
+              <p className="muted" style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
                 No contracts yet. Create your first contract!
               </p>
-              <button
-                className="btn-primary"
-                onClick={() => navigate("/contracts/new")}
-              >
+              <button className="btn-primary" onClick={() => navigate("/contracts/create")}>
                 Create First Contract
               </button>
             </div>

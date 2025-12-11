@@ -1,346 +1,217 @@
+import React, { useEffect, useState } from "react";
 import {
-    Drawer, Box, Typography, IconButton, Divider, Stack,
-    TextField, MenuItem, Button
+    Drawer,
+    Box,
+    Typography,
+    IconButton,
+    TextField,
+    Button,
+    Stack,
+    MenuItem,
+    Divider,
 } from "@mui/material";
 
 import { FiX } from "react-icons/fi";
-import { useEffect } from "react";
-
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import { ContractApi } from "@/api/contract.api";
 import { AddressApi } from "@/api/address.api";
 import { ResellerApi } from "@/api/reseller.api";
 
-import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-
-// =============================
-// FORM TYPE
-// =============================
-export interface ContractFormValues {
-    contractNumber: string;      // chỉ dùng để hiển thị, BE không nhận
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string | null;
-    companyName: string | null;
-    bankAccountNumber: string | null;
-    resellerId: string;
-    addressId: string;
-    notes: string | null;        // BE không nhận, chỉ lưu FE nếu muốn
-    startDate: string | null;
-    endDate: string | null;
-}
-
-// =============================
-// PROPS
-// =============================
-interface ContractFormDrawerProps {
-    open: boolean;
-    mode: "create" | "edit";
-    initialData?: any;
-    onClose: () => void;
-    onSaved?: () => void;
-}
-
-// =============================
-// YUP SCHEMA
-// =============================
-const schema = yup.object({
-    contractNumber: yup.string(), // không required vì BE không cần
-    firstName: yup.string().required("Required"),
-    lastName: yup.string().required("Required"),
-    email: yup.string().email().required("Required"),
-
-    phone: yup.string().nullable(),
-    companyName: yup.string().nullable(),
-    bankAccountNumber: yup.string().nullable(),
-
-    resellerId: yup.string().required("Select reseller"),
-    addressId: yup.string().required("Select address"),
-
-    notes: yup.string().nullable(),
-    startDate: yup.string().nullable(),
-    endDate: yup.string().nullable(),
-});
-
-export default function ContractFormDrawer({
-    open,
-    mode,
-    initialData,
-    onClose,
-    onSaved,
-}: ContractFormDrawerProps) {
-
+export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess }) {
     const isEdit = mode === "edit";
 
-    // ================================
-    // QUERY DATA
-    // ================================
-    const { data: addresses = [] } = useQuery({
-        queryKey: ["addresses"],
-        queryFn: () => AddressApi.getAll(),
-    });
+    const [resellers, setResellers] = useState([]);
+    const [addresses, setAddresses] = useState([]);
+    const [initialData, setInitialData] = useState(null);
 
-    const { data: resellers = [] } = useQuery({
-        queryKey: ["resellers"],
-        queryFn: () => ResellerApi.getAll(),
-    });
-
-    // ================================
-    // FORM CONFIG
-    // ================================
     const {
         register,
         handleSubmit,
         reset,
         watch,
-        formState: { errors }
-    } = useForm<ContractFormValues>({
-        resolver: yupResolver(schema),
+    } = useForm({
         defaultValues: {
-            contractNumber: "",
             firstName: "",
             lastName: "",
             email: "",
             phone: "",
             companyName: "",
             bankAccountNumber: "",
-            resellerId: "",
-            addressId: "",
-            notes: "",
             startDate: "",
             endDate: "",
+            resellerId: "",
+            addressId: "",
         },
     });
 
-    // ================================
-    // EDIT MODE — RESET FORM DATA
-    // ================================
     useEffect(() => {
-        if (!isEdit || !initialData) {
-            // nếu create thì reset trắng
-            if (!isEdit) {
+        ResellerApi.getAll({ PageNumber: 1, PageSize: 99 }).then((res) =>
+            setResellers(res.items || [])
+        );
+        AddressApi.getAll({ PageNumber: 1, PageSize: 99 }).then((res) =>
+            setAddresses(res.items || [])
+        );
+    }, []);
+
+    // LOAD DATA INTO FORM
+    useEffect(() => {
+        if (!open) return;
+
+        if (isEdit && id) {
+            ContractApi.getById(id).then((data) => {
+                setInitialData(data);
+
                 reset({
-                    contractNumber: "",
-                    firstName: "",
-                    lastName: "",
-                    email: "",
-                    phone: "",
-                    companyName: "",
-                    bankAccountNumber: "",
-                    resellerId: "",
-                    addressId: "",
-                    notes: "",
-                    startDate: "",
-                    endDate: "",
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    phone: data.phone,
+                    companyName: data.companyName ?? "",
+                    bankAccountNumber: data.bankAccountNumber ?? "",
+                    startDate: data.startDate?.split("T")[0],
+                    endDate: data.endDate?.split("T")[0],
+                    resellerId: String(data.resellerId),
+                    addressId: String(data.addressId),
                 });
-            }
-            return;
+            });
+        } else {
+            reset({});
         }
+    }, [open, isEdit, id, reset]);
 
-        reset({
-            contractNumber: initialData.contractNumber ?? "",
-            firstName: initialData.firstName ?? "",
-            lastName: initialData.lastName ?? "",
-            email: initialData.email ?? "",
-            phone: initialData.phone ?? "",
-            companyName: initialData.companyName ?? "",
-            bankAccountNumber: initialData.bankAccountNumber ?? "",
-            resellerId: initialData.resellerId ? String(initialData.resellerId) : "",
-            addressId: initialData.addressId ? String(initialData.addressId) : "",
-            notes: initialData.notes ?? "",
-            startDate: initialData.startDate?.slice(0, 10) ?? "",
-            endDate: initialData.endDate?.slice(0, 10) ?? "",
-        });
-    }, [initialData, isEdit, reset]);
+    // SUBMIT HANDLER
+    const onSubmit = async (form) => {
 
-    // ================================
-    // SUBMIT FORM
-    // ================================
-    const onSubmit: SubmitHandler<ContractFormValues> = async (form) => {
-        const payloadBase = {
+        const payload = {
             firstName: form.firstName,
             lastName: form.lastName,
             email: form.email,
-            phone: form.phone || "",
-            startDate: form.startDate ? new Date(form.startDate).toISOString() : null,
-            endDate: form.endDate ? new Date(form.endDate).toISOString() : null,
-            companyName: form.companyName || "",
-            bankAccountNumber: form.bankAccountNumber || "",
+            phone: form.phone,
+            companyName: form.companyName ?? "",
+            bankAccountNumber: form.bankAccountNumber ?? "",
             resellerId: Number(form.resellerId),
             addressId: Number(form.addressId),
+
+            startDate: form.startDate
+                ? form.startDate + "T00:00:00Z"
+                : null,
+
+            endDate: form.endDate
+                ? form.endDate + "T00:00:00Z"
+                : null,
+
+            pdfLink: initialData?.pdfLink || "",
         };
+
+        console.log("FINAL PAYLOAD SENT TO API:", payload);
 
         try {
             if (isEdit) {
-                if (!initialData?.id) {
-                    toast.error("Missing contract id");
-                    return;
-                }
-
-                const payload = {
-                    id: initialData.id,
-                    pdfLink: initialData.pdfLink ?? "",
-                    ...payloadBase,
-                };
-
-                console.log("UPDATE PAYLOAD:", payload);
-
-                await ContractApi.update(initialData.id, payload);
-                toast.success("Updated successfully");
+                await ContractApi.update(id, payload);
+                toast.success("Contract updated!");
             } else {
-                const payload = {
-                    pdfLink: "",
-                    ...payloadBase,
-                };
-
-                console.log("CREATE PAYLOAD:", payload);
-
                 await ContractApi.create(payload);
-                toast.success("Created successfully");
+                toast.success("Contract created!");
             }
 
-            onSaved?.();
+            onSuccess?.();
             onClose();
+
         } catch (err) {
-            console.error("ERROR PAYLOAD:", isEdit ? "UPDATE" : "CREATE", {
-                ...(isEdit && { id: initialData?.id }),
-                ...payloadBase,
-            });
-            toast.error("Failed to save contract");
+            console.error("SAVE ERROR:", err);
+            toast.error("Failed to save contract!");
         }
     };
 
-    // ================================
-    // UI
-    // ================================
     return (
-        <Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: 480 } }}>
-            <Box sx={{ p: 3 }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography variant="h5" fontWeight={700}>
-                        {isEdit ? "Edit Contract" : "Create Contract"}
-                    </Typography>
-
-                    <IconButton onClick={onClose}>
-                        <FiX />
-                    </IconButton>
-                </Stack>
-
-                <Divider sx={{ my: 2 }} />
-
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Stack spacing={2}>
-
-                        {/* Contract Number: chỉ hiển thị ở edit */}
-                        <TextField
-                            label="Contract Number"
-                            {...register("contractNumber")}
-                            disabled={!isEdit}
-                            error={!!errors.contractNumber}
-                            helperText={
-                                isEdit
-                                    ? errors.contractNumber?.message
-                                    : "Auto generated after create"
-                            }
-                        />
-
-                        <Stack direction="row" spacing={2}>
-                            <TextField
-                                label="First Name"
-                                fullWidth
-                                {...register("firstName")}
-                                error={!!errors.firstName}
-                                helperText={errors.firstName?.message}
-                            />
-
-                            <TextField
-                                label="Last Name"
-                                fullWidth
-                                {...register("lastName")}
-                                error={!!errors.lastName}
-                                helperText={errors.lastName?.message}
-                            />
-                        </Stack>
-
-                        <TextField
-                            label="Email"
-                            {...register("email")}
-                            error={!!errors.email}
-                            helperText={errors.email?.message}
-                        />
-
-                        <TextField label="Phone" {...register("phone")} />
-
-                        {/* DATES */}
-                        <Stack direction="row" spacing={2}>
-                            <TextField
-                                type="date"
-                                label="Start Date"
-                                InputLabelProps={{ shrink: true }}
-                                {...register("startDate")}
-                                value={watch("startDate") || ""}
-                            />
-
-                            <TextField
-                                type="date"
-                                label="End Date"
-                                InputLabelProps={{ shrink: true }}
-                                {...register("endDate")}
-                                value={watch("endDate") || ""}
-                            />
-                        </Stack>
-
-                        <TextField label="Company Name" {...register("companyName")} />
-                        <TextField label="Bank Account Number" {...register("bankAccountNumber")} />
-
-                        {/* SELECT: RESELLER */}
-                        <TextField
-                            select
-                            label="Reseller"
-                            {...register("resellerId")}
-                            value={watch("resellerId") || ""}
-                            error={!!errors.resellerId}
-                            helperText={errors.resellerId?.message}
-                        >
-                            {resellers.map((r: any) => (
-                                <MenuItem key={r.id} value={r.id}>
-                                    {r.name} ({r.type})
-                                </MenuItem>
-                            ))}
-                        </TextField>
-
-                        {/* SELECT: ADDRESS */}
-                        <TextField
-                            select
-                            label="Address"
-                            {...register("addressId")}
-                            value={watch("addressId") || ""}
-                            error={!!errors.addressId}
-                            helperText={errors.addressId?.message}
-                        >
-                            {addresses.map((a: any) => (
-                                <MenuItem key={a.id} value={a.id}>
-                                    {a.zipCode} — {a.houseNumber} {a.extension}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-
-                        <TextField multiline rows={3} label="Notes" {...register("notes")} />
-
-                        <Stack direction="row" justifyContent="flex-end" spacing={2} mt={3}>
-                            <Button onClick={onClose}>Cancel</Button>
-                            <Button variant="contained" type="submit">
-                                {isEdit ? "Update" : "Create"}
-                            </Button>
-                        </Stack>
-                    </Stack>
-                </form>
+        <Drawer anchor="right" open={open} onClose={onClose}
+            PaperProps={{ sx: { width: 420, p: 3 } }}
+        >
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h6">
+                    {isEdit ? "Edit Contract" : "Create Contract"}
+                </Typography>
+                <IconButton onClick={onClose}>
+                    <FiX />
+                </IconButton>
             </Box>
+
+            <Divider sx={{ my: 2 }} />
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Stack spacing={2}>
+
+                    <TextField label="First Name" {...register("firstName")} />
+
+                    <TextField label="Last Name" {...register("lastName")} />
+
+                    <TextField label="Email" {...register("email")} />
+
+                    <TextField label="Phone" {...register("phone")} />
+
+                    <Stack direction="row" spacing={2}>
+                        <TextField
+                            type="date"
+                            label="Start Date"
+                            InputLabelProps={{ shrink: true }}
+                            {...register("startDate")}
+                            value={watch("startDate") || ""}
+                        />
+                        <TextField
+                            type="date"
+                            label="End Date"
+                            InputLabelProps={{ shrink: true }}
+                            {...register("endDate")}
+                            value={watch("endDate") || ""}
+                        />
+                    </Stack>
+
+                    <TextField label="Company Name" {...register("companyName")} />
+
+                    <TextField
+                        label="Bank Account Number"
+                        {...register("bankAccountNumber")}
+                    />
+
+                    <TextField
+                        select
+                        label="Reseller"
+                        {...register("resellerId")}
+                        value={watch("resellerId") || ""}
+                    >
+                        <MenuItem value="">-- Select --</MenuItem>
+                        {resellers.map((r) => (
+                            <MenuItem key={r.id} value={String(r.id)}>
+                                {r.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    <TextField
+                        select
+                        label="Address"
+                        {...register("addressId")}
+                        value={watch("addressId") || ""}
+                    >
+                        <MenuItem value="">-- Select --</MenuItem>
+                        {addresses.map((a) => (
+                            <MenuItem key={a.id} value={String(a.id)}>
+                                {a.houseNumber} • {a.zipCode}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    <Stack direction="row" justifyContent="flex-end" spacing={2}>
+                        <Button onClick={onClose}>Cancel</Button>
+                        <Button type="submit" variant="contained">
+                            {isEdit ? "Save" : "Create"}
+                        </Button>
+                    </Stack>
+
+                </Stack>
+            </form>
         </Drawer>
     );
 }

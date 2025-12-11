@@ -1,54 +1,51 @@
 import {
-  Dialog, DialogTitle, DialogContent,
-  DialogActions, Button, Typography
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
 } from "@mui/material";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ContractApi } from "@/api/contract.api";
-import toast from "react-hot-toast";
 
-interface Props {
+export default function ContractDelete({
+  open,
+  id,
+  onClose,
+  onSuccess,
+}: {
   open: boolean;
-  data: any;
+  id: number | null;
   onClose: () => void;
-  onDeleted?: () => void;
-}
+  onSuccess: () => void;
+}) {
+  const handleDelete = async () => {
+    if (!id) return;
 
-export default function ContractDelete({ open, onClose, data, onDeleted }: Props) {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: (id: number) => ContractApi.delete(id),
-    onSuccess: () => {
-      toast.success("Contract deleted");
-      queryClient.invalidateQueries({ queryKey: ["contracts"] });
-      onDeleted?.();
-      onClose();
-    },
-    onError: () => toast.error("Delete failed"),
-  });
-
-  if (!data) return null;
+    try {
+      await ContractApi.delete(id);
+      onSuccess();
+    } catch (err) {
+      console.log("DELETE ERROR:", err);
+    }
+  };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle>Delete Contract</DialogTitle>
 
       <DialogContent>
         <Typography>
-          Are you sure you want to delete contract {" "}
-          <strong>{data.contractNumber}</strong>?
+          Are you sure you want to delete contract <b>#{id}</b>?
+          This action cannot be undone.
         </Typography>
       </DialogContent>
 
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
 
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => mutation.mutate(data.id)}
-        >
+        <Button color="error" variant="contained" onClick={handleDelete}>
           Delete
         </Button>
       </DialogActions>

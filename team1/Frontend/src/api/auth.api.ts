@@ -1,51 +1,25 @@
+// auth.api.ts
 import axios from "axios";
-import { useAuthStore } from "@/stores/useAuthStore";
 
 export const api_auth = axios.create({
     baseURL: "http://localhost:5002/api/auth",
-    headers: { "Content-Type": "application/json" },
     withCredentials: true,
+    headers: { "Content-Type": "application/json" },
 });
 
-// REQUEST
-api_auth.interceptors.request.use((config) => {
-    const token = useAuthStore.getState().accessToken;
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-});
+// LOGIN
+export const loginApi = (data: { username: string; password: string }) =>
+    api_auth.post("/login", data).then((r) => r.data);
 
-// RESPONSE + REFRESH
-api_auth.interceptors.response.use(
-    (res) => res,
-    async (err) => {
-        const original = err.config;
-        const store = useAuthStore.getState();
+// REGISTER
+export const registerApi = (data: any) =>
+    api_auth.post("/register", data).then((r) => r.data);
 
-        if (err.response?.status === 401 && !original._retry) {
-            original._retry = true;
+// ME
+export const meApi = () => api_auth.get("/me").then((r) => r.data);
 
-            try {
-                const res = await api_auth.post("/refresh-token", {
-                    refreshToken: store.refreshToken,
-                });
+// REFRESH-TOKEN — swagger KHÔNG nhận body!!!
+export const refreshApi = () => api_auth.post("/refresh-token").then((r) => r.data);
 
-                const newAccessToken = res.data.accessToken;
-
-                store.setAuth(
-                    { accessToken: newAccessToken, refreshToken: store.refreshToken! },
-                    store.user
-                );
-
-                original.headers.Authorization = `Bearer ${newAccessToken}`;
-                return api_auth(original);
-            } catch (refreshError) {
-                store.clearAuth();
-                window.location.href = "/signin";
-            }
-        }
-
-        return Promise.reject(err);
-    }
-);
-
-export default api_auth;
+// LOGOUT — swagger yêu cầu body { refreshToken }, nhưng BE tự xử lý
+export const logoutApi = () => api_auth.post("/logout", {}).then((r) => r.data);
