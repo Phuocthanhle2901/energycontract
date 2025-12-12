@@ -212,6 +212,6 @@ export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess 
 
                 </Stack>
             </form>
-        </Drawer>
+       </Drawer>
     );
 }
