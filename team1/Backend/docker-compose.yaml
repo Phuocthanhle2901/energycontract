@@ -25,8 +25,7 @@ services:
       - "5435:5432" # Map ra cổng 5435
     volumes:
       - postgres_invoice_data:/var/lib/postgresql/data
-    networks:
-      - energy-network
+    
 
   postgres-pdf:
     image: postgres:16-alpine
@@ -178,11 +177,11 @@ services:
       - RabbitMQ__Host=rabbitmq
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest
-    networks:
-      - energy-network
+   
 volumes:
   postgres_data:
   postgres_pdf_data:
   postgres_auth_data:
   pdf_temp:
   minio_data:
+  postgres_invoice_data:

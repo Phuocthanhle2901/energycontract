@@ -4,7 +4,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using System.Globalization;
 
-namespace EmailService.Api.Consumers;
+namespace Api.Consumers;
 
 public class InvoiceReminderConsumer : IConsumer<InvoiceReminderEvent>
 {
