@@ -1,43 +1,19 @@
 // src/api/contract.api.ts
-import axiosInstance from "./axiosInstance";
-import type { Contract, ContractSummary } from "../types/contract";
+import axiosClient from "./axiosClient";
 
+export const ContractApi = {
+    getAll: (params?: any) =>
+        axiosClient.get("/contracts", { params }).then((res) => res.data),
 
+    getById: (id: number) =>
+        axiosClient.get(`/contracts/${id}`).then((res) => res.data),
 
+    create: (data: any) =>
+        axiosClient.post("/contracts", data).then((res) => res.data),
 
-// Kiểu dữ liệu để tạo contract mới (không cần id và orders)
-export type ContractCreateInput = Omit<Contract, "id" | "orders">;
+    update: (id: number, data: any) =>
+        axiosClient.put(`/contracts/${id}`, data).then((res) => res.data),
 
-// Lấy danh sách contract (có query limit nếu muốn)
-export async function getContracts(limit = 0): Promise<ContractSummary[]> {
-  const res = await axiosInstance.get(`/contracts?limit=${limit}`);
-  return res.data;
-}
-
-// Lấy chi tiết contract theo ID
-export async function getContractById(id: number): Promise<ContractSummary> {
-  const res = await axiosInstance.get(`/contracts/${id}`);
-  return res.data;
-}
-
-// Tạo contract mới
-export async function createContract(contract: ContractCreateInput): Promise<number> {
-  const res = await axiosInstance.post("/contracts", contract);
-  return res.data; // API trả về ID
-}
-
-// Cập nhật contract
-export async function updateContract(id: number, contract: Contract): Promise<void> {
-  await axiosInstance.put(`/contracts/${id}`, contract);
-}
-
-// Xóa contract
-export async function deleteContract(id: number): Promise<void> {
-  await axiosInstance.delete(`/contracts/${id}`);
-}
-//history
-
-export async function getContractHistory(contractNumber: string) {
-  const res = await axiosInstance.get(`/contracts/${contractNumber}/history`);
-  return res.data;
-}
+    delete: (id: number) =>
+        axiosClient.delete(`/contracts/${id}`).then((res) => res.data),
+};

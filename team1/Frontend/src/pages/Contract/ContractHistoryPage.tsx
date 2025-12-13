@@ -1,140 +1,71 @@
-import { useParams, useNavigate } from "react-router-dom";
 import {
     Box,
-    Paper,
-    Typography,
-    Button,
+    Card,
+    CardContent,
     Divider,
     Stack,
-    Avatar,
+    Typography,
+    Button,
 } from "@mui/material";
-import NavMenu from "@/components/NavMenu/NavMenu";
-import { History, Edit, AddCircle, Sync } from "@mui/icons-material";
 
-// MOCK DATA
-const MOCK_CONTRACTS = [
-    {
-        contractNumber: "101",
-        records: [
-            { id: 1, action: "Created", date: "2025-12-01", note: "Contract created." },
-            { id: 2, action: "Updated", date: "2025-12-05", note: "Start date updated." },
-            { id: 3, action: "System Update", date: "2025-12-10", note: "Auto synced with system." },
-        ],
-    },
-    {
-        contractNumber: "102",
-        records: [
-            { id: 1, action: "Created", date: "2025-12-02", note: "Contract created." },
-            { id: 2, action: "Updated", date: "2025-12-03", note: "Start date updated." },
-            { id: 3, action: "System Update", date: "2025-12-10", note: "Auto synced with system." },
-        ],
-    },
-];
+import { FiArrowLeft } from "react-icons/fi";
+import { useParams, useNavigate } from "react-router-dom";
 
-const actionIcons: any = {
-    Created: <AddCircle color="success" />,
-    Updated: <Edit color="primary" />,
-    "System Update": <Sync color="warning" />,
-};
-
-const actionColors: any = {
-    Created: "#4caf50",
-    Updated: "#1976d2",
-    "System Update": "#ff9800",
-};
+import { useContractHistory } from "@/hooks/useContractHistory";
+import { useContract } from "@/hooks/useContracts";
 
 export default function ContractHistoryPage() {
-    const { id } = useParams();
+    const { contractId } = useParams();
+    const id = Number(contractId);
+
     const navigate = useNavigate();
 
-    const contract = MOCK_CONTRACTS.find((c) => c.contractNumber === id);
+    const { data: history } = useContractHistory(id);
+    const { data: contract } = useContract(id);
 
-    if (!contract) {
-        return (
-            <>
-                <NavMenu />
-                <Box sx={{ ml: "240px", p: 4 }}>
-                    <Typography variant="h6">Contract not found.</Typography>
-                    <Button sx={{ mt: 2 }} onClick={() => navigate("/contracts/list")}>
-                        Back to List
-                    </Button>
-                </Box>
-            </>
-        );
-    }
+    if (!history) return <Box p={3}>Loading...</Box>;
 
     return (
-        <>
-            <NavMenu />
+        <Box p={3}>
+            <Stack direction="row" spacing={2} mb={2}>
+                <Button startIcon={<FiArrowLeft />} onClick={() => navigate(-1)}>
+                    Back
+                </Button>
 
-            <Box sx={{ ml: "240px", p: 4 }}>
-                <Typography variant="h4" fontWeight={700} mb={3}>
-                    Contract History #{contract.contractNumber}
+                <Typography variant="h5" fontWeight="bold">
+                    Contract History #{id}
                 </Typography>
+            </Stack>
 
-                <Paper sx={{ p: 4, borderRadius: 4 }}>
-                    <Typography variant="h6" fontWeight={600} mb={3}>
-                        <History sx={{ mr: 1, fontSize: 28 }} />
-                        Change Log
-                    </Typography>
+            <Typography mb={3}>
+                Customer: <b>{contract?.customerName}</b>
+            </Typography>
 
-                    <Stack spacing={3}>
-                        {contract.records.map((record, index) => (
-                            <Box key={record.id}>
-                                <Stack direction="row" spacing={2} alignItems="center">
-                                    {/* DATE */}
-                                    <Typography
-                                        sx={{
-                                            width: 120,
-                                            fontWeight: 600,
-                                            color: "#666",
-                                        }}
-                                    >
-                                        {record.date}
-                                    </Typography>
+            {history.map((h: any, idx: number) => (
+                <Card key={idx} sx={{ mb: 3 }}>
+                    <CardContent>
+                        <Typography variant="subtitle1" fontWeight="bold" mb={1}>
+                            Updated at: {new Date(h.changedAt).toLocaleString("vi-VN")}
+                        </Typography>
 
-                                    {/* TIMELINE DOT */}
-                                    <Avatar
-                                        sx={{
-                                            width: 14,
-                                            height: 14,
-                                            bgcolor: actionColors[record.action] || "#777",
-                                        }}
-                                    />
+                        <Divider sx={{ mb: 2 }} />
 
-                                    {/* CONTENT */}
-                                    <Box>
-                                        <Typography
-                                            fontWeight={700}
-                                            sx={{ display: "flex", alignItems: "center" }}
-                                        >
-                                            {actionIcons[record.action]}
-                                            <span style={{ marginLeft: 8 }}>{record.action}</span>
-                                        </Typography>
-
-                                        <Typography sx={{ color: "#555", mt: 0.5 }}>
-                                            {record.note}
-                                        </Typography>
-                                    </Box>
-                                </Stack>
-
-                                {/* Divider except last item */}
-                                {index < contract.records.length - 1 && (
-                                    <Divider sx={{ ml: "140px", my: 2 }} />
-                                )}
-                            </Box>
+                        {Object.entries(h.changes).map(([field, change]: any) => (
+                            <Stack key={field} mb={1}>
+                                <Typography>
+                                    <b>{field}</b>
+                                </Typography>
+                                <Typography color="error">
+                                    Old: {change.oldValue ?? "—"}
+                                </Typography>
+                                <Typography color="green">
+                                    New: {change.newValue ?? "—"}
+                                </Typography>
+                            </Stack>
                         ))}
-                    </Stack>
-
-                    <Button
-                        variant="outlined"
-                        sx={{ mt: 4 }}
-                        onClick={() => navigate("/contracts/list")}
-                    >
-                        Back to Contract List
-                    </Button>
-                </Paper>
-            </Box>
-        </>
+                    </CardContent>
+                </Card>
+            ))}
+        </Box>
     );
 }

@@ -1,18 +1,23 @@
-import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
-export type ContractPdfInfo = {
-  contractNumber: string;
-  customerName: string;
-  startDate: string;
-  endDate: string;
-  resellerName: string;
-  address: string;
-  orders: { orderNumber: string; type: string; status: string; startDate: string; endDate: string }[];
-  generatedAt: string;
-  pdfUrl?: string; // link thực nếu có
+const pdfClient = axios.create({
+    baseURL: import.meta.env.VITE_PDF_URL || "http://localhost:5001/api",
+    withCredentials: false,
+});
+
+pdfClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+export const PdfApi = {
+    generate: (data: any) =>
+        pdfClient.post("/pdf-contract/generate", data).then(res => res.data),
+
+    health: () =>
+        pdfClient.get("/pdf-contract/health").then(res => res.data),
 };
-
-export async function getContractPdfInfo(contractId: number): Promise<ContractPdfInfo> {
-  const res = await axiosInstance.get(`/contracts/${contractId}/pdf`);
-  return res.data;
-}

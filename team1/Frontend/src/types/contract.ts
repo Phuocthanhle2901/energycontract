@@ -1,18 +1,10 @@
-// src/types/contract.ts
-
-
-
-export interface Contract {
-  address: any;
-  
-  orders: any;
-  id?: number;
+export interface ContractCreate {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  startDate: string; // ISO date string
-  endDate: string;   // ISO date string
+  startDate: string;
+  endDate: string;
   companyName: string;
   bankAccountNumber: string;
   pdfLink: string;
@@ -20,26 +12,31 @@ export interface Contract {
   addressId: number;
 }
 
-export interface ContractSummary {
+export interface ContractDto {
+  id: number;
   contractNumber: string;
-  customerName: string;
-  email: string;
-  startDate: string;
-  status: string;
-}
-export interface ContractCreateInput {
   firstName: string;
   lastName: string;
+  customerName: string;
   email: string;
+  phone: string;
+  companyName: string;
   startDate: string;
   endDate: string;
+  bankAccountNumber: string;
+  pdfLink: string;
+  addressId: number;
+  addressZipCode: string;
+  addressHouseNumber: string;
   resellerId: number;
+  resellerName: string;
+  resellerType: string;
 }
 
-export interface ContractHistory {
-  id: number;
-  contractId: string;
-  oldValue: any;
-  newValue: any;
-  timestamp: string;
+export interface ContractPaged {
+  items: ContractDto[];
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
 }

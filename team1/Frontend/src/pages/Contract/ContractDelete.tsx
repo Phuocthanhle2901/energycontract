@@ -1,42 +1,54 @@
-import { Button, Container, Paper, Typography, Box } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+} from "@mui/material";
 
+import { ContractApi } from "@/api/contract.api";
 
+export default function ContractDelete({
+  open,
+  id,
+  onClose,
+  onSuccess,
+}: {
+  open: boolean;
+  id: number | null;
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
+  const handleDelete = async () => {
+    if (!id) return;
 
-export default function ContractDelete() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const contract = MOCK_CONTRACTS.find((c) => c.id === Number(id));
-
-  if (!contract) return <div>Không tìm thấy hợp đồng.</div>;
-
-  const handleDelete = () => {
-    alert(`Đã xoá hợp đồng ${contract.contract_number}`);
-    navigate("/contracts/list");
+    try {
+      await ContractApi.delete(id);
+      onSuccess();
+    } catch (err) {
+      console.log("DELETE ERROR:", err);
+    }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Paper sx={{ p: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          Xác nhận xoá hợp đồng
-        </Typography>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Delete Contract</DialogTitle>
 
+      <DialogContent>
         <Typography>
-          Bạn có chắc muốn xoá hợp đồng{" "}
-          <strong>{contract.contract_number}</strong>?
+          Are you sure you want to delete contract <b>#{id}</b>?
+          This action cannot be undone.
         </Typography>
+      </DialogContent>
 
-        <Box display="flex" justifyContent="flex-end" mt={3} gap={2}>
-          <Button variant="outlined" onClick={() => navigate(-1)}>
-            Huỷ
-          </Button>
-          <Button variant="contained" color="error" onClick={handleDelete}>
-            Xoá
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+
+        <Button color="error" variant="contained" onClick={handleDelete}>
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

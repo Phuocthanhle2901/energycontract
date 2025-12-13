@@ -1,215 +1,340 @@
-// src/pages/Contract/ContractList.tsx
-import React, { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
   Typography,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
   TextField,
+  Stack,
+  IconButton,
+  MenuItem,
+  Paper,
   InputAdornment,
 } from "@mui/material";
-import { Search } from "lucide-react";
-import NavMenu from "../../components/NavMenu/NavMenu";
 
-export interface ContractData {
-  contractNumber: string;
-  firstName: string;
-  lastName: string;
-  customerName: string;
-  email: string;
-  phone?: string;
-  startDate: string;
-  endDate?: string;
-  companyName?: string;
-  bankAccountNumber?: string;
-  resellerId?: string;
-  addressId?: string;
-  pdfLink?: string;
-  status: string;
-  notes?: string;
-}
+import {
+  FiPlus,
+  FiEdit,
+  FiTrash2,
+  FiFileText,
+  FiSearch,
+  FiFilter,
+} from "react-icons/fi";
 
-const MOCK_CONTRACTS: ContractData[] = [
-  {
-    contractNumber: "101",
-    firstName: "Nguyen",
-    lastName: "Van A",
-    customerName: "Nguyen Van A",
-    email: "a.nguyen@example.com",
-    phone: "0901234567",
-    startDate: "2025-12-01",
-    endDate: "2026-12-01",
-    companyName: "ABC Corp",
-    pdfLink: "",
-    status: "Active",
-    notes: "Priority customer",
-  },
-  {
-    contractNumber: "102",
-    firstName: "Tran",
-    lastName: "Thi B",
-    customerName: "Tran Thi B",
-    email: "b.tran@example.com",
-    phone: "0902345678",
-    startDate: "2025-11-15",
-    endDate: "2026-11-15",
-    companyName: "XYZ Ltd",
-    pdfLink: "",
-    status: "Inactive",
-    notes: "Needs review",
-  },
-];
+import NavMenu from "@/components/NavMenu/NavMenu";
+import { useState } from "react";
+
+import { useContracts } from "@/hooks/useContracts";
+import { useResellers } from "@/hooks/useResellers";
+import { useGeneratePdf } from "@/hooks/usePdf";
+
+import ContractFormDrawer from "./ContractFormDrawer";
+import ContractDelete from "./ContractDelete";
 
 export default function ContractList() {
-  const [contracts, setContracts] = useState<ContractData[]>(MOCK_CONTRACTS);
-  const [search, setSearch] = useState("");
-  const navigate = useNavigate();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
+  const [currentId, setCurrentId] = useState<number | null>(null);
 
-  const handleDelete = (contractNumber: string) => {
-    if (!window.confirm("Are you sure you want to delete this contract?")) return;
-    setContracts(contracts.filter(c => c.contractNumber !== contractNumber));
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [search, setSearch] = useState("");
+  const [resellerId, setResellerId] = useState("");
+  const [startFrom, setStartFrom] = useState("");
+  const [startTo, setStartTo] = useState("");
+  const [page, setPage] = useState(1);
+
+  const PAGE_SIZE = 10;
+
+  const resellerQuery = useResellers({ PageNumber: 1, PageSize: 999 });
+
+  const contractQuery = useContracts({
+    Search: search || undefined,
+    ResellerId: resellerId || undefined,
+    StartDateFrom: startFrom || undefined,
+    StartDateTo: startTo || undefined,
+    PageNumber: page,
+    PageSize: PAGE_SIZE,
+  });
+
+  const data = contractQuery.data?.items ?? [];
+  const totalPages = contractQuery.data?.totalPages ?? 1;
+
+  const generatePdfMutation = useGeneratePdf();
+
+  const handlePdf = (c: any) => {
+    generatePdfMutation.mutate(
+      {
+        contractNumber: c.contractNumber,
+        firstName: c.firstName,
+        lastName: c.lastName,
+        email: c.email,
+        phone: c.phone,
+        companyName: c.companyName,
+        startDate: c.startDate,
+        endDate: c.endDate,
+        bankAccountNumber: c.bankAccountNumber,
+        addressLine: `${c.addressHouseNumber} - ${c.addressZipCode}`,
+        totalAmount: 0,
+        currency: "EUR",
+      },
+      {
+        onSuccess: (res) => window.open(res.pdfUrl, "_blank"),
+      }
+    );
   };
 
-  // Tìm kiếm tự động
-  const filteredContracts = useMemo(() => {
-    return contracts.filter(c =>
-      c.customerName.toLowerCase().includes(search.toLowerCase()) ||
-      c.contractNumber.includes(search)
-    );
-  }, [contracts, search]);
-
   return (
-    <Box sx={{ ml: "240px", p: 3, minHeight: "100vh", background: "#F3F4F6" }}>
+    <Box sx={{ display: "flex" }}>
       <NavMenu />
 
-      {/* Header */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5" fontWeight={700}>
-          Contract Manager
-        </Typography>
-        <Button
-          variant="contained"
-          sx={{ bgcolor: "#1677ff", textTransform: "none", px: 2 }}
-          onClick={() => navigate("/contracts/create")}
-        >
-          + Create Contract
-        </Button>
-      </Box>
-
-      {/* Search Box */}
-      <Paper
+      {/* MAIN AREA */}
+      <Box
         sx={{
-          p: 2,
-          borderRadius: "12px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08)",
-          mb: 3,
+          flexGrow: 1,
+          ml: "240px",
+          p: 4,
+          background: "#f5f6fa",
+          minHeight: "100vh",
         }}
       >
-        <TextField
-          fullWidth
-          placeholder="Tìm kiếm theo tên khách hàng hoặc số hợp đồng..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          InputProps={{
-            sx: { borderRadius: 2, height: 45, bgcolor: "#f9fafb" },
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={20} color="#9ca3af" />
-              </InputAdornment>
-            ),
+        <Typography variant="h5" fontWeight={700} mb={2}>
+          Contract List
+        </Typography>
+
+        {/* FILTER CARD */}
+        <Paper
+          sx={{
+            p: 3,
+            borderRadius: "16px",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+            mb: 3,
+          }}
+        >
+          <Stack direction="row" spacing={2} alignItems="center">
+            {/* SEARCH BAR */}
+            <TextField
+              size="small"
+              placeholder="Search by name or email..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              sx={{
+                flex: 1,
+                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FiSearch size={18} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            {/* RESELLER */}
+            <TextField
+              select
+              size="small"
+              value={resellerId}
+              onChange={(e) => setResellerId(e.target.value)}
+              sx={{
+                width: 180,
+                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
+              }}
+              label={
+                <span style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  <FiFilter size={16} /> Reseller
+                </span>
+              }
+            >
+              <MenuItem value="">All</MenuItem>
+              {resellerQuery.data?.items?.map((r: any) => (
+                <MenuItem key={r.id} value={r.id}>
+                  {r.name}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            {/* DATE FROM */}
+            <TextField
+              type="date"
+              size="small"
+              label="Start Date From"
+              InputLabelProps={{ shrink: true }}
+              value={startFrom}
+              onChange={(e) => setStartFrom(e.target.value)}
+              sx={{
+                width: 160,
+                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
+              }}
+            />
+
+            {/* DATE TO */}
+            <TextField
+              type="date"
+              size="small"
+              label="Start Date To"
+              InputLabelProps={{ shrink: true }}
+              value={startTo}
+              onChange={(e) => setStartTo(e.target.value)}
+              sx={{
+                width: 160,
+                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
+              }}
+            />
+
+            <Button variant="contained" sx={{ height: 44, px: 3 }} onClick={() => contractQuery.refetch()}>
+              APPLY
+            </Button>
+
+            <Button
+              variant="outlined"
+              sx={{ height: 44, px: 3 }}
+              onClick={() => {
+                setSearch("");
+                setResellerId("");
+                setStartFrom("");
+                setStartTo("");
+                contractQuery.refetch();
+              }}
+            >
+              CLEAR
+            </Button>
+
+            <Button
+              variant="contained"
+              startIcon={<FiPlus />}
+              sx={{ height: 44, px: 3, borderRadius: "10px" }}
+              onClick={() => {
+                setDrawerMode("create");
+                setCurrentId(null);
+                setDrawerOpen(true);
+              }}
+            >
+              CREATE CONTRACT
+            </Button>
+          </Stack>
+        </Paper>
+
+        {/* TABLE CARD */}
+        <Paper
+          sx={{
+            p: 2,
+            borderRadius: "16px",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+          }}
+        >
+          {/* HEADER */}
+          <Stack direction="row" px={2} py={1.5} sx={{ fontWeight: 600, color: "#555" }}>
+            <Box sx={{ flex: 2 }}>Name</Box>
+            <Box sx={{ flex: 2 }}>Email</Box>
+            <Box sx={{ flex: 1.5 }}>Reseller</Box>
+            <Box sx={{ flex: 1 }}>Start</Box>
+            <Box sx={{ flex: 1 }}>End</Box>
+            <Box sx={{ width: 70 }}>PDF</Box>
+            <Box sx={{ width: 100 }}>Actions</Box>
+          </Stack>
+
+          {/* DATA ROWS */}
+          {data.map((c: any) => (
+            <Box
+              key={c.id}
+              sx={{
+                display: "flex",
+                px: 2,
+                py: 1.5,
+                borderRadius: "12px",
+                background: "#fff",
+                mb: 1,
+                boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                "&:hover": { background: "#f9fafc" },
+              }}
+            >
+              <Box sx={{ flex: 2 }}>{c.customerName}</Box>
+              <Box sx={{ flex: 2 }}>{c.email}</Box>
+              <Box sx={{ flex: 1.5 }}>{c.resellerName}</Box>
+              <Box sx={{ flex: 1 }}>{c.startDate?.split("T")[0]}</Box>
+              <Box sx={{ flex: 1 }}>{c.endDate?.split("T")[0]}</Box>
+
+              <Box sx={{ width: 70 }}>
+                <IconButton onClick={() => handlePdf(c)}>
+                  <FiFileText />
+                </IconButton>
+              </Box>
+
+              <Stack direction="row" spacing={1} sx={{ width: 100 }}>
+                <IconButton
+                  color="primary"
+                  onClick={() => {
+                    setDrawerMode("edit");
+                    setCurrentId(c.id);
+                    setDrawerOpen(true);
+                  }}
+                >
+                  <FiEdit />
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    setDeleteId(c.id);
+                    setDeleteOpen(true);
+                  }}
+                >
+                  <FiTrash2 />
+                </IconButton>
+              </Stack>
+            </Box>
+          ))}
+
+          {/* PAGINATION */}
+          <Stack direction="row" justifyContent="space-between" px={2} py={2}>
+            <Typography sx={{ color: "#777" }}>
+              Showing {data.length} of {contractQuery.data?.totalCount ?? 0}
+            </Typography>
+
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="outlined"
+                disabled={page <= 1}
+                onClick={() => setPage(page - 1)}
+              >
+                PREVIOUS
+              </Button>
+
+              <Typography>Page {page} / {totalPages}</Typography>
+
+              <Button
+                variant="outlined"
+                disabled={page >= totalPages}
+                onClick={() => setPage(page + 1)}
+              >
+                NEXT
+              </Button>
+            </Stack>
+          </Stack>
+        </Paper>
+
+        {/* POPUPS */}
+        <ContractFormDrawer
+          open={drawerOpen}
+          mode={drawerMode}
+          id={currentId}
+          onClose={() => setDrawerOpen(false)}
+          onSuccess={() => {
+            setDrawerOpen(false);
+            contractQuery.refetch();
           }}
         />
-      </Paper>
 
-      {/* Table */}
-      <Paper
-        sx={{
-          borderRadius: "12px",
-          overflow: "hidden",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.10)",
-        }}
-      >
-        <Table>
-          <TableHead sx={{ bgcolor: "#f8fafc" }}>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 600 }}>SỐ HỢP ĐỒNG</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>KHÁCH HÀNG</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>EMAIL</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>NGÀY BẮT ĐẦU</TableCell>
-              <TableCell sx={{ fontWeight: 600 }}>TRẠNG THÁI</TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="right">
-                THAO TÁC
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {filteredContracts.map((c) => (
-              <TableRow key={c.contractNumber} hover>
-                <TableCell>{c.contractNumber}</TableCell>
-                <TableCell>{c.customerName}</TableCell>
-                <TableCell>{c.email}</TableCell>
-                <TableCell>{c.startDate}</TableCell>
-                <TableCell>{c.status}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/detail`)}
-                  >
-                    Detail
-                  </Button>
-                  <Button
-                    size="small"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/edit`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    sx={{ mr: 1 }}
-                    onClick={() => handleDelete(c.contractNumber)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/pdf`)}
-                  >
-                    PDF
-                  </Button>
-                  <Button
-                    size="small"
-                    color="secondary"
-                    sx={{ mr: 1 }}
-                    onClick={() => navigate(`/contracts/${c.contractNumber}/history`)}
-
-                  >
-                    History
-                  </Button>
-
-                </TableCell>
-              </TableRow>
-            ))}
-            {filteredContracts.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={6} sx={{ textAlign: "center", py: 3 }}>
-                  Không tìm thấy hợp đồng
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </Paper>
+        <ContractDelete
+          open={deleteOpen}
+          id={deleteId}
+          onClose={() => setDeleteOpen(false)}
+          onSuccess={() => {
+            setDeleteOpen(false);
+            contractQuery.refetch();
+          }}
+        />
+      </Box>
     </Box>
   );
 }
