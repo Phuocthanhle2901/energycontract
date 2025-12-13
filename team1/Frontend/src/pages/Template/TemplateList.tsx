@@ -1,7 +1,5 @@
 // src/pages/Template/TemplateList.tsx
-import { useQuery } from "@tanstack/react-query";
-import { TemplateApi } from "@/api/template.api";
-
+import { useTemplates } from "@/hooks/usePdf";
 import {
     Box,
     Button,
@@ -15,55 +13,41 @@ import {
     Stack,
     Chip,
     IconButton,
+    Tooltip,
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/EditOutlined";
-import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { deleteTemplate } from "./TemplateDelete";
 import NavMenu from "@/components/NavMenu/NavMenu";
-
-interface Template {
-    id: number;
-    name: string;
-    description: string;
-    htmlContent: string;
-    isActive: boolean;
-    createdAt?: string;
-    updatedAt?: string;
-}
+import DeleteTemplateButton from "./TemplateDelete";
 
 export default function TemplateList() {
     const navigate = useNavigate();
 
-    const { data, isLoading, isError, refetch } = useQuery<Template[]>({
-        queryKey: ["templates"],
-        queryFn: TemplateApi.getAll,
-    });
-
+    // Use custom hook for fetching
+    const { data, isLoading, isError } = useTemplates();
     const templates = Array.isArray(data) ? data : [];
 
-    const handleDelete = async (id: number) => {
-        const ok = window.confirm("Are you sure you want to delete this template?");
-        if (!ok) return;
-
-        await deleteTemplate(id, refetch);
-    };
-
-    // Loading & error giống ContractList: chỉ hiển thị text lệch phải sidebar
+    // Loading state
     if (isLoading) {
         return (
-            <Typography sx={{ ml: "260px", p: 3 }}>Loading templates...</Typography>
+            <Box sx={{ display: "flex" }}>
+                <NavMenu />
+                <Typography sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>Loading templates...</Typography>
+            </Box>
         );
     }
 
+    // Error state
     if (isError) {
         return (
-            <Typography sx={{ ml: "260px", p: 3 }} color="error">
-                Failed to load templates. Please try again later.
-            </Typography>
+            <Box sx={{ display: "flex" }}>
+                <NavMenu />
+                <Typography sx={{ ml: { xs: 0, md: "260px" }, p: 3 }} color="error">
+                    Failed to load templates. Please try again later.
+                </Typography>
+            </Box>
         );
     }
 
@@ -71,10 +55,9 @@ export default function TemplateList() {
         <Box sx={{ display: "flex" }}>
             <NavMenu />
 
-            {/* Phần nội dung chính lệch phải giống ContractList */}
             <Box
                 sx={{
-                    ml: "240px",
+                    ml: { xs: 0, md: "260px" },
                     p: 3,
                     width: "100%",
                     bgcolor: "#f5f7fa",
@@ -117,8 +100,8 @@ export default function TemplateList() {
                     }}
                 >
                     {templates.length === 0 ? (
-                        <Typography variant="body2" color="text.secondary">
-                            No templates found. Click &quot;New Template&quot; to create one.
+                        <Typography variant="body2" color="text.secondary" sx={{ p: 2, textAlign: 'center' }}>
+                            No templates found. Click "New Template" to create one.
                         </Typography>
                     ) : (
                         <Table size="small">
@@ -135,7 +118,7 @@ export default function TemplateList() {
                             </TableHead>
 
                             <TableBody>
-                                {templates.map((t) => (
+                                {templates.map((t: any) => (
                                     <TableRow key={t.id} hover>
                                         <TableCell>{t.id}</TableCell>
 
@@ -173,20 +156,16 @@ export default function TemplateList() {
                                                 spacing={1}
                                                 justifyContent="flex-end"
                                             >
-                                                <IconButton
-                                                    size="small"
-                                                    onClick={() => navigate(`/templates/edit/${t.id}`)}
-                                                >
-                                                    <EditIcon fontSize="small" />
-                                                </IconButton>
+                                                <Tooltip title="Edit">
+                                                    <IconButton
+                                                        size="small"
+                                                        onClick={() => navigate(`/templates/edit/${t.id}`)}
+                                                    >
+                                                        <EditIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
 
-                                                <IconButton
-                                                    size="small"
-                                                    color="error"
-                                                    onClick={() => handleDelete(t.id)}
-                                                >
-                                                    <DeleteIcon fontSize="small" />
-                                                </IconButton>
+                                                <DeleteTemplateButton id={t.id} />
                                             </Stack>
                                         </TableCell>
                                     </TableRow>

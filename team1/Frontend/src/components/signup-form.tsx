@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import {useRegister} from "@/hook/useAuth.ts";
+import {useRegister} from "@/hooks/useAuth";
 
 
 // 2. Định nghĩa Schema Validation

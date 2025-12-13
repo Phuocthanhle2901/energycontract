@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
     Box, Paper, Typography, Button, Grid,
     TextField, RadioGroup, FormControlLabel,
@@ -48,7 +48,7 @@ export default function OrderForm({
                 <Box component="form" onSubmit={onSubmit}>
                     <Grid container spacing={3}>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <TextField
                                 fullWidth
                                 label="Số Đơn hàng"
@@ -58,7 +58,7 @@ export default function OrderForm({
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <Typography sx={{ fontWeight: 600, mb: 1 }}>Loại Năng lượng</Typography>
                             <RadioGroup
                                 row
@@ -71,7 +71,7 @@ export default function OrderForm({
                             </RadioGroup>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <TextField
                                 label="Ngày Bắt đầu"
                                 type="date"
@@ -83,7 +83,7 @@ export default function OrderForm({
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <TextField
                                 label="Ngày Kết thúc"
                                 type="date"
@@ -95,7 +95,7 @@ export default function OrderForm({
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <FormControl fullWidth>
                                 <InputLabel>Trạng thái</InputLabel>
                                 <Select
@@ -111,7 +111,7 @@ export default function OrderForm({
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                             <TextField
                                 label="Phí Nạp/Đăng ký (VND)"
                                 type="number"

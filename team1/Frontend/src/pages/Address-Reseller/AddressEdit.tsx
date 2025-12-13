@@ -1,9 +1,10 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Stack } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useAddressForm } from "@/hooks/useAddressForm";
+import { useUpdateAddress } from "@/hooks/useAddresses";
 
 export default function AddressEdit({ open, onClose, onSaved, data }: any) {
-    const { submitUpdate, loading } = useAddressForm();
+    // Sử dụng hook useUpdateAddress
+    const updateMutation = useUpdateAddress();
 
     const [form, setForm] = useState({
         zipCode: "",
@@ -14,9 +15,9 @@ export default function AddressEdit({ open, onClose, onSaved, data }: any) {
     useEffect(() => {
         if (data) {
             setForm({
-                zipCode: data.zipCode,
-                houseNumber: data.houseNumber,
-                extension: data.extension,
+                zipCode: data.zipCode || "",
+                houseNumber: data.houseNumber || "",
+                extension: data.extension || "",
             });
         }
     }, [data]);
@@ -27,10 +28,17 @@ export default function AddressEdit({ open, onClose, onSaved, data }: any) {
     };
 
     const submit = () => {
-        submitUpdate(data.id, form, () => {
-            onSaved?.();
-            onClose();
-        });
+        if (!data?.id) return;
+
+        updateMutation.mutate(
+            { id: data.id, data: form },
+            {
+                onSuccess: () => {
+                    onSaved?.();
+                    onClose();
+                },
+            }
+        );
     };
 
     return (
@@ -38,7 +46,7 @@ export default function AddressEdit({ open, onClose, onSaved, data }: any) {
             <DialogTitle>Edit Address</DialogTitle>
 
             <DialogContent>
-                <Stack spacing={2}>
+                <Stack spacing={2} sx={{ mt: 1 }}>
                     <TextField label="Zip Code" name="zipCode" value={form.zipCode} onChange={change} />
                     <TextField label="House Number" name="houseNumber" value={form.houseNumber} onChange={change} />
                     <TextField label="Extension" name="extension" value={form.extension} onChange={change} />
@@ -47,8 +55,12 @@ export default function AddressEdit({ open, onClose, onSaved, data }: any) {
 
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={submit} variant="contained" disabled={loading}>
-                    Save
+                <Button 
+                    onClick={submit} 
+                    variant="contained" 
+                    disabled={updateMutation.isPending}
+                >
+                    {updateMutation.isPending ? "Saving..." : "Save"}
                 </Button>
             </DialogActions>
         </Dialog>

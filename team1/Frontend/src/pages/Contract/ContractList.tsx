@@ -37,50 +37,72 @@ export default function ContractList() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
-  const [search, setSearch] = useState("");
-  const [resellerId, setResellerId] = useState("");
-  const [startFrom, setStartFrom] = useState("");
-  const [startTo, setStartTo] = useState("");
-  const [page, setPage] = useState(1);
+  // --- State cho Input (Chưa gọi API ngay) ---
+  const [tempSearch, setTempSearch] = useState("");
+  const [tempResellerId, setTempResellerId] = useState("");
+  const [tempStartFrom, setTempStartFrom] = useState("");
+  const [tempStartTo, setTempStartTo] = useState("");
+
+  // --- State thực tế để Query (Khi bấm Apply mới cập nhật vào đây) ---
+  const [queryParams, setQueryParams] = useState({
+    search: "",
+    resellerId: "",
+    startFrom: "",
+    startTo: "",
+    page: 1,
+  });
 
   const PAGE_SIZE = 10;
 
-  const resellerQuery = useResellers({ PageNumber: 1, PageSize: 999 });
+  // Lấy danh sách Reseller cho Dropdown
+  const resellerQuery = useResellers({ pageNumber: 1, pageSize: 999 });
 
+  // Hook lấy danh sách Contract
   const contractQuery = useContracts({
-    Search: search || undefined,
-    ResellerId: resellerId || undefined,
-    StartDateFrom: startFrom || undefined,
-    StartDateTo: startTo || undefined,
-    PageNumber: page,
-    PageSize: PAGE_SIZE,
+    pageNumber: queryParams.page,
+    pageSize: PAGE_SIZE,
+    search: queryParams.search || undefined,
+    // Chuyển đổi string sang number/undefined cho resellerId
+    resellerId: queryParams.resellerId ? Number(queryParams.resellerId) : undefined,
+    // Truyền date string (YYYY-MM-DD) trực tiếp nếu backend nhận DateTime?
+    startDateFrom: queryParams.startFrom || undefined,
+    startDateTo: queryParams.startTo || undefined,
   });
 
   const data = contractQuery.data?.items ?? [];
-  const totalPages = contractQuery.data?.totalPages ?? 1;
+  const totalPages = Math.ceil((contractQuery.data?.totalCount ?? 0) / PAGE_SIZE) || 1;
 
   const generatePdfMutation = useGeneratePdf();
+  const handlePdf = (contract: any) => {
+    generatePdfMutation.mutate(contract.id);
+  }
 
-  const handlePdf = (c: any) => {
-    generatePdfMutation.mutate(
-      {
-        contractNumber: c.contractNumber,
-        firstName: c.firstName,
-        lastName: c.lastName,
-        email: c.email,
-        phone: c.phone,
-        companyName: c.companyName,
-        startDate: c.startDate,
-        endDate: c.endDate,
-        bankAccountNumber: c.bankAccountNumber,
-        addressLine: `${c.addressHouseNumber} - ${c.addressZipCode}`,
-        totalAmount: 0,
-        currency: "EUR",
-      },
-      {
-        onSuccess: (res) => window.open(res.pdfUrl, "_blank"),
-      }
-    );
+  // Hàm xử lý khi bấm APPLY
+  const handleApplyFilter = () => {
+    setQueryParams({
+      ...queryParams,
+      search: tempSearch,
+      resellerId: tempResellerId,
+      startFrom: tempStartFrom,
+      startTo: tempStartTo,
+      page: 1, // Reset về trang 1 khi filter
+    });
+  };
+
+  // Hàm xử lý khi bấm CLEAR
+  const handleClearFilter = () => {
+    setTempSearch("");
+    setTempResellerId("");
+    setTempStartFrom("");
+    setTempStartTo("");
+
+    setQueryParams({
+      search: "",
+      resellerId: "",
+      startFrom: "",
+      startTo: "",
+      page: 1,
+    });
   };
 
   return (
@@ -115,8 +137,8 @@ export default function ContractList() {
             <TextField
               size="small"
               placeholder="Search by name or email..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={tempSearch}
+              onChange={(e) => setTempSearch(e.target.value)}
               sx={{
                 flex: 1,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
@@ -134,8 +156,8 @@ export default function ContractList() {
             <TextField
               select
               size="small"
-              value={resellerId}
-              onChange={(e) => setResellerId(e.target.value)}
+              value={tempResellerId}
+              onChange={(e) => setTempResellerId(e.target.value)}
               sx={{
                 width: 180,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
@@ -160,8 +182,8 @@ export default function ContractList() {
               size="small"
               label="Start Date From"
               InputLabelProps={{ shrink: true }}
-              value={startFrom}
-              onChange={(e) => setStartFrom(e.target.value)}
+              value={tempStartFrom}
+              onChange={(e) => setTempStartFrom(e.target.value)}
               sx={{
                 width: 160,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
@@ -174,28 +196,22 @@ export default function ContractList() {
               size="small"
               label="Start Date To"
               InputLabelProps={{ shrink: true }}
-              value={startTo}
-              onChange={(e) => setStartTo(e.target.value)}
+              value={tempStartTo}
+              onChange={(e) => setTempStartTo(e.target.value)}
               sx={{
                 width: 160,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
               }}
             />
 
-            <Button variant="contained" sx={{ height: 44, px: 3 }} onClick={() => contractQuery.refetch()}>
+            <Button variant="contained" sx={{ height: 44, px: 3 }} onClick={handleApplyFilter}>
               APPLY
             </Button>
 
             <Button
               variant="outlined"
               sx={{ height: 44, px: 3 }}
-              onClick={() => {
-                setSearch("");
-                setResellerId("");
-                setStartFrom("");
-                setStartTo("");
-                contractQuery.refetch();
-              }}
+              onClick={handleClearFilter}
             >
               CLEAR
             </Button>
@@ -235,55 +251,59 @@ export default function ContractList() {
           </Stack>
 
           {/* DATA ROWS */}
-          {data.map((c: any) => (
-            <Box
-              key={c.id}
-              sx={{
-                display: "flex",
-                px: 2,
-                py: 1.5,
-                borderRadius: "12px",
-                background: "#fff",
-                mb: 1,
-                boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-                "&:hover": { background: "#f9fafc" },
-              }}
-            >
-              <Box sx={{ flex: 2 }}>{c.customerName}</Box>
-              <Box sx={{ flex: 2 }}>{c.email}</Box>
-              <Box sx={{ flex: 1.5 }}>{c.resellerName}</Box>
-              <Box sx={{ flex: 1 }}>{c.startDate?.split("T")[0]}</Box>
-              <Box sx={{ flex: 1 }}>{c.endDate?.split("T")[0]}</Box>
+          {contractQuery.isLoading ? (
+             <Box p={3} textAlign="center">Loading...</Box>
+          ) : (
+            data.map((c: any) => (
+              <Box
+                key={c.id}
+                sx={{
+                  display: "flex",
+                  px: 2,
+                  py: 1.5,
+                  borderRadius: "12px",
+                  background: "#fff",
+                  mb: 1,
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                  "&:hover": { background: "#f9fafc" },
+                }}
+              >
+                <Box sx={{ flex: 2 }}>{c.customerName}</Box>
+                <Box sx={{ flex: 2 }}>{c.email}</Box>
+                <Box sx={{ flex: 1.5 }}>{c.resellerName}</Box>
+                <Box sx={{ flex: 1 }}>{c.startDate?.split("T")[0]}</Box>
+                <Box sx={{ flex: 1 }}>{c.endDate?.split("T")[0]}</Box>
 
-              <Box sx={{ width: 70 }}>
-                <IconButton onClick={() => handlePdf(c)}>
-                  <FiFileText />
-                </IconButton>
+                <Box sx={{ width: 70 }}>
+                  <IconButton onClick={() => handlePdf(c)} disabled={generatePdfMutation.isPending}>
+                    <FiFileText />
+                  </IconButton>
+                </Box>
+
+                <Stack direction="row" spacing={1} sx={{ width: 100 }}>
+                  <IconButton
+                    color="primary"
+                    onClick={() => {
+                      setDrawerMode("edit");
+                      setCurrentId(c.id);
+                      setDrawerOpen(true);
+                    }}
+                  >
+                    <FiEdit />
+                  </IconButton>
+                  <IconButton
+                    color="error"
+                    onClick={() => {
+                      setDeleteId(c.id);
+                      setDeleteOpen(true);
+                    }}
+                  >
+                    <FiTrash2 />
+                  </IconButton>
+                </Stack>
               </Box>
-
-              <Stack direction="row" spacing={1} sx={{ width: 100 }}>
-                <IconButton
-                  color="primary"
-                  onClick={() => {
-                    setDrawerMode("edit");
-                    setCurrentId(c.id);
-                    setDrawerOpen(true);
-                  }}
-                >
-                  <FiEdit />
-                </IconButton>
-                <IconButton
-                  color="error"
-                  onClick={() => {
-                    setDeleteId(c.id);
-                    setDeleteOpen(true);
-                  }}
-                >
-                  <FiTrash2 />
-                </IconButton>
-              </Stack>
-            </Box>
-          ))}
+            ))
+          )}
 
           {/* PAGINATION */}
           <Stack direction="row" justifyContent="space-between" px={2} py={2}>
@@ -294,18 +314,18 @@ export default function ContractList() {
             <Stack direction="row" spacing={2}>
               <Button
                 variant="outlined"
-                disabled={page <= 1}
-                onClick={() => setPage(page - 1)}
+                disabled={queryParams.page <= 1}
+                onClick={() => setQueryParams(prev => ({ ...prev, page: prev.page - 1 }))}
               >
                 PREVIOUS
               </Button>
 
-              <Typography>Page {page} / {totalPages}</Typography>
+              <Typography>Page {queryParams.page} / {totalPages}</Typography>
 
               <Button
                 variant="outlined"
-                disabled={page >= totalPages}
-                onClick={() => setPage(page + 1)}
+                disabled={queryParams.page >= totalPages}
+                onClick={() => setQueryParams(prev => ({ ...prev, page: prev.page + 1 }))}
               >
                 NEXT
               </Button>
@@ -321,7 +341,8 @@ export default function ContractList() {
           onClose={() => setDrawerOpen(false)}
           onSuccess={() => {
             setDrawerOpen(false);
-            contractQuery.refetch();
+            // Không cần gọi refetch() thủ công vì useCreateContract/useUpdateContract
+            // đã invalidate query 'contracts' rồi.
           }}
         />
 
@@ -331,7 +352,7 @@ export default function ContractList() {
           onClose={() => setDeleteOpen(false)}
           onSuccess={() => {
             setDeleteOpen(false);
-            contractQuery.refetch();
+            // Tương tự, không cần refetch thủ công
           }}
         />
       </Box>

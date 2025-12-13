@@ -1,13 +1,18 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography } from "@mui/material";
-import { useAddressForm } from "@/hooks/useAddressForm";
+import { useDeleteAddress } from "@/hooks/useAddresses";
 
 export default function AddressDelete({ open, onClose, onDeleted, data }: any) {
-    const { submitDelete, loading } = useAddressForm();
+    // Sử dụng hook useDeleteAddress
+    const deleteMutation = useDeleteAddress();
 
     const handleDelete = () => {
-        submitDelete(data.id, () => {
-            onDeleted?.();
-            onClose();
+        if (!data?.id) return;
+
+        deleteMutation.mutate(data.id, {
+            onSuccess: () => {
+                onDeleted?.();
+                onClose();
+            },
         });
     };
 
@@ -16,13 +21,20 @@ export default function AddressDelete({ open, onClose, onDeleted, data }: any) {
             <DialogTitle>Delete Address</DialogTitle>
 
             <DialogContent>
-                <Typography>Are you sure you want to delete this address?</Typography>
+                <Typography>
+                    Are you sure you want to delete address <b>{data?.houseNumber} {data?.zipCode}</b>?
+                </Typography>
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button color="error" variant="contained" onClick={handleDelete} disabled={loading}>
-                    Delete
+                <Button onClick={onClose} disabled={deleteMutation.isPending}>Cancel</Button>
+                <Button 
+                    color="error" 
+                    variant="contained" 
+                    onClick={handleDelete} 
+                    disabled={deleteMutation.isPending}
+                >
+                    {deleteMutation.isPending ? "Deleting..." : "Delete"}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { ContractApi } from "@/api/contract.api";
+import { useDeleteContract } from "@/hooks/useContracts";
 
 export default function ContractDelete({
   open,
@@ -20,15 +20,20 @@ export default function ContractDelete({
   onClose: () => void;
   onSuccess: () => void;
 }) {
-  const handleDelete = async () => {
+  // Sử dụng Hook xóa
+  const { mutate: deleteContract, isPending } = useDeleteContract();
+
+  const handleDelete = () => {
     if (!id) return;
 
-    try {
-      await ContractApi.delete(id);
-      onSuccess();
-    } catch (err) {
-      console.log("DELETE ERROR:", err);
-    }
+    deleteContract(id, {
+      onSuccess: () => {
+        // Hook đã tự động invalidate query 'contracts', 
+        // ta chỉ cần đóng modal và gọi callback onSuccess (nếu cần logic phụ)
+        onSuccess(); 
+        onClose();
+      },
+    });
   };
 
   return (
@@ -43,10 +48,15 @@ export default function ContractDelete({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose} disabled={isPending}>Cancel</Button>
 
-        <Button color="error" variant="contained" onClick={handleDelete}>
-          Delete
+        <Button 
+          color="error" 
+          variant="contained" 
+          onClick={handleDelete}
+          disabled={isPending} // Disable nút khi đang xóa
+        >
+          {isPending ? "Deleting..." : "Delete"}
         </Button>
       </DialogActions>
     </Dialog>

@@ -3,32 +3,31 @@ import {
     Box,
     Button,
     Container,
-
     Modal,
     Stack,
-    TextField,
     Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-// import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed as navigation is handled inside forms or not needed here directly
+import { LoginForm } from "@/components/login-form";
+import { SignupForm } from "@/components/signup-form";
 
 const Header: React.FC = () => {
     const [openLogin, setOpenLogin] = React.useState(false);
     const [openRegister, setOpenRegister] = React.useState(false);
 
-    const inputStyle = {
-        input: { color: "white" },
-        label: { color: "white" },
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(255,255,255,0.4)"
-        },
-        "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-        }
+    // Helper to switch from Login to Register
+    const handleSwitchToRegister = (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        setOpenLogin(false);
+        setOpenRegister(true);
     };
-    const navigate = useNavigate();
 
+    // Helper to switch from Register to Login
+    const handleSwitchToLogin = (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        setOpenRegister(false);
+        setOpenLogin(true);
+    };
 
     return (
         <>
@@ -84,125 +83,39 @@ const Header: React.FC = () => {
             </Box>
 
             {/* ========== LOGIN POPUP ========== */}
-            <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 380,
-                        bgcolor: "rgba(255,255,255,0.15)",
-                        backdropFilter: "blur(20px)",
-                        p: 4,
-                        borderRadius: 3,
-                        border: "1px solid rgba(255,255,255,0.3)",
-                        color: "white",
-                        boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
-                        Sign In
-                    </Typography>
-
-                    <Stack spacing={2}>
-                        <TextField label="Email" fullWidth sx={inputStyle} />
-                        <TextField label="Password" type="password" fullWidth sx={inputStyle} />
-
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#3550ff",
-                                "&:hover": { bgcolor: "#4f6bff" }
-                            }}
-                            onClick={() => navigate("/home")}
-                        >
-                            Login
-                        </Button>
-
-
-                        <Typography sx={{ textAlign: "center", mt: 1 }}>
-                            Don’t have an account?{" "}
-                            <span
-                                style={{
-                                    color: "#ffd700",
-                                    cursor: "pointer",
-                                    fontWeight: 700
-                                }}
-                                onClick={() => {
-                                    setOpenLogin(false);
-                                    setOpenRegister(true);
-                                }}
-                            >
-                                Register
-                            </span>
-                        </Typography>
-                    </Stack>
-                </Box>
+            <Modal 
+                open={openLogin} 
+                onClose={() => setOpenLogin(false)}
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+                {/* Wrap in a div to handle click events for switching forms properly */}
+                <div onClick={(e) => {
+                    // Check if the click target is the "Sign up" link inside the form
+                    const target = e.target as HTMLElement;
+                    if (target.tagName === 'A' && target.getAttribute('href') === '/signup') {
+                        handleSwitchToRegister(e as unknown as React.MouseEvent);
+                    }
+                }}>
+                    <LoginForm className="w-[400px] bg-white text-black" />
+                </div>
             </Modal>
 
             {/* ========== REGISTER POPUP ========== */}
-            <Modal open={openRegister} onClose={() => setOpenRegister(false)}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 420,
-                        bgcolor: "rgba(255,255,255,0.12)",
-                        backdropFilter: "blur(20px)",
-                        p: 4,
-                        borderRadius: 3,
-                        border: "1px solid rgba(255,255,255,0.3)",
-                        color: "white",
-                        boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    <Typography variant="h5" fontWeight={700} sx={{ mb: 2 }}>
-                        Create Account
-                    </Typography>
-
-                    <Stack spacing={2}>
-                        <Stack direction="row" spacing={2}>
-                            <TextField label="First Name" fullWidth sx={inputStyle} />
-                            <TextField label="Last Name" fullWidth sx={inputStyle} />
-                        </Stack>
-
-                        <TextField label="Email" fullWidth sx={inputStyle} />
-                        <TextField label="Phone" fullWidth sx={inputStyle} />
-
-                        <TextField label="Password" type="password" fullWidth sx={inputStyle} />
-                        <TextField label="Confirm Password" type="password" fullWidth sx={inputStyle} />
-
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#3550ff",
-                                "&:hover": { bgcolor: "#4f6bff" }
-                            }}
-                        >
-                            Register
-                        </Button>
-
-                        <Typography sx={{ textAlign: "center", mt: 1 }}>
-                            Already have an account?{" "}
-                            <span
-                                style={{
-                                    color: "#ffd700",
-                                    cursor: "pointer",
-                                    fontWeight: 700
-                                }}
-                                onClick={() => {
-                                    setOpenRegister(false);
-                                    setOpenLogin(true);
-                                }}
-                            >
-                                Sign In
-                            </span>
-                        </Typography>
-                    </Stack>
-                </Box>
+            <Modal 
+                open={openRegister} 
+                onClose={() => setOpenRegister(false)}
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+                {/* Wrap in a div to handle click events for switching forms properly */}
+                <div onClick={(e) => {
+                    // Check if the click target is the "Sign in" link inside the form
+                    const target = e.target as HTMLElement;
+                    if (target.tagName === 'A' && target.getAttribute('href') === '/signin') {
+                        handleSwitchToLogin(e as unknown as React.MouseEvent);
+                    }
+                }}>
+                    <SignupForm className="w-[500px] bg-white text-black" />
+                </div>
             </Modal>
         </>
     );

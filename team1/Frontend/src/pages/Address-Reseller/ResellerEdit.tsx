@@ -3,10 +3,10 @@ import {
     TextField, MenuItem, Button
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useResellerForm } from "@/hooks/useResellerForm";
+import { useUpdateReseller } from "@/hooks/useResellers";
 
 export default function ResellerEdit({ open, onClose, data }: any) {
-    const { update } = useResellerForm();
+    const updateMutation = useUpdateReseller();
 
     const [form, setForm] = useState({ name: "", type: "Broker" });
 
@@ -20,7 +20,9 @@ export default function ResellerEdit({ open, onClose, data }: any) {
     };
 
     const save = () => {
-        update.mutate(
+        if (!data?.id) return;
+
+        updateMutation.mutate(
             { id: data.id, data: form },
             { onSuccess: () => onClose() }
         );
@@ -56,7 +58,13 @@ export default function ResellerEdit({ open, onClose, data }: any) {
 
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button variant="contained" onClick={save}>Save</Button>
+                <Button
+                    variant="contained"
+                    onClick={save}
+                    disabled={updateMutation.isPending} // Disable khi đang lưu
+                >
+                    {updateMutation.isPending ? "Saving..." : "Save"}
+                </Button>
             </DialogActions>
         </Dialog>
     );

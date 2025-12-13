@@ -1,148 +1,351 @@
-import React, { useEffect, useState } from "react";
-import { Box, TextField, Button, Stack, MenuItem, Paper, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import {
+    Box,
+    TextField,
+    Button,
+    Stack,
+    MenuItem,
+    Paper,
+    Typography,
+    Grid, // Use Grid2 for MUI v6 compatibility or alias it
+    CircularProgress
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { useCreateContract, useUpdateContract } from "@/hooks/useContracts";
 
-export interface Contract {
+
+// Define the form data structure explicitly to match UI fields
+interface ContractFormData {
     contractNumber: string;
     firstName: string;
     lastName: string;
     email: string;
-    phone?: string;
+    phone: string;
     startDate: string;
-    endDate?: string;
-    companyName?: string;
-    bankAccountNumber?: string;
-    resellerId?: string;
-    addressId?: string;
-    pdfLink?: string;
-    status: string;
-    notes?: string;
+    endDate: string;
+    companyName: string;
+    bankAccountNumber: string;
+    resellerId: number | string; // Allow string for form handling
+    addressId: number | string;  // Allow string for form handling
+    pdfLink: string;
+    status: number;
+    notes: string;
 }
 
 interface ContractFormProps {
     mode: "create" | "edit";
-    contractNumber?: string;
-    onUpdate?: (updated: Contract) => void;
+    initialData?: any; // Data passed for edit mode
+    contractId?: number; // ID for update
 }
 
-const ContractFormBase: React.FC<ContractFormProps> = ({ mode, contractNumber, onUpdate }) => {
+const ContractFormBase: React.FC<ContractFormProps> = ({ mode, initialData, contractId }) => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<Contract>({
-        contractNumber: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        startDate: "",
-        endDate: "",
-        companyName: "",
-        bankAccountNumber: "",
-        resellerId: "",
-        addressId: "",
-        pdfLink: "",
-        status: "Active",
-        notes: "",
+    const createMutation = useCreateContract();
+    const updateMutation = useUpdateContract();
+
+    const {
+        control,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<ContractFormData>({
+        defaultValues: {
+            contractNumber: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            startDate: "",
+            endDate: "",
+            companyName: "",
+            bankAccountNumber: "",
+            resellerId: "", // Initialize as empty string
+            addressId: "",  // Initialize as empty string
+            pdfLink: "",
+            status: 1,
+            notes: "",
+        },
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+    // Populate form when initialData changes (Edit mode)
+    useEffect(() => {
+        if (initialData) {
+            reset({
+                ...initialData,
+                startDate: initialData.startDate ? initialData.startDate.split('T')[0] : "",
+                endDate: initialData.endDate ? initialData.endDate.split('T')[0] : "",
+                resellerId: initialData.resellerId || "",
+                addressId: initialData.addressId || "",
+            });
+        }
+    }, [initialData, reset]);
+
+    const onSubmit = (data: ContractFormData) => {
+        // Convert form data to API params
+        // Casting to 'any' to bypass strict type checks if CreateContractParams is missing fields
+        const payload: any = {
+            ...data,
+            resellerId: Number(data.resellerId) || 0, // Ensure number
+            addressId: Number(data.addressId) || 0,   // Ensure number
+            status: Number(data.status),
+        };
+
+        if (mode === "create") {
+            createMutation.mutate(payload, {
+                onSuccess: () => navigate("/contracts/list"),
+            });
+        } else if (mode === "edit" && contractId) {
+            updateMutation.mutate(
+                { id: contractId, data: payload },
+                {
+                    onSuccess: () => navigate("/contracts/list"),
+                }
+            );
+        }
     };
 
-    const handleSubmit = () => {
-        if (onUpdate) onUpdate(formData);
-        alert(`${mode === "edit" ? "Updated" : "Created"} contract successfully!`);
-        navigate("/contracts/list");
-    };
+    const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
     return (
-        <Box
-            sx={{ flexGrow: 1, display: "flex", justifyContent: "center", mt: 4, mb: 4 }}
-        >
-            <Paper sx={{ p: 4, width: "100%", maxWidth: 650, borderRadius: 3, boxShadow: 3 }}>
-                <Typography variant="h4" gutterBottom textAlign="center">
+        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", mt: 4, mb: 4 }}>
+            <Paper sx={{ p: 4, width: "100%", maxWidth: 800, borderRadius: 3, boxShadow: "0 4px 20px rgba(0,0,0,0.08)" }}>
+                <Typography variant="h4" gutterBottom textAlign="center" fontWeight={700} color="primary">
                     {mode === "edit" ? "Edit Contract" : "Create New Contract"}
                 </Typography>
+                <Typography variant="body2" textAlign="center" color="text.secondary" mb={4}>
+                    {mode === "edit" ? "Update the contract details below." : "Fill in the information to create a new contract."}
+                </Typography>
 
-                <Stack spacing={2} alignItems="center">
-                    {/* Row 1: First & Last Name */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField sx={{ maxWidth: 280 }} label="First Name" name="firstName" value={formData.firstName} onChange={handleChange} fullWidth />
-                        <TextField sx={{ maxWidth: 280 }} label="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} fullWidth />
-                    </Stack>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Grid container spacing={3}>
+                        {/* Contract Number */}
+                        <Grid size={{ xs: 12 }}>
+                            <Controller
+                                name="contractNumber"
+                                control={control}
+                                rules={{ required: "Contract Number is required" }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Contract Number"
+                                        fullWidth
+                                        error={!!errors.contractNumber}
+                                        helperText={errors.contractNumber?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
 
-                    {/* Row 2: Email & Phone */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField sx={{ maxWidth: 280 }} label="Email" name="email" value={formData.email} onChange={handleChange} fullWidth />
-                        <TextField sx={{ maxWidth: 280 }} label="Phone" name="phone" value={formData.phone} onChange={handleChange} fullWidth />
-                    </Stack>
+                        {/* First Name & Last Name */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="firstName"
+                                control={control}
+                                rules={{ required: "First Name is required" }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="First Name"
+                                        fullWidth
+                                        error={!!errors.firstName}
+                                        helperText={errors.firstName?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="lastName"
+                                control={control}
+                                rules={{ required: "Last Name is required" }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Last Name"
+                                        fullWidth
+                                        error={!!errors.lastName}
+                                        helperText={errors.lastName?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
 
-                    {/* Row 3: Start & End Date */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField
-                            sx={{ maxWidth: 280 }}
-                            label="Start Date"
-                            type="date"
-                            name="startDate"
-                            value={formData.startDate}
-                            onChange={handleChange}
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
-                        <TextField
-                            sx={{ maxWidth: 280 }}
-                            label="End Date"
-                            type="date"
-                            name="endDate"
-                            value={formData.endDate}
-                            onChange={handleChange}
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
-                    </Stack>
+                        {/* Email & Phone */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="email"
+                                control={control}
+                                rules={{ 
+                                    required: "Email is required",
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Invalid email address"
+                                    }
+                                }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Email"
+                                        fullWidth
+                                        error={!!errors.email}
+                                        helperText={errors.email?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="phone"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="Phone" fullWidth />
+                                )}
+                            />
+                        </Grid>
 
-                    {/* Row 4: Company & Bank */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField sx={{ maxWidth: 280 }} label="Company Name" name="companyName" value={formData.companyName} onChange={handleChange} fullWidth />
-                        <TextField sx={{ maxWidth: 280 }} label="Bank Account Number" name="bankAccountNumber" value={formData.bankAccountNumber} onChange={handleChange} fullWidth />
-                    </Stack>
+                        {/* Start & End Date */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="startDate"
+                                control={control}
+                                rules={{ required: "Start Date is required" }}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Start Date"
+                                        type="date"
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                        error={!!errors.startDate}
+                                        helperText={errors.startDate?.message}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="endDate"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="End Date"
+                                        type="date"
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                    />
+                                )}
+                            />
+                        </Grid>
 
-                    {/* Row 5: Reseller & Address */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField sx={{ maxWidth: 280 }} label="Reseller ID" name="resellerId" value={formData.resellerId} onChange={handleChange} fullWidth />
-                        <TextField sx={{ maxWidth: 280 }} label="Address ID" name="addressId" value={formData.addressId} onChange={handleChange} fullWidth />
-                    </Stack>
+                        {/* Company & Bank */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="companyName"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="Company Name" fullWidth />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="bankAccountNumber"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="Bank Account Number" fullWidth />
+                                )}
+                            />
+                        </Grid>
 
-                    {/* Row 6: PDF & Status */}
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ width: "100%", justifyContent: "center" }}>
-                        <TextField sx={{ maxWidth: 280 }} label="PDF Link" name="pdfLink" value={formData.pdfLink} onChange={handleChange} fullWidth />
-                        <TextField
-                            sx={{ maxWidth: 280 }}
-                            select
-                            label="Status"
-                            name="status"
-                            value={formData.status}
-                            onChange={handleChange}
-                            fullWidth
+                        {/* Reseller & Address IDs */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="resellerId"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="Reseller ID" type="number" fullWidth />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="addressId"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="Address ID" type="number" fullWidth />
+                                )}
+                            />
+                        </Grid>
+
+                        {/* PDF Link & Status */}
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="pdfLink"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField {...field} label="PDF Link" fullWidth />
+                                )}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }}>
+                            <Controller
+                                name="status"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        select
+                                        label="Status"
+                                        fullWidth
+                                    >
+                                        <MenuItem value={1}>Active</MenuItem>
+                                        <MenuItem value={0}>Inactive</MenuItem>
+                                        <MenuItem value={2}>Pending</MenuItem>
+                                        <MenuItem value={3}>Expired</MenuItem>
+                                    </TextField>
+                                )}
+                            />
+                        </Grid>
+
+                        {/* Notes */}
+                        <Grid size={{ xs: 12 }}>
+                            <Controller
+                                name="notes"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        label="Notes"
+                                        multiline
+                                        rows={3}
+                                        fullWidth
+                                    />
+                                )}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    {/* Actions */}
+                    <Stack direction="row" spacing={2} justifyContent="flex-end" mt={4}>
+                        <Button
+                            variant="outlined"
+                            onClick={() => navigate("/contracts/list")}
+                            disabled={isSubmitting}
                         >
-                            <MenuItem value="Active">Active</MenuItem>
-                            <MenuItem value="Inactive">Inactive</MenuItem>
-                            <MenuItem value="Pending">Pending</MenuItem>
-                            <MenuItem value="Expired">Expired</MenuItem>
-                        </TextField>
-                    </Stack>
-
-                    {/* Notes */}
-                    <TextField label="Notes" name="notes" value={formData.notes} onChange={handleChange} multiline rows={3} sx={{ width: "100%", maxWidth: 600 }} />
-
-                    {/* Buttons */}
-                    <Stack direction="row" spacing={2} justifyContent="center" mt={2}>
-                        <Button variant="contained" onClick={handleSubmit}>
-                            {mode === "edit" ? "Save Changes" : "Create"}
+                            Cancel
                         </Button>
-                        <Button variant="outlined" onClick={() => navigate("/contracts/list")}>Cancel</Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={isSubmitting}
+                            startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
+                        >
+                            {isSubmitting ? "Saving..." : (mode === "edit" ? "Save Changes" : "Create Contract")}
+                        </Button>
                     </Stack>
-                </Stack>
+                </form>
             </Paper>
         </Box>
     );

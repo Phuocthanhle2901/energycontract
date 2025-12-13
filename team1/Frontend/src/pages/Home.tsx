@@ -1,239 +1,323 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Contract } from "../types/contract";
-import { ContractApi } from "../api/contract.api";
-import NavMenu from "../components/NavMenu/NavMenu";
+import { useContracts } from "@/hooks/useContracts";
+import { useReseller } from "@/hooks/useResellers"; // 1. Import hook lấy chi tiết Reseller
+import NavMenu from "@/components/NavMenu/NavMenu";
+
+// MUI Components
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  CircularProgress,
+  Container,
+  Grid,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme
+} from "@mui/material";
+
+// Icons
+import {
+  Add as AddIcon,
+  Description as ContractIcon,
+  Bolt as EnergyIcon,
+  AccessTime as TimeIcon,
+  ArrowForward as ArrowForwardIcon
+} from "@mui/icons-material";
+
+// 2. Component con để fetch và hiển thị tên Reseller
+// Tách ra để có thể dùng Hook useReseller hợp lệ
+const ResellerCell = ({ resellerId }: { resellerId: number }) => {
+  const { data: reseller, isLoading } = useReseller(resellerId);
+
+  if (isLoading) return <Typography variant="caption" color="text.secondary">Loading...</Typography>;
+  return <Typography variant="body2">{reseller?.name || "—"}</Typography>;
+};
 
 export default function Home() {
-  const [contracts, setContracts] = useState<Contract[]>([]);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const theme = useTheme();
 
-  // ===================== FETCH CONTRACT DATA =====================
-  useEffect(() => {
-    setLoading(true);
+  // ===================== FETCH DATA (React Query) =====================
+  const { data, isLoading } = useContracts({ pageNumber: 1, pageSize: 100 });
+  const contracts = Array.isArray(data?.items) ? data.items : [];
 
-    ContractApi.getAll()
-      .then((data) => {
-        setContracts(Array.isArray(data.items) ? data.items : []);
-      })
-      .catch(() => {
-        setContracts([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  // ===================== CALCULATIONS (useMemo) =====================
+  const stats = useMemo(() => {
+    const now = new Date();
+    let activeCount = 0;
 
-  // ===================== CALCULATIONS =====================
+    contracts.forEach((c) => {
+      if (c.endDate && new Date(c.endDate) > now) {
+        activeCount++;
+      }
+    });
 
-  const activeContracts = contracts.filter((c) => {
-    if (!c?.endDate) return false;
-    return new Date(c.endDate) > new Date();
-  }).length;
+    return {
+      total: contracts.length,
+      active: activeCount,
+      expired: contracts.length - activeCount,
+      totalOrders: 0 
+    };
+  }, [contracts]);
 
-  const expiredContracts = contracts.length - activeContracts;
-
-  const totalOrders = contracts.reduce((sum, c) => {
-    const orderList = Array.isArray(c?.orders) ? c.orders : [];
-    return sum + orderList.length;
-  }, 0);
-
-  // ===================== UI ======================
-
+  // ===================== UI RENDER ======================
   return (
-    <div style={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <NavMenu />
 
-      <div
-        style={{
-          marginLeft: "240px",
-          padding: "2rem",
-          width: "100%",
-          background: "#F3F4F6",
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: "#f5f7fa",
           minHeight: "100vh",
+          ml: { xs: 0, md: "260px" },
+          p: 3,
         }}
       >
-        {/* ================= HERO ================= */}
-        <div className="hero-section">
-          <h1>⚡ Energy Contract Manager</h1>
-          <p>Manage all your energy contracts and orders in one centralized platform</p>
+        <Container maxWidth="xl">
+          
+          {/* ================= HERO SECTION ================= */}
+          <Paper
+            elevation={0}
+            sx={{
+              p: 4,
+              mb: 4,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+              color: "white",
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 2
+            }}
+          >
+            <Box>
+              <Typography variant="h4" fontWeight={700} gutterBottom>
+                ⚡ Energy Contract Manager
+              </Typography>
+              <Typography variant="body1" sx={{ opacity: 0.8, maxWidth: 600 }}>
+                Manage all your energy contracts, track expirations, and monitor orders in one centralized platform.
+              </Typography>
+            </Box>
 
-          <div className="hero-buttons">
-            <button
-              className="btn-primary"
-              onClick={() => navigate("/contracts/create")}
-            >
-              Create New Contract
-            </button>
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddIcon />}
+                onClick={() => navigate("/contracts/create")}
+                sx={{ bgcolor: "#3b82f6", fontWeight: 600 }}
+              >
+                New Contract
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ color: "white", borderColor: "rgba(255,255,255,0.3)", "&:hover": { borderColor: "white" } }}
+                onClick={() => navigate("/contracts/list")}
+              >
+                View All
+              </Button>
+            </Stack>
+          </Paper>
 
-            <button
-              className="btn-outline"
+          {/* ================= DASHBOARD STATS ================= */}
+          <Typography variant="h6" fontWeight={700} sx={{ mb: 2, color: "text.primary" }}>
+            📊 Dashboard Overview
+          </Typography>
+
+          <Grid container spacing={3} sx={{ mb: 4 }}>
+            {/* CARD 1: TOTAL CONTRACTS */}
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <Card sx={{ borderRadius: 2, height: "100%" }}>
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#eff6ff", color: "#3b82f6" }}>
+                      <ContractIcon />
+                    </Box>
+                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
+                      Total Contracts
+                    </Typography>
+                  </Stack>
+                  <Typography variant="h3" fontWeight={700} color="text.primary">
+                    {isLoading ? "-" : stats.total}
+                  </Typography>
+                  <Stack direction="row" spacing={1} mt={2}>
+                    <Chip 
+                        label={`${stats.active} Active`} 
+                        size="small" 
+                        color="success" 
+                        variant="filled"
+                        sx={{ bgcolor: "#dcfce7", color: "#166534" }}
+                    />
+                    {stats.expired > 0 && (
+                      <Chip 
+                        label={`${stats.expired} Expired`} 
+                        size="small" 
+                        color="error" 
+                        variant="filled"
+                        sx={{ bgcolor: "#fee2e2", color: "#991b1b" }}
+                      />
+                    )}
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* CARD 2: TOTAL ORDERS */}
+            <Grid size={{ xs: 12, sm: 4 }}>
+              <Card sx={{ borderRadius: 2, height: "100%" }}>
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#f0fdf4", color: "#22c55e" }}>
+                      <EnergyIcon />
+                    </Box>
+                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
+                      Total Orders
+                    </Typography>
+                  </Stack>
+                  <Typography variant="h3" fontWeight={700} color="text.primary">
+                    {isLoading ? "-" : "N/A"} 
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    Gas & Electricity combined
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* CARD 3: RENEWALS */}
+            <Grid size={{ xs: 12, sm: 4 }}>
+              <Card sx={{ borderRadius: 2, height: "100%" }}>
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#fef2f2", color: "#ef4444" }}>
+                      <TimeIcon />
+                    </Box>
+                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
+                      Requires Renewal
+                    </Typography>
+                  </Stack>
+                  <Typography variant="h3" fontWeight={700} color="text.primary">
+                    {isLoading ? "-" : stats.expired}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    {stats.expired === 0 ? "✅ All contracts are active" : "⚠️ Action needed for expired contracts"}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+
+          {/* ================= RECENT CONTRACTS TABLE ================= */}
+          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+            <Typography variant="h6" fontWeight={700}>
+              📄 Recent Contracts
+            </Typography>
+            <Button 
+              endIcon={<ArrowForwardIcon />} 
               onClick={() => navigate("/contracts/list")}
             >
-              View All Contracts
-            </button>
-          </div>
-        </div>
+              View All
+            </Button>
+          </Stack>
 
-        {/* ================= DASHBOARD ================= */}
-        <h2 style={{ marginBottom: "2rem", fontSize: "1.6rem", fontWeight: 700 }}>
-          📊 Dashboard Overview
-        </h2>
-
-        <div className="card-grid">
-          {/* TOTAL CONTRACTS */}
-          <div className="card stat-card">
-            <p className="stat-label">📋 Total Contracts</p>
-            <div className="stat-number">{contracts.length}</div>
-
-            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
-              <span className="status-badge status-active">
-                {activeContracts} Active
-              </span>
-
-              {expiredContracts > 0 && (
-                <span className="status-badge status-expired">
-                  {expiredContracts} Expired
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* TOTAL ORDERS */}
-          <div className="card stat-card">
-            <p className="stat-label">🔌 Total Orders</p>
-            <div className="stat-number">{totalOrders}</div>
-            <p className="muted" style={{ fontSize: "0.85rem", marginTop: "1rem" }}>
-              Gas & Electricity combined
-            </p>
-          </div>
-
-          {/* EXPIRED CONTRACTS */}
-          <div className="card stat-card">
-            <p className="stat-label">⏰ Requires Renewal</p>
-            <div className="stat-number">{expiredContracts}</div>
-            <p className="muted" style={{ fontSize: "0.85rem", marginTop: "1rem" }}>
-              {expiredContracts === 0 ? "✅ All contracts active" : "⚠️ Action needed"}
-            </p>
-          </div>
-        </div>
-
-        {/* ================= RECENT CONTRACTS ================= */}
-        <div className="card" style={{ marginTop: "3rem" }}>
-          <div className="recent-contracts-header">
-            <h2>📄 Recent Contracts</h2>
-            <button className="btn-primary" onClick={() => navigate("/contracts/list")}>
-              View All →
-            </button>
-          </div>
-
-          {/* LOADING STATE */}
-          {loading ? (
-            <div style={{ textAlign: "center", padding: "3rem" }}>
-              <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>⏳</div>
-              <p className="muted">Loading contracts...</p>
-            </div>
-          ) : contracts.length === 0 ? (
-            /* EMPTY STATE */
-            <div style={{ textAlign: "center", padding: "3rem" }}>
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📭</div>
-              <p className="muted" style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
-                No contracts yet. Create your first contract!
-              </p>
-              <button className="btn-primary" onClick={() => navigate("/contracts/create")}>
-                Create First Contract
-              </button>
-            </div>
-          ) : (
-            /* TABLE DATA */
-            <div className="table-wrapper">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>Contract</th>
-                    <th>Customer</th>
-                    <th>Email</th>
-                    <th>Reseller</th>
-                    <th>Duration</th>
-                    <th>Orders</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {contracts.slice(0, 5).map((c) => {
-                    const isActive =
-                      c.endDate && new Date(c.endDate) > new Date();
-
-                    const orderCount = Array.isArray(c.orders)
-                      ? c.orders.length
-                      : 0;
+          <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: theme.shadows[1] }}>
+            <Table>
+              <TableHead sx={{ bgcolor: "#f8fafc" }}>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 600 }}>Contract No.</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Customer</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Reseller</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Duration</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 600 }}>Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {isLoading ? (
+                  <TableRow>
+                    <TableCell colSpan={6} align="center" sx={{ py: 5 }}>
+                      <CircularProgress />
+                      <Typography variant="body2" color="text.secondary" mt={1}>Loading data...</Typography>
+                    </TableCell>
+                  </TableRow>
+                ) : contracts.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} align="center" sx={{ py: 5 }}>
+                      <Typography variant="h6" color="text.secondary">📭 No contracts found</Typography>
+                      <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/contracts/create")}>
+                        Create First Contract
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  contracts.slice(0, 5).map((c) => {
+                    const isActive = c.endDate && new Date(c.endDate) > new Date();
 
                     return (
-                      <tr key={c.id}>
-                        <td style={{ fontWeight: 700, color: "var(--primary)" }}>
-                          {c.contractNumber}
-                        </td>
+                      <TableRow key={c.id} hover>
+                        <TableCell>
+                          <Typography fontWeight={600} color="primary.main">
+                            {c.contractNumber}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body2" fontWeight={500}>{c.firstName} {c.lastName}</Typography>
+                          <Typography variant="caption" color="text.secondary">{c.email}</Typography>
+                        </TableCell>
+                        
+                        {/* 3. Sử dụng Component con để hiển thị Reseller */}
+                        <TableCell>
+                          <ResellerCell resellerId={c.resellerId} />
+                        </TableCell>
 
-                        <td>
-                          {c.firstName} {c.lastName}
-                        </td>
-
-                        <td className="muted">{c.email}</td>
-
-                        <td>{c.resellerName ?? "—"}</td>
-
-                        <td className="muted" style={{ fontSize: "0.85rem" }}>
-                          {new Date(c.startDate).toLocaleDateString("vi-VN")} –{" "}
-                          {c.endDate
-                            ? new Date(c.endDate).toLocaleDateString("vi-VN")
-                            : "N/A"}
-                        </td>
-
-                        <td>
-                          <span
-                            style={{
-                              background: "#E0F2FE",
-                              color: "#0284C7",
-                              padding: "0.4rem 0.9rem",
-                              borderRadius: "0.625rem",
-                              fontSize: "0.85rem",
-                              fontWeight: 700,
-                            }}
-                          >
-                            {orderCount} order{orderCount !== 1 ? "s" : ""}
-                          </span>
-                        </td>
-
-                        <td>
-                          <span
-                            className={
-                              isActive
-                                ? "status-badge status-active"
-                                : "status-badge status-expired"
-                            }
-                          >
-                            {isActive ? "Active" : "Expired"}
-                          </span>
-                        </td>
-
-                        <td>
-                          <button
-                            className="btn-link"
+                        <TableCell>
+                          <Typography variant="body2">
+                            {new Date(c.startDate).toLocaleDateString("vi-VN")}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            to {c.endDate ? new Date(c.endDate).toLocaleDateString("vi-VN") : "N/A"}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Chip
+                            label={isActive ? "Active" : "Expired"}
+                            color={isActive ? "success" : "error"}
+                            size="small"
+                            variant={isActive ? "filled" : "outlined"}
+                          />
+                        </TableCell>
+                        <TableCell align="right">
+                          <Button 
+                            size="small" 
                             onClick={() => navigate(`/contracts/${c.id}/detail`)}
                           >
-                            Details →
-                          </button>
-                        </td>
-                      </tr>
+                            Details
+                          </Button>
+                        </TableCell>
+                      </TableRow>
                     );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+                  })
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+        </Container>
+      </Box>
+    </Box>
   );
 }

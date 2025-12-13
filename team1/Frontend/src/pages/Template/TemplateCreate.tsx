@@ -1,8 +1,7 @@
-// src/pages/Template/TemplateCreate.tsx
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { templateSchema } from "@/schemas/template.schema";
-import { TemplateApi } from "@/api/template.api";
+
+import { useCreateTemplate } from "@/hooks/usePdf"; // Use the hook
 import {
     Box,
     Button,
@@ -13,10 +12,12 @@ import {
     TextField,
     Typography,
     FormControlLabel,
+    CircularProgress
 } from "@mui/material";
-import toast from "react-hot-toast";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
+import { templateSchema } from "@/schemas/template.schema";
 
 type TemplateCreateFormValues = {
     name: string;
@@ -167,11 +168,14 @@ const CONTRACT_TEMPLATE_HTML = `<!DOCTYPE html>
 </html>`.trim();
 
 export default function TemplateCreate() {
+    const navigate = useNavigate();
+    const createMutation = useCreateTemplate();
+
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm<TemplateCreateFormValues>({
         resolver: yupResolver(templateSchema),
         defaultValues: {
@@ -192,18 +196,21 @@ export default function TemplateCreate() {
         [htmlContent]
     );
 
-    const onSubmit = async (values: TemplateCreateFormValues) => {
-        try {
-            await TemplateApi.create({
+    const onSubmit = (values: TemplateCreateFormValues) => {
+        createMutation.mutate(
+            {
                 ...values,
                 htmlContent: values.htmlContent.trim(),
-            });
-            toast.success("Template created successfully");
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to create template");
-        }
+            },
+            {
+                onSuccess: () => {
+                    navigate("/templates"); // Redirect to list after success
+                },
+            }
+        );
     };
+
+    const isSubmitting = createMutation.isPending;
 
     return (
         <>
@@ -239,10 +246,18 @@ export default function TemplateCreate() {
 
                     <Stack direction="row" spacing={1}>
                         <Button
+                            variant="outlined"
+                            onClick={() => navigate("/templates")}
+                            disabled={isSubmitting}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
                             type="submit"
                             variant="contained"
                             onClick={handleSubmit(onSubmit)}
                             disabled={isSubmitting}
+                            startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
                         >
                             {isSubmitting ? "Creating..." : "Create template"}
                         </Button>
@@ -252,7 +267,7 @@ export default function TemplateCreate() {
                 {/* BODY */}
                 <Grid container spacing={3}>
                     {/* LEFT: FORM + CODE */}
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
                         <Paper
                             elevation={2}
                             sx={{
@@ -287,7 +302,7 @@ export default function TemplateCreate() {
                             />
 
                             <FormControlLabel
-                                control={<Switch {...register("isActive")} />}
+                                control={<Switch defaultChecked {...register("isActive")} />}
                                 label="Active"
                             />
 
@@ -316,7 +331,7 @@ export default function TemplateCreate() {
                     </Grid>
 
                     {/* RIGHT: PREVIEW */}
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
                         <Paper
                             elevation={2}
                             sx={{

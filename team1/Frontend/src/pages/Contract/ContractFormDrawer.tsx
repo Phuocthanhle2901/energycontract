@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
     Drawer,
     Box,
@@ -9,22 +9,35 @@ import {
     Stack,
     MenuItem,
     Divider,
+    CircularProgress
 } from "@mui/material";
 
 import { FiX } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-import { ContractApi } from "@/api/contract.api";
-import { AddressApi } from "@/api/address.api";
-import { ResellerApi } from "@/api/reseller.api";
+// Hooks
+import { useCreateContract, useUpdateContract, useContract } from "@/hooks/useContracts";
+import { useResellers } from "@/hooks/useResellers";
+import { useAddresses } from "@/hooks/useAddresses";
 
-export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess }) {
+export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess }: any) {
     const isEdit = mode === "edit";
 
-    const [resellers, setResellers] = useState([]);
-    const [addresses, setAddresses] = useState([]);
-    const [initialData, setInitialData] = useState(null);
+    // --- Hooks lấy dữ liệu bổ trợ ---
+    const { data: resellersData } = useResellers({ pageNumber: 1, pageSize: 100 });
+    const resellers = resellersData?.items || [];
+
+    const { data: addressesData } = useAddresses({ pageNumber: 1, pageSize: 100 });
+    const addresses = addressesData?.items || [];
+
+    // --- Hooks Mutation ---
+    const createMutation = useCreateContract();
+    const updateMutation = useUpdateContract();
+
+    // --- Hook lấy chi tiết Contract (khi Edit) ---
+    // Sử dụng hook useContract thay vì useQuery trực tiếp
+    const { data: contractData, isLoading: isLoadingContract } = useContract(isEdit && open ? id : 0);
 
     const {
         register,
@@ -46,84 +59,81 @@ export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess 
         },
     });
 
-    useEffect(() => {
-        ResellerApi.getAll({ PageNumber: 1, PageSize: 99 }).then((res) =>
-            setResellers(res.items || [])
-        );
-        AddressApi.getAll({ PageNumber: 1, PageSize: 99 }).then((res) =>
-            setAddresses(res.items || [])
-        );
-    }, []);
-
     // LOAD DATA INTO FORM
     useEffect(() => {
-        if (!open) return;
-
-        if (isEdit && id) {
-            ContractApi.getById(id).then((data) => {
-                setInitialData(data);
-
+        if (open) {
+            if (isEdit && contractData) {
                 reset({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    phone: data.phone,
-                    companyName: data.companyName ?? "",
-                    bankAccountNumber: data.bankAccountNumber ?? "",
-                    startDate: data.startDate?.split("T")[0],
-                    endDate: data.endDate?.split("T")[0],
-                    resellerId: String(data.resellerId),
-                    addressId: String(data.addressId),
+                    firstName: contractData.firstName,
+                    lastName: contractData.lastName,
+                    email: contractData.email,
+                    phone: contractData.phone,
+                    companyName: contractData.companyName ?? "",
+                    bankAccountNumber: contractData.bankAccountNumber ?? "",
+                    startDate: contractData.startDate ? contractData.startDate.split("T")[0] : "",
+                    endDate: contractData.endDate ? contractData.endDate.split("T")[0] : "",
+                    resellerId: String(contractData.resellerId || ""),
+                    addressId: String(contractData.addressId || ""),
                 });
-            });
-        } else {
-            reset({});
+            } else if (!isEdit) {
+                reset({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    phone: "",
+                    companyName: "",
+                    bankAccountNumber: "",
+                    startDate: "",
+                    endDate: "",
+                    resellerId: "",
+                    addressId: "",
+                });
+            }
         }
-    }, [open, isEdit, id, reset]);
+    }, [open, isEdit, contractData, reset]);
 
     // SUBMIT HANDLER
-    const onSubmit = async (form) => {
-
-        const payload = {
+    const onSubmit = (form: any) => {
+        const payload: any = {
             firstName: form.firstName,
             lastName: form.lastName,
             email: form.email,
             phone: form.phone,
             companyName: form.companyName ?? "",
             bankAccountNumber: form.bankAccountNumber ?? "",
-            resellerId: Number(form.resellerId),
-            addressId: Number(form.addressId),
+            resellerId: Number(form.resellerId) || 0,
+            addressId: Number(form.addressId) || 0,
+            
+            // Giữ logic format date như cũ hoặc dùng toISOString()
+            startDate: form.startDate ? new Date(form.startDate).toISOString() : new Date().toISOString(),
+            endDate: form.endDate ? new Date(form.endDate).toISOString() : new Date().toISOString(),
 
-            startDate: form.startDate
-                ? form.startDate + "T00:00:00Z"
-                : null,
-
-            endDate: form.endDate
-                ? form.endDate + "T00:00:00Z"
-                : null,
-
-            pdfLink: initialData?.pdfLink || "",
+            pdfLink: contractData?.pdfLink || "",
+            // Các trường bắt buộc khác nếu API yêu cầu (giả định)
+            contractNumber: contractData?.contractNumber || "AUTO-" + Date.now(),
+            
         };
 
-        console.log("FINAL PAYLOAD SENT TO API:", payload);
-
-        try {
-            if (isEdit) {
-                await ContractApi.update(id, payload);
-                toast.success("Contract updated!");
-            } else {
-                await ContractApi.create(payload);
-                toast.success("Contract created!");
+        const mutationOptions = {
+            onSuccess: () => {
+                toast.success(isEdit ? "Contract updated!" : "Contract created!");
+                onSuccess?.();
+                onClose();
+            },
+            onError: (err: any) => {
+                console.error("SAVE ERROR:", err);
+                toast.error("Failed to save contract!");
             }
+        };
 
-            onSuccess?.();
-            onClose();
-
-        } catch (err) {
-            console.error("SAVE ERROR:", err);
-            toast.error("Failed to save contract!");
+        if (isEdit && id) {
+            updateMutation.mutate({ id, data: payload }, mutationOptions);
+        } else {
+            createMutation.mutate(payload, mutationOptions);
         }
     };
+
+    const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
     return (
         <Drawer anchor="right" open={open} onClose={onClose}
@@ -140,78 +150,91 @@ export default function ContractFormDrawer({ open, mode, id, onClose, onSuccess 
 
             <Divider sx={{ my: 2 }} />
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Stack spacing={2}>
+            {isLoadingContract && isEdit ? (
+                <Box display="flex" justifyContent="center" p={4}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Stack spacing={2}>
 
-                    <TextField label="First Name" {...register("firstName")} />
+                        <TextField label="First Name" {...register("firstName")} />
 
-                    <TextField label="Last Name" {...register("lastName")} />
+                        <TextField label="Last Name" {...register("lastName")} />
 
-                    <TextField label="Email" {...register("email")} />
+                        <TextField label="Email" {...register("email")} />
 
-                    <TextField label="Phone" {...register("phone")} />
+                        <TextField label="Phone" {...register("phone")} />
 
-                    <Stack direction="row" spacing={2}>
+                        <Stack direction="row" spacing={2}>
+                            <TextField
+                                type="date"
+                                label="Start Date"
+                                InputLabelProps={{ shrink: true }}
+                                {...register("startDate")}
+                                value={watch("startDate") || ""}
+                                fullWidth
+                            />
+                            <TextField
+                                type="date"
+                                label="End Date"
+                                InputLabelProps={{ shrink: true }}
+                                {...register("endDate")}
+                                value={watch("endDate") || ""}
+                                fullWidth
+                            />
+                        </Stack>
+
+                        <TextField label="Company Name" {...register("companyName")} />
+
                         <TextField
-                            type="date"
-                            label="Start Date"
-                            InputLabelProps={{ shrink: true }}
-                            {...register("startDate")}
-                            value={watch("startDate") || ""}
+                            label="Bank Account Number"
+                            {...register("bankAccountNumber")}
                         />
+
                         <TextField
-                            type="date"
-                            label="End Date"
-                            InputLabelProps={{ shrink: true }}
-                            {...register("endDate")}
-                            value={watch("endDate") || ""}
-                        />
+                            select
+                            label="Reseller"
+                            {...register("resellerId")}
+                            value={watch("resellerId") || ""}
+                        >
+                            <MenuItem value="">-- Select --</MenuItem>
+                            {resellers.map((r) => (
+                                <MenuItem key={r.id} value={String(r.id)}>
+                                    {r.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+
+                        <TextField
+                            select
+                            label="Address"
+                            {...register("addressId")}
+                            value={watch("addressId") || ""}
+                        >
+                            <MenuItem value="">-- Select --</MenuItem>
+                            {addresses.map((a) => (
+                                <MenuItem key={a.id} value={String(a.id)}>
+                                    {a.houseNumber} • {a.zipCode}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+
+                        <Stack direction="row" justifyContent="flex-end" spacing={2}>
+                            <Button onClick={onClose} disabled={isSubmitting}>Cancel</Button>
+                            <Button 
+                                type="submit" 
+                                variant="contained" 
+                                disabled={isSubmitting}
+                                startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
+                            >
+                                {isEdit ? "Save" : "Create"}
+                            </Button>
+                        </Stack>
+
                     </Stack>
-
-                    <TextField label="Company Name" {...register("companyName")} />
-
-                    <TextField
-                        label="Bank Account Number"
-                        {...register("bankAccountNumber")}
-                    />
-
-                    <TextField
-                        select
-                        label="Reseller"
-                        {...register("resellerId")}
-                        value={watch("resellerId") || ""}
-                    >
-                        <MenuItem value="">-- Select --</MenuItem>
-                        {resellers.map((r) => (
-                            <MenuItem key={r.id} value={String(r.id)}>
-                                {r.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-
-                    <TextField
-                        select
-                        label="Address"
-                        {...register("addressId")}
-                        value={watch("addressId") || ""}
-                    >
-                        <MenuItem value="">-- Select --</MenuItem>
-                        {addresses.map((a) => (
-                            <MenuItem key={a.id} value={String(a.id)}>
-                                {a.houseNumber} • {a.zipCode}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-
-                    <Stack direction="row" justifyContent="flex-end" spacing={2}>
-                        <Button onClick={onClose}>Cancel</Button>
-                        <Button type="submit" variant="contained">
-                            {isEdit ? "Save" : "Create"}
-                        </Button>
-                    </Stack>
-
-                </Stack>
-            </form>
+                </form>
+            )}
        </Drawer>
     );
 }

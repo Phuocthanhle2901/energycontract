@@ -1,9 +1,10 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Stack } from "@mui/material";
 import { useState } from "react";
-import { useAddressForm } from "@/hooks/useAddressForm";
+import { useCreateAddress } from "@/hooks/useAddresses";
 
 export default function AddressCreate({ open, onClose, onSaved }: any) {
-    const { submitCreate, loading } = useAddressForm();
+    // Sử dụng hook useCreateAddress
+    const createMutation = useCreateAddress();
 
     const [form, setForm] = useState({
         zipCode: "",
@@ -17,9 +18,13 @@ export default function AddressCreate({ open, onClose, onSaved }: any) {
     };
 
     const submit = () => {
-        submitCreate(form, () => {
-            onSaved?.();
-            onClose();
+        createMutation.mutate(form, {
+            onSuccess: () => {
+                // Reset form
+                setForm({ zipCode: "", houseNumber: "", extension: "" });
+                onSaved?.();
+                onClose();
+            },
         });
     };
 
@@ -28,7 +33,7 @@ export default function AddressCreate({ open, onClose, onSaved }: any) {
             <DialogTitle>Create Address</DialogTitle>
 
             <DialogContent>
-                <Stack spacing={2}>
+                <Stack spacing={2} sx={{ mt: 1 }}>
                     <TextField label="Zip Code" name="zipCode" value={form.zipCode} onChange={change} />
                     <TextField label="House Number" name="houseNumber" value={form.houseNumber} onChange={change} />
                     <TextField label="Extension" name="extension" value={form.extension} onChange={change} />
@@ -37,8 +42,12 @@ export default function AddressCreate({ open, onClose, onSaved }: any) {
 
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={submit} variant="contained" disabled={loading}>
-                    Save
+                <Button 
+                    onClick={submit} 
+                    variant="contained" 
+                    disabled={createMutation.isPending}
+                >
+                    {createMutation.isPending ? "Saving..." : "Save"}
                 </Button>
             </DialogActions>
         </Dialog>

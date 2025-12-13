@@ -1,22 +1,36 @@
-import { TemplateApi } from "@/api/template.api";
-import toast from "react-hot-toast";
+import React from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/DeleteOutline";
+import { useDeleteTemplate } from "@/hooks/usePdf";
+import { CircularProgress } from "@mui/material";
 
-/**
- * Helper dùng để xoá template + gọi lại refetch list.
- * Có thể dùng lại ở nhiều nơi (TemplateList, dialog riêng, v.v.)
- */
-export async function deleteTemplate(
-    id: number,
-    refetch?: () => void
-): Promise<void> {
-    try {
-        await TemplateApi.delete(id);
-        toast.success("Template deleted successfully");
-        if (refetch) {
-            refetch();
+interface DeleteTemplateButtonProps {
+    id: number;
+}
+
+export default function DeleteTemplateButton({ id }: DeleteTemplateButtonProps) {
+    const deleteMutation = useDeleteTemplate();
+
+    const handleDelete = () => {
+        if (window.confirm("Are you sure you want to delete this template? This action cannot be undone.")) {
+            deleteMutation.mutate(id);
         }
-    } catch (error) {
-        console.error(error);
-        toast.error("Failed to delete template");
-    }
+    };
+
+    return (
+        <Tooltip title="Delete Template">
+            <IconButton
+                size="small"
+                color="error"
+                onClick={handleDelete}
+                disabled={deleteMutation.isPending}
+            >
+                {deleteMutation.isPending ? (
+                    <CircularProgress size={20} color="inherit" />
+                ) : (
+                    <DeleteIcon fontSize="small" />
+                )}
+            </IconButton>
+        </Tooltip>
+    );
 }

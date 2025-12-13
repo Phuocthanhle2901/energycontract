@@ -3,10 +3,10 @@ import {
     TextField, Button, MenuItem
 } from "@mui/material";
 import { useState } from "react";
-import { useResellerForm } from "@/hooks/useResellerForm";
+import { useCreateReseller } from "@/hooks/useResellers";
 
 export default function ResellerCreate({ open, onClose }: any) {
-    const { create } = useResellerForm();
+    const createMutation = useCreateReseller();
 
     const [form, setForm] = useState({
         name: "",
@@ -19,8 +19,11 @@ export default function ResellerCreate({ open, onClose }: any) {
     };
 
     const save = () => {
-        create.mutate(form, {
-            onSuccess: () => onClose(),
+        createMutation.mutate(form, {
+            onSuccess: () => {
+                setForm({ name: "", type: "Broker" });
+                onClose();
+            },
         });
     };
 
@@ -54,7 +57,13 @@ export default function ResellerCreate({ open, onClose }: any) {
 
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button variant="contained" onClick={save}>Save</Button>
+                <Button
+                    variant="contained"
+                    onClick={save}
+                    disabled={createMutation.isPending}
+                >
+                    {createMutation.isPending ? "Saving..." : "Save"}
+                </Button>
             </DialogActions>
         </Dialog>
     );

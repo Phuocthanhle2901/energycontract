@@ -1,33 +1,40 @@
-import type {Reseller} from "@/types/reseller.ts";
 import api_customer from "@/lib/api/api_customer.ts";
+import type { 
+    ResellerDto, 
+    CreateResellerParams, 
+    UpdateResellerParams,
+    ResellerQueryParams, 
+    PagedResult 
+} from "@/types/reseller";
 
-const endpoint = '/resellers';
-
-const resellerService = {
-    getAll: async (limit?: number) => {
-        const params = limit && limit > 0 ? { limit } : {};
-        // ⚠️ response ở đây chính là data thật (Array)
-        const response = await api_customer.get<Reseller[]>(endpoint, { params });
-
-        // 🔴 SỬA: return response (bỏ .data)
-        return response as unknown as Reseller[];
+export const resellerService = {
+    // 1. Create (POST)
+    create: async (data: CreateResellerParams): Promise<number> => {
+        const response = await api_customer.post('/resellers', data);
+        return response.data; // Trả về ID
     },
 
-    getById: async (id: number) => {
-        const response = await api_customer.get<Reseller>(`${endpoint}/${id}`);
-        // 🔴 SỬA: return response (bỏ .data)
-        return response as unknown as Reseller;
+    // 2. Get All (GET)
+    getAll: async (params: ResellerQueryParams): Promise<PagedResult<ResellerDto>> => {
+        const response = await api_customer.get('/resellers', { params });
+        return response.data;
     },
 
-    create: async (data: Omit<Reseller, 'id'>) => {
-        const response = await api_customer.post<number>(endpoint, data);
-        // 🔴 SỬA: return response (bỏ .data)
-        return response as unknown as number;
+    // 3. Get By ID (GET)
+    getById: async (id: number): Promise<ResellerDto> => {
+        const response = await api_customer.get(`/resellers/${id}`);
+        return response.data;
     },
 
-    delete: async (id: number) => {
-        await api_customer.delete(`${endpoint}/${id}`);
+    // 4. Update (PUT)
+    update: async (id: number, data: CreateResellerParams): Promise<void> => {
+        // Backend yêu cầu ID trong body phải khớp với ID trên URL
+        const updatePayload: UpdateResellerParams = { ...data, id };
+        await api_customer.put(`/resellers/${id}`, updatePayload);
+    },
+
+    // 5. Delete (DELETE)
+    delete: async (id: number): Promise<void> => {
+        await api_customer.delete(`/resellers/${id}`);
     }
 };
-
-export default resellerService;
