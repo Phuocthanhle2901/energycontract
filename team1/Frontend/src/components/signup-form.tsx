@@ -173,7 +173,7 @@ export function SignupForm({
           <Field>
            
             <FieldDescription className="px-6 text-center mt-2">
-              Already have an account? <a href="/signin" className="underline underline-offset-4">Sign in</a>
+              Already have an account? <a href="/" className="underline underline-offset-4">Sign in</a>
             </FieldDescription>
           </Field>
         </FieldGroup>

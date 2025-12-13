@@ -25,13 +25,23 @@ import NavMenu from "@/components/NavMenu/NavMenu";
 import { useState } from "react";
 
 import { useContracts } from "@/hooks/useContracts";
-import { useResellers } from "@/hooks/useResellers";
+import { useResellers, useReseller } from "@/hooks/useResellers"; // Import useReseller
 import { useGeneratePdf } from "@/hooks/usePdf";
 
 import ContractFormDrawer from "./ContractFormDrawer";
 import ContractDelete from "./ContractDelete";
+import { useNavigate } from "react-router-dom"; // Thêm useNavigate
+
+// Component con để hiển thị tên Reseller
+const ResellerCell = ({ resellerId }: { resellerId: number }) => {
+  const { data: reseller, isLoading } = useReseller(resellerId);
+  if (isLoading) return <span>Loading...</span>;
+  return <span>{reseller?.name || "—"}</span>;
+};
 
 export default function ContractList() {
+  const navigate = useNavigate(); // Hook điều hướng
+
   // Drawer
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
@@ -56,17 +66,18 @@ export default function ContractList() {
   const PAGE_SIZE = 10;
 
   // Data queries
-  const resellerQuery = useResellers({ PageNumber: 1, PageSize: 999 });
+  // Sửa lỗi: Đổi PageNumber -> pageNumber, PageSize -> pageSize
+  const resellerQuery = useResellers({ pageNumber: 1, pageSize: 999 });
 
   const contractQuery = useContracts({
-    Search: search || undefined,
-    ResellerId: resellerId || undefined,
-    StartDateFrom: startFrom || undefined,
-    StartDateTo: startTo || undefined,
-    PageNumber: page,
-    PageSize: PAGE_SIZE,
-    SortBy: sortBy,
-    SortDesc: sortDesc,
+    search: search || undefined, // Sửa key thành lowercase 'search' khớp với interface
+    resellerId: resellerId ? Number(resellerId) : undefined,
+    startDateFrom: startFrom || undefined,
+    startDateTo: startTo || undefined,
+    pageNumber: page,
+    pageSize: PAGE_SIZE,
+    sortBy: sortBy,
+    sortDesc: sortDesc,
   });
 
   const data = contractQuery.data?.items ?? [];
@@ -75,8 +86,10 @@ export default function ContractList() {
   const generatePdfMutation = useGeneratePdf();
 
   const handlePdf = (c: any) => {
-    generatePdfMutation.mutate(
-      {
+    // Logic mới: Chỉ cần gửi contractId, backend tự lo
+    // Hoặc map dữ liệu nếu backend chưa update
+    const pdfRequest = {
+        contractId: c.id, // Thêm ID để chắc chắn
         contractNumber: c.contractNumber,
         firstName: c.firstName,
         lastName: c.lastName,
@@ -86,12 +99,17 @@ export default function ContractList() {
         startDate: c.startDate,
         endDate: c.endDate,
         bankAccountNumber: c.bankAccountNumber,
-        addressLine: `${c.addressHouseNumber} - ${c.addressZipCode}`,
+        addressLine: "", // DTO list thường không có address chi tiết
         totalAmount: 0,
-        currency: "EUR",
-      },
+        currency: "VND",
+    };
+
+    generatePdfMutation.mutate(
+      pdfRequest as any,
       {
-        onSuccess: (res) => window.open(res.pdfUrl, "_blank"),
+        onSuccess: (url) => {
+            if(url) window.open(url, "_blank")
+        },
       }
     );
   };
@@ -115,7 +133,7 @@ export default function ContractList() {
       <Box
         sx={{
           flexGrow: 1,
-          ml: "240px",
+          ml: { xs: 0, md: "260px" }, // Responsive margin
           p: 4,
           background: "#f5f6fa",
           minHeight: "100vh",
@@ -134,7 +152,7 @@ export default function ContractList() {
             mb: 3,
           }}
         >
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
             {/* Search */}
             <TextField
               size="small"
@@ -143,6 +161,7 @@ export default function ContractList() {
               onChange={(e) => setSearch(e.target.value)}
               sx={{
                 flex: 1,
+                minWidth: 200,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
               }}
               InputProps={{
@@ -164,11 +183,7 @@ export default function ContractList() {
                 width: 180,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
               }}
-              label={
-                <span style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                  <FiFilter size={16} /> Reseller
-                </span>
-              }
+              label="Reseller"
             >
               <MenuItem value="">All</MenuItem>
               {resellerQuery.data?.items?.map((r: any) => (
@@ -223,7 +238,7 @@ export default function ContractList() {
                 setDrawerOpen(true);
               }}
             >
-              CREATE CONTRACT
+              CREATE
             </Button>
           </Stack>
         </Paper>
@@ -276,7 +291,7 @@ export default function ContractList() {
             <Box sx={{ flex: 0.8 }}>Start</Box>
             <Box sx={{ flex: 0.8 }}>End</Box>
 
-            <Box sx={{ width: 90, textAlign: "center" }}>Actions</Box>
+            <Box sx={{ width: 120, textAlign: "center" }}>Actions</Box>
           </Stack>
 
           {/* ======================= ROWS ======================= */}
@@ -293,24 +308,30 @@ export default function ContractList() {
                 "&:hover": { background: "#f7f9fc" },
               }}
             >
-              <Box sx={{ flex: 1 }}>{c.contractNumber}</Box>
-              <Box sx={{ flex: 1.4 }}>{c.customerName}</Box>
+              <Box sx={{ flex: 1, fontWeight: 500, color: "primary.main", cursor: "pointer" }} onClick={() => navigate(`/contracts/${c.id}/detail`)}>
+                  {c.contractNumber}
+              </Box>
+              <Box sx={{ flex: 1.4 }}>{c.firstName} {c.lastName}</Box> {/* Sửa customerName */}
               <Box sx={{ flex: 1.6 }}>{c.email}</Box>
-              <Box sx={{ flex: 1.1 }}>{c.resellerName}</Box>
+              
+              {/* Sửa resellerName bằng Component con */}
+              <Box sx={{ flex: 1.1 }}>
+                  <ResellerCell resellerId={c.resellerId} />
+              </Box>
 
-              <Box sx={{ flex: 0.8 }}>{c.startDate?.split("T")[0]}</Box>
-              <Box sx={{ flex: 0.8 }}>{c.endDate?.split("T")[0]}</Box>
+              <Box sx={{ flex: 0.8 }}>{c.startDate ? new Date(c.startDate).toLocaleDateString() : "-"}</Box>
+              <Box sx={{ flex: 0.8 }}>{c.endDate ? new Date(c.endDate).toLocaleDateString() : "-"}</Box>
 
-              <Stack direction="row" spacing={0.5} sx={{ width: 90, justifyContent: "center" }}>
-                <IconButton size="small" onClick={() => handlePdf(c)}>
+              <Stack direction="row" spacing={0.5} sx={{ width: 120, justifyContent: "center" }}>
+                <IconButton size="small" onClick={() => handlePdf(c)} title="Generate PDF">
                   <FiFileText size={16} />
                 </IconButton>
 
-                <IconButton size="small" onClick={() => { setDrawerMode("edit"); setCurrentId(c.id); setDrawerOpen(true); }}>
+                <IconButton size="small" onClick={() => { setDrawerMode("edit"); setCurrentId(c.id); setDrawerOpen(true); }} title="Edit">
                   <FiEdit size={16} />
                 </IconButton>
 
-                <IconButton size="small" color="error" onClick={() => { setDeleteId(c.id); setDeleteOpen(true); }}>
+                <IconButton size="small" color="error" onClick={() => { setDeleteId(c.id); setDeleteOpen(true); }} title="Delete">
                   <FiTrash2 size={16} />
                 </IconButton>
               </Stack>
@@ -329,7 +350,7 @@ export default function ContractList() {
                 Previous
               </Button>
 
-              <Typography>Page {page} / {totalPages}</Typography>
+              <Typography sx={{ display: "flex", alignItems: "center" }}>Page {page} / {totalPages}</Typography>
 
               <Button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
                 Next

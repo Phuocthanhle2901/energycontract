@@ -7,6 +7,7 @@ import {
   Divider,
   Stack,
   Typography,
+  CircularProgress
 } from "@mui/material";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +16,7 @@ import { FiArrowLeft, FiFileText } from "react-icons/fi";
 
 import { useContract } from "@/hooks/useContracts";
 import { useGeneratePdf } from "@/hooks/usePdf";
+import { useReseller } from "@/hooks/useResellers"; // Import hook
 
 export default function ContractDetail() {
   const { id } = useParams();
@@ -22,32 +24,38 @@ export default function ContractDetail() {
 
   const navigate = useNavigate();
 
-  const { data: contract, isLoading } = useContract(contractId);
+  const { data: contract, isLoading: isLoadingContract } = useContract(contractId);
+  
+  // Fetch Reseller info
+  const { data: reseller, isLoading: isLoadingReseller } = useReseller(contract?.resellerId ?? 0);
+
   const pdfMutation = useGeneratePdf();
 
-  if (isLoading) return <Box p={3}>Loading...</Box>;
-  if (!contract) return <Box p={3}>Not found</Box>;
+  if (isLoadingContract) return <Box p={3}>Loading contract...</Box>;
+  if (!contract) return <Box p={3}>Contract not found</Box>;
 
   const handleGeneratePdf = () => {
-    pdfMutation.mutate(
-      {
+    const pdfRequest = {
+        contractId: contract.id,
         contractNumber: contract.contractNumber,
         firstName: contract.firstName,
         lastName: contract.lastName,
         email: contract.email,
         phone: contract.phone,
-        companyName: contract.companyName,
+        companyName: contract.companyName || "",
         startDate: contract.startDate,
         endDate: contract.endDate,
-        bankAccountNumber: contract.bankAccountNumber,
-        addressLine:
-          `${contract.addressHouseNumber} - ${contract.addressZipCode}`,
+        bankAccountNumber: contract.bankAccountNumber || "",
+        addressLine: "", // Placeholder
         totalAmount: 0,
-        currency: "EUR",
-      },
+        currency: "VND",
+    };
+
+    pdfMutation.mutate(
+      pdfRequest as any,
       {
-        onSuccess: (res) => {
-          if (res.pdfUrl) window.open(res.pdfUrl, "_blank");
+        onSuccess: (url) => {
+          if (url) window.open(url, "_blank");
         },
       }
     );
@@ -62,11 +70,11 @@ export default function ContractDetail() {
         </Button>
 
         <Typography variant="h5" fontWeight="bold">
-          Contract Detail #{contract.id}
+          Contract Detail #{contract.contractNumber}
         </Typography>
 
         <Chip
-          label={contract.resellerName}
+          label={isLoadingReseller ? "Loading..." : (reseller?.name || "Unknown Reseller")}
           color="primary"
           variant="outlined"
           sx={{ ml: "auto" }}
@@ -83,11 +91,11 @@ export default function ContractDetail() {
           </Typography>
 
           <Stack spacing={1} mb={2}>
-            <Typography><b>Name:</b> {contract.customerName}</Typography>
+            <Typography><b>Name:</b> {contract.firstName} {contract.lastName}</Typography>
             <Typography><b>Email:</b> {contract.email}</Typography>
             <Typography><b>Phone:</b> {contract.phone}</Typography>
-            <Typography><b>Company:</b> {contract.companyName}</Typography>
-            <Typography><b>Bank Account:</b> {contract.bankAccountNumber}</Typography>
+            <Typography><b>Company:</b> {contract.companyName || "N/A"}</Typography>
+            <Typography><b>Bank Account:</b> {contract.bankAccountNumber || "N/A"}</Typography>
           </Stack>
 
           <Divider sx={{ my: 2 }} />
@@ -98,8 +106,8 @@ export default function ContractDetail() {
 
           <Stack spacing={1} mb={2}>
             <Typography><b>Contract Number:</b> {contract.contractNumber}</Typography>
-            <Typography><b>Start Date:</b> {contract.startDate.split("T")[0]}</Typography>
-            <Typography><b>End Date:</b> {contract.endDate.split("T")[0]}</Typography>
+            <Typography><b>Start Date:</b> {contract.startDate ? new Date(contract.startDate).toLocaleDateString() : "N/A"}</Typography>
+            <Typography><b>End Date:</b> {contract.endDate ? new Date(contract.endDate).toLocaleDateString() : "N/A"}</Typography>
           </Stack>
 
           <Divider sx={{ my: 2 }} />
@@ -107,8 +115,9 @@ export default function ContractDetail() {
           <Typography variant="h6" mb={1}>
             Address
           </Typography>
-          <Typography mb={2}>
-            {contract.addressHouseNumber} - {contract.addressZipCode}
+          <Typography mb={2} color="text.secondary">
+            {/* Placeholder vì DTO chưa có thông tin chi tiết địa chỉ */}
+            Address details not available in current view.
           </Typography>
 
           <Divider sx={{ my: 2 }} />
@@ -116,10 +125,11 @@ export default function ContractDetail() {
           <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
-              startIcon={<FiFileText />}
+              startIcon={pdfMutation.isPending ? <CircularProgress size={20} color="inherit"/> : <FiFileText />}
               onClick={handleGeneratePdf}
+              disabled={pdfMutation.isPending}
             >
-              Generate PDF
+              {pdfMutation.isPending ? "Generating..." : "Generate PDF"}
             </Button>
 
             <Button
@@ -131,15 +141,9 @@ export default function ContractDetail() {
 
             <Button
               variant="outlined"
-              onClick={() => navigate(`/contracts/history/${contract.id}`)}
-            >
-              View History
-            </Button>
-            <Button
-              variant="outlined"
               onClick={() => navigate(`/contracts/${contract.id}/pdf`)}
             >
-              View PDF
+              Preview PDF
             </Button>
           </Stack>
         </CardContent>
