@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ContractPdfApi, TemplateApi,  } from "@/services/pdfService/pdfService";
+import { ContractPdfApi, TemplateApi, } from "@/services/pdfService/pdfService";
 import toast from "react-hot-toast";
 import type { CreateTemplateParams, UpdateTemplateParams } from "@/types/pdf";
 
@@ -8,9 +8,18 @@ import type { CreateTemplateParams, UpdateTemplateParams } from "@/types/pdf";
 export function useGeneratePdf() {
     return useMutation({
         mutationFn: ContractPdfApi.generate,
-        onSuccess: () => {
+
+        onSuccess: (data: any) => {
             toast.success("PDF generated successfully!");
+
+            // 🔥 MỞ PDF
+            if (data?.pdfUrl) {
+                window.open(data.pdfUrl, "_blank", "noopener,noreferrer");
+            } else {
+                toast.error("PDF URL not found!");
+            }
         },
+
         onError: (error: any) => {
             console.error("PDF Generation Error:", error);
             toast.error("Failed to generate PDF.");
@@ -57,7 +66,7 @@ export function useCreateTemplate() {
 export function useUpdateTemplate() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, data }: { id: number; data: UpdateTemplateParams }) => 
+        mutationFn: ({ id, data }: { id: number; data: UpdateTemplateParams }) =>
             TemplateApi.update(id, data),
         onSuccess: (_, variables) => {
             toast.success("Template updated!");
@@ -79,3 +88,4 @@ export function useDeleteTemplate() {
         onError: () => toast.error("Failed to delete template."),
     });
 }
+

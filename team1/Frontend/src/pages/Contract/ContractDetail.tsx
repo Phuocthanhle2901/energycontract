@@ -135,6 +135,12 @@ export default function ContractDetail() {
             >
               View History
             </Button>
+            <Button
+              variant="outlined"
+              onClick={() => navigate(`/contracts/${contract.id}/pdf`)}
+            >
+              View PDF
+            </Button>
           </Stack>
         </CardContent>
       </Card>

@@ -17,6 +17,8 @@ import {
   FiFileText,
   FiSearch,
   FiFilter,
+  FiChevronDown,
+  FiChevronUp,
 } from "react-icons/fi";
 
 import NavMenu from "@/components/NavMenu/NavMenu";
@@ -30,81 +32,81 @@ import ContractFormDrawer from "./ContractFormDrawer";
 import ContractDelete from "./ContractDelete";
 
 export default function ContractList() {
+  // Drawer
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
   const [currentId, setCurrentId] = useState<number | null>(null);
 
+  // Delete popup
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
-  // --- State cho Input (Chưa gọi API ngay) ---
-  const [tempSearch, setTempSearch] = useState("");
-  const [tempResellerId, setTempResellerId] = useState("");
-  const [tempStartFrom, setTempStartFrom] = useState("");
-  const [tempStartTo, setTempStartTo] = useState("");
+  // Filters
+  const [search, setSearch] = useState("");
+  const [resellerId, setResellerId] = useState("");
+  const [startFrom, setStartFrom] = useState("");
+  const [startTo, setStartTo] = useState("");
 
-  // --- State thực tế để Query (Khi bấm Apply mới cập nhật vào đây) ---
-  const [queryParams, setQueryParams] = useState({
-    search: "",
-    resellerId: "",
-    startFrom: "",
-    startTo: "",
-    page: 1,
-  });
+  // Sort
+  const [sortBy, setSortBy] = useState<"customerName" | "email">("customerName");
+  const [sortDesc, setSortDesc] = useState(false);
 
+  // Pagination
+  const [page, setPage] = useState(1);
   const PAGE_SIZE = 10;
 
-  // Lấy danh sách Reseller cho Dropdown
-  const resellerQuery = useResellers({ pageNumber: 1, pageSize: 999 });
+  // Data queries
+  const resellerQuery = useResellers({ PageNumber: 1, PageSize: 999 });
 
-  // Hook lấy danh sách Contract
   const contractQuery = useContracts({
-    pageNumber: queryParams.page,
-    pageSize: PAGE_SIZE,
-    search: queryParams.search || undefined,
-    // Chuyển đổi string sang number/undefined cho resellerId
-    resellerId: queryParams.resellerId ? Number(queryParams.resellerId) : undefined,
-    // Truyền date string (YYYY-MM-DD) trực tiếp nếu backend nhận DateTime?
-    startDateFrom: queryParams.startFrom || undefined,
-    startDateTo: queryParams.startTo || undefined,
+    Search: search || undefined,
+    ResellerId: resellerId || undefined,
+    StartDateFrom: startFrom || undefined,
+    StartDateTo: startTo || undefined,
+    PageNumber: page,
+    PageSize: PAGE_SIZE,
+    SortBy: sortBy,
+    SortDesc: sortDesc,
   });
 
   const data = contractQuery.data?.items ?? [];
-  const totalPages = Math.ceil((contractQuery.data?.totalCount ?? 0) / PAGE_SIZE) || 1;
+  const totalPages = contractQuery.data?.totalPages ?? 1;
 
   const generatePdfMutation = useGeneratePdf();
-  const handlePdf = (contract: any) => {
-    generatePdfMutation.mutate(contract.id);
-  }
 
-  // Hàm xử lý khi bấm APPLY
-  const handleApplyFilter = () => {
-    setQueryParams({
-      ...queryParams,
-      search: tempSearch,
-      resellerId: tempResellerId,
-      startFrom: tempStartFrom,
-      startTo: tempStartTo,
-      page: 1, // Reset về trang 1 khi filter
-    });
+  const handlePdf = (c: any) => {
+    generatePdfMutation.mutate(
+      {
+        contractNumber: c.contractNumber,
+        firstName: c.firstName,
+        lastName: c.lastName,
+        email: c.email,
+        phone: c.phone,
+        companyName: c.companyName,
+        startDate: c.startDate,
+        endDate: c.endDate,
+        bankAccountNumber: c.bankAccountNumber,
+        addressLine: `${c.addressHouseNumber} - ${c.addressZipCode}`,
+        totalAmount: 0,
+        currency: "EUR",
+      },
+      {
+        onSuccess: (res) => window.open(res.pdfUrl, "_blank"),
+      }
+    );
   };
 
-  // Hàm xử lý khi bấm CLEAR
-  const handleClearFilter = () => {
-    setTempSearch("");
-    setTempResellerId("");
-    setTempStartFrom("");
-    setTempStartTo("");
-
-    setQueryParams({
-      search: "",
-      resellerId: "",
-      startFrom: "",
-      startTo: "",
-      page: 1,
-    });
+  const toggleSort = (field: "customerName" | "email") => {
+    if (sortBy === field) {
+      setSortDesc(!sortDesc);
+    } else {
+      setSortBy(field);
+      setSortDesc(false);
+    }
+    setPage(1);
   };
 
+  // ================================ UI ================================
   return (
     <Box sx={{ display: "flex" }}>
       <NavMenu />
@@ -119,11 +121,11 @@ export default function ContractList() {
           minHeight: "100vh",
         }}
       >
-        <Typography variant="h5" fontWeight={700} mb={2}>
-          Contract List
+        <Typography variant="h4" fontWeight={700} mb={3}>
+          Contract Management
         </Typography>
 
-        {/* FILTER CARD */}
+        {/* ======================= FILTER BAR ======================= */}
         <Paper
           sx={{
             p: 3,
@@ -133,12 +135,12 @@ export default function ContractList() {
           }}
         >
           <Stack direction="row" spacing={2} alignItems="center">
-            {/* SEARCH BAR */}
+            {/* Search */}
             <TextField
               size="small"
               placeholder="Search by name or email..."
-              value={tempSearch}
-              onChange={(e) => setTempSearch(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               sx={{
                 flex: 1,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
@@ -152,12 +154,12 @@ export default function ContractList() {
               }}
             />
 
-            {/* RESELLER */}
+            {/* Filter: Reseller */}
             <TextField
               select
               size="small"
-              value={tempResellerId}
-              onChange={(e) => setTempResellerId(e.target.value)}
+              value={resellerId}
+              onChange={(e) => setResellerId(e.target.value)}
               sx={{
                 width: 180,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
@@ -176,50 +178,45 @@ export default function ContractList() {
               ))}
             </TextField>
 
-            {/* DATE FROM */}
+            {/* Date filters */}
             <TextField
               type="date"
               size="small"
               label="Start Date From"
               InputLabelProps={{ shrink: true }}
-              value={tempStartFrom}
-              onChange={(e) => setTempStartFrom(e.target.value)}
+              value={startFrom}
+              onChange={(e) => setStartFrom(e.target.value)}
               sx={{
                 width: 160,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
               }}
             />
 
-            {/* DATE TO */}
             <TextField
               type="date"
               size="small"
               label="Start Date To"
               InputLabelProps={{ shrink: true }}
-              value={tempStartTo}
-              onChange={(e) => setTempStartTo(e.target.value)}
+              value={startTo}
+              onChange={(e) => setStartTo(e.target.value)}
               sx={{
                 width: 160,
                 "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
               }}
             />
 
-            <Button variant="contained" sx={{ height: 44, px: 3 }} onClick={handleApplyFilter}>
+            <Button variant="contained" sx={{ height: 44 }} onClick={() => contractQuery.refetch()}>
               APPLY
             </Button>
 
-            <Button
-              variant="outlined"
-              sx={{ height: 44, px: 3 }}
-              onClick={handleClearFilter}
-            >
+            <Button variant="outlined" sx={{ height: 44 }} onClick={() => { setSearch(""); setResellerId(""); setStartFrom(""); setStartTo(""); contractQuery.refetch(); }}>
               CLEAR
             </Button>
 
             <Button
               variant="contained"
               startIcon={<FiPlus />}
-              sx={{ height: 44, px: 3, borderRadius: "10px" }}
+              sx={{ height: 44 }}
               onClick={() => {
                 setDrawerMode("create");
                 setCurrentId(null);
@@ -230,80 +227,96 @@ export default function ContractList() {
             </Button>
           </Stack>
         </Paper>
-
-        {/* TABLE CARD */}
+        {/* ======================= TABLE ======================= */}
         <Paper
           sx={{
-            p: 2,
+            p: 0,
             borderRadius: "16px",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+            overflow: "hidden",
+            border: "1px solid #e5e7eb",
           }}
         >
-          {/* HEADER */}
-          <Stack direction="row" px={2} py={1.5} sx={{ fontWeight: 600, color: "#555" }}>
-            <Box sx={{ flex: 2 }}>Name</Box>
-            <Box sx={{ flex: 2 }}>Email</Box>
-            <Box sx={{ flex: 1.5 }}>Reseller</Box>
-            <Box sx={{ flex: 1 }}>Start</Box>
-            <Box sx={{ flex: 1 }}>End</Box>
-            <Box sx={{ width: 70 }}>PDF</Box>
-            <Box sx={{ width: 100 }}>Actions</Box>
+
+          {/* ======================= HEADER ======================= */}
+          <Stack
+            direction="row"
+            px={2.2}
+            py={1.4}
+            sx={{
+              fontWeight: 600,
+              color: "#555",
+              background: "#fafafa",
+              borderBottom: "1px solid #e5e7eb",
+              fontSize: "14px",
+            }}
+          >
+            <Box sx={{ flex: 1 }}>Contract No.</Box>
+
+            <Box
+              sx={{ flex: 1.4, display: "flex", alignItems: "center", cursor: "pointer", gap: 0.4 }}
+              onClick={() => toggleSort("customerName")}
+            >
+              Name
+              {sortBy === "customerName"
+                ? sortDesc ? <FiChevronDown size={13} /> : <FiChevronUp size={13} />
+                : <FiChevronDown size={13} style={{ opacity: 0.25 }} />}
+            </Box>
+
+            <Box
+              sx={{ flex: 1.6, display: "flex", alignItems: "center", cursor: "pointer", gap: 0.4 }}
+              onClick={() => toggleSort("email")}
+            >
+              Email
+              {sortBy === "email"
+                ? sortDesc ? <FiChevronDown size={13} /> : <FiChevronUp size={13} />
+                : <FiChevronDown size={13} style={{ opacity: 0.25 }} />}
+            </Box>
+
+            <Box sx={{ flex: 1.1 }}>Reseller</Box>
+            <Box sx={{ flex: 0.8 }}>Start</Box>
+            <Box sx={{ flex: 0.8 }}>End</Box>
+
+            <Box sx={{ width: 90, textAlign: "center" }}>Actions</Box>
           </Stack>
 
-          {/* DATA ROWS */}
-          {contractQuery.isLoading ? (
-             <Box p={3} textAlign="center">Loading...</Box>
-          ) : (
-            data.map((c: any) => (
-              <Box
-                key={c.id}
-                sx={{
-                  display: "flex",
-                  px: 2,
-                  py: 1.5,
-                  borderRadius: "12px",
-                  background: "#fff",
-                  mb: 1,
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
-                  "&:hover": { background: "#f9fafc" },
-                }}
-              >
-                <Box sx={{ flex: 2 }}>{c.customerName}</Box>
-                <Box sx={{ flex: 2 }}>{c.email}</Box>
-                <Box sx={{ flex: 1.5 }}>{c.resellerName}</Box>
-                <Box sx={{ flex: 1 }}>{c.startDate?.split("T")[0]}</Box>
-                <Box sx={{ flex: 1 }}>{c.endDate?.split("T")[0]}</Box>
+          {/* ======================= ROWS ======================= */}
+          {data.map((c: any) => (
+            <Stack
+              key={c.id}
+              direction="row"
+              px={2.2}
+              py={1.6}
+              sx={{
+                alignItems: "center",
+                borderBottom: "1px solid #f1f1f1",
+                background: "#fff",
+                "&:hover": { background: "#f7f9fc" },
+              }}
+            >
+              <Box sx={{ flex: 1 }}>{c.contractNumber}</Box>
+              <Box sx={{ flex: 1.4 }}>{c.customerName}</Box>
+              <Box sx={{ flex: 1.6 }}>{c.email}</Box>
+              <Box sx={{ flex: 1.1 }}>{c.resellerName}</Box>
 
-                <Box sx={{ width: 70 }}>
-                  <IconButton onClick={() => handlePdf(c)} disabled={generatePdfMutation.isPending}>
-                    <FiFileText />
-                  </IconButton>
-                </Box>
+              <Box sx={{ flex: 0.8 }}>{c.startDate?.split("T")[0]}</Box>
+              <Box sx={{ flex: 0.8 }}>{c.endDate?.split("T")[0]}</Box>
 
-                <Stack direction="row" spacing={1} sx={{ width: 100 }}>
-                  <IconButton
-                    color="primary"
-                    onClick={() => {
-                      setDrawerMode("edit");
-                      setCurrentId(c.id);
-                      setDrawerOpen(true);
-                    }}
-                  >
-                    <FiEdit />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    onClick={() => {
-                      setDeleteId(c.id);
-                      setDeleteOpen(true);
-                    }}
-                  >
-                    <FiTrash2 />
-                  </IconButton>
-                </Stack>
-              </Box>
-            ))
-          )}
+              <Stack direction="row" spacing={0.5} sx={{ width: 90, justifyContent: "center" }}>
+                <IconButton size="small" onClick={() => handlePdf(c)}>
+                  <FiFileText size={16} />
+                </IconButton>
+
+                <IconButton size="small" onClick={() => { setDrawerMode("edit"); setCurrentId(c.id); setDrawerOpen(true); }}>
+                  <FiEdit size={16} />
+                </IconButton>
+
+                <IconButton size="small" color="error" onClick={() => { setDeleteId(c.id); setDeleteOpen(true); }}>
+                  <FiTrash2 size={16} />
+                </IconButton>
+              </Stack>
+            </Stack>
+          ))}
+
 
           {/* PAGINATION */}
           <Stack direction="row" justifyContent="space-between" px={2} py={2}>
@@ -312,22 +325,14 @@ export default function ContractList() {
             </Typography>
 
             <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
-                disabled={queryParams.page <= 1}
-                onClick={() => setQueryParams(prev => ({ ...prev, page: prev.page - 1 }))}
-              >
-                PREVIOUS
+              <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
+                Previous
               </Button>
 
-              <Typography>Page {queryParams.page} / {totalPages}</Typography>
+              <Typography>Page {page} / {totalPages}</Typography>
 
-              <Button
-                variant="outlined"
-                disabled={queryParams.page >= totalPages}
-                onClick={() => setQueryParams(prev => ({ ...prev, page: prev.page + 1 }))}
-              >
-                NEXT
+              <Button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
+                Next
               </Button>
             </Stack>
           </Stack>
@@ -341,8 +346,7 @@ export default function ContractList() {
           onClose={() => setDrawerOpen(false)}
           onSuccess={() => {
             setDrawerOpen(false);
-            // Không cần gọi refetch() thủ công vì useCreateContract/useUpdateContract
-            // đã invalidate query 'contracts' rồi.
+            contractQuery.refetch();
           }}
         />
 
@@ -352,7 +356,7 @@ export default function ContractList() {
           onClose={() => setDeleteOpen(false)}
           onSuccess={() => {
             setDeleteOpen(false);
-            // Tương tự, không cần refetch thủ công
+            contractQuery.refetch();
           }}
         />
       </Box>

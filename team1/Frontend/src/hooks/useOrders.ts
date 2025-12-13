@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast"; // Hoặc thư viện toast bạn đang
 import { orderService } from "@/services/customerService/OrderService";
 import type { OrderQueryParams, CreateOrderParams } from "@/types/order";
 
+
 // --- Hook Tạo Order ---
 export const useCreateOrder = () => {
     const queryClient = useQueryClient();
@@ -26,15 +27,15 @@ export const useUpdateOrder = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ id, data }: { id: number; data: CreateOrderParams }) => 
+        mutationFn: ({ id, data }: { id: number; data: CreateOrderParams }) =>
             orderService.update(id, data),
-            
+
         onSuccess: (_, variables) => {
             toast.success("Cập nhật đơn hàng thành công!");
-            
+
             // 1. Làm mới danh sách tổng
             queryClient.invalidateQueries({ queryKey: ['orders'] });
-            
+
             // 2. Làm mới chi tiết đơn hàng đó (nếu đang xem chi tiết)
             queryClient.invalidateQueries({ queryKey: ['order', variables.id] });
         },
@@ -51,7 +52,7 @@ export const useDeleteOrder = () => {
 
     return useMutation({
         mutationFn: (id: number) => orderService.delete(id),
-        
+
         onSuccess: () => {
             toast.success("Đã xóa đơn hàng!");
             queryClient.invalidateQueries({ queryKey: ['orders'] });
@@ -81,3 +82,4 @@ export const useOrder = (id: number) => {
         enabled: !!id,
     });
 };
+

@@ -67,7 +67,7 @@ export default function Home() {
       total: contracts.length,
       active: activeCount,
       expired: contracts.length - activeCount,
-      totalOrders: 0 
+      totalOrders: 0
     };
   }, [contracts]);
 
@@ -87,7 +87,7 @@ export default function Home() {
         }}
       >
         <Container maxWidth="xl">
-          
+
           {/* ================= HERO SECTION ================= */}
           <Paper
             elevation={0}
@@ -118,17 +118,10 @@ export default function Home() {
                 variant="contained"
                 color="primary"
                 startIcon={<AddIcon />}
-                onClick={() => navigate("/contracts/create")}
-                sx={{ bgcolor: "#3b82f6", fontWeight: 600 }}
+                onClick={() => navigate("/contracts/list")}
+                sx={{ bgcolor: "#3b82f6", fontWeight: 1200 }}
               >
                 New Contract
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ color: "white", borderColor: "rgba(255,255,255,0.3)", "&:hover": { borderColor: "white" } }}
-                onClick={() => navigate("/contracts/list")}
-              >
-                View All
               </Button>
             </Stack>
           </Paper>
@@ -155,18 +148,18 @@ export default function Home() {
                     {isLoading ? "-" : stats.total}
                   </Typography>
                   <Stack direction="row" spacing={1} mt={2}>
-                    <Chip 
-                        label={`${stats.active} Active`} 
-                        size="small" 
-                        color="success" 
-                        variant="filled"
-                        sx={{ bgcolor: "#dcfce7", color: "#166534" }}
+                    <Chip
+                      label={`${stats.active} Active`}
+                      size="small"
+                      color="success"
+                      variant="filled"
+                      sx={{ bgcolor: "#dcfce7", color: "#166534" }}
                     />
                     {stats.expired > 0 && (
-                      <Chip 
-                        label={`${stats.expired} Expired`} 
-                        size="small" 
-                        color="error" 
+                      <Chip
+                        label={`${stats.expired} Expired`}
+                        size="small"
+                        color="error"
                         variant="filled"
                         sx={{ bgcolor: "#fee2e2", color: "#991b1b" }}
                       />
@@ -189,7 +182,7 @@ export default function Home() {
                     </Typography>
                   </Stack>
                   <Typography variant="h3" fontWeight={700} color="text.primary">
-                    {isLoading ? "-" : "N/A"} 
+                    {isLoading ? "-" : "N/A"}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" mt={1}>
                     Gas & Electricity combined
@@ -226,8 +219,8 @@ export default function Home() {
             <Typography variant="h6" fontWeight={700}>
               📄 Recent Contracts
             </Typography>
-            <Button 
-              endIcon={<ArrowForwardIcon />} 
+            <Button
+              endIcon={<ArrowForwardIcon />}
               onClick={() => navigate("/contracts/list")}
             >
               View All
@@ -278,7 +271,7 @@ export default function Home() {
                           <Typography variant="body2" fontWeight={500}>{c.firstName} {c.lastName}</Typography>
                           <Typography variant="caption" color="text.secondary">{c.email}</Typography>
                         </TableCell>
-                        
+
                         {/* 3. Sử dụng Component con để hiển thị Reseller */}
                         <TableCell>
                           <ResellerCell resellerId={c.resellerId} />
@@ -301,8 +294,8 @@ export default function Home() {
                           />
                         </TableCell>
                         <TableCell align="right">
-                          <Button 
-                            size="small" 
+                          <Button
+                            size="small"
                             onClick={() => navigate(`/contracts/${c.id}/detail`)}
                           >
                             Details
