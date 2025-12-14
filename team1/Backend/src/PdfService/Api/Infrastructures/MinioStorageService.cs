@@ -101,6 +101,11 @@ public class MinioStorageService : IStorageService
         }
     }
 
+    public Task<byte[]> DownloadFileAsync(string key)
+    {
+        throw new NotImplementedException();
+    }
+
     private string ExtractObjectNameFromUrl(string url)
     {
         if (url.Contains("?"))

@@ -17,11 +17,11 @@ import {useRegister} from "@/hooks/useAuth";
 
 // 2. Định nghĩa Schema Validation
 const signupSchema = yup.object({
-  firstname: yup.string().required("Vui lòng nhập họ"),
-  lastname: yup.string().required("Vui lòng nhập tên"),
-  username: yup.string().required("Vui lòng nhập tên đăng nhập").min(3, "Tối thiểu 3 ký tự"),
-  email: yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
-  password: yup.string().required("Vui lòng nhập mật khẩu").min(8, "Mật khẩu phải có ít nhất 8 ký tự"),
+  firstname: yup.string().trim().required("Vui lòng nhập họ"),
+  lastname: yup.string().trim().required("Vui lòng nhập tên"),
+  username: yup.string().trim().required("Vui lòng nhập tên đăng nhập").min(3, "Tối thiểu 3 ký tự"),
+  email: yup.string().trim().email("Email không hợp lệ").required("Vui lòng nhập email"),
+  password: yup.string().trim().required("Vui lòng nhập mật khẩu").min(8, "Mật khẩu phải có ít nhất 8 ký tự"),
   confirmPassword: yup.string()
       .required("Vui lòng nhập lại mật khẩu")
       .oneOf([yup.ref('password')], 'Mật khẩu không khớp'), // Logic so sánh password

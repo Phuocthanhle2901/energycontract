@@ -17,8 +17,8 @@ import {useLogin} from "@/hooks/useAuth";
 
 // 2. Định nghĩa Schema Validation với Yup
 const loginSchema = yup.object({
-  username: yup.string().required("Vui lòng nhập tên đăng nhập"),
-  password: yup.string().required("Vui lòng nhập mật khẩu"),
+  username: yup.string().trim().required("Vui lòng nhập tên đăng nhập"),
+  password: yup.string().trim().required("Vui lòng nhập mật khẩu"),
 }).required();
 
 // Định nghĩa kiểu dữ liệu cho Form dựa trên Schema

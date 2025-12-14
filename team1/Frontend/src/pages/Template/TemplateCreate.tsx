@@ -243,8 +243,29 @@ export default function TemplateCreate() {
                                 flex: 1, 
                                 display: 'flex', 
                                 flexDirection: 'column',
-                                '& .quill': { flex: 1, display: 'flex', flexDirection: 'column' },
-                                '& .ql-container': { flex: 1, minHeight: '300px', fontSize: '14px' } // Giảm font editor một chút cho gọn
+                                minHeight: 0, // [FIX] Quan trọng: Ngăn flex item bị tràn ra ngoài parent
+                                '& .quill': { 
+                                    flex: 1, 
+                                    display: 'flex', 
+                                    flexDirection: 'column', 
+                                    overflow: 'hidden' 
+                                },
+                                '& .ql-toolbar': {
+                                    flexShrink: 0 // Giữ toolbar cố định
+                                },
+                                '& .ql-container': { 
+                                    flex: 1, 
+                                    display: 'flex', 
+                                    flexDirection: 'column',
+                                    overflow: 'hidden', // Ẩn scroll ở container bao ngoài
+                                    borderBottomLeftRadius: '8px',
+                                    borderBottomRightRadius: '8px'
+                                },
+                                '& .ql-editor': {
+                                    flex: 1,
+                                    overflowY: 'auto', // [FIX] Scroll nội dung bên trong editor
+                                    fontSize: '14px'
+                                }
                             }}>
                                 <Controller
                                     name="htmlContent"

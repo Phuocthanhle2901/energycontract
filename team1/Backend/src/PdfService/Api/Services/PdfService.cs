@@ -106,4 +106,27 @@ public class PdfService : IPdfService
             };
         }
     }
+
+    public async Task<byte[]> DownloadPdfAsync(string fileUrl)
+    {
+        if (string.IsNullOrEmpty(fileUrl)) return Array.Empty<byte>();
+
+        try 
+        {
+            // Logic đơn giản để lấy Key từ URL (bỏ phần domain)
+            // Ví dụ: https://bucket.s3.../contracts/file.pdf -> contracts/file.pdf
+            Uri uri = new Uri(fileUrl);
+            string key = uri.AbsolutePath.TrimStart('/');
+            
+            // Nếu URL có chứa tên bucket ở path đầu tiên (path-style url), cần cắt bỏ nó đi
+            // Tùy thuộc vào cấu hình S3 của bạn. Ở đây giả định key là phần path.
+            
+            return await _storageService.DownloadFileAsync(key);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to process download for URL: {fileUrl}");
+            return Array.Empty<byte>();
+        }
+    }
 }

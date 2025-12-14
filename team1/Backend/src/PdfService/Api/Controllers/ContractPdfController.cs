@@ -58,5 +58,49 @@ public class ContractPdfController : ControllerBase
     {
         return Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
     }
+    /// <summary>
+    /// Download PDF file from S3
+    /// </summary>
+    [HttpPost("download")]
+    public async Task<IActionResult> DownloadPdf([FromBody] DownloadPdfRequest request)
+    {
+        if (string.IsNullOrEmpty(request.FileUrl))
+        {
+            return BadRequest("File URL is required");
+        }
+
+        try
+        {
+            // 1. Extract Key từ URL (Logic này nên nằm trong Service, nhưng gọi tạm ở đây hoặc qua IStorageService)
+            // Lưu ý: IStorageService của bạn đã có hàm ExtractKeyFromUrl nhưng là private. 
+            // Bạn cần public hàm đó hoặc xử lý logic lấy key ở đây.
+            
+            // Giả sử URL dạng: https://bucket.s3.region.amazonaws.com/contracts/2024/.../file.pdf
+            // Hoặc Presigned URL dài ngoằng.
+            
+            // Cách đơn giản nhất: Gọi Service để download byte[]
+            // Cần sửa IStorageService để expose hàm DownloadFileAsync nhận URL hoặc Key
+            
+            // Ở đây tôi giả định bạn sẽ sửa IStorageService để có hàm DownloadFileByUrlAsync
+            // Hoặc dùng lại logic ExtractKey có sẵn trong DeleteFileAsync
+            
+            var fileBytes = await _pdfService.DownloadPdfAsync(request.FileUrl);
+
+            if (fileBytes == null || fileBytes.Length == 0)
+            {
+                return NotFound("File not found or could not be downloaded");
+            }
+
+            // Lấy tên file từ URL để trả về header
+            var fileName = Path.GetFileName(new Uri(request.FileUrl).AbsolutePath);
+
+            return File(fileBytes, "application/pdf", fileName);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error downloading PDF");
+            return StatusCode(500, "Internal server error while downloading file");
+        }
+    }
 
 }

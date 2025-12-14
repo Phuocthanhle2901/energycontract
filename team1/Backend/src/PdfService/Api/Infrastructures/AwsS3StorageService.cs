@@ -254,12 +254,13 @@ public class AwsS3StorageService : IStorageService
     /// <summary>
     /// Download file as byte array
     /// </summary>
-    public async Task<byte[]?> DownloadFileAsync(string key)
+    public async Task<byte[]> DownloadFileAsync(string key)
     {
         try
         {
-            _logger.LogInformation($"Downloading file from S3: {key}");
-            
+            // Decode key phòng trường hợp URL bị mã hóa (space -> %20)
+            key = System.Net.WebUtility.UrlDecode(key);
+
             var request = new GetObjectRequest
             {
                 BucketName = _bucketName,
@@ -267,22 +268,19 @@ public class AwsS3StorageService : IStorageService
             };
 
             using var response = await _s3Client.GetObjectAsync(request);
-            using var memoryStream = new MemoryStream();
-            
-            await response.ResponseStream.CopyToAsync(memoryStream);
-            
-            _logger.LogInformation($"File downloaded successfully from S3: {key}");
-            return memoryStream.ToArray();
+            using var ms = new MemoryStream();
+            await response.ResponseStream.CopyToAsync(ms);
+            return ms.ToArray();
         }
         catch (AmazonS3Exception ex)
         {
-            _logger.LogError(ex, $"S3 error downloading file: {key}");
-            return null;
+            _logger.LogError(ex, $"Error downloading file from S3 with key: {key}");
+            return Array.Empty<byte>();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error downloading file from S3: {key}");
-            throw;
+            _logger.LogError(ex, $"Unexpected error downloading file: {key}");
+            return Array.Empty<byte>();
         }
     }
 }
