@@ -3,6 +3,7 @@ using MassTransit;
 using Api.Jobs;
 using InvoiceService.Api.Infrastructures.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 // ... imports khác
 

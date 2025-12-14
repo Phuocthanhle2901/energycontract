@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Api.Common.Messaging.Contracts;
 using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -150,13 +151,13 @@ try
     {
         x.UsingRabbitMq((context, cfg) =>
         {
-            // "rabbitmq" là tên service trong docker-compose
-            // Nếu chạy local rider thì dùng "localhost"
-            cfg.Host("rabbitmq", "/", h => 
+            cfg.Host("localhost", "/", h => // nếu chạy local
             {
                 h.Username("guest");
                 h.Password("guest");
             });
+
+            cfg.Message<ContractChangedEvent>(m => m.SetEntityName("contract-changed"));
         });
     });
 
