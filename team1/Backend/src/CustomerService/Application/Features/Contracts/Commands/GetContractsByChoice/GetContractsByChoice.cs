@@ -18,7 +18,7 @@ namespace Application.Features.Contracts.Commands.GetContractsByChoice
         public int PageSize { get; set; } = 10;
 
         // Sort
-        public string? SortBy { get; set; } = "startDate"; // startDate | contractNumber | customerName
+        public string? SortBy { get; set; } 
         public bool SortDesc { get; set; } = true;
     }
 }

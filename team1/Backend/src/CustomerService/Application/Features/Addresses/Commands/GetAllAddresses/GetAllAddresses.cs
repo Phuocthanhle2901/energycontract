@@ -10,7 +10,7 @@ namespace Application.Features.Addresses.Commands.GetAllAddresses
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
 
-        public string? SortBy { get; set; } = "id"; // zipcode | housenumber | id
-        public bool SortDesc { get; set; } = false;
+        public string? SortBy { get; set; }
+        public bool SortDesc { get; set; } = true;
     }
 }
