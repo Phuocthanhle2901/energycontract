@@ -99,3 +99,4 @@ Khởi động hệ thống
 ### Bước 3: Truy cập vào đường dẫn phía dưới để test API:
 * http://localhost:5000/index.html để test API của CustomerService
 * http://localhost:5001/index.html để test API của PdfService
+* http://localhost:5002/swagger để test API của AuthService

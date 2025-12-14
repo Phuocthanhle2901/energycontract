@@ -137,4 +137,11 @@ public class ContractRepository : IContractRepository
 
     return (items, totalCount);
 }
+
+    // Thêm hàm này vào cuối class
+    public async Task<Contract?> GetContractByNumberAsync(string contractNumber)
+    {
+        return await _dbContext.Contracts
+            .FirstOrDefaultAsync(c => c.ContractNumber == contractNumber);
+    }
 }

@@ -8,28 +8,52 @@ public class PdfService : IPdfService
     private readonly IPdfGenerator _pdfGenerator;
     private readonly IStorageService _storageService;
     private readonly ITemplateService _templateService;
+    private readonly ICustomerApiClient _customerApiClient; // [NEW] Inject Client
     private readonly ILogger<PdfService> _logger;
+
     public PdfService(
         IPdfGenerator pdfGenerator,
         IStorageService storageService,
         ITemplateService templateService,
+        ICustomerApiClient customerApiClient, // [NEW]
         ILogger<PdfService> logger)
     {
         _pdfGenerator = pdfGenerator;
         _storageService = storageService;
         _templateService = templateService;
+        _customerApiClient = customerApiClient; // [NEW]
         _logger = logger;
     }
+
     public async Task<PdfGenerationResult> GenerateContractPdfAsync(ContractPdfRequest request)
     {
         try
         {
             _logger.LogInformation($"Generating PDF for contract: {request.ContractNumber}");
 
-            // 1. Get template
-            var htmlTemplate = await _templateService.GetTemplateByNameAsync("ContractTemplate");
+            // [NEW LOGIC] 0. Check and delete old file if exists
+            if (!string.IsNullOrEmpty(request.CurrentPdfUrl))
+            {
+                _logger.LogInformation($"Found existing PDF for contract {request.ContractNumber}. Attempting to delete old file...");
+                var deleteResult = await _storageService.DeleteFileAsync(request.CurrentPdfUrl);
+                if (deleteResult)
+                {
+                    _logger.LogInformation($"Old PDF deleted successfully: {request.CurrentPdfUrl}");
+                }
+                else
+                {
+                    _logger.LogWarning($"Failed to delete old PDF or file not found: {request.CurrentPdfUrl}");
+                }
+            }
 
-            // 2. Prepare data
+            // 1. Get template based on request or default
+            string templateName = !string.IsNullOrEmpty(request.TemplateName)
+                ? request.TemplateName
+                : "ContractTemplate"; // Default template
+
+            var htmlTemplate = await _templateService.GetTemplateByNameAsync(templateName);
+
+            // 2. Prepare data (Giữ nguyên)
             var templateData = new Dictionary<string, string>
             {
                 { "ContractNumber", request.ContractNumber },
@@ -59,6 +83,11 @@ public class PdfService : IPdfService
             var pdfUrl = await _storageService.UploadPdfAsync(pdfBytes, fileName);
 
             _logger.LogInformation($"PDF generated successfully: {fileName}");
+
+            // 6. [NEW] Update Contract PdfUrl in Customer Service
+            // Gọi bất đồng bộ và không cần chờ kết quả để trả về response nhanh hơn (Fire and Forget)
+            // Hoặc await nếu muốn đảm bảo update thành công mới trả về.
+            await _customerApiClient.UpdateContractPdfUrlAsync(request.ContractNumber, pdfUrl);
 
             return new PdfGenerationResult
             {

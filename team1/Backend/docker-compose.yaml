@@ -117,13 +117,14 @@ services:
       - "5001:8080"
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-pdf;Port=5432;Database=${POSTGRES_DB_PDF};Username=${POSTGRES_USER_PDF};Password=${POSTGRES_PASSWORD_PDF}
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
+      - ASPNETCORE_ENVIRONMENT=Development 
       - AWS__Region=${AWS_REGION}
       - AWS__BucketName=${AWS_BUCKET_NAME}
       - AWS__AccessKey=${AWS_ACCESS_KEY}
       - AWS__SecretKey=${AWS_SECRET_KEY}
       - AWS__ServiceURL=${AWS_SERVICE_URL}
       - AWS__ForcePathStyle=${AWS_FORCE_PATH_STYLE:-true}
+      - CustomerServiceUrl=http://customer-api:8080 
     volumes:
       - pdf_temp:/app/temp
   

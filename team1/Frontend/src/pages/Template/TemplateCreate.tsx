@@ -1,7 +1,9 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form"; // [UPDATE] Thêm Controller
 import { yupResolver } from "@hookform/resolvers/yup";
+import ReactQuill from 'react-quill'; // [NEW] Import React Quill
+import 'react-quill/dist/quill.snow.css'; // [NEW] Import CSS của Quill
 
-import { useCreateTemplate } from "@/hooks/usePdf"; // Use the hook
+import { useCreateTemplate } from "@/hooks/usePdf";
 import {
     Box,
     Button,
@@ -12,7 +14,8 @@ import {
     TextField,
     Typography,
     FormControlLabel,
-    CircularProgress
+    CircularProgress,
+    FormHelperText // [NEW] Để hiển thị lỗi
 } from "@mui/material";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,146 +29,41 @@ type TemplateCreateFormValues = {
     isActive: boolean;
 };
 
-// HTML mẫu hợp đồng chung cho tất cả template
-const CONTRACT_TEMPLATE_HTML = `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Hợp đồng cung cấp năng lượng</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 40px 60px;
-        color: #111827;
-      }
-      h1 {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 4px;
-      }
-      h2 {
-        text-align: center;
-        font-size: 14px;
-        font-weight: normal;
-        color: #6b7280;
-        margin-top: 0;
-        margin-bottom: 24px;
-      }
-      .section-title {
-        font-weight: bold;
-        margin-top: 16px;
-        margin-bottom: 6px;
-      }
-      .divider {
-        border-bottom: 1px solid #e5e7eb;
-        margin: 8px 0 12px 0;
-      }
-      p {
-        margin: 2px 0;
-        font-size: 13px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 8px;
-        font-size: 12px;
-      }
-      th,
-      td {
-        border-bottom: 1px solid #e5e7eb;
-        padding: 6px 4px;
-        text-align: left;
-      }
-      th {
-        font-weight: 600;
-        background-color: #f3f4f6;
-      }
-      .sign-row {
-        margin-top: 48px;
-        display: flex;
-        justify-content: space-between;
-      }
-      .sign-col {
-        width: 45%;
-        text-align: center;
-        font-size: 13px;
-      }
-      .sign-name {
-        margin-top: 48px;
-      }
-      .muted {
-        color: #6b7280;
-        font-size: 11px;
-        margin-top: 24px;
-        text-align: right;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>HỢP ĐỒNG CUNG CẤP NĂNG LƯỢNG</h1>
-    <h2>(Gas / Điện năng · Energy Contract Manager)</h2>
+// [CONFIG] Cấu hình thanh công cụ (Toolbar) cho Editor
+const modules = {
+    toolbar: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        [{ 'align': [] }],                                // text alignment
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        ['link', 'image'],
+        ['clean']                                         // remove formatting button
+    ],
+};
 
-    <div>
-      <p class="section-title">1. Thông tin Hợp đồng</p>
-      <div class="divider"></div>
-      <p><strong>Mã hợp đồng:</strong> {ContractNumber}</p>
-      <p><strong>Thời hạn:</strong> {StartDate} - {EndDate}</p>
-    </div>
+// HTML mẫu mặc định (đã rút gọn bớt CSS phức tạp để dễ hiển thị trên Editor)
+const CONTRACT_TEMPLATE_HTML = `
+    <h1 style="text-align: center;">HỢP ĐỒNG CUNG CẤP NĂNG LƯỢNG</h1>
+    <h2 style="text-align: center; color: #6b7280;">(Gas / Điện năng · Energy Contract Manager)</h2>
+    
+    <h3>1. Thông tin Hợp đồng</h3>
+    <p><strong>Mã hợp đồng:</strong> {{ContractNumber}}</p>
+    <p><strong>Thời hạn:</strong> {{StartDate}} - {{EndDate}}</p>
+    <hr />
 
-    <div>
-      <p class="section-title">2. Thông tin Khách hàng</p>
-      <div class="divider"></div>
-      <p><strong>Khách hàng:</strong> {FullName}</p>
-      <p><strong>Email:</strong> {Email}</p>
-      <p><strong>Số điện thoại:</strong> {Phone}</p>
-      <p><strong>Công ty:</strong> {CompanyName}</p>
-      <p><strong>Số tài khoản:</strong> {BankAccountNumber}</p>
-    </div>
+    <h3>2. Thông tin Khách hàng</h3>
+    <p><strong>Khách hàng:</strong> {{FullName}}</p>
+    <p><strong>Email:</strong> {{Email}}</p>
+    <p><strong>Công ty:</strong> {{CompanyName}}</p>
+    <hr />
 
-    <div>
-      <p class="section-title">3. Danh sách Đơn hàng (Orders)</p>
-      <div class="divider"></div>
-      <table>
-        <thead>
-          <tr>
-            <th>Mã đơn</th>
-            <th>Loại</th>
-            <th>Trạng thái</th>
-            <th>Ngày bắt đầu</th>
-            <th>Ngày kết thúc</th>
-            <th style="text-align: right;">Phí Topup</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{OrderNumber}</td>
-            <td>{OrderType}</td>
-            <td>{OrderStatus}</td>
-            <td>{OrderStartDate}</td>
-            <td>{OrderEndDate}</td>
-            <td style="text-align: right;">{OrderTopupFee}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p style="margin-top: 8px;"><strong>Tổng cộng:</strong> {Currency} {TotalAmount}</p>
-    </div>
-
-    <div class="sign-row">
-      <div class="sign-col">
-        <p><strong>Đại diện Bên A</strong></p>
-        <p>(Ký, ghi rõ họ tên)</p>
-        <p class="sign-name">______________________</p>
-      </div>
-      <div class="sign-col">
-        <p><strong>Đại diện Bên B</strong></p>
-        <p>(Ký xác nhận)</p>
-        <p class="sign-name">{FullName}</p>
-      </div>
-    </div>
-
-    <p class="muted">Generated: {GeneratedDate}</p>
-  </body>
-</html>`.trim();
+    <h3>3. Nội dung chi tiết</h3>
+    <p>Bên A đồng ý cung cấp năng lượng cho Bên B theo các điều khoản đính kèm...</p>
+    
+    <p style="margin-top: 50px;"><strong>Đại diện Bên B</strong></p>
+    <p>{{FullName}}</p>
+`;
 
 export default function TemplateCreate() {
     const navigate = useNavigate();
@@ -175,6 +73,7 @@ export default function TemplateCreate() {
         register,
         handleSubmit,
         watch,
+        control, // [NEW] Cần lấy control để dùng cho Controller
         formState: { errors },
     } = useForm<TemplateCreateFormValues>({
         resolver: yupResolver(templateSchema),
@@ -188,23 +87,53 @@ export default function TemplateCreate() {
 
     const htmlContent = watch("htmlContent");
 
-    const previewHtml = useMemo(
-        () =>
-            htmlContent && htmlContent.trim().length > 0
-                ? htmlContent
-                : "<p style='font-family:system-ui;padding:16px;'>No HTML content yet. Start typing in the editor.</p>",
-        [htmlContent]
-    );
+    // [UPDATE] Cập nhật logic Preview để thêm CSS thu nhỏ chữ
+    const previewHtml = useMemo(() => {
+        const content = htmlContent && htmlContent.trim().length > 0
+            ? htmlContent
+            : "<p style='font-family:system-ui;padding:16px;color:#888'>No HTML content yet. Start typing in the editor.</p>";
+
+        return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        font-size: 10pt; /* [UPDATE] Cỡ chữ nhỏ hơn */
+                        line-height: 1.4;
+                        color: #333;
+                        margin: 0;
+                        padding: 20px; /* Padding giống trang giấy */
+                    }
+                    /* Thu nhỏ các thẻ Heading tương ứng */
+                    h1 { font-size: 18pt; margin-bottom: 10px; }
+                    h2 { font-size: 14pt; margin-bottom: 8px; }
+                    h3 { font-size: 12pt; margin-bottom: 6px; }
+                    p { margin-bottom: 8px; }
+                    
+                    /* Đảm bảo ảnh và bảng không bị tràn */
+                    img { max-width: 100%; height: auto; }
+                    table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+                    th, td { border: 1px solid #ddd; padding: 4px 8px; }
+                </style>
+            </head>
+            <body>
+                ${content}
+            </body>
+            </html>
+        `;
+    }, [htmlContent]);
 
     const onSubmit = (values: TemplateCreateFormValues) => {
         createMutation.mutate(
             {
                 ...values,
-                htmlContent: values.htmlContent.trim(),
+                htmlContent: values.htmlContent, // React Quill tự trả về HTML string
             },
             {
                 onSuccess: () => {
-                    navigate("/templates"); // Redirect to list after success
+                    navigate("/templates");
                 },
             }
         );
@@ -239,8 +168,7 @@ export default function TemplateCreate() {
                             color="text.secondary"
                             sx={{ maxWidth: 720 }}
                         >
-                            Create a reusable PDF template for contracts. You can customize
-                            the HTML on the left and see the preview on the right.
+                            Design your contract template using the editor below.
                         </Typography>
                     </Box>
 
@@ -266,8 +194,8 @@ export default function TemplateCreate() {
 
                 {/* BODY */}
                 <Grid container spacing={3}>
-                    {/* LEFT: FORM + CODE */}
-                    <Grid size={{ xs: 12, sm: 6 }}>
+                    {/* LEFT: FORM + EDITOR (Thu nhỏ lại từ 7 xuống 5) */}
+                    <Grid size={{ xs: 12, md: 5 }} >
                         <Paper
                             elevation={2}
                             sx={{
@@ -306,32 +234,40 @@ export default function TemplateCreate() {
                                 label="Active"
                             />
 
-                            <Typography variant="subtitle2" fontWeight={600}>
-                                HTML Template (code)
+                            <Typography variant="subtitle2" fontWeight={600} sx={{ mt: 1 }}>
+                                Content Editor
                             </Typography>
 
-                            <TextField
-                                {...register("htmlContent")}
-                                error={!!errors.htmlContent}
-                                helperText={errors.htmlContent?.message?.toString()}
-                                multiline
-                                minRows={18}
-                                placeholder="Update your HTML template here..."
-                                fullWidth
-                                InputProps={{
-                                    sx: {
-                                        fontFamily:
-                                            'ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace',
-                                        fontSize: 13,
-                                        whiteSpace: "pre",
-                                    },
-                                }}
-                            />
+                            {/* [NEW] REACT QUILL EDITOR */}
+                            <Box sx={{ 
+                                flex: 1, 
+                                display: 'flex', 
+                                flexDirection: 'column',
+                                '& .quill': { flex: 1, display: 'flex', flexDirection: 'column' },
+                                '& .ql-container': { flex: 1, minHeight: '300px', fontSize: '14px' } // Giảm font editor một chút cho gọn
+                            }}>
+                                <Controller
+                                    name="htmlContent"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <ReactQuill
+                                            theme="snow"
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            modules={modules}
+                                            placeholder="Write your contract content here..."
+                                        />
+                                    )}
+                                />
+                                {errors.htmlContent && (
+                                    <FormHelperText error>{errors.htmlContent.message}</FormHelperText>
+                                )}
+                            </Box>
                         </Paper>
                     </Grid>
 
-                    {/* RIGHT: PREVIEW */}
-                    <Grid size={{ xs: 12, sm: 6 }}>
+                    {/* RIGHT: PREVIEW (Mở rộng ra từ 5 lên 7) */}
+                    <Grid size={{ xs: 12, md: 7 }} >
                         <Paper
                             elevation={2}
                             sx={{
@@ -340,20 +276,22 @@ export default function TemplateCreate() {
                                 height: "100%",
                                 display: "flex",
                                 flexDirection: "column",
+                                position: 'sticky',
+                                top: 20
                             }}
                         >
                             <Typography variant="subtitle1" fontWeight={600}>
-                                Preview
+                                Live Preview
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                This preview is rendered from the HTML template on the left.
+                                This is how the PDF will look (approx).
                             </Typography>
 
                             <Box
                                 sx={{
                                     mt: 1,
                                     flex: 1,
-                                    minHeight: 420,
+                                    minHeight: 600, // Tăng chiều cao preview
                                     border: "1px solid #e2e8f0",
                                     borderRadius: 1,
                                     overflow: "hidden",

@@ -8,69 +8,60 @@ import {
   MenuItem,
   Paper,
   InputAdornment,
+  Tooltip
 } from "@mui/material";
-
 import {
   FiPlus,
   FiEdit,
   FiTrash2,
   FiFileText,
   FiSearch,
-  FiFilter,
-  FiChevronDown,
-  FiChevronUp,
+  FiCheckCircle
 } from "react-icons/fi";
-
 import NavMenu from "@/components/NavMenu/NavMenu";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { useContracts } from "@/hooks/useContracts";
-import { useResellers, useReseller } from "@/hooks/useResellers"; // Import useReseller
+import { useResellers } from "@/hooks/useResellers";
 import { useGeneratePdf } from "@/hooks/usePdf";
+import { toast } from "react-hot-toast"; // [NEW] Import Toast
 
 import ContractFormDrawer from "./ContractFormDrawer";
 import ContractDelete from "./ContractDelete";
-import { useNavigate } from "react-router-dom"; // Thêm useNavigate
-
-// Component con để hiển thị tên Reseller
-const ResellerCell = ({ resellerId }: { resellerId: number }) => {
-  const { data: reseller, isLoading } = useReseller(resellerId);
-  if (isLoading) return <span>Loading...</span>;
-  return <span>{reseller?.name || "—"}</span>;
-};
+import ResellerCell from "./components/ResellerCell";
+import GeneratePdfDialog from "./components/GeneratePdfDialog";
+import ViewPdfDialog from "./components/ViewPdfDialog";
 
 export default function ContractList() {
-  const navigate = useNavigate(); // Hook điều hướng
+  const navigate = useNavigate();
 
-  // Drawer
+  // --- STATES ---
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerMode, setDrawerMode] = useState<"create" | "edit">("create");
   const [currentId, setCurrentId] = useState<number | null>(null);
-
-  // Delete popup
+  
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
-  // Filters
+  // PDF Dialog States
+  const [genPdfOpen, setGenPdfOpen] = useState(false);
+  const [viewPdfOpen, setViewPdfOpen] = useState(false);
+  const [selectedContract, setSelectedContract] = useState<any>(null);
+
+  // Filters & Pagination
   const [search, setSearch] = useState("");
   const [resellerId, setResellerId] = useState("");
   const [startFrom, setStartFrom] = useState("");
   const [startTo, setStartTo] = useState("");
-
-  // Sort
   const [sortBy, setSortBy] = useState<"customerName" | "email">("customerName");
   const [sortDesc, setSortDesc] = useState(false);
-
-  // Pagination
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 10;
 
-  // Data queries
-  // Sửa lỗi: Đổi PageNumber -> pageNumber, PageSize -> pageSize
+  // Queries
   const resellerQuery = useResellers({ pageNumber: 1, pageSize: 999 });
-
   const contractQuery = useContracts({
-    search: search || undefined, // Sửa key thành lowercase 'search' khớp với interface
+    search: search || undefined,
     resellerId: resellerId ? Number(resellerId) : undefined,
     startDateFrom: startFrom || undefined,
     startDateTo: startTo || undefined,
@@ -82,14 +73,34 @@ export default function ContractList() {
 
   const data = contractQuery.data?.items ?? [];
   const totalPages = contractQuery.data?.totalPages ?? 1;
-
   const generatePdfMutation = useGeneratePdf();
 
-  const handlePdf = (c: any) => {
-    // Logic mới: Chỉ cần gửi contractId, backend tự lo
-    // Hoặc map dữ liệu nếu backend chưa update
+  // --- HANDLERS ---
+
+  // 1. Xử lý khi click vào icon PDF
+  const handlePdfIconClick = (c: any) => {
+    setSelectedContract(c);
+    
+    // Logic kiểm tra pdfLink
+    if (c.pdfLink && c.pdfLink.trim() !== "") {
+      // Nếu ĐÃ CÓ link -> Mở form Preview (ViewPdfDialog)
+      setViewPdfOpen(true);
+    } else {
+      // Nếu CHƯA CÓ link -> Mở form Generate (GeneratePdfDialog)
+      setGenPdfOpen(true);
+    }
+  };
+
+  // 2. Xử lý khi người dùng muốn tạo lại PDF từ màn hình View
+  const handleRegenerateRequest = () => {
+    setViewPdfOpen(false); // Đóng view
+    setGenPdfOpen(true);   // Mở generate
+  };
+
+  // 3. Gọi API Generate
+  const handleGenerateConfirm = (c: any, templateName: string) => {
     const pdfRequest = {
-        contractId: c.id, // Thêm ID để chắc chắn
+        contractId: c.id,
         contractNumber: c.contractNumber,
         firstName: c.firstName,
         lastName: c.lastName,
@@ -99,17 +110,27 @@ export default function ContractList() {
         startDate: c.startDate,
         endDate: c.endDate,
         bankAccountNumber: c.bankAccountNumber,
-        addressLine: "", // DTO list thường không có address chi tiết
+        addressLine: "", 
         totalAmount: 0,
         currency: "VND",
+        templateName: templateName,
+        
+        // [NEW] Truyền link hiện tại để Backend xóa
+        currentPdfUrl: c.pdfLink 
     };
 
     generatePdfMutation.mutate(
       pdfRequest as any,
       {
-        onSuccess: (url) => {
-            if(url) window.open(url, "_blank")
+        onSuccess: () => {
+            toast.success("PDF generated successfully!"); // [NEW] Thông báo thành công
+            setGenPdfOpen(false);
+            contractQuery.refetch(); // Refresh lại list để cập nhật icon xanh
         },
+        onError: (error: any) => {
+            console.error(error);
+            toast.error("Failed to generate PDF. Please try again."); // [NEW] Thông báo lỗi
+        }
       }
     );
   };
@@ -124,262 +145,122 @@ export default function ContractList() {
     setPage(1);
   };
 
-  // ================================ UI ================================
   return (
     <Box sx={{ display: "flex" }}>
       <NavMenu />
 
-      {/* MAIN AREA */}
-      <Box
-        sx={{
-          flexGrow: 1,
-          ml: { xs: 0, md: "260px" }, // Responsive margin
-          p: 4,
-          background: "#f5f6fa",
-          minHeight: "100vh",
-        }}
-      >
-        <Typography variant="h4" fontWeight={700} mb={3}>
-          Contract Management
-        </Typography>
+      <Box sx={{ flexGrow: 1, ml: { xs: 0, md: "260px" }, p: 4, background: "#f5f6fa", minHeight: "100vh" }}>
+        <Typography variant="h4" fontWeight={700} mb={3}>Contract Management</Typography>
 
-        {/* ======================= FILTER BAR ======================= */}
-        <Paper
-          sx={{
-            p: 3,
-            borderRadius: "16px",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-            mb: 3,
-          }}
-        >
+        {/* FILTER BAR */}
+        <Paper sx={{ p: 3, borderRadius: "16px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", mb: 3 }}>
           <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap" useFlexGap>
-            {/* Search */}
             <TextField
               size="small"
-              placeholder="Search by name or email..."
+              placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              sx={{
-                flex: 1,
-                minWidth: 200,
-                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FiSearch size={18} />
-                  </InputAdornment>
-                ),
-              }}
+              sx={{ flex: 1, minWidth: 200 }}
+              InputProps={{ startAdornment: (<InputAdornment position="start"><FiSearch /></InputAdornment>) }}
             />
-
-            {/* Filter: Reseller */}
             <TextField
               select
               size="small"
               value={resellerId}
               onChange={(e) => setResellerId(e.target.value)}
-              sx={{
-                width: 180,
-                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
-              }}
+              sx={{ width: 180 }}
               label="Reseller"
             >
               <MenuItem value="">All</MenuItem>
               {resellerQuery.data?.items?.map((r: any) => (
-                <MenuItem key={r.id} value={r.id}>
-                  {r.name}
-                </MenuItem>
+                <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>
               ))}
             </TextField>
-
-            {/* Date filters */}
-            <TextField
-              type="date"
-              size="small"
-              label="Start Date From"
-              InputLabelProps={{ shrink: true }}
-              value={startFrom}
-              onChange={(e) => setStartFrom(e.target.value)}
-              sx={{
-                width: 160,
-                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
-              }}
-            />
-
-            <TextField
-              type="date"
-              size="small"
-              label="Start Date To"
-              InputLabelProps={{ shrink: true }}
-              value={startTo}
-              onChange={(e) => setStartTo(e.target.value)}
-              sx={{
-                width: 160,
-                "& .MuiOutlinedInput-root": { height: 44, borderRadius: "12px" },
-              }}
-            />
-
-            <Button variant="contained" sx={{ height: 44 }} onClick={() => contractQuery.refetch()}>
-              APPLY
-            </Button>
-
-            <Button variant="outlined" sx={{ height: 44 }} onClick={() => { setSearch(""); setResellerId(""); setStartFrom(""); setStartTo(""); contractQuery.refetch(); }}>
-              CLEAR
-            </Button>
-
-            <Button
-              variant="contained"
-              startIcon={<FiPlus />}
-              sx={{ height: 44 }}
-              onClick={() => {
-                setDrawerMode("create");
-                setCurrentId(null);
-                setDrawerOpen(true);
-              }}
-            >
-              CREATE
-            </Button>
+            <Button variant="contained" onClick={() => contractQuery.refetch()}>APPLY</Button>
+            <Button variant="outlined" onClick={() => { setSearch(""); setResellerId(""); contractQuery.refetch(); }}>CLEAR</Button>
+            <Button variant="contained" startIcon={<FiPlus />} onClick={() => { setDrawerMode("create"); setCurrentId(null); setDrawerOpen(true); }}>CREATE</Button>
           </Stack>
         </Paper>
-        {/* ======================= TABLE ======================= */}
-        <Paper
-          sx={{
-            p: 0,
-            borderRadius: "16px",
-            overflow: "hidden",
-            border: "1px solid #e5e7eb",
-          }}
-        >
 
-          {/* ======================= HEADER ======================= */}
-          <Stack
-            direction="row"
-            px={2.2}
-            py={1.4}
-            sx={{
-              fontWeight: 600,
-              color: "#555",
-              background: "#fafafa",
-              borderBottom: "1px solid #e5e7eb",
-              fontSize: "14px",
-            }}
-          >
-            <Box sx={{ flex: 1 }}>Contract No.</Box>
-
-            <Box
-              sx={{ flex: 1.4, display: "flex", alignItems: "center", cursor: "pointer", gap: 0.4 }}
-              onClick={() => toggleSort("customerName")}
-            >
-              Name
-              {sortBy === "customerName"
-                ? sortDesc ? <FiChevronDown size={13} /> : <FiChevronUp size={13} />
-                : <FiChevronDown size={13} style={{ opacity: 0.25 }} />}
-            </Box>
-
-            <Box
-              sx={{ flex: 1.6, display: "flex", alignItems: "center", cursor: "pointer", gap: 0.4 }}
-              onClick={() => toggleSort("email")}
-            >
-              Email
-              {sortBy === "email"
-                ? sortDesc ? <FiChevronDown size={13} /> : <FiChevronUp size={13} />
-                : <FiChevronDown size={13} style={{ opacity: 0.25 }} />}
-            </Box>
-
-            <Box sx={{ flex: 1.1 }}>Reseller</Box>
-            <Box sx={{ flex: 0.8 }}>Start</Box>
-            <Box sx={{ flex: 0.8 }}>End</Box>
-
-            <Box sx={{ width: 120, textAlign: "center" }}>Actions</Box>
+        {/* TABLE */}
+        <Paper sx={{ borderRadius: "16px", overflow: "hidden" }}>
+          <Stack direction="row" px={2.2} py={1.4} sx={{ fontWeight: 600, bgcolor: "#fafafa", borderBottom: "1px solid #eee" }}>
+            <Box flex={1}>Contract No.</Box>
+            <Box flex={1.4} onClick={() => toggleSort("customerName")} sx={{ cursor: "pointer" }}>Name</Box>
+            <Box flex={1.6}>Email</Box>
+            <Box flex={1.1}>Reseller</Box>
+            <Box flex={0.8}>Start</Box>
+            <Box flex={0.8}>End</Box>
+            <Box width={120} textAlign="center">Actions</Box>
           </Stack>
 
-          {/* ======================= ROWS ======================= */}
-          {data.map((c: any) => (
-            <Stack
-              key={c.id}
-              direction="row"
-              px={2.2}
-              py={1.6}
-              sx={{
-                alignItems: "center",
-                borderBottom: "1px solid #f1f1f1",
-                background: "#fff",
-                "&:hover": { background: "#f7f9fc" },
-              }}
-            >
-              <Box sx={{ flex: 1, fontWeight: 500, color: "primary.main", cursor: "pointer" }} onClick={() => navigate(`/contracts/${c.id}/detail`)}>
-                  {c.contractNumber}
-              </Box>
-              <Box sx={{ flex: 1.4 }}>{c.firstName} {c.lastName}</Box> {/* Sửa customerName */}
-              <Box sx={{ flex: 1.6 }}>{c.email}</Box>
-              
-              {/* Sửa resellerName bằng Component con */}
-              <Box sx={{ flex: 1.1 }}>
-                  <ResellerCell resellerId={c.resellerId} />
-              </Box>
+          {data.map((c: any) => {
+            // Kiểm tra có link PDF hay không
+            const hasPdf = c.pdfLink && c.pdfLink.trim() !== null;
 
-              <Box sx={{ flex: 0.8 }}>{c.startDate ? new Date(c.startDate).toLocaleDateString() : "-"}</Box>
-              <Box sx={{ flex: 0.8 }}>{c.endDate ? new Date(c.endDate).toLocaleDateString() : "-"}</Box>
+            return (
+              <Stack key={c.id} direction="row" px={2.2} py={1.6} sx={{ alignItems: "center", borderBottom: "1px solid #f1f1f1", "&:hover": { bgcolor: "#f7f9fc" } }}>
+                <Box flex={1} fontWeight={500} color="primary.main">{c.contractNumber}</Box>
+                <Box flex={1.4}>{c.firstName} {c.lastName}</Box>
+                <Box flex={1.6}>{c.email}</Box>
+                <Box flex={1.1}><ResellerCell resellerId={c.resellerId} /></Box>
+                <Box flex={0.8}>{c.startDate ? new Date(c.startDate).toLocaleDateString() : "-"}</Box>
+                <Box flex={0.8}>{c.endDate ? new Date(c.endDate).toLocaleDateString() : "-"}</Box>
 
-              <Stack direction="row" spacing={0.5} sx={{ width: 120, justifyContent: "center" }}>
-                <IconButton size="small" onClick={() => handlePdf(c)} title="Generate PDF">
-                  <FiFileText size={16} />
-                </IconButton>
+                <Stack direction="row" spacing={0.5} width={120} justifyContent="center">
+                  {/* --- PDF ICON --- */}
+                  <Tooltip title={hasPdf ? "View PDF" : "Generate PDF"}>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handlePdfIconClick(c)} 
+                      color={hasPdf ? "success" : "default"} // Xanh nếu có, Mặc định (đen/xám) nếu không
+                    >
+                      {hasPdf ? <FiCheckCircle size={18} /> : <FiFileText size={18} />}
+                    </IconButton>
+                  </Tooltip>
 
-                <IconButton size="small" onClick={() => { setDrawerMode("edit"); setCurrentId(c.id); setDrawerOpen(true); }} title="Edit">
-                  <FiEdit size={16} />
-                </IconButton>
-
-                <IconButton size="small" color="error" onClick={() => { setDeleteId(c.id); setDeleteOpen(true); }} title="Delete">
-                  <FiTrash2 size={16} />
-                </IconButton>
+                  <IconButton size="small" onClick={() => { setDrawerMode("edit"); setCurrentId(c.id); setDrawerOpen(true); }}>
+                    <FiEdit size={16} />
+                  </IconButton>
+                  <IconButton size="small" color="error" onClick={() => { setDeleteId(c.id); setDeleteOpen(true); }}>
+                    <FiTrash2 size={16} />
+                  </IconButton>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
-
-
-          {/* PAGINATION */}
-          <Stack direction="row" justifyContent="space-between" px={2} py={2}>
-            <Typography sx={{ color: "#777" }}>
-              Showing {data.length} of {contractQuery.data?.totalCount ?? 0}
-            </Typography>
-
-            <Stack direction="row" spacing={2}>
-              <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>
-                Previous
-              </Button>
-
-              <Typography sx={{ display: "flex", alignItems: "center" }}>Page {page} / {totalPages}</Typography>
-
-              <Button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>
-                Next
-              </Button>
-            </Stack>
+            );
+          })}
+          
+          {/* Pagination */}
+          <Stack direction="row" justifyContent="space-between" p={2}>
+             <Typography color="text.secondary">Total: {contractQuery.data?.totalCount}</Typography>
+             <Stack direction="row" spacing={2}>
+                <Button disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</Button>
+                <Typography>{page} / {totalPages}</Typography>
+                <Button disabled={page >= totalPages} onClick={() => setPage(page + 1)}>Next</Button>
+             </Stack>
           </Stack>
         </Paper>
 
-        {/* POPUPS */}
-        <ContractFormDrawer
-          open={drawerOpen}
-          mode={drawerMode}
-          id={currentId}
-          onClose={() => setDrawerOpen(false)}
-          onSuccess={() => {
-            setDrawerOpen(false);
-            contractQuery.refetch();
-          }}
+        {/* --- DIALOGS --- */}
+        <ContractFormDrawer open={drawerOpen} mode={drawerMode} id={currentId} onClose={() => setDrawerOpen(false)} onSuccess={() => { setDrawerOpen(false); contractQuery.refetch(); }} />
+        <ContractDelete open={deleteOpen} id={deleteId} onClose={() => setDeleteOpen(false)} onSuccess={() => { setDeleteOpen(false); contractQuery.refetch(); }} />
+        
+        {/* Form Generate (Dành cho icon đen/xám) */}
+        <GeneratePdfDialog 
+          open={genPdfOpen} 
+          onClose={() => setGenPdfOpen(false)} 
+          contract={selectedContract} 
+          onGenerate={handleGenerateConfirm} 
         />
 
-        <ContractDelete
-          open={deleteOpen}
-          id={deleteId}
-          onClose={() => setDeleteOpen(false)}
-          onSuccess={() => {
-            setDeleteOpen(false);
-            contractQuery.refetch();
-          }}
+        {/* Form View (Dành cho icon xanh) */}
+        <ViewPdfDialog 
+          open={viewPdfOpen} 
+          onClose={() => setViewPdfOpen(false)} 
+          pdfUrl={selectedContract?.pdfLink} 
+          onRegenerate={handleRegenerateRequest} 
         />
+
       </Box>
     </Box>
   );

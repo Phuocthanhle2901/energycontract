@@ -4,6 +4,7 @@ using Application.Features.Contracts.Commands.DeleteContract;
 using Application.Features.Contracts.Commands.GetContract;
 using Application.Features.Contracts.Commands.GetContractsByChoice;
 using Application.Features.Contracts.Commands.UpdateContract;
+using Application.Features.Contracts.Commands.UpdatePdfUrl; // Import namespace mới
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ public class ContractController : ControllerBase
     private readonly GetContractByIdHandler _getContractByIdHandler;
     private readonly GetContractsByChoiceHandler _getContractsByChoiceHandler;
     private readonly DeleteContractHandler _deleteContractHandler;
+    private readonly UpdatePdfUrlHandler _updatePdfUrlHandler; // Inject thêm handler
     private readonly ILogger<ContractController> _logger;
 
     public ContractController(
@@ -27,6 +29,7 @@ public class ContractController : ControllerBase
         GetContractByIdHandler getContractByIdHandler,
         GetContractsByChoiceHandler getContractsByChoiceHandler,
         DeleteContractHandler deleteContractHandler,
+        UpdatePdfUrlHandler updatePdfUrlHandler, // Inject vào constructor
         ILogger<ContractController> logger
     )
     {
@@ -35,6 +38,7 @@ public class ContractController : ControllerBase
         _getContractByIdHandler = getContractByIdHandler;
         _getContractsByChoiceHandler = getContractsByChoiceHandler;
         _deleteContractHandler = deleteContractHandler;
+        _updatePdfUrlHandler = updatePdfUrlHandler;
         _logger = logger;
     }
 
@@ -61,11 +65,12 @@ public class ContractController : ControllerBase
     [Authorize]
     public async Task<ActionResult> Update(int id, UpdateContract command)
     {
-        if (id != command.Id)
-        {
-            _logger.LogError("ID in URL and Body does not match: {UrlId} != {BodyId}", id, command.Id);
-            return BadRequest("ID in URL and Body does not match");
-        }
+        // [SỬA] Thay vì kiểm tra lỗi, hãy gán luôn ID từ URL vào Command
+        // Điều này giúp người dùng không cần quan tâm đến field "id" trong JSON body nữa
+        command.Id = id;
+
+       
+
         try
         {
             await _updateContractHandler.Handle(command);
@@ -132,6 +137,31 @@ public class ContractController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError("Error deleting contract: {Message}", ex.Message);
+            return NotFound(new { message = ex.Message });
+        }
+    }
+
+    // 6. PUT: Update PDF URL (Internal API called by PdfService)
+    [HttpPut("by-number/{contractNumber}/pdf-link")]
+    [AllowAnonymous] // Cân nhắc bảo mật: Nên dùng API Key hoặc Internal Network thay vì AllowAnonymous
+    public async Task<IActionResult> UpdatePdfUrl(string contractNumber, [FromBody] UpdatePdfUrlCommand command)
+    {
+        if (contractNumber != command.ContractNumber && !string.IsNullOrEmpty(command.ContractNumber))
+        {
+            return BadRequest("Contract Number mismatch");
+        }
+
+        // Gán lại để chắc chắn đúng
+        command.ContractNumber = contractNumber;
+
+        try
+        {
+            await _updatePdfUrlHandler.Handle(command);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error updating PDF URL: {Message}", ex.Message);
             return NotFound(new { message = ex.Message });
         }
     }

@@ -126,6 +126,8 @@ try
     builder.Services.AddScoped<IStorageService, AwsS3StorageService>(); 
     builder.Services.AddScoped<ITemplateService, TemplateService>();
     builder.Services.AddScoped<IPdfService, PdfService>();
+    // Trong Program.cs của PdfService
+    builder.Services.AddHttpClient<ICustomerApiClient, CustomerApiClient>();
 
     // Controllers
     builder.Services.AddControllers();

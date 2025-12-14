@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Domain.Entities;
 using System.Text.Json;
+using System.Text.Json.Serialization; // [NEW] Thêm namespace này
 
 namespace Application.Features.Contracts.Commands.UpdateContract
 {
@@ -24,8 +25,15 @@ namespace Application.Features.Contracts.Commands.UpdateContract
             if (contractToUpdate == null)
                 throw new Exception($"Contract with id {request.Id} not found");
 
-            // 🔥 Serialize old object
-            var oldValue = JsonSerializer.Serialize(contractToUpdate);
+            // [NEW] Cấu hình để bỏ qua vòng lặp (Circular Reference)
+            var jsonOptions = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = false // Tùy chọn: false để tiết kiệm dung lượng DB
+            };
+
+            // 🔥 Serialize old object với options mới
+            var oldValue = JsonSerializer.Serialize(contractToUpdate, jsonOptions);
 
             // 🔥 Map thủ công
             contractToUpdate.FirstName = request.FirstName;
@@ -42,8 +50,8 @@ namespace Application.Features.Contracts.Commands.UpdateContract
 
             await _contractRepository.UpdateContract(contractToUpdate);
 
-            // 🔥 Serialize new object
-            var newValue = JsonSerializer.Serialize(contractToUpdate);
+            // 🔥 Serialize new object với options mới
+            var newValue = JsonSerializer.Serialize(contractToUpdate, jsonOptions);
 
             // 🔥 Ghi lịch sử
             var history = new ContractHistory
