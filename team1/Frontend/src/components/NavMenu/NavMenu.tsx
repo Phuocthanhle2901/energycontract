@@ -1,90 +1,137 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Home, FileText, ShoppingCart, Users, History, Layers, Sun, Moon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
-  Home,
-  FileText,
-  ShoppingCart,
-  Users,
-  History,
-  Layers,
-} from "lucide-react";
+  Box,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  IconButton,
+  Button,
+  Divider,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
+import { ColorModeContext } from "@/theme/AppThemeProvider";
+
+const SIDEBAR_WIDTH = 240;
 
 export default function NavMenu() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const theme = useTheme();
+
+  const { t, i18n } = useTranslation();
+  const { mode, toggleColorMode } = useContext(ColorModeContext);
+
+  const lang = (i18n.language || "vi") as "vi" | "en";
 
   const menuItems = [
-    { label: "Home", path: "/home", icon: <Home size={20} /> },
-
-    { label: "Contracts List", path: "/contracts/list", icon: <FileText size={20} /> },
-
-    { label: "Orders", path: "/orders", icon: <ShoppingCart size={20} /> },
-
-    { label: "Resellers", path: "/address-reseller/list", icon: <Users size={20} /> },
-
-    { label: "History", path: "/history", icon: <History size={20} /> },
-
-    { label: "Templates", path: "/templates", icon: <Layers size={20} /> },
+    { key: "home", path: "/home", icon: <Home size={18} /> },
+    { key: "contracts", path: "/contracts/list", icon: <FileText size={18} /> },
+    { key: "orders", path: "/orders", icon: <ShoppingCart size={18} /> },
+    { key: "resellers", path: "/address-reseller/list", icon: <Users size={18} /> },
+    { key: "history", path: "/history", icon: <History size={18} /> },
+    { key: "templates", path: "/templates", icon: <Layers size={18} /> },
   ];
 
+  const isActive = (path: string) => location.pathname.startsWith(path);
+
+  const handleLang = (_: any, next: "vi" | "en" | null) => {
+    if (!next) return;
+    i18n.changeLanguage(next);
+    localStorage.setItem("lng", next);
+  };
+
   return (
-    <div
-      style={{
-        width: "240px",
-        background: "#1F2937",
-        color: "white",
-        height: "100vh",
-        padding: "2rem 1rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
+    <Box
+      sx={{
+        width: SIDEBAR_WIDTH,
         position: "fixed",
         top: 0,
         left: 0,
+        height: "100vh",
+        p: 2,
+        bgcolor: "background.paper",
+        color: "text.primary",
+        borderRight: 1,
+        borderColor: "divider",
+        display: "flex",
+        flexDirection: "column",
+        gap: 1.5,
       }}
     >
-      <h2
-        style={{
-          color: "#FBBF24",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: "1.5rem",
-        }}
+      <Typography
+        variant="h6"
+        fontWeight={900}
+        textAlign="center"
+        sx={{ color: "warning.main", letterSpacing: 1 }}
       >
         INFODATION
-      </h2>
+      </Typography>
 
-      {menuItems.map((item) => (
-        <div
-          key={item.label}
-          onClick={() => navigate(item.path)}
-          style={{
-            padding: "0.8rem 1rem",
-            background: "#374151",
-            borderRadius: "0.5rem",
-            cursor: "pointer",
-            transition: "0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#4B5563")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "#374151")}
+      {/* Language + Theme */}
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <ToggleButtonGroup size="small" value={lang} exclusive onChange={handleLang}>
+          <ToggleButton value="vi">VI</ToggleButton>
+          <ToggleButton value="en">EN</ToggleButton>
+        </ToggleButtonGroup>
+
+        <IconButton onClick={toggleColorMode} sx={{ border: 1, borderColor: "divider" }}>
+          {mode === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+        </IconButton>
+      </Stack>
+
+      <Divider />
+
+      {/* Menu */}
+      <List sx={{ p: 0 }}>
+        {menuItems.map((item) => {
+          const active = isActive(item.path);
+          return (
+            <ListItemButton
+              key={item.key}
+              onClick={() => navigate(item.path)}
+              selected={active}
+              sx={{
+                mb: 1,
+                borderRadius: 2,
+                border: `1px solid ${active ? alpha(theme.palette.primary.main, 0.35) : "transparent"}`,
+                bgcolor: active ? alpha(theme.palette.primary.main, 0.12) : "transparent",
+                "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.12) },
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: 36, color: active ? "primary.main" : "text.secondary" }}>
+                {item.icon}
+              </ListItemIcon>
+
+              <ListItemText
+                primary={t(`nav.${item.key}`)}
+                primaryTypographyProps={{
+                  fontWeight: active ? 800 : 600,
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
+      </List>
+
+      <Box sx={{ mt: "auto" }}>
+        <Button
+          fullWidth
+          variant="contained"
+          color="error"
+          onClick={() => navigate("/")}
+          sx={{ py: 1.2, borderRadius: 2 }}
         >
-          {item.label}
-        </div>
-      ))}
-
-      <button
-        onClick={() => navigate("/")}
-        style={{
-          marginTop: "auto",
-          padding: "0.8rem 1rem",
-          background: "#DC2626",
-          border: "none",
-          color: "white",
-          borderRadius: "0.5rem",
-          cursor: "pointer",
-        }}
-      >
-        🔓 Log Out
-      </button>
-    </div>
+          🔓 {t("nav.logout")}
+        </Button>
+      </Box>
+    </Box>
   );
 }
