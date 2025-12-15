@@ -20,4 +20,5 @@ public class ContractDto
     public int? ResellerId { get; set; }
     public string ResellerName { get; set; }
     public string ResellerType { get; set; }
+    public ICollection<OrderDto> Orders { get; set; }
 }

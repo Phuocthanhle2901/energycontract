@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using Application.DTOs;
 using Application.Features.Contracts.Commands.CreateContract;
 using Application.Features.Contracts.Commands.DeleteContract;
 using Application.Features.Contracts.Commands.GetContract;
+using Application.Features.Contracts.Commands.GetContractByEmail;
 using Application.Features.Contracts.Commands.GetContractsByChoice;
 using Application.Features.Contracts.Commands.UpdateContract;
 using Application.Features.Contracts.Commands.UpdatePdfUrl; // Import namespace mới
@@ -21,6 +23,7 @@ public class ContractController : ControllerBase
     private readonly GetContractsByChoiceHandler _getContractsByChoiceHandler;
     private readonly DeleteContractHandler _deleteContractHandler;
     private readonly UpdatePdfUrlHandler _updatePdfUrlHandler; // Inject thêm handler
+    private readonly GetMyContractsHandler _getMyContractsHandler;
     private readonly ILogger<ContractController> _logger;
 
     public ContractController(
@@ -30,7 +33,8 @@ public class ContractController : ControllerBase
         GetContractsByChoiceHandler getContractsByChoiceHandler,
         DeleteContractHandler deleteContractHandler,
         UpdatePdfUrlHandler updatePdfUrlHandler, // Inject vào constructor
-        ILogger<ContractController> logger
+        ILogger<ContractController> logger,
+        GetMyContractsHandler getMyContractsHandler
     )
     {
         _createContractHandler = createContractHandler;
@@ -40,7 +44,8 @@ public class ContractController : ControllerBase
         _deleteContractHandler = deleteContractHandler;
         _updatePdfUrlHandler = updatePdfUrlHandler;
         _logger = logger;
-    }
+        _getContractByIdHandler= getContractByIdHandler;
+    }   
 
     // 1. POST: Create new contract
     [HttpPost]
@@ -163,6 +168,32 @@ public class ContractController : ControllerBase
         {
             _logger.LogError("Error updating PDF URL: {Message}", ex.Message);
             return NotFound(new { message = ex.Message });
+        }
+    }
+    [HttpGet("me")]
+    [Authorize] // Bắt buộc phải có Token
+    public async Task<ActionResult<List<ContractDto>>> GetMyContracts()
+    {
+        try
+        {
+            // A. Lấy Email từ Token (Claims) của người đang đăng nhập
+            // (AuthService khi tạo token đã nhét Email vào đây)
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized(new { message = "Không tìm thấy Email trong Token" });
+            }
+
+            // B. Gọi Handler xử lý
+            var result = await _getMyContractsHandler.Handle(email);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Lỗi khi lấy danh sách hợp đồng: {Message}", ex.Message);
+            return StatusCode(500, new { message = ex.Message });
         }
     }
 }

@@ -20,10 +20,10 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(builder.Configuration["RabbitMQ:Host"], "/", h =>
+        cfg.Host("rabbitmq", "/", h => // nếu chạy local
         {
-            h.Username(builder.Configuration["RabbitMQ:Username"]!);
-            h.Password(builder.Configuration["RabbitMQ:Password"]!);
+            h.Username("guest");
+            h.Password("guest");
         });
 
         // cố định exchange name để 2 bên không lệch

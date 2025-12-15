@@ -151,7 +151,7 @@ try
     {
         x.UsingRabbitMq((context, cfg) =>
         {
-            cfg.Host("localhost", "/", h => // nếu chạy local
+            cfg.Host("rabbitmq", "/", h => // nếu chạy local
             {
                 h.Username("guest");
                 h.Password("guest");

@@ -12,6 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+
   postgres-history:
     image: postgres:16-alpine
     container_name: energy_postgres_history
@@ -42,9 +43,7 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-history;Port=5432;Database=ContractHistoryDb;Username=${POSTGRES_USER_HISTORY:-postgres_history};Password=${POSTGRES_PASSWORD_HISTORY:-admin_history}
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQ__Host=rabbitmq
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
+  
       
   postgres-invoice:
     image: postgres:16-alpine
@@ -136,6 +135,8 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=${POSTGRES_DB_Customer};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       - ASPNETCORE_ENVIRONMENT=Development
+   
+    # ... các dòng khác giữ nguyên
 
   pdf-service:
     image: huyngoinfo/energy-pdf-service:latest
