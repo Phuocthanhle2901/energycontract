@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContracts } from "@/hooks/useContracts";
-import { useReseller } from "@/hooks/useResellers"; // 1. Import hook lấy chi tiết Reseller
-import NavMenu from "@/components/NavMenu/NavMenu";
 
-// MUI Components
+import NavMenu from "@/components/NavMenu/NavMenu";
+import { useContracts } from "@/hooks/useContracts";
+import { useReseller } from "@/hooks/useResellers";
+
+import { useTranslation } from "react-i18next";
+
 import {
   Box,
   Button,
@@ -13,7 +15,6 @@ import {
   Chip,
   CircularProgress,
   Container,
-  Grid,
   Paper,
   Stack,
   Table,
@@ -23,55 +24,85 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme
+  useTheme,
 } from "@mui/material";
 
-// Icons
+import Grid from "@mui/material/Grid";
+import { alpha } from "@mui/material/styles";
+
 import {
   Add as AddIcon,
   Description as ContractIcon,
   Bolt as EnergyIcon,
   AccessTime as TimeIcon,
-  ArrowForward as ArrowForwardIcon
+  ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material";
 
-// 2. Component con để fetch và hiển thị tên Reseller
-// Tách ra để có thể dùng Hook useReseller hợp lệ
+// ===================== Component con: Reseller name =====================
 const ResellerCell = ({ resellerId }: { resellerId: number }) => {
+  const { t } = useTranslation();
   const { data: reseller, isLoading } = useReseller(resellerId);
 
-  if (isLoading) return <Typography variant="caption" color="text.secondary">Loading...</Typography>;
+  if (!resellerId) return <Typography variant="body2">—</Typography>;
+
+  if (isLoading)
+    return (
+      <Typography variant="caption" color="text.secondary">
+        {t("Loading")}
+      </Typography>
+    );
+
   return <Typography variant="body2">{reseller?.name || "—"}</Typography>;
 };
 
 export default function Home() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
 
-  // ===================== FETCH DATA (React Query) =====================
   const { data, isLoading } = useContracts({ pageNumber: 1, pageSize: 100 });
   const contracts = Array.isArray(data?.items) ? data.items : [];
 
-  // ===================== CALCULATIONS (useMemo) =====================
   const stats = useMemo(() => {
     const now = new Date();
     let activeCount = 0;
 
-    contracts.forEach((c) => {
-      if (c.endDate && new Date(c.endDate) > now) {
-        activeCount++;
-      }
+    contracts.forEach((c: any) => {
+      if (c?.endDate && new Date(c.endDate) > now) activeCount++;
     });
 
     return {
       total: contracts.length,
       active: activeCount,
       expired: contracts.length - activeCount,
-      totalOrders: 0
+      totalOrders: 0,
     };
   }, [contracts]);
 
-  // ===================== UI RENDER ======================
+  const recentContracts = useMemo(() => contracts.slice(0, 5), [contracts]);
+
+  const heroBg = isDark
+    ? `linear-gradient(135deg,
+        ${alpha(theme.palette.primary.main, 0.18)} 0%,
+        ${alpha(theme.palette.background.paper, 0.92)} 100%)`
+    : `linear-gradient(135deg, ${theme.palette.grey[900]} 0%, ${theme.palette.grey[800]} 100%)`;
+
+  const heroTextColor = isDark
+    ? theme.palette.text.primary
+    : theme.palette.common.white;
+
+  const iconBox = (color: "primary" | "success" | "error") => ({
+    p: 1.5,
+    borderRadius: 2,
+    bgcolor: alpha(theme.palette[color].main, isDark ? 0.16 : 0.12),
+    color: theme.palette[color].main,
+    border: `1px solid ${alpha(theme.palette[color].main, 0.25)}`,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  });
+
   return (
     <Box sx={{ display: "flex" }}>
       <NavMenu />
@@ -80,88 +111,91 @@ export default function Home() {
         component="main"
         sx={{
           flexGrow: 1,
-          bgcolor: "#f5f7fa",
           minHeight: "100vh",
-          ml: { xs: 0, md: "260px" },
+          ml: { xs: 0, md: "240px" },
           p: 3,
+          bgcolor: "background.default",
+          color: "text.primary",
         }}
       >
         <Container maxWidth="xl">
-
-          {/* ================= HERO SECTION ================= */}
+          {/* ================= HERO ================= */}
           <Paper
             elevation={0}
             sx={{
               p: 4,
               mb: 4,
               borderRadius: 3,
-              background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
-              color: "white",
+              background: heroBg,
+              color: heroTextColor,
+              border: `1px solid ${alpha(
+                theme.palette.divider,
+                isDark ? 0.35 : 0.12
+              )}`,
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 2
+              gap: 2,
             }}
           >
             <Box>
-              <Typography variant="h4" fontWeight={700} gutterBottom>
-                ⚡ Energy Contract Manager
+              <Typography variant="h4" fontWeight={900} gutterBottom>
+                ⚡ {t("Energy Contract Manager")}
               </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.8, maxWidth: 600 }}>
-                Manage all your energy contracts, track expirations, and monitor orders in one centralized platform.
+              <Typography variant="body1" sx={{ opacity: 0.85, maxWidth: 650 }}>
+                {t("Hero Description")}
               </Typography>
             </Box>
 
             <Stack direction="row" spacing={2}>
               <Button
                 variant="contained"
-                color="primary"
                 startIcon={<AddIcon />}
-                onClick={() => navigate("/contracts/list")}
-                sx={{ bgcolor: "#3b82f6", fontWeight: 1200 }}
+                onClick={() => navigate("/contracts/create")}
+                sx={{ fontWeight: 800 }}
               >
-                New Contract
+                {t("New Contract")}
               </Button>
             </Stack>
           </Paper>
 
-          {/* ================= DASHBOARD STATS ================= */}
-          <Typography variant="h6" fontWeight={700} sx={{ mb: 2, color: "text.primary" }}>
-            📊 Dashboard Overview
+          {/* ================= STATS ================= */}
+          <Typography variant="h6" fontWeight={900} sx={{ mb: 2 }}>
+            📊 {t("Dashboard Overview")}
           </Typography>
 
           <Grid container spacing={3} sx={{ mb: 4 }}>
-            {/* CARD 1: TOTAL CONTRACTS */}
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <Card sx={{ borderRadius: 2, height: "100%" }}>
+            {/* CARD 1 */}
+            <Grid item xs={12} sm={6} md={6}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#eff6ff", color: "#3b82f6" }}>
+                    <Box sx={iconBox("primary")}>
                       <ContractIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
-                      Total Contracts
+                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                      {t("Total Contracts")}
                     </Typography>
                   </Stack>
-                  <Typography variant="h3" fontWeight={700} color="text.primary">
+
+                  <Typography variant="h3" fontWeight={900}>
                     {isLoading ? "-" : stats.total}
                   </Typography>
-                  <Stack direction="row" spacing={1} mt={2}>
+
+                  <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
                     <Chip
-                      label={`${stats.active} Active`}
+                      label={`${stats.active} ${t("Active")}`}
                       size="small"
                       color="success"
-                      variant="filled"
-                      sx={{ bgcolor: "#dcfce7", color: "#166534" }}
+                      variant={isDark ? "outlined" : "filled"}
                     />
                     {stats.expired > 0 && (
                       <Chip
-                        label={`${stats.expired} Expired`}
+                        label={`${stats.expired} ${t("Expired")}`}
                         size="small"
                         color="error"
-                        variant="filled"
-                        sx={{ bgcolor: "#fee2e2", color: "#991b1b" }}
+                        variant={isDark ? "outlined" : "filled"}
                       />
                     )}
                   </Stack>
@@ -169,136 +203,167 @@ export default function Home() {
               </Card>
             </Grid>
 
-            {/* CARD 2: TOTAL ORDERS */}
-            <Grid size={{ xs: 12, sm: 4 }}>
-              <Card sx={{ borderRadius: 2, height: "100%" }}>
+            {/* CARD 2 */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#f0fdf4", color: "#22c55e" }}>
+                    <Box sx={iconBox("success")}>
                       <EnergyIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
-                      Total Orders
+                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                      {t("Total Orders")}
                     </Typography>
                   </Stack>
-                  <Typography variant="h3" fontWeight={700} color="text.primary">
+
+                  <Typography variant="h3" fontWeight={900}>
                     {isLoading ? "-" : "N/A"}
                   </Typography>
+
                   <Typography variant="body2" color="text.secondary" mt={1}>
-                    Gas & Electricity combined
+                    {t("Gas & Electricity combined")}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
 
-            {/* CARD 3: RENEWALS */}
-            <Grid size={{ xs: 12, sm: 4 }}>
-              <Card sx={{ borderRadius: 2, height: "100%" }}>
+            {/* CARD 3 */}
+            <Grid item xs={12} sm={6} md={3}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                    <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#fef2f2", color: "#ef4444" }}>
+                    <Box sx={iconBox("error")}>
                       <TimeIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={600} color="text.secondary">
-                      Requires Renewal
+                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                      {t("Requires Renewal")}
                     </Typography>
                   </Stack>
-                  <Typography variant="h3" fontWeight={700} color="text.primary">
+
+                  <Typography variant="h3" fontWeight={900}>
                     {isLoading ? "-" : stats.expired}
                   </Typography>
+
                   <Typography variant="body2" color="text.secondary" mt={1}>
-                    {stats.expired === 0 ? "✅ All contracts are active" : "⚠️ Action needed for expired contracts"}
+                    {stats.expired === 0 ? `✅ ${t("All active")}` : `⚠️ ${t("Need Action")}`}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
           </Grid>
 
-          {/* ================= RECENT CONTRACTS TABLE ================= */}
+          {/* ================= RECENT TABLE ================= */}
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-            <Typography variant="h6" fontWeight={700}>
-              📄 Recent Contracts
+            <Typography variant="h6" fontWeight={900}>
+              📄 {t("Recent Contracts")}
             </Typography>
-            <Button
-              endIcon={<ArrowForwardIcon />}
-              onClick={() => navigate("/contracts/list")}
-            >
-              View All
+            <Button endIcon={<ArrowForwardIcon />} onClick={() => navigate("/contracts/list")}>
+              {t("View All")}
             </Button>
           </Stack>
 
-          <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: theme.shadows[1] }}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              borderRadius: 3,
+              bgcolor: "background.paper",
+              border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
+              boxShadow: "none",
+              overflow: "hidden",
+            }}
+          >
             <Table>
-              <TableHead sx={{ bgcolor: "#f8fafc" }}>
+              <TableHead sx={{ bgcolor: "action.hover" }}>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 600 }}>Contract No.</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Customer</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Reseller</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Duration</TableCell>
-                  <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 600 }}>Action</TableCell>
+                  <TableCell sx={{ fontWeight: 900 }}>{t("Contract No.")}</TableCell>
+                  <TableCell sx={{ fontWeight: 900 }}>{t("Customer")}</TableCell>
+                  <TableCell sx={{ fontWeight: 900 }}>{t("Reseller")}</TableCell>
+                  <TableCell sx={{ fontWeight: 900 }}>{t("Duration")}</TableCell>
+                  <TableCell sx={{ fontWeight: 900 }}>{t("Status")}</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 900 }}>
+                    {t("Action")}
+                  </TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {isLoading ? (
                   <TableRow>
                     <TableCell colSpan={6} align="center" sx={{ py: 5 }}>
                       <CircularProgress />
-                      <Typography variant="body2" color="text.secondary" mt={1}>Loading data...</Typography>
+                      <Typography variant="body2" color="text.secondary" mt={1}>
+                        {t("Loading data...")}
+                      </Typography>
                     </TableCell>
                   </TableRow>
-                ) : contracts.length === 0 ? (
+                ) : recentContracts.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} align="center" sx={{ py: 5 }}>
-                      <Typography variant="h6" color="text.secondary">📭 No contracts found</Typography>
-                      <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/contracts/create")}>
-                        Create First Contract
+                      <Typography variant="h6" color="text.secondary">
+                        📭 {t("No contracts found")}
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 2 }}
+                        onClick={() => navigate("/contracts/create")}
+                      >
+                        {t("Create First Contract")}
                       </Button>
                     </TableCell>
                   </TableRow>
                 ) : (
-                  contracts.slice(0, 5).map((c) => {
-                    const isActive = c.endDate && new Date(c.endDate) > new Date();
+                  recentContracts.map((c: any) => {
+                    const active = c?.endDate && new Date(c.endDate) > new Date();
 
                     return (
-                      <TableRow key={c.id} hover>
+                      <TableRow
+                        key={c.id}
+                        hover
+                        sx={{
+                          "&:hover": { bgcolor: alpha(theme.palette.action.hover, 0.6) },
+                        }}
+                      >
                         <TableCell>
-                          <Typography fontWeight={600} color="primary.main">
+                          <Typography fontWeight={900} color="primary.main">
                             {c.contractNumber}
                           </Typography>
                         </TableCell>
+
                         <TableCell>
-                          <Typography variant="body2" fontWeight={500}>{c.firstName} {c.lastName}</Typography>
-                          <Typography variant="caption" color="text.secondary">{c.email}</Typography>
+                          <Typography variant="body2" fontWeight={800}>
+                            {c.firstName} {c.lastName}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {c.email}
+                          </Typography>
                         </TableCell>
 
-                        {/* 3. Sử dụng Component con để hiển thị Reseller */}
                         <TableCell>
                           <ResellerCell resellerId={c.resellerId} />
                         </TableCell>
 
                         <TableCell>
                           <Typography variant="body2">
-                            {new Date(c.startDate).toLocaleDateString("vi-VN")}
+                            {c.startDate ? new Date(c.startDate).toLocaleDateString("vi-VN") : "—"}
                           </Typography>
                           <Typography variant="caption" color="text.secondary">
-                            to {c.endDate ? new Date(c.endDate).toLocaleDateString("vi-VN") : "N/A"}
+                            {t("common.to")}{" "}
+                            {c.endDate ? new Date(c.endDate).toLocaleDateString("vi-VN") : "N/A"}
                           </Typography>
                         </TableCell>
+
                         <TableCell>
                           <Chip
-                            label={isActive ? "Active" : "Expired"}
-                            color={isActive ? "success" : "error"}
+                            label={active ? t("Active") : t("Expired")}
+                            color={active ? "success" : "error"}
                             size="small"
-                            variant={isActive ? "filled" : "outlined"}
+                            variant={active ? "filled" : "outlined"}
                           />
                         </TableCell>
+
                         <TableCell align="right">
-                          <Button
-                            size="small"
-                            onClick={() => navigate(`/contracts/${c.id}/detail`)}
-                          >
-                            Details
+                          <Button size="small" onClick={() => navigate(`/contracts/${c.id}/detail`)}>
+                            {t("Details")}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -308,7 +373,6 @@ export default function Home() {
               </TableBody>
             </Table>
           </TableContainer>
-
         </Container>
       </Box>
     </Box>
