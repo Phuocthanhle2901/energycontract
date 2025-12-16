@@ -16,7 +16,12 @@
         "apply": "Lọc",
         "clear": "Xóa",
         "all": "Tất cả",
-        "to": "đến"
+        "to": "đến",
+        "cancel": "Hủy",
+        "generatePdf": "Tạo PDF",
+        "default": "Mặc định",
+        "na": "N/A",
+        "close": "Đóng"
     },
     "Home": "Trang chủ",
     "Contracts List": "Danh sách hợp đồng",
@@ -152,6 +157,7 @@
     "Deleting...": "Đang xóa...",
     "Delete Order": "Xóa đơn",
     "PDF generated successfully!": "Tạo PDF thành công!",
+    "order.toast.created": "Tạo đơn hàng thành công",
     "Failed to generate PDF. Please try again.": "Tạo PDF thất bại. Vui lòng thử lại.",
     "contractCreate": {
         "title": "Tạo hợp đồng",
@@ -315,5 +321,49 @@
             "updated": "Cập nhật hợp đồng thành công!",
             "updateFailed": "Cập nhật hợp đồng thất bại!"
         }
+    },
+    "contractDetail": {
+        "backToList": "Quay lại danh sách",
+        "loadingContractDetails": "Đang tải chi tiết hợp đồng...",
+        "invalidId": "ID hợp đồng không hợp lệ",
+        "contractNotFound": "Không tìm thấy hợp đồng",
+        "unknownReseller": "Đại lý không xác định",
+        "loading": "Đang tải...",
+        "na": "N/A",
+        "contractTitle": "Hợp đồng #{{number}}",
+        "pdfReady": "PDF sẵn sàng",
+        "draft": "Bản nháp",
+        "createdOn": "Tạo ngày: {{date}}",
+        "viewDownloadPdf": "Xem / Tải PDF",
+        "generatePdf": "Tạo PDF",
+        "viewOrders": "Xem đơn hàng",
+        "customerInformation": "Thông tin khách hàng",
+        "fullName": "Họ và tên",
+        "company": "Công ty",
+        "emailAddress": "Email",
+        "phoneNumber": "Số điện thoại",
+        "bankAccount": "Tài khoản ngân hàng",
+        "taxIdAddress": "MST / Địa chỉ",
+        "contractTerms": "Điều khoản hợp đồng",
+        "validityPeriod": "Thời hạn hiệu lực",
+        "startDate": "Ngày bắt đầu",
+        "endDate": "Ngày kết thúc",
+        "financials": "Tài chính",
+        "currency": "Đơn vị tiền",
+        "totalValue": "Tổng giá trị",
+        "toast": {
+            "pdfGenerated": "Tạo PDF thành công!",
+            "pdfGenerateFailed": "Tạo PDF thất bại."
+        }
+    },
+    "generatePdfDialog": {
+        "title": "Cấu hình tạo PDF",
+        "selectedContract": "Hợp đồng đã chọn:",
+        "selectTemplate": "Chọn mẫu",
+        "noteTitle": "Lưu ý",
+        "noteBody": "Bản xem trước cho biết dữ liệu sẽ được map như thế nào. Nhấn \"Tạo PDF\" để tạo file chính thức.",
+        "templatePreview": "Xem trước mẫu:",
+        "noPreview": "Không có bản xem trước.",
+        "generating": "Đang tạo..."
     }
 }

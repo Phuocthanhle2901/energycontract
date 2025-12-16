@@ -16,7 +16,12 @@
         "apply": "Apply",
         "clear": "Clear",
         "all": "All",
-        "to": "to"
+        "to": "to",
+        "cancel": "Cancel",
+        "generatePdf": "Generate PDF",
+        "default": "Default",
+        "na": "N/A",
+        "close": "Close"
     },
     "Home": "Home",
     "Contracts List": "Contracts List",
@@ -152,6 +157,7 @@
     "Deleting...": "Deleting...",
     "Delete Order": "Delete Order",
     "PDF generated successfully!": "PDF generated successfully!",
+    "order.toast.created": "Order created!",
     "Failed to generate PDF. Please try again.": "Failed to generate PDF. Please try again.",
     "contractCreate": {
         "title": "Create Contract",
@@ -315,5 +321,49 @@
             "updated": "Contract updated!",
             "updateFailed": "Failed to update contract!"
         }
+    },
+    "contractDetail": {
+        "backToList": "Back to list",
+        "loadingContractDetails": "Loading contract details...",
+        "invalidId": "Invalid contract ID",
+        "contractNotFound": "Contract not found",
+        "unknownReseller": "Unknown reseller",
+        "loading": "Loading...",
+        "na": "N/A",
+        "contractTitle": "Contract #{{number}}",
+        "pdfReady": "PDF Ready",
+        "draft": "Draft",
+        "createdOn": "Created on: {{date}}",
+        "viewDownloadPdf": "View / Download PDF",
+        "generatePdf": "Generate PDF",
+        "viewOrders": "View Orders",
+        "customerInformation": "Customer Information",
+        "fullName": "Full Name",
+        "company": "Company",
+        "emailAddress": "Email Address",
+        "phoneNumber": "Phone Number",
+        "bankAccount": "Bank Account",
+        "taxIdAddress": "Tax ID / Address",
+        "contractTerms": "Contract Terms",
+        "validityPeriod": "Validity Period",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "financials": "Financials",
+        "currency": "Currency",
+        "totalValue": "Total Value",
+        "toast": {
+            "pdfGenerated": "PDF generated successfully!",
+            "pdfGenerateFailed": "Failed to generate PDF."
+        }
+    },
+    "generatePdfDialog": {
+        "title": "Generate PDF Configuration",
+        "selectedContract": "Selected Contract:",
+        "selectTemplate": "Select Template",
+        "noteTitle": "Note",
+        "noteBody": "This preview shows how the data will be mapped. Click \"Generate PDF\" to create the official file.",
+        "templatePreview": "Template Preview:",
+        "noPreview": "No preview available.",
+        "generating": "Generating..."
     }
 }

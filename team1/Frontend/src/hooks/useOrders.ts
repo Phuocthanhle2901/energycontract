@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient, keepPreviousData } from "@tansta
 import { toast } from "react-hot-toast"; // Hoặc thư viện toast bạn đang dùng
 import { orderService } from "@/services/customerService/OrderService";
 import type { OrderQueryParams, CreateOrderParams } from "@/types/order";
+import { t } from "i18next";
 
 
 // --- Hook Tạo Order ---
@@ -11,7 +12,7 @@ export const useCreateOrder = () => {
     return useMutation({
         mutationFn: (data: CreateOrderParams) => orderService.create(data),
         onSuccess: () => {
-            toast.success("Tạo đơn hàng thành công!");
+            toast.success(t("order.toast.created"));
             // Làm mới danh sách đơn hàng
             queryClient.invalidateQueries({ queryKey: ['orders'] });
         },

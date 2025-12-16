@@ -20,7 +20,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Chip,
   CircularProgress,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -101,9 +100,18 @@ export default function ContractList() {
   const generatePdfMutation = useGeneratePdf();
 
   // ===== STYLES =====
-  const borderColor = alpha(theme.palette.divider, 0.8);
+  const borderColor = alpha(theme.palette.divider, isDark ? 0.35 : 0.8);
+  const softBorder = `1px solid ${alpha(theme.palette.divider, isDark ? 0.3 : 0.55)}`;
   const paperShadow = isDark ? "none" : "0 2px 12px rgba(0,0,0,0.06)";
-  const softBorder = `1px solid ${alpha(theme.palette.divider, 0.55)}`;
+
+  // ✅ hover bg theo mode (đây là cái bạn bị sai trước đó)
+  const rowHoverBg = isDark
+    ? alpha(theme.palette.common.white, 0.08)  // dark: nền xám đậm kiểu ảnh
+    : alpha(theme.palette.common.black, 0.04); // light: xám nhạt kiểu table
+
+  const rowHoverShadow = `inset 0 0 0 1px ${alpha(theme.palette.divider, isDark ? 0.35 : 0.4)}`;
+
+  const iconHoverBg = alpha(theme.palette.action.hover, isDark ? 0.45 : 0.7);
 
   // --- HANDLERS ---
   const handlePdfIconClick = (c: any) => {
@@ -139,13 +147,13 @@ export default function ContractList() {
 
     generatePdfMutation.mutate(pdfRequest as any, {
       onSuccess: () => {
-        toast.success(t("PDF generated successfully!"));
+        toast.success(t("contractDetail.toast.pdfGenerated"));
         setGenPdfOpen(false);
         contractQuery.refetch();
       },
       onError: (error: any) => {
         console.error(error);
-        toast.error(t("Failed to generate PDF. Please try again."));
+        toast.error(t("contractDetail.toast.pdfGenerateFailed"));
       },
     });
   };
@@ -191,7 +199,7 @@ export default function ContractList() {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" }, // ✅ QUAN TRỌNG: mobile = column
+        flexDirection: { xs: "column", md: "row" },
         minHeight: "100vh",
         bgcolor: "background.default",
       }}
@@ -201,7 +209,7 @@ export default function ContractList() {
       <Box
         sx={{
           flexGrow: 1,
-          width: "100%", // ✅ QUAN TRỌNG
+          width: "100%",
           ml: { xs: 0, md: `${SIDEBAR_OFFSET}px` },
           px: { xs: 2, sm: 3, md: 4 },
           py: { xs: 2, md: 4 },
@@ -217,16 +225,12 @@ export default function ContractList() {
           sx={{ mb: 2.5 }}
         >
           <Box>
-            <Typography
-              variant={isMobile ? "h5" : "h4"}
-              fontWeight={900}
-              sx={{ lineHeight: 1.15 }}
-            >
+            <Typography variant={isMobile ? "h5" : "h4"} fontWeight={900} sx={{ lineHeight: 1.15 }}>
               {pageTitle}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            {/* <Typography variant="body2" color="text.secondary">
               {t("Total")}: <b>{totalCount}</b>
-            </Typography>
+            </Typography> */}
           </Box>
 
           <Button
@@ -469,6 +473,11 @@ export default function ContractList() {
                     borderRadius: 2.5,
                     borderColor: alpha(theme.palette.divider, 0.6),
                     bgcolor: "background.paper",
+                    transition: "background-color .15s ease, box-shadow .15s ease",
+                    "&:hover": {
+                      bgcolor: rowHoverBg,
+                      boxShadow: rowHoverShadow,
+                    },
                   }}
                 >
                   <CardContent sx={{ p: 2 }}>
@@ -494,6 +503,7 @@ export default function ContractList() {
                               color: hasPdf ? theme.palette.success.main : theme.palette.text.secondary,
                               border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
                               borderRadius: 2,
+                              "&:hover": { bgcolor: iconHoverBg },
                             }}
                           >
                             {hasPdf ? <FiCheckCircle size={16} /> : <FiFileText size={16} />}
@@ -507,6 +517,7 @@ export default function ContractList() {
                             sx={{
                               border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
                               borderRadius: 2,
+                              "&:hover": { bgcolor: iconHoverBg },
                             }}
                           >
                             <FiEdit size={16} />
@@ -521,6 +532,7 @@ export default function ContractList() {
                               color: theme.palette.error.main,
                               border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
                               borderRadius: 2,
+                              "&:hover": { bgcolor: iconHoverBg },
                             }}
                           >
                             <FiTrash2 size={16} />
@@ -540,14 +552,6 @@ export default function ContractList() {
                           <ResellerCell resellerId={c.resellerId} />
                         </Typography>
                       </Box>
-
-                      {/* <Chip
-                        size="small"
-                        label={hasPdf ? t("pdf.view") : t("pdf.generate")}
-                        color={hasPdf ? "success" : "default"}
-                        variant={isDark ? "outlined" : "filled"}
-                        sx={{ fontWeight: 800 }}
-                      /> */}
                     </Stack>
 
                     <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
@@ -574,14 +578,7 @@ export default function ContractList() {
               );
             })}
 
-            <Paper
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                bgcolor: "background.paper",
-                border: softBorder,
-              }}
-            >
+            <Paper sx={{ p: 2, borderRadius: 2, bgcolor: "background.paper", border: softBorder }}>
               <Stack spacing={1}>
                 <Typography color="text.secondary" textAlign="center">
                   {t("Page")} <b>{page}</b> / <b>{totalPages}</b>
@@ -607,6 +604,7 @@ export default function ContractList() {
               border: `1px solid ${borderColor}`,
             }}
           >
+            {/* HEADER ROW */}
             <Stack
               direction="row"
               px={2.2}
@@ -646,6 +644,7 @@ export default function ContractList() {
               </Box>
             </Stack>
 
+            {/* BODY ROWS */}
             {data.map((c: any) => {
               const hasPdf = typeof c?.pdfLink === "string" && c.pdfLink.trim() !== "";
               return (
@@ -658,7 +657,17 @@ export default function ContractList() {
                     alignItems: "center",
                     borderBottom: `1px solid ${alpha(theme.palette.divider, 0.35)}`,
                     bgcolor: "background.paper",
-                    "&:hover": { bgcolor: alpha(theme.palette.action.hover, 0.6) },
+
+                    transition: "background-color .15s ease, box-shadow .15s ease, border-color .15s ease",
+                    "&:hover": {
+                      bgcolor: rowHoverBg,
+                      boxShadow: rowHoverShadow,
+                      borderColor: alpha(theme.palette.divider, isDark ? 0.55 : 0.6),
+                    },
+                    "&:focus-within": {
+                      bgcolor: rowHoverBg,
+                      boxShadow: rowHoverShadow,
+                    },
                   }}
                 >
                   <Box flex={1} fontWeight={700} sx={{ color: "primary.main" }}>
@@ -685,18 +694,26 @@ export default function ContractList() {
                         onClick={() => handlePdfIconClick(c)}
                         sx={{
                           color: hasPdf ? theme.palette.success.main : theme.palette.text.secondary,
-                          "&:hover": { bgcolor: alpha(theme.palette.action.hover, 0.5) },
+                          "&:hover": { bgcolor: iconHoverBg },
                         }}
                       >
                         {hasPdf ? <FiCheckCircle size={18} /> : <FiFileText size={18} />}
                       </IconButton>
                     </Tooltip>
 
-                    <IconButton size="small" onClick={() => openEdit(c.id)} sx={{ color: "text.primary" }}>
+                    <IconButton
+                      size="small"
+                      onClick={() => openEdit(c.id)}
+                      sx={{ color: "text.primary", "&:hover": { bgcolor: iconHoverBg } }}
+                    >
                       <FiEdit size={16} />
                     </IconButton>
 
-                    <IconButton size="small" onClick={() => openDelete(c.id)} sx={{ color: theme.palette.error.main }}>
+                    <IconButton
+                      size="small"
+                      onClick={() => openDelete(c.id)}
+                      sx={{ color: theme.palette.error.main, "&:hover": { bgcolor: iconHoverBg } }}
+                    >
                       <FiTrash2 size={16} />
                     </IconButton>
                   </Stack>
@@ -704,6 +721,7 @@ export default function ContractList() {
               );
             })}
 
+            {/* FOOTER */}
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -760,6 +778,7 @@ export default function ContractList() {
           onClose={() => setGenPdfOpen(false)}
           contract={selectedContract}
           onGenerate={handleGenerateConfirm}
+          loading={generatePdfMutation.isPending}
         />
 
         <ViewPdfDialog
