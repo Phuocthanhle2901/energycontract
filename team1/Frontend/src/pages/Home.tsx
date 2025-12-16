@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import NavMenu from "@/components/NavMenu/NavMenu";
 import { useContracts } from "@/hooks/useContracts";
 import { useReseller } from "@/hooks/useResellers";
-
 import { useTranslation } from "react-i18next";
 
 import {
@@ -24,6 +23,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 
@@ -59,7 +59,12 @@ export default function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
+
   const isDark = theme.palette.mode === "dark";
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // <=600px
+
+  const D = theme.transitions.duration.standard as number; // đồng bộ tốc độ theme
+  const E = "ease";
 
   const { data, isLoading } = useContracts({ pageNumber: 1, pageSize: 100 });
   const contracts = Array.isArray(data?.items) ? data.items : [];
@@ -82,18 +87,17 @@ export default function Home() {
 
   const recentContracts = useMemo(() => contracts.slice(0, 5), [contracts]);
 
-  const heroBg = isDark
-    ? `linear-gradient(135deg,
-        ${alpha(theme.palette.primary.main, 0.18)} 0%,
-        ${alpha(theme.palette.background.paper, 0.92)} 100%)`
-    : `linear-gradient(135deg, ${theme.palette.grey[900]} 0%, ${theme.palette.grey[800]} 100%)`;
+  // ✅ HERO gradient: dùng opacity để chuyển mượt (không snap)
+  const heroDarkGradient = `linear-gradient(135deg,
+    ${alpha(theme.palette.primary.main, 0.18)} 0%,
+    ${alpha(theme.palette.background.paper, 0.92)} 100%)`;
 
-  const heroTextColor = isDark
-    ? theme.palette.text.primary
-    : theme.palette.common.white;
+  const heroLightGradient = `linear-gradient(135deg, ${theme.palette.grey[900]} 0%, ${theme.palette.grey[800]} 100%)`;
+
+  const heroTextColor = isDark ? theme.palette.text.primary : theme.palette.common.white;
 
   const iconBox = (color: "primary" | "success" | "error") => ({
-    p: 1.5,
+    p: { xs: 1, md: 1.5 },
     borderRadius: 2,
     bgcolor: alpha(theme.palette[color].main, isDark ? 0.16 : 0.12),
     color: theme.palette[color].main,
@@ -101,6 +105,8 @@ export default function Home() {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 0,
+    transition: `background-color ${D}ms ${E}, color ${D}ms ${E}, border-color ${D}ms ${E}`,
   });
 
   return (
@@ -112,51 +118,89 @@ export default function Home() {
         sx={{
           flexGrow: 1,
           minHeight: "100vh",
-          ml: { xs: 0, md: "240px" },
-          p: 3,
+          ml: { xs: 0, md: "240px" }, // ✅ mobile không chừa chỗ sidebar
+          p: { xs: 1.5, sm: 2, md: 3 }, // ✅ padding mobile gọn
           bgcolor: "background.default",
           color: "text.primary",
+          transition: `background-color ${D}ms ${E}, color ${D}ms ${E}`,
         }}
       >
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ px: { xs: 0, sm: 0 } }}>
           {/* ================= HERO ================= */}
           <Paper
             elevation={0}
             sx={{
-              p: 4,
-              mb: 4,
+              p: { xs: 2.25, md: 4 },
+              mb: { xs: 2.5, md: 4 },
               borderRadius: 3,
-              background: heroBg,
+              position: "relative",
+              overflow: "hidden",
               color: heroTextColor,
-              border: `1px solid ${alpha(
-                theme.palette.divider,
-                isDark ? 0.35 : 0.12
-              )}`,
+
+              border: "1px solid",
+              borderColor: alpha(theme.palette.divider, isDark ? 0.35 : 0.12),
+              transition: `border-color ${D}ms ${E}, color ${D}ms ${E}`,
+
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
-              alignItems: "center",
+              alignItems: { xs: "stretch", md: "center" },
               justifyContent: "space-between",
               gap: 2,
+
+              // layer dark
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                inset: 0,
+                background: heroDarkGradient,
+                opacity: isDark ? 1 : 0,
+                transition: `opacity ${D}ms ${E}`,
+                pointerEvents: "none",
+              },
+              // layer light
+              "&::after": {
+                content: '""',
+                position: "absolute",
+                inset: 0,
+                background: heroLightGradient,
+                opacity: isDark ? 0 : 1,
+                transition: `opacity ${D}ms ${E}`,
+                pointerEvents: "none",
+              },
             }}
           >
-            <Box>
-              <Typography variant="h4" fontWeight={900} gutterBottom>
+            <Box sx={{ minWidth: 0, position: "relative", zIndex: 1 }}>
+              <Typography
+                variant="h4"
+                fontWeight={900}
+                gutterBottom
+                sx={{
+                  fontSize: { xs: "1.55rem", md: "2.125rem" },
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 ⚡ {t("Energy Contract Manager")}
               </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.85, maxWidth: 650 }}>
+
+              <Typography
+                variant="body1"
+                sx={{
+                  opacity: 0.85,
+                  maxWidth: 650,
+                  fontSize: { xs: "0.9rem", md: "1rem" },
+                }}
+              >
                 {t("Hero Description")}
               </Typography>
             </Box>
 
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="contained"
-                startIcon={<AddIcon />}
-                onClick={() => navigate("/contracts/create")}
-                sx={{ fontWeight: 800 }}
-              >
-                {t("New Contract")}
-              </Button>
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={1.25}
+              sx={{ position: "relative", zIndex: 1 }}
+            >
             </Stack>
           </Paper>
 
@@ -165,86 +209,102 @@ export default function Home() {
             📊 {t("Dashboard Overview")}
           </Typography>
 
-          <Grid container spacing={3} sx={{ mb: 4 }}>
-            {/* CARD 1 */}
-            <Grid item xs={12} sm={6} md={6}>
-              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
-                <CardContent>
-                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+          <Grid container spacing={{ xs: 1.25, md: 3 }} sx={{ mb: { xs: 2.5, md: 4 } }}>
+            {/* mobile: 3 ô 1 hàng => xs=4 */}
+            <Grid item xs={4} sm={6} md={6}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper", minWidth: 0 }}>
+                <CardContent sx={{ p: { xs: 1.5, md: 2.5 } }}>
+                  <Stack direction="row" alignItems="center" spacing={1.25} mb={1.25} sx={{ minWidth: 0 }}>
                     <Box sx={iconBox("primary")}>
                       <ContractIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: "0.75rem", md: "1rem" }, minWidth: 0 }}
+                      noWrap
+                    >
                       {t("Total Contracts")}
                     </Typography>
                   </Stack>
 
-                  <Typography variant="h3" fontWeight={900}>
+                  <Typography sx={{ fontWeight: 900, fontSize: { xs: "1.6rem", md: "3rem" } }}>
                     {isLoading ? "-" : stats.total}
                   </Typography>
 
-                  <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={0.75} mt={1.25}>
                     <Chip
                       label={`${stats.active} ${t("Active")}`}
                       size="small"
                       color="success"
                       variant={isDark ? "outlined" : "filled"}
+                      sx={{ width: { xs: "100%", sm: "auto" } }}
                     />
-                    {stats.expired > 0 && (
-                      <Chip
-                        label={`${stats.expired} ${t("Expired")}`}
-                        size="small"
-                        color="error"
-                        variant={isDark ? "outlined" : "filled"}
-                      />
-                    )}
+                    <Chip
+                      label={`${stats.expired} ${t("Expired")}`}
+                      size="small"
+                      color="error"
+                      variant={isDark ? "outlined" : "filled"}
+                      sx={{ width: { xs: "100%", sm: "auto" } }}
+                    />
                   </Stack>
                 </CardContent>
               </Card>
             </Grid>
 
-            {/* CARD 2 */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
-                <CardContent>
-                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+            <Grid item xs={4} sm={6} md={3}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper", minWidth: 0 }}>
+                <CardContent sx={{ p: { xs: 1.5, md: 2.5 } }}>
+                  <Stack direction="row" alignItems="center" spacing={1.25} mb={1.25} sx={{ minWidth: 0 }}>
                     <Box sx={iconBox("success")}>
                       <EnergyIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: "0.75rem", md: "1rem" }, minWidth: 0 }}
+                      noWrap
+                    >
                       {t("Total Orders")}
                     </Typography>
                   </Stack>
 
-                  <Typography variant="h3" fontWeight={900}>
+                  <Typography sx={{ fontWeight: 900, fontSize: { xs: "1.6rem", md: "3rem" } }}>
                     {isLoading ? "-" : "N/A"}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" mt={1}>
+                  <Typography variant="body2" color="text.secondary" mt={0.75} sx={{ fontSize: { xs: "0.72rem", md: "0.875rem" } }}>
                     {t("Gas & Electricity combined")}
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
 
-            {/* CARD 3 */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
-                <CardContent>
-                  <Stack direction="row" alignItems="center" spacing={2} mb={2}>
+            <Grid item xs={4} sm={6} md={3}>
+              <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper", minWidth: 0 }}>
+                <CardContent sx={{ p: { xs: 1.5, md: 2.5 } }}>
+                  <Stack direction="row" alignItems="center" spacing={1.25} mb={1.25} sx={{ minWidth: 0 }}>
                     <Box sx={iconBox("error")}>
                       <TimeIcon />
                     </Box>
-                    <Typography variant="subtitle1" fontWeight={800} color="text.secondary">
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: "0.75rem", md: "1rem" }, minWidth: 0 }}
+                      noWrap
+                    >
                       {t("Requires Renewal")}
                     </Typography>
                   </Stack>
 
-                  <Typography variant="h3" fontWeight={900}>
+                  <Typography sx={{ fontWeight: 900, fontSize: { xs: "1.6rem", md: "3rem" } }}>
                     {isLoading ? "-" : stats.expired}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" mt={1}>
+                  <Typography variant="body2" color="text.secondary" mt={0.75} sx={{ fontSize: { xs: "0.72rem", md: "0.875rem" } }}>
                     {stats.expired === 0 ? `✅ ${t("All active")}` : `⚠️ ${t("Need Action")}`}
                   </Typography>
                 </CardContent>
@@ -253,7 +313,7 @@ export default function Home() {
           </Grid>
 
           {/* ================= RECENT TABLE ================= */}
-          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1.5}>
             <Typography variant="h6" fontWeight={900}>
               📄 {t("Recent Contracts")}
             </Typography>
@@ -269,10 +329,23 @@ export default function Home() {
               bgcolor: "background.paper",
               border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
               boxShadow: "none",
-              overflow: "hidden",
+              overflowX: "auto", // ✅ mobile kéo ngang
+              transition: `background-color ${D}ms ${E}, border-color ${D}ms ${E}`,
+              "&::-webkit-scrollbar": { height: 6 },
             }}
           >
-            <Table>
+            <Table
+              size={isMobile ? "small" : "medium"}
+              sx={{
+                minWidth: 760, // ✅ để mobile cuộn ngang (khỏi bể layout)
+                "& th, & td": {
+                  px: { xs: 1, md: 2 },
+                  py: { xs: 0.75, md: 1.25 },
+                  fontSize: { xs: "0.78rem", md: "0.875rem" },
+                  whiteSpace: "nowrap",
+                },
+              }}
+            >
               <TableHead sx={{ bgcolor: "action.hover" }}>
                 <TableRow>
                   <TableCell sx={{ fontWeight: 900 }}>{t("Contract No.")}</TableCell>
@@ -302,11 +375,7 @@ export default function Home() {
                       <Typography variant="h6" color="text.secondary">
                         📭 {t("No contracts found")}
                       </Typography>
-                      <Button
-                        variant="contained"
-                        sx={{ mt: 2 }}
-                        onClick={() => navigate("/contracts/create")}
-                      >
+                      <Button variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/contracts/create")}>
                         {t("Create First Contract")}
                       </Button>
                     </TableCell>
@@ -324,16 +393,16 @@ export default function Home() {
                         }}
                       >
                         <TableCell>
-                          <Typography fontWeight={900} color="primary.main">
+                          <Typography fontWeight={900} color="primary.main" noWrap>
                             {c.contractNumber}
                           </Typography>
                         </TableCell>
 
-                        <TableCell>
-                          <Typography variant="body2" fontWeight={800}>
+                        <TableCell sx={{ maxWidth: 220 }}>
+                          <Typography variant="body2" fontWeight={800} noWrap>
                             {c.firstName} {c.lastName}
                           </Typography>
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" color="text.secondary" noWrap>
                             {c.email}
                           </Typography>
                         </TableCell>
@@ -343,10 +412,10 @@ export default function Home() {
                         </TableCell>
 
                         <TableCell>
-                          <Typography variant="body2">
+                          <Typography variant="body2" noWrap>
                             {c.startDate ? new Date(c.startDate).toLocaleDateString("vi-VN") : "—"}
                           </Typography>
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" color="text.secondary" noWrap>
                             {t("common.to")}{" "}
                             {c.endDate ? new Date(c.endDate).toLocaleDateString("vi-VN") : "N/A"}
                           </Typography>
@@ -373,6 +442,8 @@ export default function Home() {
               </TableBody>
             </Table>
           </TableContainer>
+
+          <Box sx={{ height: 24 }} />
         </Container>
       </Box>
     </Box>
