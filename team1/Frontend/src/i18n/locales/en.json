@@ -93,6 +93,64 @@
             "3": "Cancelled"
         }
     },
+    "templates": {
+        "title": "PDF Templates",
+        "subtitle": "Manage PDF templates for Energy Contract Manager.",
+        "new": "New Template",
+        "id": "ID",
+        "name": "Name",
+        "description": "Description",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete",
+        "noTemplates": "No templates found.",
+        "loading": "Loading templates...",
+        "failed": "Failed to load templates.",
+        "created": "Template created successfully!",
+        "deleted": "Template deleted successfully!"
+    },
+    "templateCreate": {
+        "title": "Create PDF Template",
+        "subtitle": "Design your contract template using the editor below.",
+        
+        "cancel": "Cancel",
+        "create": "Create template",
+        "creating": "Creating...",
+
+        "settings": "Template settings",
+        "templateName": "Template name",
+        "description": "Description",
+        "active": "Active",
+        "contentEditor": "Content Editor",
+
+        "placeholderEditor": "Write your contract content here...",
+
+        "previewTitle": "Live Preview",
+        "previewSubtitle": "This is how the PDF will look (approx)."
+    },
+        "templateEdit": {
+        "title": "Edit PDF Template",
+        "subtitle": "Update HTML layout and settings.",
+
+        "back": "Back",
+        "save": "Save changes",
+        "saving": "Saving...",
+
+        "settings": "Settings",
+        "name": "Name",
+        "description": "Description",
+        "active": "Active",
+
+        "contentEditor": "Content Editor",
+        "contentPlaceholder": "Edit contract content here...",
+
+        "preview": "Live Preview",
+        "previewEmpty": "No HTML content yet."
+    },
+
     "prev": "PREV",
     "next": "NEXT",
     "Page": "Page",
