@@ -6,6 +6,9 @@ using Infrastructure.Persistence;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Shared.Events;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Api.Common.Messaging.Contracts;
 
 namespace Infrastructure.Repositories;
 
@@ -14,6 +17,11 @@ public class ContractRepository : IContractRepository
     private readonly EnergyDbContext _dbContext;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly ILogger<ContractRepository> _logger;
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
     public ContractRepository(EnergyDbContext dbContext, IPublishEndpoint publishEndpoint, ILogger<ContractRepository> logger)
     {
         _dbContext = dbContext; 
@@ -56,16 +64,77 @@ public class ContractRepository : IContractRepository
 
     public async Task UpdateContract(Contract contract)
     {
+        // 1) lấy bản cũ trước khi update
+        var oldContract = await _dbContext.Contracts
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == contract.Id);
+
+        var oldJson = oldContract == null ? null : JsonSerializer.Serialize(oldContract, JsonOptions);
+
+        // 2) update + save
         _dbContext.Contracts.Update(contract);
         await _dbContext.SaveChangesAsync();
+
+        // 3) lấy bản mới sau khi update (đảm bảo đúng dữ liệu DB)
+        var newContract = await _dbContext.Contracts
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == contract.Id);
+
+        var newJson = newContract == null ? null : JsonSerializer.Serialize(newContract, JsonOptions);
+
+        // 4) publish event
+        try
+        {
+            await _publishEndpoint.Publish(new ContractChangedEvent
+            {
+                ContractId = contract.Id,
+                Action = "Updated",
+                OldValue = oldJson,
+                NewValue = newJson,
+                Timestamp = DateTime.UtcNow,
+                ChangedBy = null,
+                CorrelationId = null
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Publish ContractChangedEvent (Updated) failed");
+        }
     }
 
 
     public async Task DeleteContract(Contract contract)
+{
+    // 1) lấy bản cũ trước khi xóa
+    var oldContract = await _dbContext.Contracts
+        .AsNoTracking()
+        .FirstOrDefaultAsync(c => c.Id == contract.Id);
+
+    var oldJson = oldContract == null ? null : JsonSerializer.Serialize(oldContract, JsonOptions);
+
+    // 2) delete + save
+    _dbContext.Contracts.Remove(contract);
+    await _dbContext.SaveChangesAsync();
+
+    // 3) publish event
+    try
     {
-        _dbContext.Contracts.Remove(contract);
-        await _dbContext.SaveChangesAsync();
+        await _publishEndpoint.Publish(new ContractChangedEvent
+        {
+            ContractId = contract.Id,
+            Action = "Deleted",
+            OldValue = oldJson,
+            NewValue = null,
+            Timestamp = DateTime.UtcNow,
+            ChangedBy = null,
+            CorrelationId = null
+        });
     }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Publish ContractChangedEvent (Deleted) failed");
+    }
+}
 
     public async Task<List<Contract>> GetAllContracts(int limit = 0)
     {
