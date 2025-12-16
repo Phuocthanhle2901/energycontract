@@ -52,7 +52,7 @@ export const useDeleteAddress = () => {
         mutationFn: (id: number) => addressService.delete(id),
 
         onSuccess: () => {
-            toast.success("Đã xóa địa chỉ!");
+
             queryClient.invalidateQueries({ queryKey: ['addresses'] });
         },
         onError: (error: any) => {

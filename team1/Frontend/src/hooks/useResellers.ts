@@ -52,7 +52,7 @@ export const useDeleteReseller = () => {
         mutationFn: (id: number) => resellerService.delete(id),
 
         onSuccess: () => {
-            toast.success("Đã xóa Reseller!");
+
             queryClient.invalidateQueries({ queryKey: ['resellers'] });
         },
         onError: (error: any) => {
