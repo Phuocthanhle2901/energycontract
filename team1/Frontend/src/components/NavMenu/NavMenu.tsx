@@ -1,6 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Home, FileText, ShoppingCart, Users, History, Layers, Sun, Moon } from "lucide-react";
+import {
+  Home,
+  FileText,
+  ShoppingCart,
+  Users,
+  History,
+  Layers,
+  Sun,
+  Moon,
+  Menu
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   Box,
@@ -15,6 +25,7 @@ import {
   Divider,
   ToggleButton,
   ToggleButtonGroup,
+  Drawer
 } from "@mui/material";
 import { alpha, useTheme } from "@mui/material/styles";
 import { ColorModeContext } from "@/theme/AppThemeProvider";
@@ -28,8 +39,9 @@ export default function NavMenu() {
 
   const { t, i18n } = useTranslation();
   const { mode, toggleColorMode } = useContext(ColorModeContext);
-
   const lang = (i18n.language || "vi") as "vi" | "en";
+
+  const [open, setOpen] = useState(false); // MOBILE MENU
 
   const menuItems = [
     { key: "home", path: "/home", icon: <Home size={18} /> },
@@ -48,22 +60,16 @@ export default function NavMenu() {
     localStorage.setItem("lng", next);
   };
 
-  return (
+  // Sidebar UI (tách riêng để dùng cho Drawer & Desktop)
+  const SidebarContent = (
     <Box
       sx={{
         width: SIDEBAR_WIDTH,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        height: "100vh",
+        height: "100%",
         p: 2,
         bgcolor: "background.paper",
-        color: "text.primary",
-        borderRight: 1,
-        borderColor: "divider",
         display: "flex",
-        flexDirection: "column",
-        gap: 1.5,
+        flexDirection: "column"
       }}
     >
       <Typography
@@ -76,7 +82,7 @@ export default function NavMenu() {
       </Typography>
 
       {/* Language + Theme */}
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mt={2}>
         <ToggleButtonGroup size="small" value={lang} exclusive onChange={handleLang}>
           <ToggleButton value="vi">VI</ToggleButton>
           <ToggleButton value="en">EN</ToggleButton>
@@ -87,33 +93,35 @@ export default function NavMenu() {
         </IconButton>
       </Stack>
 
-      <Divider />
+      <Divider sx={{ my: 2 }} />
 
-      {/* Menu */}
       <List sx={{ p: 0 }}>
         {menuItems.map((item) => {
           const active = isActive(item.path);
           return (
             <ListItemButton
               key={item.key}
-              onClick={() => navigate(item.path)}
+              onClick={() => {
+                navigate(item.path);
+                setOpen(false);
+              }}
               selected={active}
               sx={{
                 mb: 1,
                 borderRadius: 2,
-                border: `1px solid ${active ? alpha(theme.palette.primary.main, 0.35) : "transparent"}`,
+                border: `1px solid ${active ? alpha(theme.palette.primary.main, 0.35) : "transparent"
+                  }`,
                 bgcolor: active ? alpha(theme.palette.primary.main, 0.12) : "transparent",
-                "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.12) },
+                "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.12) }
               }}
             >
-              <ListItemIcon sx={{ minWidth: 36, color: active ? "primary.main" : "text.secondary" }}>
+              <ListItemIcon sx={{ minWidth: 36 }}>
                 {item.icon}
               </ListItemIcon>
-
               <ListItemText
                 primary={t(`nav.${item.key}`)}
                 primaryTypographyProps={{
-                  fontWeight: active ? 800 : 600,
+                  fontWeight: active ? 800 : 600
                 }}
               />
             </ListItemButton>
@@ -133,5 +141,64 @@ export default function NavMenu() {
         </Button>
       </Box>
     </Box>
+  );
+
+  return (
+    <>
+      {/* MOBILE TOP BAR */}
+      {/* MOBILE TOP BAR */}
+      <Box
+        sx={{
+          display: { xs: "flex", md: "none" },
+          alignItems: "center",
+          gap: 1.5,
+          height: 64,
+          px: 2,
+          borderBottom: 1,
+          borderColor: "divider",
+          bgcolor: "background.paper",
+          position: "sticky",
+          top: 0,
+          zIndex: 999,
+        }}
+      >
+        <IconButton onClick={() => setOpen(true)} sx={{ mr: 0.5 }}>
+          <Menu size={26} />
+        </IconButton>
+
+        {/* Title area */}
+        <Box sx={{ minWidth: 0, flex: 1 }}>
+          <Typography
+            variant="h4"
+            fontWeight={900}
+            color="#FF9900"
+            noWrap
+            sx={{ lineHeight: 1.1 }}
+          >
+            {t("INFODATION")}
+          </Typography>
+
+          <Typography variant="caption" color="text.secondary" noWrap>
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* MOBILE MENU DRAWER */}
+      <Drawer open={open} onClose={() => setOpen(false)}>
+        {SidebarContent}
+      </Drawer>
+
+      {/* DESKTOP SIDEBAR */}
+      <Box
+        sx={{
+          display: { xs: "none", md: "block" },
+          width: SIDEBAR_WIDTH,
+          position: "fixed",
+          height: "100vh"
+        }}
+      >
+        {SidebarContent}
+      </Box>
+    </>
   );
 }

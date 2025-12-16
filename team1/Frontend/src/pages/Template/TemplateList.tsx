@@ -16,21 +16,32 @@ import {
     Tooltip,
     CircularProgress,
     useTheme,
+    useMediaQuery,
+    Divider,
 } from "@mui/material";
-import { alpha } from "@mui/material/styles";
 
+import { alpha } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/EditOutlined";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import NavMenu from "@/components/NavMenu/NavMenu";
 import DeleteTemplateButton from "./TemplateDelete";
-import { useTranslation } from "react-i18next";
+
+const SIDEBAR_WIDTH = 240;
 
 export default function TemplateList() {
-    const { t } = useTranslation();
     const navigate = useNavigate();
     const theme = useTheme();
+    const { t } = useTranslation();
+
     const isDark = theme.palette.mode === "dark";
+
+    // ✅ layout mobile phải khớp với NavMenu (NavMenu mobile = xs -> md)
+    const isLayoutMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+    // ✅ chỉ card khi màn rất nhỏ
+    const isCardMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const { data, isLoading, isError } = useTemplates();
     const templates = Array.isArray(data) ? data : [];
@@ -39,17 +50,34 @@ export default function TemplateList() {
     const cardBg = "background.paper";
     const borderColor = alpha(theme.palette.divider, 0.8);
 
-    const headBg = isDark ? alpha(theme.palette.common.white, 0.06) : alpha(theme.palette.common.black, 0.04);
+    const headBg = isDark
+        ? alpha(theme.palette.common.white, 0.06)
+        : alpha(theme.palette.common.black, 0.04);
+
     const rowHoverBg = alpha(theme.palette.action.hover, isDark ? 0.35 : 0.6);
 
     if (isLoading) {
         return (
-            <Box sx={{ display: "flex" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" }, // ✅ FIX
+                    minHeight: "100vh",
+                    width: "100%",
+                }}
+            >
                 <NavMenu />
-                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>
+
+                <Box
+                    sx={{
+                        ml: { xs: 0, md: `${SIDEBAR_WIDTH}px` },
+                        p: 3,
+                        width: "100%",
+                    }}
+                >
                     <Stack direction="row" spacing={1.5} alignItems="center">
                         <CircularProgress size={20} />
-                        <Typography color="text.primary">{t("templateList.loading")}</Typography>
+                        <Typography>{t("templateList.loading")}</Typography>
                     </Stack>
                 </Box>
             </Box>
@@ -58,9 +86,20 @@ export default function TemplateList() {
 
     if (isError) {
         return (
-            <Box sx={{ display: "flex" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" }, // ✅ FIX
+                    minHeight: "100vh",
+                    width: "100%",
+                }}
+            >
                 <NavMenu />
-                <Typography sx={{ ml: { xs: 0, md: "260px" }, p: 3 }} color="error">
+
+                <Typography
+                    sx={{ ml: { xs: 0, md: `${SIDEBAR_WIDTH}px` }, p: 3 }}
+                    color="error"
+                >
                     {t("templateList.loadFailed")}
                 </Typography>
             </Box>
@@ -68,23 +107,38 @@ export default function TemplateList() {
     }
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" }, // ✅ FIX quan trọng nhất
+                minHeight: "100vh",
+                width: "100%",
+            }}
+        >
             <NavMenu />
 
             <Box
                 sx={{
-                    ml: { xs: 0, md: "260px" },
+                    ml: { xs: 0, md: `${SIDEBAR_WIDTH}px` },
                     p: 3,
+                    // nếu bạn thấy content dính topbar thì giữ pt này, không hại gì
+                    pt: { xs: 2, md: 3 },
                     width: "100%",
                     bgcolor: pageBg,
                     minHeight: "100vh",
                     color: "text.primary",
                 }}
             >
-                {/* HEADER */}
-                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
+                {/* Header */}
+                <Stack
+                    direction={{ xs: "column", sm: "row" }}
+                    spacing={2}
+                    alignItems={{ xs: "stretch", sm: "center" }}
+                    justifyContent="space-between"
+                    sx={{ mb: 3 }}
+                >
                     <Box>
-                        <Typography variant="h4" fontWeight={800} color="text.primary">
+                        <Typography variant="h4" fontWeight={800}>
                             {t("templateList.title")}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -96,64 +150,142 @@ export default function TemplateList() {
                         variant="contained"
                         startIcon={<AddIcon />}
                         onClick={() => navigate("/templates/create")}
-                        sx={{ fontWeight: 700 }}
+                        sx={{ fontWeight: 700, width: { xs: "100%", sm: "auto" } }}
                     >
                         {t("templateList.new")}
                     </Button>
                 </Stack>
 
-                <Paper
-                    elevation={0}
-                    sx={{
-                        p: 2,
-                        borderRadius: 3,
-                        overflow: "hidden",
-                        bgcolor: cardBg,
-                        border: `1px solid ${borderColor}`,
-                        boxShadow: isDark ? "none" : "0 2px 12px rgba(0,0,0,0.06)",
-                    }}
-                >
-                    {templates.length === 0 ? (
-                        <Typography variant="body2" color="text.secondary" sx={{ p: 2, textAlign: "center" }}>
-                            {t("templateList.empty")}
-                        </Typography>
-                    ) : (
+                {/* Empty */}
+                {templates.length === 0 ? (
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 3,
+                            borderRadius: 3,
+                            bgcolor: cardBg,
+                            border: `1px solid ${borderColor}`,
+                            textAlign: "center",
+                            color: "text.secondary",
+                        }}
+                    >
+                        {t("templateList.empty")}
+                    </Paper>
+                ) : isCardMobile ? (
+                    // MOBILE: Cards
+                    <Stack spacing={2}>
+                        {templates.map((item: any) => (
+                            <Paper
+                                key={item.id}
+                                elevation={0}
+                                sx={{
+                                    p: 2,
+                                    borderRadius: 3,
+                                    bgcolor: cardBg,
+                                    border: `1px solid ${borderColor}`,
+                                }}
+                            >
+                                <Stack
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="flex-start"
+                                    spacing={2}
+                                >
+                                    <Box sx={{ minWidth: 0 }}>
+                                        <Typography fontWeight={800} sx={{ lineHeight: 1.2 }}>
+                                            {item.name}
+                                        </Typography>
+
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            sx={{
+                                                mt: 0.75,
+                                                display: "-webkit-box",
+                                                WebkitLineClamp: 2,
+                                                WebkitBoxOrient: "vertical",
+                                                overflow: "hidden",
+                                            }}
+                                        >
+                                            {item.description}
+                                        </Typography>
+                                    </Box>
+
+                                    <Chip
+                                        size="small"
+                                        label={
+                                            item.isActive
+                                                ? t("template.status.active")
+                                                : t("template.status.inactive")
+                                        }
+                                        color={item.isActive ? "success" : "default"}
+                                        variant={isDark ? "outlined" : item.isActive ? "filled" : "outlined"}
+                                        sx={{ flexShrink: 0 }}
+                                    />
+                                </Stack>
+
+                                <Divider sx={{ my: 1.5 }} />
+
+                                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                    <Typography variant="caption" color="text.secondary">
+                                        ID: <b>{item.id}</b>
+                                    </Typography>
+
+                                    <Stack direction="row" spacing={1}>
+                                        <Tooltip title={t("Edit")}>
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => navigate(`/templates/edit/${item.id}`)}
+                                            >
+                                                <EditIcon fontSize="small" />
+                                            </IconButton>
+                                        </Tooltip>
+
+                                        <DeleteTemplateButton id={item.id} />
+                                    </Stack>
+                                </Stack>
+                            </Paper>
+                        ))}
+                    </Stack>
+                ) : (
+                    // DESKTOP/TABLET: Table
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 2,
+                            borderRadius: 3,
+                            bgcolor: cardBg,
+                            border: `1px solid ${borderColor}`,
+                        }}
+                    >
                         <Table size="small">
                             <TableHead sx={{ bgcolor: headBg }}>
                                 <TableRow>
-                                    <TableCell width="5%" sx={{ fontWeight: 800, color: "text.primary" }}>
+                                    <TableCell sx={{ fontWeight: 800 }}>
                                         {t("templateList.columns.id")}
                                     </TableCell>
-                                    <TableCell width="25%" sx={{ fontWeight: 800, color: "text.primary" }}>
+                                    <TableCell sx={{ fontWeight: 800 }}>
                                         {t("templateList.columns.name")}
                                     </TableCell>
-                                    <TableCell width="40%" sx={{ fontWeight: 800, color: "text.primary" }}>
+                                    <TableCell sx={{ fontWeight: 800 }}>
                                         {t("templateList.columns.description")}
                                     </TableCell>
-                                    <TableCell width="10%" sx={{ fontWeight: 800, color: "text.primary" }}>
+                                    <TableCell sx={{ fontWeight: 800 }}>
                                         {t("templateList.columns.status")}
                                     </TableCell>
-                                    <TableCell width="20%" align="right" sx={{ fontWeight: 800, color: "text.primary" }}>
+                                    <TableCell align="right" sx={{ fontWeight: 800 }}>
                                         {t("templateList.columns.actions")}
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody>
-                                {templates.map((tpl: any) => (
-                                    <TableRow
-                                        key={tpl.id}
-                                        hover
-                                        sx={{
-                                            "&:hover": { bgcolor: rowHoverBg },
-                                        }}
-                                    >
-                                        <TableCell sx={{ color: "text.primary" }}>{tpl.id}</TableCell>
+                                {templates.map((item: any) => (
+                                    <TableRow key={item.id} hover sx={{ "&:hover": { bgcolor: rowHoverBg } }}>
+                                        <TableCell>{item.id}</TableCell>
 
                                         <TableCell>
-                                            <Typography fontWeight={700} color="text.primary">
-                                                {tpl.name}
-                                            </Typography>
+                                            <Typography fontWeight={700}>{item.name}</Typography>
                                         </TableCell>
 
                                         <TableCell>
@@ -162,22 +294,25 @@ export default function TemplateList() {
                                                 sx={{
                                                     maxWidth: 420,
                                                     whiteSpace: "nowrap",
-                                                    textOverflow: "ellipsis",
                                                     overflow: "hidden",
-                                                    color: "text.primary",
+                                                    textOverflow: "ellipsis",
                                                 }}
-                                                title={tpl.description}
+                                                title={item.description}
                                             >
-                                                {tpl.description}
+                                                {item.description}
                                             </Typography>
                                         </TableCell>
 
                                         <TableCell>
                                             <Chip
                                                 size="small"
-                                                label={tpl.isActive ? t("template.status.active") : t("template.status.inactive")}
-                                                color={tpl.isActive ? "success" : "default"}
-                                                variant={isDark ? "outlined" : tpl.isActive ? "filled" : "outlined"}
+                                                label={
+                                                    item.isActive
+                                                        ? t("template.status.active")
+                                                        : t("template.status.inactive")
+                                                }
+                                                color={item.isActive ? "success" : "default"}
+                                                variant={isDark ? "outlined" : item.isActive ? "filled" : "outlined"}
                                             />
                                         </TableCell>
 
@@ -186,22 +321,21 @@ export default function TemplateList() {
                                                 <Tooltip title={t("Edit")}>
                                                     <IconButton
                                                         size="small"
-                                                        onClick={() => navigate(`/templates/edit/${tpl.id}`)}
-                                                        sx={{ color: "text.primary" }}
+                                                        onClick={() => navigate(`/templates/edit/${item.id}`)}
                                                     >
                                                         <EditIcon fontSize="small" />
                                                     </IconButton>
                                                 </Tooltip>
 
-                                                <DeleteTemplateButton id={tpl.id} />
+                                                <DeleteTemplateButton id={item.id} />
                                             </Stack>
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
-                    )}
-                </Paper>
+                    </Paper>
+                )}
             </Box>
         </Box>
     );

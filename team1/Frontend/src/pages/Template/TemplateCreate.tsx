@@ -28,7 +28,6 @@ import Grid from "@mui/material/Grid";
 import { alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import toast from "react-hot-toast";
 
 type TemplateCreateFormValues = {
     name: string;
@@ -37,6 +36,7 @@ type TemplateCreateFormValues = {
     isActive: boolean;
 };
 
+// Toolbar config
 const modules = {
     toolbar: [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -55,21 +55,21 @@ const CONTRACT_TEMPLATE_HTML = `
   <h2 style="text-align: center; color: #6b7280;">(Gas / Điện năng · Energy Contract Manager)</h2>
 
   <h3>1. Thông tin Hợp đồng</h3>
-  <p><strong>Mã hợp đồng:</strong> {{ContractNumber}}</p>
-  <p><strong>Thời hạn:</strong> {{StartDate}} - {{EndDate}}</p>
+  <p><strong>Mã hợp đồng:</strong> {ContractNumber}</p>
+  <p><strong>Thời hạn:</strong> {StartDate} - {EndDate}</p>
   <hr />
 
   <h3>2. Thông tin Khách hàng</h3>
-  <p><strong>Khách hàng:</strong> {{FullName}}</p>
-  <p><strong>Email:</strong> {{Email}}</p>
-  <p><strong>Công ty:</strong> {{CompanyName}}</p>
+  <p><strong>Khách hàng:</strong> {FullName}</p>
+  <p><strong>Email:</strong> {Email}</p>
+  <p><strong>Công ty:</strong> {CompanyName}</p>
   <hr />
 
   <h3>3. Nội dung chi tiết</h3>
   <p>Bên A đồng ý cung cấp năng lượng cho Bên B theo các điều khoản đính kèm...</p>
 
   <p style="margin-top: 50px;"><strong>Đại diện Bên B</strong></p>
-  <p>{{FullName}}</p>
+  <p>{FullName}</p>
 `;
 
 export default function TemplateCreate() {
@@ -95,7 +95,7 @@ export default function TemplateCreate() {
         resolver: yupResolver(templateSchema),
         defaultValues: {
             name: "",
-            description: t("templateCreate.defaultDescription"),
+            description: "",
             htmlContent: CONTRACT_TEMPLATE_HTML,
             isActive: true,
         },
@@ -108,7 +108,7 @@ export default function TemplateCreate() {
             htmlContent && htmlContent.trim().length > 0
                 ? htmlContent
                 : `<p style='font-family:system-ui;padding:16px;color:#888'>${t(
-                    "template.previewEmpty"
+                    "templateCreate.noContent"
                 )}</p>`;
 
         return `
@@ -124,13 +124,6 @@ export default function TemplateCreate() {
             margin: 0;
             padding: 20px;
           }
-          h1 { font-size: 18pt; margin-bottom: 10px; }
-          h2 { font-size: 14pt; margin-bottom: 8px; }
-          h3 { font-size: 12pt; margin-bottom: 6px; }
-          p { margin-bottom: 8px; }
-          img { max-width: 100%; height: auto; }
-          table { width: 100%; border-collapse: collapse; font-size: 9pt; }
-          th, td { border: 1px solid #ddd; padding: 4px 8px; }
         </style>
       </head>
       <body>
@@ -142,16 +135,9 @@ export default function TemplateCreate() {
 
     const onSubmit = (values: TemplateCreateFormValues) => {
         createMutation.mutate(
-            { ...values, htmlContent: values.htmlContent },
+            { ...values },
             {
-                onSuccess: () => {
-                    toast.success(t("templateCreate.toast.created"));
-                    navigate("/templates");
-                },
-                onError: (err: any) => {
-                    console.error("CREATE TEMPLATE ERROR:", err);
-                    toast.error(t("templateCreate.toast.createFailed"));
-                },
+                onSuccess: () => navigate("/templates"),
             }
         );
     };
@@ -190,12 +176,8 @@ export default function TemplateCreate() {
                     </Box>
 
                     <Stack direction="row" spacing={1}>
-                        <Button
-                            variant="outlined"
-                            onClick={() => navigate("/templates")}
-                            disabled={isSubmitting}
-                        >
-                            {t("Cancel")}
+                        <Button variant="outlined" onClick={() => navigate("/templates")} disabled={isSubmitting}>
+                            {t("templateCreate.cancel")}
                         </Button>
 
                         <Button
@@ -205,7 +187,7 @@ export default function TemplateCreate() {
                             disabled={isSubmitting}
                             startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
                         >
-                            {isSubmitting ? t("Creating...") : t("templateCreate.create")}
+                            {isSubmitting ? t("templateCreate.creating") : t("templateCreate.create")}
                         </Button>
                     </Stack>
                 </Stack>
@@ -229,11 +211,11 @@ export default function TemplateCreate() {
                             }}
                         >
                             <Typography variant="subtitle2" fontWeight={700}>
-                                {t("template.settings")}
+                                {t("templateCreate.settings")}
                             </Typography>
 
                             <TextField
-                                label={t("template.name")}
+                                label={t("templateCreate.templateName")}
                                 size="small"
                                 {...register("name")}
                                 error={!!errors.name}
@@ -242,7 +224,7 @@ export default function TemplateCreate() {
                             />
 
                             <TextField
-                                label={t("template.description")}
+                                label={t("templateCreate.description")}
                                 size="small"
                                 {...register("description")}
                                 error={!!errors.description}
@@ -252,66 +234,15 @@ export default function TemplateCreate() {
 
                             <FormControlLabel
                                 control={<Switch defaultChecked {...register("isActive")} />}
-                                label={t("template.active")}
+                                label={t("templateCreate.active")}
                             />
 
                             <Typography variant="subtitle2" fontWeight={700} sx={{ mt: 1 }}>
-                                {t("template.editor")}
+                                {t("templateCreate.contentEditor")}
                             </Typography>
 
                             {/* QUILL */}
-                            <Box
-                                sx={{
-                                    flex: 1,
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    minHeight: 0,
-
-                                    "& .quill": {
-                                        flex: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        overflow: "hidden",
-                                    },
-
-                                    "& .ql-toolbar": {
-                                        flexShrink: 0,
-                                        backgroundColor: cardBg,
-                                        borderColor: borderColor,
-                                    },
-
-                                    "& .ql-container": {
-                                        flex: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        overflow: "hidden",
-                                        borderColor: borderColor,
-                                        borderBottomLeftRadius: "8px",
-                                        borderBottomRightRadius: "8px",
-                                        backgroundColor: isDark ? alpha(theme.palette.common.white, 0.04) : "#fff",
-                                    },
-
-                                    "& .ql-editor": {
-                                        flex: 1,
-                                        overflowY: "auto",
-                                        fontSize: "14px",
-                                        color: theme.palette.text.primary,
-                                    },
-
-                                    "& .ql-editor.ql-blank::before": {
-                                        color: theme.palette.text.secondary,
-                                    },
-
-                                    "& .ql-snow .ql-stroke": { stroke: theme.palette.text.primary },
-                                    "& .ql-snow .ql-fill": { fill: theme.palette.text.primary },
-                                    "& .ql-snow .ql-picker": { color: theme.palette.text.primary },
-                                    "& .ql-snow .ql-picker-options": {
-                                        backgroundColor: cardBg,
-                                        borderColor: borderColor,
-                                        color: theme.palette.text.primary,
-                                    },
-                                }}
-                            >
+                            <Box sx={{ flex: 1, minHeight: 0 }}>
                                 <Controller
                                     name="htmlContent"
                                     control={control}
@@ -321,11 +252,10 @@ export default function TemplateCreate() {
                                             value={field.value}
                                             onChange={field.onChange}
                                             modules={modules}
-                                            placeholder={t("template.editorPlaceholder")}
+                                            placeholder={t("templateCreate.editorPlaceholder")}
                                         />
                                     )}
                                 />
-
                                 {errors.htmlContent && (
                                     <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>
                                 )}
@@ -351,10 +281,10 @@ export default function TemplateCreate() {
                             }}
                         >
                             <Typography variant="subtitle1" fontWeight={700}>
-                                {t("template.previewTitle")}
+                                {t("templateCreate.previewTitle")}
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                {t("template.previewSubtitle")}
+                                {t("templateCreate.previewSubtitle")}
                             </Typography>
 
                             <Box
@@ -365,7 +295,7 @@ export default function TemplateCreate() {
                                     border: `1px solid ${borderColor}`,
                                     borderRadius: 1,
                                     overflow: "hidden",
-                                    bgcolor: isDark ? alpha(theme.palette.common.white, 0.04) : "#fff",
+                                    bgcolor: "#fff",
                                 }}
                             >
                                 <iframe
