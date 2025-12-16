@@ -37,6 +37,7 @@ import {
   AccessTime as TimeIcon,
   ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material";
+import { useOrders } from "@/hooks/useOrders";
 
 // ===================== Component con: Reseller name =====================
 const ResellerCell = ({ resellerId }: { resellerId: number }) => {
@@ -61,24 +62,28 @@ export default function Home() {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
 
-  const { data, isLoading } = useContracts({ pageNumber: 1, pageSize: 100 });
-  const contracts = Array.isArray(data?.items) ? data.items : [];
-
-  const stats = useMemo(() => {
+  const contractQuery = useContracts({ pageNumber: 1, pageSize: 100 });
+  const contracts = Array.isArray(contractQuery.data?.items) ? contractQuery.data.items : [];
+  const orderQuery = useOrders({ pageNumber: 1, pageSize: 1 });
+  const isLoading = contractQuery.isLoading || orderQuery.isLoading;
+ const stats = useMemo(() => {
     const now = new Date();
     let activeCount = 0;
 
     contracts.forEach((c: any) => {
+      // Chỉ tính toán Active/Expired dựa trên Contract
       if (c?.endDate && new Date(c.endDate) > now) activeCount++;
     });
 
     return {
-      total: contracts.length,
+      totalContracts: contractQuery.data?.totalCount ?? 0, // Lấy từ API Contract
       active: activeCount,
-      expired: contracts.length - activeCount,
-      totalOrders: 0,
+      expired: (contractQuery.data?.totalCount ?? 0) - activeCount, // Tính tương đối hoặc đếm thủ công tùy logic
+      
+      // 👇 Lấy trực tiếp từ API Order, chính xác tuyệt đối cho cả Admin & User
+      totalOrders: orderQuery.data?.totalCount ?? 0, 
     };
-  }, [contracts]);
+  }, [contracts, contractQuery.data, orderQuery.data]);
 
   const recentContracts = useMemo(() => contracts.slice(0, 5), [contracts]);
 
@@ -167,7 +172,7 @@ export default function Home() {
 
           <Grid container spacing={3} sx={{ mb: 4 }}>
             {/* CARD 1 */}
-            <Grid item xs={12} sm={6} md={6}>
+            <Grid size={{xs:12, sm:6, md:6}} >
               <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>
@@ -180,7 +185,7 @@ export default function Home() {
                   </Stack>
 
                   <Typography variant="h3" fontWeight={900}>
-                    {isLoading ? "-" : stats.total}
+                    {isLoading ? "-" : stats.totalContracts}
                   </Typography>
 
                   <Stack direction="row" spacing={1} mt={2} flexWrap="wrap">
@@ -204,7 +209,7 @@ export default function Home() {
             </Grid>
 
             {/* CARD 2 */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs:12, sm:6, md:3}}>
               <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>
@@ -217,7 +222,7 @@ export default function Home() {
                   </Stack>
 
                   <Typography variant="h3" fontWeight={900}>
-                    {isLoading ? "-" : "N/A"}
+                    {isLoading ? "-" : stats.totalOrders}
                   </Typography>
 
                   <Typography variant="body2" color="text.secondary" mt={1}>
@@ -228,7 +233,7 @@ export default function Home() {
             </Grid>
 
             {/* CARD 3 */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs:12, sm:6, md:3}}>
               <Card sx={{ borderRadius: 3, height: "100%", bgcolor: "background.paper" }}>
                 <CardContent>
                   <Stack direction="row" alignItems="center" spacing={2} mb={2}>

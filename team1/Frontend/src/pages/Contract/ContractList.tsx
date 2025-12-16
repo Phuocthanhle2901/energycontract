@@ -41,6 +41,8 @@ import ContractDelete from "./ContractDelete";
 import ResellerCell from "./components/ResellerCell";
 import GeneratePdfDialog from "./components/GeneratePdfDialog";
 import ViewPdfDialog from "./components/ViewPdfDialog";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { getUserRole } from "@/lib/authUtils";
 
 export default function ContractList() {
   const navigate = useNavigate();
@@ -70,6 +72,11 @@ export default function ContractList() {
   const [sortBy, setSortBy] = useState<"customerName" | "email">("customerName");
   const [sortDesc, setSortDesc] = useState(false);
   const [page, setPage] = useState(1);
+
+  const { accessToken } = useAuthStore();
+  const role = getUserRole(accessToken);
+  const isAdMin = role === "Admin";
+  
   const PAGE_SIZE = 10;
 
   // Queries
@@ -264,8 +271,8 @@ export default function ContractList() {
             >
               {t("common.clear")}
             </Button>
-
-            <Button
+              {isAdMin &&(
+                <Button
               variant="contained"
               startIcon={<FiPlus />}
               onClick={() => {
@@ -276,6 +283,7 @@ export default function ContractList() {
             >
               {t("contract.create")}
             </Button>
+              )}
           </Stack>
         </Paper>
 
@@ -357,7 +365,19 @@ export default function ContractList() {
                   "&:hover": { bgcolor: alpha(theme.palette.action.hover, 0.6) },
                 }}
               >
-                <Box flex={1} fontWeight={700} sx={{ color: "primary.main" }}>
+                <Box 
+                  flex={1} 
+                  fontWeight={700} 
+                  onClick={() => navigate(`/contracts/${c.id}/detail`)} // 1. Thêm sự kiện click chuyển trang
+                  sx={{ 
+                    color: "primary.main",
+                    cursor: "pointer", // 2. Đổi con trỏ chuột thành hình bàn tay
+                    "&:hover": {       // 3. Thêm hiệu ứng gạch chân khi di chuột vào
+                      textDecoration: "underline",
+                      color: "primary.dark"
+                    }
+                  }}
+                >
                   {c.contractNumber}
                 </Box>
 
@@ -388,8 +408,9 @@ export default function ContractList() {
                       {hasPdf ? <FiCheckCircle size={18} /> : <FiFileText size={18} />}
                     </IconButton>
                   </Tooltip>
-
-                  <IconButton
+                    {isAdMin &&(
+                      <>
+                      <IconButton
                     size="small"
                     onClick={() => {
                       setDrawerMode("edit");
@@ -400,7 +421,6 @@ export default function ContractList() {
                   >
                     <FiEdit size={16} />
                   </IconButton>
-
                   <IconButton
                     size="small"
                     onClick={() => {
@@ -411,6 +431,8 @@ export default function ContractList() {
                   >
                     <FiTrash2 size={16} />
                   </IconButton>
+                  </>
+                    )}
                 </Stack>
               </Stack>
             );

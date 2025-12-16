@@ -13,6 +13,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ContractHistoryDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin() // Chấp nhận mọi domain (localhost, vercel,...)
+            .AllowAnyMethod() // Chấp nhận mọi method (GET, POST, PUT, DELETE...)
+            .AllowAnyHeader()
+            .AllowCredentials(); // Chấp nhận mọi header
+    });
+});
+
 // RabbitMQ consumer
 builder.Services.AddMassTransit(x =>
 {
