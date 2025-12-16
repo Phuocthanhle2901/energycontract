@@ -25,6 +25,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import NavMenu from "@/components/NavMenu/NavMenu";
 import { useTemplate, useUpdateTemplate } from "@/hooks/usePdf";
 import { templateSchema } from "@/schemas/template.schema";
+import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 type TemplateEditFormValues = {
     description: string;
@@ -37,7 +39,6 @@ interface PreviewState {
     fillFromContract?: boolean;
 }
 
-// Toolbar config
 const modules = {
     toolbar: [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -50,13 +51,14 @@ const modules = {
     ],
 };
 
-// Fallback HTML template
 export const CONTRACT_TEMPLATE_HTML = `
   <h1 style="text-align: center;">HỢP ĐỒNG MẪU</h1>
   <p>Mã hợp đồng: {ContractNumber}</p>
 `;
 
 export default function TemplateEdit() {
+    const { t } = useTranslation();
+
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const location = useLocation();
@@ -64,7 +66,6 @@ export default function TemplateEdit() {
     const theme = useTheme();
     const isDark = theme.palette.mode === "dark";
 
-    // ===== THEME TOKENS (NO HARDCODE) =====
     const pageBg = "background.default";
     const cardBg = "background.paper";
     const borderColor = alpha(theme.palette.divider, 0.8);
@@ -78,12 +79,10 @@ export default function TemplateEdit() {
 
     const [templateName, setTemplateName] = useState<string>("");
 
-    // drag resize
     const [leftWidth, setLeftWidth] = useState<number>(50);
     const [isResizing, setIsResizing] = useState<boolean>(false);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
-    // API
     const { data, isLoading, isError } = useTemplate(numericId);
     const updateMutation = useUpdateTemplate();
 
@@ -105,7 +104,6 @@ export default function TemplateEdit() {
 
     const htmlContent = watch("htmlContent");
 
-    // Load template + merge preview variables
     useEffect(() => {
         if (!data) return;
 
@@ -116,7 +114,6 @@ export default function TemplateEdit() {
 
         if (fillFromContract && previewVariables) {
             Object.entries(previewVariables).forEach(([key, value]) => {
-                // Replace {Key} tokens
                 const regex = new RegExp(`\\{${key}\\}`, "g");
                 htmlBase = htmlBase.replace(regex, value ?? "");
             });
@@ -129,7 +126,6 @@ export default function TemplateEdit() {
         });
     }, [data, reset, fillFromContract, previewVariables]);
 
-    // Drag handle logic
     useEffect(() => {
         function handleMouseMove(e: MouseEvent) {
             if (!isResizing || !containerRef.current) return;
@@ -162,25 +158,30 @@ export default function TemplateEdit() {
         updateMutation.mutate(
             {
                 id: numericId,
-                data: {
-                    ...values,
-                    htmlContent: values.htmlContent,
-                },
+                data: { ...values, htmlContent: values.htmlContent },
             } as any,
             {
-                onSuccess: () => navigate("/templates"),
+                onSuccess: () => {
+                    toast.success(t("templateEdit.toast.updated"));
+                    navigate("/templates");
+                },
+                onError: (err: any) => {
+                    console.error("UPDATE TEMPLATE ERROR:", err);
+                    toast.error(t("templateEdit.toast.updateFailed"));
+                },
             }
         );
     };
 
     const isSubmitting = updateMutation.isPending;
 
-    // Preview HTML (paper stays white inside iframe)
     const previewHtml = useMemo(() => {
         const content =
             htmlContent && htmlContent.trim().length > 0
                 ? htmlContent
-                : "<p style='font-family:system-ui;padding:16px;color:#888'>No HTML content yet.</p>";
+                : `<p style='font-family:system-ui;padding:16px;color:#888'>${t(
+                    "template.previewEmpty"
+                )}</p>`;
 
         return `
       <!DOCTYPE html>
@@ -209,14 +210,13 @@ export default function TemplateEdit() {
       </body>
       </html>
     `;
-    }, [htmlContent]);
+    }, [htmlContent, t]);
 
-    // Guards
     if (Number.isNaN(numericId)) {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>Invalid ID</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>{t("template.invalidId")}</Box>
             </Box>
         );
     }
@@ -225,7 +225,7 @@ export default function TemplateEdit() {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>Loading...</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>{t("Loading")}</Box>
             </Box>
         );
     }
@@ -234,7 +234,9 @@ export default function TemplateEdit() {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }}>Error loading template.</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3 }} color="error">
+                    {t("template.loadError")}
+                </Box>
             </Box>
         );
     }
@@ -261,16 +263,16 @@ export default function TemplateEdit() {
                 >
                     <Box>
                         <Typography variant="h5" fontWeight={800}>
-                            Edit PDF Template
+                            {t("templateEdit.title")}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Update HTML layout and settings.
+                            {t("templateEdit.subtitle")}
                         </Typography>
                     </Box>
 
                     <Stack direction="row" spacing={1}>
                         <Button variant="outlined" onClick={() => navigate("/templates")} disabled={isSubmitting}>
-                            Back
+                            {t("template.back")}
                         </Button>
 
                         <Button
@@ -279,7 +281,7 @@ export default function TemplateEdit() {
                             disabled={isSubmitting}
                             startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
                         >
-                            {isSubmitting ? "Saving..." : "Save changes"}
+                            {isSubmitting ? t("Saving...") : t("templateEdit.save")}
                         </Button>
                     </Stack>
                 </Stack>
@@ -294,7 +296,7 @@ export default function TemplateEdit() {
                         height: { xs: "auto", md: "calc(100vh - 180px)" },
                     }}
                 >
-                    {/* LEFT: EDITOR */}
+                    {/* LEFT */}
                     <Box
                         sx={{
                             flexBasis: { xs: "100%", md: `${leftWidth}%` },
@@ -320,13 +322,13 @@ export default function TemplateEdit() {
                             }}
                         >
                             <Typography variant="subtitle2" fontWeight={700}>
-                                Settings
+                                {t("template.settings")}
                             </Typography>
 
-                            <TextField label="Name" size="small" value={templateName} disabled fullWidth />
+                            <TextField label={t("template.name")} size="small" value={templateName} disabled fullWidth />
 
                             <TextField
-                                label="Description"
+                                label={t("template.description")}
                                 size="small"
                                 {...register("description")}
                                 error={!!errors.description}
@@ -334,13 +336,12 @@ export default function TemplateEdit() {
                                 fullWidth
                             />
 
-                            <FormControlLabel control={<Switch {...register("isActive")} />} label="Active" />
+                            <FormControlLabel control={<Switch {...register("isActive")} />} label={t("template.active")} />
 
                             <Typography variant="subtitle2" fontWeight={700}>
-                                Content Editor
+                                {t("template.editor")}
                             </Typography>
 
-                            {/* QUILL */}
                             <Box
                                 sx={{
                                     flex: 1,
@@ -383,7 +384,6 @@ export default function TemplateEdit() {
                                         color: theme.palette.text.secondary,
                                     },
 
-                                    // Quill icons/text colors for dark mode
                                     "& .ql-snow .ql-stroke": { stroke: theme.palette.text.primary },
                                     "& .ql-snow .ql-fill": { fill: theme.palette.text.primary },
                                     "& .ql-snow .ql-picker": { color: theme.palette.text.primary },
@@ -403,12 +403,14 @@ export default function TemplateEdit() {
                                             value={field.value}
                                             onChange={field.onChange}
                                             modules={modules}
-                                            placeholder="Edit contract content here..."
+                                            placeholder={t("template.editorPlaceholderEdit")}
                                         />
                                     )}
                                 />
 
-                                {errors.htmlContent && <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>}
+                                {errors.htmlContent && (
+                                    <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>
+                                )}
                             </Box>
                         </Paper>
                     </Box>
@@ -429,7 +431,7 @@ export default function TemplateEdit() {
                         />
                     </Box>
 
-                    {/* RIGHT: PREVIEW */}
+                    {/* RIGHT */}
                     <Box sx={{ flexBasis: { xs: "100%", md: `${100 - leftWidth}%` }, pl: { md: 1.5 }, minHeight: 0 }}>
                         <Paper
                             elevation={0}
@@ -446,7 +448,7 @@ export default function TemplateEdit() {
                             }}
                         >
                             <Typography variant="subtitle1" fontWeight={700}>
-                                Live Preview
+                                {t("template.previewTitle")}
                             </Typography>
 
                             <Box

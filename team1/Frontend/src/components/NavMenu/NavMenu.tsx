@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Home, FileText, ShoppingCart, Users, History, Layers, Sun, Moon } from "lucide-react";
 import { useTranslation } from "react-i18next";

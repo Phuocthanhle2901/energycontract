@@ -152,5 +152,168 @@
     "Deleting...": "Đang xóa...",
     "Delete Order": "Xóa đơn",
     "PDF generated successfully!": "Tạo PDF thành công!",
-    "Failed to generate PDF. Please try again.": "Tạo PDF thất bại. Vui lòng thử lại."
+    "Failed to generate PDF. Please try again.": "Tạo PDF thất bại. Vui lòng thử lại.",
+    "contractCreate": {
+        "title": "Tạo hợp đồng",
+        "subtitle": "Nhập thông tin để tạo hợp đồng mới",
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "startDate": "Ngày bắt đầu",
+        "endDate": "Ngày kết thúc",
+        "companyName": "Tên công ty",
+        "bankAccountNumber": "Số tài khoản ngân hàng",
+        "reseller": "Đại lý",
+        "address": "Địa chỉ",
+        "select": "-- Chọn --",
+        "toast": {
+            "created": "Tạo hợp đồng thành công!",
+            "createFailed": "Tạo hợp đồng thất bại!"
+        }
+    },
+    "contractDelete": {
+        "title": "Xóa hợp đồng",
+        "confirm": "Bạn có chắc muốn xóa hợp đồng #{{id}} không?",
+        "warning": "Hành động này không thể hoàn tác.",
+        "delete": "Xóa",
+        "deleting": "Đang xóa...",
+        "toast": {
+            "deleted": "Xóa hợp đồng thành công!",
+            "deleteFailed": "Xóa hợp đồng thất bại!"
+        }
+    },
+    "orderDelete": {
+        "title": "Xóa đơn hàng?",
+        "confirm": "Bạn có chắc muốn xóa đơn hàng {{orderNumber}} không?",
+        "warning": "Hành động này không thể hoàn tác.",
+        "delete": "Xóa đơn",
+        "deleting": "Đang xóa...",
+        "toast": {
+            "deleted": "Xóa đơn hàng thành công!",
+            "deleteFailed": "Xóa đơn hàng thất bại!"
+        }
+    },
+    "resellerCreate": {
+        "title": "Thêm đại lý",
+        "name": "Tên",
+        "type": "Loại",
+        "toast": {
+            "created": "Thêm đại lý thành công!",
+            "createFailed": "Thêm đại lý thất bại!"
+        }
+    },
+    "addressCreate": {
+        "title": "Thêm địa chỉ",
+        "zipCode": "Mã bưu chính",
+        "houseNumber": "Số nhà",
+        "extension": "Phần mở rộng",
+        "toast": {
+            "created": "Thêm địa chỉ thành công!",
+            "createFailed": "Thêm địa chỉ thất bại!"
+        }
+    },
+    "addressEdit": {
+        "title": "Sửa địa chỉ",
+        "toast": {
+            "updated": "Cập nhật địa chỉ thành công!",
+            "updateFailed": "Cập nhật địa chỉ thất bại!"
+        }
+    },
+    "addressDelete": {
+        "title": "Xóa địa chỉ",
+        "confirm": "Bạn có chắc muốn xóa địa chỉ {{address}} không?",
+        "delete": "Xóa",
+        "deleting": "Đang xóa...",
+        "toast": {
+            "deleted": "Xóa địa chỉ thành công!",
+            "deleteFailed": "Xóa địa chỉ thất bại!"
+        }
+    },
+    "resellerDelete": {
+        "title": "Xóa đại lý",
+        "confirm": "Bạn có chắc muốn xóa đại lý {{name}} không?",
+        "warning": "Hành động này không thể hoàn tác.",
+        "delete": "Xóa",
+        "deleting": "Đang xóa...",
+        "toast": {
+            "deleted": "Xóa đại lý thành công!",
+            "deleteFailed": "Xóa đại lý thất bại!"
+        }
+    },
+    "resellerEdit": {
+        "title": "Sửa đại lý",
+        "toast": {
+            "updated": "Cập nhật đại lý thành công!",
+            "updateFailed": "Cập nhật đại lý thất bại!"
+        }
+    },
+    "template": {
+        "settings": "Thiết lập mẫu",
+        "name": "Tên",
+        "description": "Mô tả",
+        "active": "Kích hoạt",
+        "editor": "Soạn nội dung",
+        "editorPlaceholder": "Nhập nội dung hợp đồng tại đây...",
+        "editorPlaceholderEdit": "Chỉnh sửa nội dung hợp đồng tại đây...",
+        "previewTitle": "Xem trước",
+        "previewSubtitle": "Mô phỏng hiển thị PDF (tương đối).",
+        "previewEmpty": "Chưa có nội dung HTML. Hãy nhập trong editor.",
+        "status": {
+            "active": "Hoạt động",
+            "inactive": "Không hoạt động"
+        },
+        "invalidId": "ID không hợp lệ",
+        "loadError": "Lỗi tải template.",
+        "back": "Quay lại"
+    },
+    "templateCreate": {
+        "title": "Tạo mẫu PDF",
+        "subtitle": "Thiết kế mẫu hợp đồng bằng trình soạn thảo bên dưới.",
+        "create": "Tạo mẫu",
+        "defaultDescription": "Mẫu hợp đồng mặc định",
+        "toast": {
+            "created": "Tạo template thành công!",
+            "createFailed": "Tạo template thất bại!"
+        }
+    },
+    "templateEdit": {
+        "title": "Sửa mẫu PDF",
+        "subtitle": "Cập nhật bố cục HTML và cấu hình.",
+        "save": "Lưu thay đổi",
+        "toast": {
+            "updated": "Cập nhật template thành công!",
+            "updateFailed": "Cập nhật template thất bại!"
+        }
+    },
+    "templateDelete": {
+        "tooltip": "Xóa mẫu",
+        "confirm": "Bạn có chắc muốn xóa template này không? Hành động này không thể hoàn tác.",
+        "toast": {
+            "deleted": "Xóa template thành công!",
+            "deleteFailed": "Xóa template thất bại!"
+        }
+    },
+    "templateList": {
+        "title": "Mẫu PDF",
+        "subtitle": "Quản lý các mẫu hợp đồng PDF cho hệ thống.",
+        "new": "Tạo mẫu mới",
+        "loading": "Đang tải templates...",
+        "loadFailed": "Tải templates thất bại. Vui lòng thử lại sau.",
+        "empty": "Không có template nào. Bấm \"Tạo mẫu mới\" để tạo.",
+        "columns": {
+            "id": "ID",
+            "name": "Tên",
+            "description": "Mô tả",
+            "status": "Trạng thái",
+            "actions": "Thao tác"
+        }
+    },
+    "contractEdit": {
+        "title": "Sửa hợp đồng",
+        "toast": {
+            "updated": "Cập nhật hợp đồng thành công!",
+            "updateFailed": "Cập nhật hợp đồng thất bại!"
+        }
+    }
 }
