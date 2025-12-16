@@ -146,12 +146,11 @@ public class ContractRepository : IContractRepository
         return await _dbContext.Contracts
             .FirstOrDefaultAsync(c => c.ContractNumber == contractNumber);
     }
-    public async Task<List<Contract>> GetContractsByEmailAsync(string email) // 1. Bỏ dấu ; ở đây
+    public async Task<List<Contract>> GetContractsByEmailAsync(string email) 
     {
         return await _dbContext.Contracts
             .Include(c => c.Address)
             .Include(c => c.Reseller)
-            .Include(c => c.Orders)
             // 2. Dùng Where để lọc tất cả, thay vì FirstOrDefault
             .Where(c => c.Email == email) 
             // 3. Dùng ToListAsync để trả về danh sách

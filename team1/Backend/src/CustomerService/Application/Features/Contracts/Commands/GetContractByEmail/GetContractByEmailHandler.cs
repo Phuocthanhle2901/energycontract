@@ -14,9 +14,7 @@ public class GetMyContractsHandler
 
     public async Task<List<ContractDto>> Handle(string email)
     {
-        // 👇 SỬA TÊN HÀM Ở ĐÂY CHO KHỚP VỚI REPOSITORY
         var contractEntities = await _contractRepository.GetContractsByEmailAsync(email);
-
         var contractDtos = new List<ContractDto>();
 
         foreach (var entity in contractEntities)
@@ -37,26 +35,15 @@ public class GetMyContractsHandler
                 AddressId = entity.AddressId,
                 ResellerId = entity.ResellerId,
 
-                // Map Address (Xử lý null)
+                // Map Address
                 AddressHouseNumber = entity.Address?.HouseNumber,
                 AddressZipCode = entity.Address?.ZipCode,
-                
-                // Map Reseller (Xử lý null)
+            
+                // Map Reseller
                 ResellerName = entity.Reseller?.Name,
-                ResellerType = entity.Reseller?.Type.ToString(), 
-
-                // Map Orders
-                Orders = entity.Orders.Select(o => new OrderDto
-                {
-                    Id = o.Id,
-                    OrderNumber = o.OrderNumber,
-                    OrderType = o.OrderType,
-                    Status = o.Status,
-                    StartDate = o.StartDate,
-                    EndDate = o.EndDate,
-                    TopupFee = o.TopupFee,
-                    ContractId = o.ContractId
-                }).ToList()
+                ResellerType = entity.Reseller?.Type?.ToString(), 
+                
+                
             };
 
             contractDtos.Add(dto);

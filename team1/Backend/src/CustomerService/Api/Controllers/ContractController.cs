@@ -45,11 +45,12 @@ public class ContractController : ControllerBase
         _updatePdfUrlHandler = updatePdfUrlHandler;
         _logger = logger;
         _getContractByIdHandler= getContractByIdHandler;
+        _getMyContractsHandler = getMyContractsHandler;
     }   
 
     // 1. POST: Create new contract
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public async Task<ActionResult<int>> Create(CreateContract command)
     {
         try
@@ -67,7 +68,7 @@ public class ContractController : ControllerBase
 
     // 2. PUT: Update contract
     [HttpPut("{id}")]
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public async Task<ActionResult> Update(int id, UpdateContract command)
     {
         // [SỬA] Thay vì kiểm tra lỗi, hãy gán luôn ID từ URL vào Command
@@ -92,7 +93,7 @@ public class ContractController : ControllerBase
 
     // 3. GET: Get contract details
     [HttpGet("{id}")]
-    [Authorize]
+    [Authorize(Roles="Admin,User")]
     public async Task<ActionResult<ContractDto>> GetById(int id)
     {
         var result = await _getContractByIdHandler.Handle(new GetContractById { Id = id });
@@ -130,7 +131,7 @@ public class ContractController : ControllerBase
     }
     // 5. DELETE: Delete contract
     [HttpDelete("{id}")]
-    [Authorize]
+    [Authorize(Roles="Admin")]
     public async Task<ActionResult> Delete(int id)
     {
         try
@@ -176,8 +177,7 @@ public class ContractController : ControllerBase
     {
         try
         {
-            // A. Lấy Email từ Token (Claims) của người đang đăng nhập
-            // (AuthService khi tạo token đã nhét Email vào đây)
+            
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (string.IsNullOrEmpty(email))
