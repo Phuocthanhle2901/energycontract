@@ -19,6 +19,7 @@ import {
     CircularProgress,
     FormHelperText,
     useTheme,
+    useMediaQuery,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
@@ -64,6 +65,7 @@ export default function TemplateEdit() {
 
     const theme = useTheme();
     const isDark = theme.palette.mode === "dark";
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const pageBg = "background.default";
     const cardBg = "background.paper";
@@ -124,7 +126,7 @@ export default function TemplateEdit() {
         });
     }, [data, reset, fillFromContract, previewVariables]);
 
-    // drag + resize
+    // drag + resize (desktop only)
     useEffect(() => {
         function handleMouseMove(e: MouseEvent) {
             if (!isResizing || !containerRef.current) return;
@@ -173,74 +175,91 @@ export default function TemplateEdit() {
         const content =
             htmlContent && htmlContent.trim().length > 0
                 ? htmlContent
-                : "<p style='padding:16px;color:#888'>No content</p>";
+                : `<p style="padding:16px;color:#888">${t("template.previewEmpty")}</p>`;
 
         return `
       <!DOCTYPE html>
       <html>
       <head>
+        <meta charset="utf-8" />
         <style>
           body {
-            font-family: system-ui;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
             margin: 0;
             padding: 20px;
             font-size: 10pt;
             line-height: 1.4;
             color: #333;
+            background: #fff;
           }
         </style>
       </head>
       <body>${content}</body>
       </html>
     `;
-    }, [htmlContent]);
+    }, [htmlContent, t]);
 
-    // Guards
-    if (Number.isNaN(numericId))
+    // Guards (song ngữ)
+    if (Number.isNaN(numericId)) {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { md: "260px" }, p: 3 }}>Invalid ID</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3, width: "100%" }}>
+                    <Typography color="error">{t("template.invalidId")}</Typography>
+                </Box>
             </Box>
         );
+    }
 
-    if (isLoading)
+    if (isLoading) {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { md: "260px" }, p: 3 }}>Loading...</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3, width: "100%" }}>
+                    <Stack direction="row" spacing={1.5} alignItems="center">
+                        <CircularProgress size={18} />
+                        <Typography color="text.secondary">{t("Loading data...")}</Typography>
+                    </Stack>
+                </Box>
             </Box>
         );
+    }
 
-    if (isError || !data)
+    if (isError || !data) {
         return (
             <Box sx={{ display: "flex" }}>
                 <NavMenu />
-                <Box sx={{ ml: { md: "260px" }, p: 3 }}>Error loading template.</Box>
+                <Box sx={{ ml: { xs: 0, md: "260px" }, p: 3, width: "100%" }}>
+                    <Typography color="error">{t("template.loadError")}</Typography>
+                </Box>
             </Box>
         );
+    }
 
     return (
-        <>
+        <Box sx={{ display: "flex" }}>
             <NavMenu />
 
             <Box
                 sx={{
                     ml: { xs: 0, md: "260px" },
                     p: 3,
+                    pt: { xs: 2, md: 3 },
                     bgcolor: pageBg,
                     minHeight: "100vh",
+                    width: "100%",
+                    color: "text.primary",
                 }}
             >
                 {/* HEADER */}
                 <Stack
                     direction={{ xs: "column", md: "row" }}
                     justifyContent="space-between"
-                    alignItems={{ xs: "flex-start", md: "center" }}
+                    alignItems={{ xs: "stretch", md: "center" }}
                     sx={{ mb: 3, gap: 1.5 }}
                 >
                     <Box>
-                        <Typography variant="h5" fontWeight={800}>
+                        <Typography variant={isMobile ? "h6" : "h5"} fontWeight={800}>
                             {t("templateEdit.title")}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -248,18 +267,19 @@ export default function TemplateEdit() {
                         </Typography>
                     </Box>
 
-                    <Stack direction="row" spacing={1}>
+                    <Stack direction="row" spacing={1} justifyContent="flex-end">
                         <Button variant="outlined" onClick={() => navigate("/templates")} disabled={isSubmitting}>
-                            {t("templateEdit.back")}
+                            {t("template.back")}
                         </Button>
 
                         <Button
                             variant="contained"
                             onClick={handleSubmit(onSubmit)}
                             disabled={isSubmitting}
-                            startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+                            startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : null}
+                            sx={{ fontWeight: 800 }}
                         >
-                            {isSubmitting ? t("templateEdit.saving") : t("templateEdit.save")}
+                            {isSubmitting ? t("Saving...") : t("templateEdit.save")}
                         </Button>
                     </Stack>
                 </Stack>
@@ -299,14 +319,14 @@ export default function TemplateEdit() {
                                 minHeight: 0,
                             }}
                         >
-                            <Typography variant="subtitle2" fontWeight={700}>
-                                {t("templateEdit.settings")}
+                            <Typography variant="subtitle2" fontWeight={800}>
+                                {t("template.settings")}
                             </Typography>
 
-                            <TextField label={t("templateEdit.name")} size="small" value={templateName} disabled fullWidth />
+                            <TextField label={t("template.name")} size="small" value={templateName} disabled fullWidth />
 
                             <TextField
-                                label={t("templateEdit.description")}
+                                label={t("template.description")}
                                 size="small"
                                 {...register("description")}
                                 error={!!errors.description}
@@ -314,10 +334,10 @@ export default function TemplateEdit() {
                                 fullWidth
                             />
 
-                            <FormControlLabel control={<Switch {...register("isActive")} />} label={t("templateEdit.active")} />
+                            <FormControlLabel control={<Switch {...register("isActive")} />} label={t("template.active")} />
 
-                            <Typography variant="subtitle2" fontWeight={700}>
-                                {t("templateEdit.contentEditor")}
+                            <Typography variant="subtitle2" fontWeight={800}>
+                                {t("template.editor")}
                             </Typography>
 
                             {/* QUILL */}
@@ -326,7 +346,7 @@ export default function TemplateEdit() {
                                     flex: 1,
                                     display: "flex",
                                     flexDirection: "column",
-                                    minHeight: 0,
+                                    minHeight: isMobile ? 260 : 0,
 
                                     "& .quill": {
                                         flex: 1,
@@ -360,19 +380,17 @@ export default function TemplateEdit() {
                                             value={field.value}
                                             onChange={field.onChange}
                                             modules={modules}
-                                            placeholder={t("templateEdit.placeholder")}
+                                            placeholder={t("template.editorPlaceholderEdit")}
                                         />
                                     )}
                                 />
 
-                                {errors.htmlContent && (
-                                    <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>
-                                )}
+                                {errors.htmlContent && <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>}
                             </Box>
                         </Paper>
                     </Box>
 
-                    {/* DRAG HANDLE */}
+                    {/* DRAG HANDLE (desktop only) */}
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>
                         <Box
                             onMouseDown={() => setIsResizing(true)}
@@ -387,7 +405,13 @@ export default function TemplateEdit() {
                     </Box>
 
                     {/* RIGHT: PREVIEW */}
-                    <Box sx={{ flexBasis: { xs: "100%", md: `${100 - leftWidth}%` }, pl: { md: 1.5 }, minHeight: 0 }}>
+                    <Box
+                        sx={{
+                            flexBasis: { xs: "100%", md: `${100 - leftWidth}%` },
+                            pl: { md: 1.5 },
+                            minHeight: 0,
+                        }}
+                    >
                         <Paper
                             elevation={0}
                             sx={{
@@ -402,8 +426,11 @@ export default function TemplateEdit() {
                                 minHeight: 0,
                             }}
                         >
-                            <Typography variant="subtitle1" fontWeight={700}>
-                                {t("templateEdit.preview")}
+                            <Typography variant="subtitle1" fontWeight={800}>
+                                {t("template.previewTitle")}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                                {t("template.previewSubtitle")}
                             </Typography>
 
                             <Box
@@ -431,6 +458,6 @@ export default function TemplateEdit() {
                     </Box>
                 </Box>
             </Box>
-        </>
+        </Box>
     );
 }
