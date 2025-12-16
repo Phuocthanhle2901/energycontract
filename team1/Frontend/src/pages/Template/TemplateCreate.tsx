@@ -24,9 +24,10 @@ import {
     useTheme,
 } from "@mui/material";
 
-import Grid from "@mui/material/Grid"; // ✅ Grid2 mới có prop `size`
+import Grid from "@mui/material/Grid";
 import { alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type TemplateCreateFormValues = {
     name: string;
@@ -54,31 +55,31 @@ const CONTRACT_TEMPLATE_HTML = `
   <h2 style="text-align: center; color: #6b7280;">(Gas / Điện năng · Energy Contract Manager)</h2>
 
   <h3>1. Thông tin Hợp đồng</h3>
-  <p><strong>Mã hợp đồng:</strong> {{ContractNumber}}</p>
-  <p><strong>Thời hạn:</strong> {{StartDate}} - {{EndDate}}</p>
+  <p><strong>Mã hợp đồng:</strong> {ContractNumber}</p>
+  <p><strong>Thời hạn:</strong> {StartDate} - {EndDate}</p>
   <hr />
 
   <h3>2. Thông tin Khách hàng</h3>
-  <p><strong>Khách hàng:</strong> {{FullName}}</p>
-  <p><strong>Email:</strong> {{Email}}</p>
-  <p><strong>Công ty:</strong> {{CompanyName}}</p>
+  <p><strong>Khách hàng:</strong> {FullName}</p>
+  <p><strong>Email:</strong> {Email}</p>
+  <p><strong>Công ty:</strong> {CompanyName}</p>
   <hr />
 
   <h3>3. Nội dung chi tiết</h3>
   <p>Bên A đồng ý cung cấp năng lượng cho Bên B theo các điều khoản đính kèm...</p>
 
   <p style="margin-top: 50px;"><strong>Đại diện Bên B</strong></p>
-  <p>{{FullName}}</p>
+  <p>{FullName}</p>
 `;
 
 export default function TemplateCreate() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const createMutation = useCreateTemplate();
 
     const theme = useTheme();
     const isDark = theme.palette.mode === "dark";
 
-    // ===== THEME TOKENS (NO HARDCODE) =====
     const pageBg = "background.default";
     const cardBg = "background.paper";
     const borderColor = alpha(theme.palette.divider, 0.8);
@@ -94,7 +95,7 @@ export default function TemplateCreate() {
         resolver: yupResolver(templateSchema),
         defaultValues: {
             name: "",
-            description: "Default contract template",
+            description: "",
             htmlContent: CONTRACT_TEMPLATE_HTML,
             isActive: true,
         },
@@ -102,12 +103,13 @@ export default function TemplateCreate() {
 
     const htmlContent = watch("htmlContent");
 
-    // Preview HTML (keep paper-white inside iframe)
     const previewHtml = useMemo(() => {
         const content =
             htmlContent && htmlContent.trim().length > 0
                 ? htmlContent
-                : "<p style='font-family:system-ui;padding:16px;color:#888'>No HTML content yet. Start typing in the editor.</p>";
+                : `<p style='font-family:system-ui;padding:16px;color:#888'>${t(
+                      "templateCreate.noContent"
+                  )}</p>`;
 
         return `
       <!DOCTYPE html>
@@ -122,13 +124,6 @@ export default function TemplateCreate() {
             margin: 0;
             padding: 20px;
           }
-          h1 { font-size: 18pt; margin-bottom: 10px; }
-          h2 { font-size: 14pt; margin-bottom: 8px; }
-          h3 { font-size: 12pt; margin-bottom: 6px; }
-          p { margin-bottom: 8px; }
-          img { max-width: 100%; height: auto; }
-          table { width: 100%; border-collapse: collapse; font-size: 9pt; }
-          th, td { border: 1px solid #ddd; padding: 4px 8px; }
         </style>
       </head>
       <body>
@@ -136,14 +131,11 @@ export default function TemplateCreate() {
       </body>
       </html>
     `;
-    }, [htmlContent]);
+    }, [htmlContent, t]);
 
     const onSubmit = (values: TemplateCreateFormValues) => {
         createMutation.mutate(
-            {
-                ...values,
-                htmlContent: values.htmlContent,
-            },
+            { ...values },
             {
                 onSuccess: () => navigate("/templates"),
             }
@@ -152,8 +144,7 @@ export default function TemplateCreate() {
 
     const isSubmitting = createMutation.isPending;
 
-    // Optional: prevent Quill toolbar icons from flashing wrong colors on first render
-    useEffect(() => { }, [isDark]);
+    useEffect(() => {}, [isDark]);
 
     return (
         <>
@@ -177,16 +168,16 @@ export default function TemplateCreate() {
                 >
                     <Box>
                         <Typography variant="h5" fontWeight={800}>
-                            Create PDF Template
+                            {t("templateCreate.title")}
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 720 }}>
-                            Design your contract template using the editor below.
+                            {t("templateCreate.subtitle")}
                         </Typography>
                     </Box>
 
                     <Stack direction="row" spacing={1}>
                         <Button variant="outlined" onClick={() => navigate("/templates")} disabled={isSubmitting}>
-                            Cancel
+                            {t("templateCreate.cancel")}
                         </Button>
 
                         <Button
@@ -196,7 +187,7 @@ export default function TemplateCreate() {
                             disabled={isSubmitting}
                             startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
                         >
-                            {isSubmitting ? "Creating..." : "Create template"}
+                            {isSubmitting ? t("templateCreate.creating") : t("templateCreate.create")}
                         </Button>
                     </Stack>
                 </Stack>
@@ -220,11 +211,11 @@ export default function TemplateCreate() {
                             }}
                         >
                             <Typography variant="subtitle2" fontWeight={700}>
-                                Template settings
+                                {t("templateCreate.settings")}
                             </Typography>
 
                             <TextField
-                                label="Template name"
+                                label={t("templateCreate.templateName")}
                                 size="small"
                                 {...register("name")}
                                 error={!!errors.name}
@@ -233,7 +224,7 @@ export default function TemplateCreate() {
                             />
 
                             <TextField
-                                label="Description"
+                                label={t("templateCreate.description")}
                                 size="small"
                                 {...register("description")}
                                 error={!!errors.description}
@@ -241,66 +232,17 @@ export default function TemplateCreate() {
                                 fullWidth
                             />
 
-                            <FormControlLabel control={<Switch defaultChecked {...register("isActive")} />} label="Active" />
+                            <FormControlLabel
+                                control={<Switch defaultChecked {...register("isActive")} />}
+                                label={t("templateCreate.active")}
+                            />
 
                             <Typography variant="subtitle2" fontWeight={700} sx={{ mt: 1 }}>
-                                Content Editor
+                                {t("templateCreate.contentEditor")}
                             </Typography>
 
                             {/* QUILL */}
-                            <Box
-                                sx={{
-                                    flex: 1,
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    minHeight: 0,
-
-                                    "& .quill": {
-                                        flex: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        overflow: "hidden",
-                                    },
-
-                                    "& .ql-toolbar": {
-                                        flexShrink: 0,
-                                        backgroundColor: cardBg,
-                                        borderColor: borderColor,
-                                    },
-
-                                    "& .ql-container": {
-                                        flex: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        overflow: "hidden",
-                                        borderColor: borderColor,
-                                        borderBottomLeftRadius: "8px",
-                                        borderBottomRightRadius: "8px",
-                                        backgroundColor: isDark ? alpha(theme.palette.common.white, 0.04) : "#fff",
-                                    },
-
-                                    "& .ql-editor": {
-                                        flex: 1,
-                                        overflowY: "auto",
-                                        fontSize: "14px",
-                                        color: theme.palette.text.primary,
-                                    },
-
-                                    "& .ql-editor.ql-blank::before": {
-                                        color: theme.palette.text.secondary,
-                                    },
-
-                                    // Quill icons/text colors in dark mode
-                                    "& .ql-snow .ql-stroke": { stroke: theme.palette.text.primary },
-                                    "& .ql-snow .ql-fill": { fill: theme.palette.text.primary },
-                                    "& .ql-snow .ql-picker": { color: theme.palette.text.primary },
-                                    "& .ql-snow .ql-picker-options": {
-                                        backgroundColor: cardBg,
-                                        borderColor: borderColor,
-                                        color: theme.palette.text.primary,
-                                    },
-                                }}
-                            >
+                            <Box sx={{ flex: 1, minHeight: 0 }}>
                                 <Controller
                                     name="htmlContent"
                                     control={control}
@@ -310,12 +252,13 @@ export default function TemplateCreate() {
                                             value={field.value}
                                             onChange={field.onChange}
                                             modules={modules}
-                                            placeholder="Write your contract content here..."
+                                            placeholder={t("templateCreate.editorPlaceholder")}
                                         />
                                     )}
                                 />
-
-                                {errors.htmlContent && <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>}
+                                {errors.htmlContent && (
+                                    <FormHelperText error>{errors.htmlContent.message as any}</FormHelperText>
+                                )}
                             </Box>
                         </Paper>
                     </Grid>
@@ -338,10 +281,10 @@ export default function TemplateCreate() {
                             }}
                         >
                             <Typography variant="subtitle1" fontWeight={700}>
-                                Live Preview
+                                {t("templateCreate.previewTitle")}
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                This is how the PDF will look (approx).
+                                {t("templateCreate.previewSubtitle")}
                             </Typography>
 
                             <Box
@@ -352,7 +295,7 @@ export default function TemplateCreate() {
                                     border: `1px solid ${borderColor}`,
                                     borderRadius: 1,
                                     overflow: "hidden",
-                                    bgcolor: isDark ? alpha(theme.palette.common.white, 0.04) : "#fff",
+                                    bgcolor: "#fff",
                                 }}
                             >
                                 <iframe
@@ -361,7 +304,7 @@ export default function TemplateCreate() {
                                         border: "none",
                                         width: "100%",
                                         height: "100%",
-                                        backgroundColor: "white", // keep PDF paper white
+                                        backgroundColor: "white",
                                     }}
                                     srcDoc={previewHtml}
                                 />

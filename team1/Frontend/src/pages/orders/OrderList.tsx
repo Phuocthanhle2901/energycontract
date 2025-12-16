@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
     Box,
     Button,
@@ -33,12 +33,10 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import EuroIcon from "@mui/icons-material/Euro";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
-
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-
 import { useTranslation } from "react-i18next";
-
 import NavMenu from "@/components/NavMenu/NavMenu";
+import { Menu, MenuIcon } from "lucide-react";
 import { useOrders, useCreateOrder, useUpdateOrder, useDeleteOrder } from "@/hooks/useOrders";
 import { useContracts } from "@/hooks/useContracts";
 import { OrderType, OrderStatus } from "@/types/order";
@@ -53,32 +51,36 @@ function toDateInputValue(iso?: string) {
 
 export default function OrderList() {
     const { t } = useTranslation();
-
     const theme = useTheme();
     const isDark = theme.palette.mode === "dark";
-
+    const [filterOpen, setFilterOpen] = useState(false);
     // ==========================
     // STATE: FILTER / SORT / PAGINATION
     // ==========================
     const [search, setSearch] = useState("");
     const [status, setStatus] = useState<number | "">("");
     const [orderType, setOrderType] = useState<number | "">("");
-
     const [sortBy, setSortBy] = useState<SortKey>("createdAt");
     const [sortDesc, setSortDesc] = useState(true);
-
     const [page, setPage] = useState(1);
     const PAGE_SIZE = 10;
 
     // ==========================
     // POPUP STATE
     // ==========================
-    const [formOpen, setFormOpen] = useState(false);
-    const [formMode, setFormMode] = useState<"create" | "edit">("create");
-    const [editingOrder, setEditingOrder] = useState<OrderAny | null>(null);
+        const [formOpen, setFormOpen] = useState(false);
+        const [formMode, setFormMode] = useState<"create" | "edit">("create");
+        const [editingOrder, setEditingOrder] = useState<OrderAny | null>(null);
 
-    const [deleteOpen, setDeleteOpen] = useState(false);
-    const [deletingOrder, setDeletingOrder] = useState<OrderAny | null>(null);
+        const [deleteOpen, setDeleteOpen] = useState(false);
+        const [deletingOrder, setDeletingOrder] = useState<OrderAny | null>(null);
+        //
+        const [open, setOpen] = React.useState(false);
+
+    const toggleMenu = () => {
+    setOpen(!open);
+    };
+
 
     // ==========================
     // API HOOKS
@@ -308,9 +310,20 @@ export default function OrderList() {
     // RENDER
     // ==========================
     return (
+        
         <Box sx={{ display: "flex" }}>
-            <NavMenu />
-
+             {/* NAV MENU SIDEBAR */}
+        <NavMenu />
+            <Box
+                sx={{
+                    display: { xs: "flex", md: "none" },
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    mb: 1,
+                }}
+                > 
+            </Box>
+                
             <Box
                 sx={{
                     ml: "240px",
@@ -336,6 +349,13 @@ export default function OrderList() {
                         {t("orders.create")}
                     </Button>
                 </Stack>
+                <IconButton
+                    sx={{ display: { xs: "flex", md: "none" } }}
+                    onClick={() => setFilterOpen(true)}
+                >
+                    <MenuIcon />
+                </IconButton>
+                
 
                 {/* FILTER */}
                 <Card

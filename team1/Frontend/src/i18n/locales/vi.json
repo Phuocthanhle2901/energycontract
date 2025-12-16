@@ -93,6 +93,66 @@
             "3": "Đã hủy"
         }
     },
+    "templates": {
+        "title": "Mẫu PDF",
+        "subtitle": "Quản lý mẫu PDF cho hệ thống quản lý hợp đồng.",
+        "new": "Tạo mẫu mới",
+        "id": "ID",
+        "name": "Tên",
+        "description": "Mô tả",
+        "status": "Trạng thái",
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "actions": "Thao tác",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "noTemplates": "Không có mẫu nào.",
+        "loading": "Đang tải danh sách...",
+        "failed": "Không thể tải dữ liệu.",
+        "created": "Tạo mẫu thành công!",
+        "deleted": "Xóa mẫu thành công!"
+    },
+    "templateCreate": {
+        "title": "Tạo Mẫu PDF",
+        "subtitle": "Tạo và cấu hình mẫu PDF mới cho hệ thống Energy Contract Manager.",
+        
+        "cancel": "Hủy",
+        "create": "Tạo Mẫu",
+        "creating": "Đang tạo...",
+
+        "settings": "Cài đặt",
+        "templateName": "Tên mẫu",
+        "description": "Mô tả",
+        "active": "Kích hoạt",
+
+        "contentEditor": "Trình chỉnh sửa nội dung",
+        "editorPlaceholder": "Nhập nội dung HTML cho mẫu...",
+        
+        "previewTitle": "Xem trước",
+        "previewSubtitle": "Đây là bản xem trước khi xuất PDF.",
+
+        "defaultDescription": "Mẫu PDF mặc định dùng để tạo hợp đồng.",
+        "noContent": "Không có nội dung."
+    },
+        "templateEdit": {
+        "title": "Chỉnh sửa mẫu PDF",
+        "subtitle": "Cập nhật bố cục HTML và cài đặt.",
+
+        "back": "Quay lại",
+        "save": "Lưu thay đổi",
+        "saving": "Đang lưu...",
+
+        "settings": "Cài đặt",
+        "name": "Tên",
+        "description": "Mô tả",
+        "active": "Kích hoạt",
+
+        "contentEditor": "Trình chỉnh sửa nội dung",
+        "contentPlaceholder": "Chỉnh sửa nội dung hợp đồng tại đây...",
+        "preview": "Xem trước",
+        "previewEmpty": "Chưa có nội dung HTML."
+    },
+
     "prev": "TRƯỚC",
     "next": "SAU",
     "Page": "Trang",
