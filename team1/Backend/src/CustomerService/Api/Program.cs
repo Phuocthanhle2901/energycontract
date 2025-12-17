@@ -160,8 +160,9 @@ try
                 h.Username("guest");
                 h.Password("guest");
             });
-
+            
             cfg.Message<ContractChangedEvent>(m => m.SetEntityName("contract-changed"));
+            cfg.ConfigureEndpoints(context); 
         });
     });
 
@@ -197,7 +198,7 @@ try
     // ==========================================
     // 3. TỰ ĐỘNG MIGRATE DATABASE
     // ==========================================
-    using (var scope = app.Services.CreateScope())
+    /*using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<Infrastructure.Persistence.EnergyDbContext>();
@@ -206,7 +207,7 @@ try
         {
             context.Database.Migrate();
         }
-    }
+    }*/
 
     app.Run();
 }

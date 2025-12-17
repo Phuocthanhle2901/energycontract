@@ -42,9 +42,6 @@ builder.Services.AddMassTransit(x =>
 
         cfg.ReceiveEndpoint("contract-history-queue", e =>
         {
-            // có thể giữ bind như bạn đang làm:
-            e.Bind("contract-changed");
-
             e.ConfigureConsumer<ContractChangedConsumer>(context);
         });
     });

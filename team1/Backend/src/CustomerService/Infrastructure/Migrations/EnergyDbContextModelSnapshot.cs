@@ -47,7 +47,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ZipCode");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Contract", b =>
@@ -111,7 +111,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("StartDate");
 
-                    b.ToTable("Contracts");
+                    b.ToTable("Contracts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ContractHistory", b =>
@@ -142,7 +142,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("Timestamp");
 
-                    b.ToTable("ContractHistories");
+                    b.ToTable("ContractHistories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -187,7 +187,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("Status");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Reseller", b =>
@@ -212,7 +212,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("Type");
 
-                    b.ToTable("Resellers");
+                    b.ToTable("Resellers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Contract", b =>
