@@ -19,8 +19,8 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyOrigin() // Chấp nhận mọi domain (localhost, vercel,...)
             .AllowAnyMethod() // Chấp nhận mọi method (GET, POST, PUT, DELETE...)
-            .AllowAnyHeader()
-            .AllowCredentials(); // Chấp nhận mọi header
+            .AllowAnyHeader();
+
     });
 });
 
